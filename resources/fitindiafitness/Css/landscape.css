@@ -1,0 +1,42 @@
+
+.intro-landscape-bg{
+    background: #fff;
+}
+.carousel, .intro-slider {
+    position: relative;
+    min-height: 500px;
+}
+.carousel-inner {
+    min-height: 500px;
+}
+.intro-slider .item {
+    min-height: 500px;
+}
+
+.intro-slider .carousel-indicators {
+    bottom: 18%;
+}
+
+.slider-continew-btn {
+    bottom: 12%;
+}
+
+.terms-cond {
+    bottom: 120px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

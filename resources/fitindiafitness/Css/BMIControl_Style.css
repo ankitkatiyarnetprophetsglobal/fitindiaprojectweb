@@ -1,0 +1,284 @@
+﻿
+/*-----------------------------------------------------------------------------------CSS/BMIControl.css---------------------------------------------------------------------------------------*/
+
+table.bmihead {
+    width: 100%;
+    float: left;
+}
+
+.bmihead th span {
+    float: right;
+}
+
+table td strong {
+    font-size: 2px;
+}
+
+.Subheading, .Subheading2 {
+    padding: 2px 3px;
+    background: #dabe8c;
+    color: #333;
+    text-align: right;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: capitalize;
+    border: 1px solid #999;
+    border-width: 0 0 1px 0;
+}
+
+.Subheading2 {
+    background: #fff;
+    color: #496a65;
+    text-align: left;
+    border: 0;
+}
+
+.chartheading, td.chartheading span {
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #333;
+    text-align: left;
+    padding: 2px 3px;
+}
+
+td.chartheading span {
+    margin: 0 3px;
+}
+
+.graph, .Allgraph {
+    width: 100%;
+    float: left;
+    margin: 10px 0
+}
+
+.Allgraph {
+    margin: 0 0 10px 0;
+}
+
+.reportArea, .reportArea2 {
+    float: left;
+    margin: 0 18px 0 0;
+    width: auto;
+}
+
+.reportArea1, .reportArea2 {
+    float: left;
+    margin: 0 0 0 0;
+    width: auto;
+}
+
+.reportArea2 {
+    width: 100% !important;
+}
+
+.reportBase {
+    width: 265px; /* Earlier it was 280px*/
+    float: left;
+    margin: 10px 0 0 0;
+}
+
+.reportBaseSchoolDashboard {
+    width: auto;
+    float: left;
+    margin-left: 0;
+    margin-top: 0px;
+    margin-right: 20px;
+}
+
+.reportBaseSchoolDashboardPieCharts {
+    width: auto;
+    float: left;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 0px;
+}
+
+.reportBaseSchoolDashboardPyramids {
+    width: auto;
+    float: left;
+    margin-left: 0;
+    margin-right: 20px;
+    margin-top: -24px;
+}
+
+.reportAreaPerTest, .reportArea2PerTest {
+    float: left;
+    margin: 0 0 0 0;
+    width: auto;
+}
+
+.reportAreaPerTest, .reportArea2BMIPerTest {
+    float: left;
+    margin: 0 0 0 0;
+    width: auto;
+}
+
+.reportArea2PerTest {
+    width: 100% !important;
+}
+
+.reportBasePerTest {
+    float: left;
+    margin: 0 0 0 0;
+}
+
+.reportHeading {
+    float: left;
+    text-align: left;
+    border: 1px solid #333;
+    border-width: 0 0 1px 0;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px 0;
+    width: 100%;
+    text-transform: capitalize;
+}
+
+.reportGraphArea {
+    clear: both;
+    float: left;
+    padding: 15px 0 0 0;
+    width: 100%;
+}
+
+.graphtxt {
+    font-size: 11px;
+    color: Green;
+    float: left;
+    width: 100%;
+    text-align: left
+}
+
+.graphtxtC {
+    font-size: 11px;
+    color: Gray;
+    float: left;
+    width: 100%;
+    text-align: left
+}
+
+.graphtxtl {
+    font-size: 11px;
+    color: #666;
+    float: left;
+    width: 100%;
+    text-align: left
+}
+
+.graphtxtr {
+    font-size: 11px;
+    color: #666;
+    float: right;
+    width: 100%;
+    text-align: right
+}
+
+.graphtxt span {
+    margin: 0 0 0 2px;
+}
+
+.graphBase {
+    background: whitesmoke;
+    padding: 0px;
+    float: left;
+    clear: both;
+    width: 100%;
+    height: 19px;
+    margin-bottom: 5px;
+}
+
+.graphBaseTopperList {
+    background: #CAE6F1;
+    padding: 0px;
+    float: left;
+    clear: both;
+    width: 100px;
+    height: 15px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+.graphBasePartnerSchool {
+    background: #ccc;
+    padding: 0px;
+    float: left;
+    clear: both;
+    width: 100%;
+    height: 19px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+input[type=text] {
+    float: left;
+    border: none;
+    background: #390;
+    width: 99%;
+}
+
+.graphtxtgrey {
+    font-size: 11px;
+    color: Gray;
+    float: left;
+    width: 100%;
+    text-align: left
+}
+
+.bmiweightReport {
+    float: left;
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+    .bmiweightReport span {
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+.bmireport {
+    float: right;
+    text-align: right;
+    border: 1px solid #bbb;
+    border-width: 0 0 1px 0;
+    background: #F7F3CA;
+    padding: 3px;
+    width: 100%;
+    margin: 0 0 3px 0;
+}
+
+graph img {
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+/* ----------------------------------------------GridView------------------------------------------*/
+.grdSearch {
+    width: 100%;
+    font-family: Arial;
+    color: #203360;
+    font-size: 9pt;
+    text-align: left;
+}
+
+/*----------------------------GridView Header-------------------------*/
+.grdSearchHeader {
+    border-bottom: solid 1px #cccccc;
+    color: #999999;
+    font-size: 12px;
+    text-align: left !important;
+    font-weight: bold;
+    font-family: Arial;
+    vertical-align: middle;
+}
+
+.BMIHeading {
+    color: Green;
+    font-size: 14px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.bhanu {
+    background: #ccc;
+}

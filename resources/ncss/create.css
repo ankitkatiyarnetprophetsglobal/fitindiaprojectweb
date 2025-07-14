@@ -1,0 +1,166 @@
+.signup-wrapper{
+	position:absolute;
+	width:450px;
+	left:50%;
+	top:50%;
+	position:fixed;
+	transform: translate(-50%, -50%);
+	z-index:99999 !important;
+	
+}
+
+.button-box{font-size: 1.8rem;}
+.signup_area{	
+	position:fixed;
+	width:100%;
+	background-color: #000000de;
+	left:50%;
+	top:50%;	
+	transform: translate(-50%, -50%);
+	height: 100vh;
+	z-index: 29999 !important;
+}
+#login{
+border: 1px solid #eae7e7;
+background-color: #ffffff;
+box-sizing: border-box;
+box-shadow: 1px 2px 12px 3px #444342;
+}
+
+.logo-quizz{
+	display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 20px 0;
+    font-size: 24px;
+	
+}
+
+.logo-quizz h1:first-letter{
+  font-size: 32px;
+  color: #3921ab;
+  font-weight:700;
+}
+
+.join-details{
+	
+	margin:0 auto;
+	width:50%;
+	text-align:center;
+	
+}
+
+.join-details a {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+	
+}
+
+.join-details a:hover{
+	text-decoration:none;
+}
+
+.create, .join{
+	font-size:14px;
+	text-decoration:none;
+	border-radius:6px;
+	padding:8px 30px;
+}
+.create{
+	
+	border:2px solid #3921ab;
+	color:#3921ac;
+	
+}
+
+.create:hover{
+	color:#3921ac;
+}
+
+.join{
+	background-color:#3921ac;
+	color:#fff;
+}
+
+.join:hover{
+	
+	color:#fff;
+}
+
+.signup{
+	width:100%;
+	background:#3921ac;
+	color:#fff;
+}
+
+.all-ready-account{
+	width:100%;
+	text-align:center;
+	font-size:14px;
+}
+
+.all-ready-account span{
+	
+	color:#3921ac;
+	padding-left:5px;
+}
+
+.gmail,.facebook{
+	width:48%;
+	float:left;	
+	border:1px solid #3921ac;
+	color:#3921ac;;
+}
+
+.text-black{
+	color:#555;
+	font-size:14px;
+}
+
+.facebook{
+	margin-left:2.9%;
+}
+
+
+/* Login page */
+
+#login #login-row #login-column #login-box {
+  max-width: 100%;
+}
+#login #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}
+
+#login-form h3{
+	font-size:22px;
+}
+.signup {background: #f2581c;
+    font-size: 1.7rem;margin-top:15px;}
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+	padding: 1.7rem .75rem;}
+	
+
+	.form-control {
+		display: block;
+		width: 100%;
+		height: calc(1.5em + .75rem + 2px);
+		padding: .375rem .75rem;
+		font-size: 1.3rem;
+		font-weight: 400;
+		line-height: 1.5;
+		color: #1f2020;
+		background-color: #fff;
+		background-clip: padding-box;
+		border: 1px solid #ced4da;
+		border-radius: .25rem;
+		transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}

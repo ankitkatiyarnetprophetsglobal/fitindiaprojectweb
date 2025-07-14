@@ -1,0 +1,2301 @@
+/**********************************
+
+Project   : Khelo India
+Style     : khelo-india.css 
+Created By: Rajeev Ranjan
+Date:     :19-08-2018
+
+*********************************/
+
+@font-face {
+    font-family: 'poppinsblack';
+    src: url('../fonts/poppins-black-webfont.woff2') format('woff2'), url('../fonts/poppins-black-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'poppinsbold';
+    src: url('../fonts/poppins-bold-webfont.woff2') format('woff2'), url('../fonts/poppins-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'poppinsextrabold';
+    src: url('../fonts/poppins-extrabold-webfont.woff2') format('woff2'), url('../fonts/poppins-extrabold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'poppinsextralight';
+    src: url('../fonts/poppins-extralight-webfont.woff2') format('woff2'), url('../fonts/poppins-extralight-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'poppinslight';
+    src: url('../fonts/poppins-light-webfont.woff2') format('woff2'), url('../fonts/poppins-light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'poppinsmedium';
+    src: url('../fonts/poppins-medium-webfont.woff2') format('woff2'), url('../fonts/poppins-medium-webfont.woff') format('woff');
+}
+
+
+
+body {
+    margin: 0px;
+    padding: 0px;
+    /*background: #eeeeee;*/
+    /*font-family: 'poppinsmedium';*/
+    transition: all .5s;
+    font-size: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -o-text-size-adjust: 100%;
+    box-sizing: border-box;
+}
+
+.card-bg{
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    min-height:215px;
+}
+
+p {
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.top-header {
+    background: #f3f3f4;
+    font-size: 15px;
+}
+
+.top-menu {
+    float: left;
+    width: 100%;
+}
+
+    /*Sanjay css*/
+    .top-menu .app-top-header {
+        padding: 8px 0;
+    }
+
+    .top-menu .user-img {
+        float: left;
+        margin-right: 8px;
+    }
+
+    .top-menu .user-name-welcome {
+        display: block;
+        margin-top: 3px;
+    }
+
+    .top-menu .top-icons-app img {
+        width: 10%;
+    }
+
+    .top-menu .top-icons-app.back-i span {
+        float: right;
+        display: inline-block;
+        color: #333;
+        padding-left: 5px;
+    }
+
+    .top-menu .top-icons-app.back-i span {
+        float: right;
+        display: inline-block;
+        color: #333;
+        padding-left: 5px;
+    }
+
+    .top-menu .preview-back {
+        margin-right: 15px;
+    }
+
+.member-img {
+    width: 100px;
+    height: 100px;
+    margin: 0px 0px 20px;
+    background: #f1f1f1;
+    padding: 0px;
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 50%;
+}
+
+    .member-img img {
+        border-radius: 50%;
+    }
+
+
+.top-menu .preview-back .top-icons-app img {
+    width: 6%;
+    float: right;
+}
+
+.top-menu p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #091c44;
+    padding-top: 4px;
+}
+
+    .top-menu p span {
+        font-weight: bold;
+    }
+
+.user {
+    float: right;
+    color: #091c44;
+    padding-top: 6px;
+}
+
+.header-02 {
+    padding: 15px 0;
+    width: 100%;
+    float: left;
+    background: #252f44;
+}
+
+.logo {
+    float: left;
+}
+
+.test-track {
+    float: right;
+    width: 55%;
+}
+
+.track-detail {
+    float: right;
+    margin-right: 10px;
+}
+
+    .track-detail label {
+        font-size: 14px;
+        color: #575757;
+        font-weight: 400;
+    }
+
+.bmi-index {
+    width: 60%;
+    float: left;
+}
+
+.overall-fitess .legend-level p {
+    font-size: 14px;
+    height: 20px;
+    margin-top: 10px;
+}
+
+.overall-fitess .legend-level .level-02 span {
+}
+
+.track-detail .form-control {
+    border-radius: 0px;
+}
+
+.form-control {
+    color: #575757;
+}
+
+
+.benchmark {
+    position: relative;
+}
+
+.y_boys {
+    position: absolute;
+    z-index: 10;
+    text-align: right;
+    width: 95%;
+    top: 13px;
+    right:6px;
+}
+
+.y_boys span {
+    font-size: 10px;
+    border-radius: 20px;
+    background: #f9cd35;
+    text-align: center;
+    padding:5px 15px;
+    font-size: 14px;
+}
+
+.overall-fitess-label {
+    width: 100%;
+    position: relative;
+    float: left;    
+}
+
+.main-wrapper, .overall-fitess {
+    width: 100%;
+    padding: 0 15px;
+}
+
+.wrapper-box {
+    float: left;
+    width: inherit;
+    /* box-shadow: 2px 2px 2px 1px #ededee; */
+    border-radius:10px;
+}
+
+.backgroud-01 {
+    background: #151619;
+}
+
+.header-bg-2{
+    background:#fff;
+    border:none;
+    box-shadow: none;
+    margin:15px !important;
+    border-radius:10px;
+}
+
+.test-tacken-box{
+    border-bottom:1px solid #eee;
+    float: left;
+    width: 100%;    
+}
+
+.col-test-taken,.col-test-date,.goBtn{
+    float: left;    
+    /*border-right:1px solid #dedede; */
+    height:46px;
+}
+
+.goBtn{
+
+    border-right: none;
+}
+
+.col-test-taken{ 
+        padding: 15px 10px;
+}
+
+.col-test-taken span{
+
+    font-size: 14px;
+    font-weight: 400;
+    color:#252f44;
+}
+
+
+
+.col-test-date .form-control{
+    border: 0px;
+    outline: none;
+    padding: 15px 10px;
+    height: auto;
+    font-size: 14px;
+    color:#252f44;
+}
+
+.col-test-date .form-control:focus,.col-test-date .form-control:active{
+	border: 0px;
+    outline: none;
+}
+
+.goBtn{
+    float: left;
+    width: auto;
+}
+
+    .goBtn input[type="submit"] {
+        padding: 15px 20px;
+        background: #B00086;
+        color: #fff;
+        font-size: 14px;
+        border: none;
+        outline: none;
+        border-radius:6px;
+    }
+
+.share-icon{
+
+    float: right;
+    width: 8%;
+    height: 46px;
+    padding:15px 0;
+    border: 1px solid #dedede;
+    border-width: 0px 1px;
+    text-align:center;
+}
+
+    .share-icon a {
+        font-size: 14px;
+        color: #ea6334;
+    }
+    .share-icon a i{
+        padding-right:10px;
+    }
+
+    .share-btn-mobile {
+        display: none;
+    }
+
+.user-information {
+    float: left;
+    width: 100%;
+    padding:0;
+    background: #fff;
+    margin-top: 0px;
+}
+
+.student-info {
+    float: left;
+    width: 40%;
+    border-right: 1px solid #dedede;
+    padding: 10px 0px 15px 0px;
+}
+
+.student-img {
+    width: 80px;
+    height:80px;
+    position: relative;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+    border-radius: 50%;
+    /*border-style: dotted;
+    border-color: #b7b7b7;   */
+    padding: 5px;
+}
+
+.student-img img {
+    width: 65px;
+    height:65px;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.left-text {
+    display: inline-block;
+    vertical-align: middle;
+    width: 70%;
+}
+
+.st-ht-wet-detail{    
+    float: left;
+    padding: 17px 0;
+    border-right: 1px solid #dedede;
+    }
+
+    .st-ht,.st-img,.st-wet{      
+        display: inline-block;
+        width: 32.8%;        
+        vertical-align: middle;
+    }
+.st-img{
+	text-align:center;
+}
+	
+    .st-img img{
+        display:inherit;
+        width:40%;
+		
+    }
+
+    .st-ht span,.st-wet span{
+        font-size: 24px;
+        color:#252f44;
+    }
+	
+	.st-ht h4,.st-ht span{
+		
+		text-align:right;
+		display:block;
+	}
+
+    .st-ht h4,.st-wet h4,.age-group h4{
+        font-size: 14px;
+        color:#656565;
+    }
+
+    .age-group{   
+    float: left;
+    padding: 26px 0;
+    text-align:right;
+    vertical-align: middle;
+    }
+   
+    .age-group span{
+        font-size: 16px;
+        color:#252f44;
+    }
+
+.left-text .m-ltf {
+    margin-left: 100px;
+}
+
+.fitness-score {
+    float: left;
+    width: 100%;
+    margin: 30px 0;
+    border-left: 1px solid #383b42;
+}
+
+    .fitness-score p {
+        font-size: 14px;
+        line-height: 24px;
+        color: #999;
+        padding: 0 60px;
+    }
+
+
+    
+
+
+
+
+/*score label */
+
+.ml-label {
+    float: left;
+    width: 100%;
+    margin: 20px 0px 5px 0px;
+}
+
+.ml-label ul{
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+
+.label-color-01 {
+    color: #ff043f !important;
+}
+
+.label-color-02 {
+    color: #fc6ba9 !important;
+}
+
+.label-color-03 {
+    color: #ffaa62 !important;
+}
+
+.label-color-04 {
+    color: #f7d54e !important;
+}
+
+.label-color-05 {
+    color: #8bd470 !important;
+}
+
+.label-color-06 {
+    color: #00b289 !important;
+}
+
+.label-color-07 {
+    color: #009bdf !important;
+}
+
+.list-inline li {
+    display: inline-block;
+    margin: 0 5px;
+    color: #999;
+    font-size: 13px;
+    width: 31%;
+    margin-bottom: 3px;
+}
+
+    .list-inline li i {
+        font-size: 18px;
+        border-radius: 0px;
+        margin-top: 0px;
+        float: left;
+        padding-right: 10px;
+    }
+
+.bmi-label .multi-label-val {
+    position: relative;
+    float: left;
+    width:100%;
+    margin-top: 77px;
+}
+
+    .bmi-label .multi-label-val .L_01,.bmi-label .multi-label-val .L_02,.bmi-label .multi-label-val .L_03,
+    .bmi-label .multi-label-val .L_04,.bmi-label .multi-label-val .L_05,.bmi-label .multi-label-val .L_06,.bmi-label .multi-label-val .L_07 {
+        width: 100%;
+    }
+
+/*end score label*/
+
+.fitness-label, .download-report, .accordion-box {
+    width: 100%;
+    float: left;
+    margin-top: 30px;
+    margin-bottom:80px;
+}
+
+    /*.download-report{
+
+        margin-left:15px;
+    }*/
+
+    .download-report a {
+        width: 100%;
+    }
+.btn-box {
+    position: relative;
+    width: 100%;
+    display:inline-block;
+}
+
+.dowload-data {
+    position: absolute;
+    z-index: 5;
+    right: 10px;
+    top: 11px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.download-report .btn {
+    text-align: left;
+    padding: 10px 15px 13px 15px;
+    background: #000 !important;
+    border-radius: 0px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+    .download-report .btn i{
+        margin-top: 3px;
+    }
+
+    /*.download-report a {
+        background: #091c44 !important;
+        border-radius: 0px;
+        border: none;
+        outline: none;
+        color: #f9cd35;
+        font-size: 16px;
+    }*/
+
+.body-comp-details{
+    float: left;
+    width: 100%;
+}
+
+.body-composition {
+   /* background: #fff;
+    float: left;
+    width: 100%;*/
+    box-shadow: 2px 2px 2px 1px #ededee;
+  
+}
+
+
+
+.bmi-label {
+    float: left;
+    width: 100%;   
+    position: relative;
+    padding: 0 15px;
+}  
+
+.bmi-label .bmi-box-01 {
+    float: left;
+    width: 25%;
+    position: relative;
+}
+    .bmi-heading h3,.ofl-heading h3{
+        margin: 30px 0;
+        font-size: 24px;
+        color:#252f44;
+        font-weight: 600;
+    }
+    
+    .fitness-box h4.bmi-index {
+        margin-bottom: 15px;
+        margin-top: 15px;
+        text-align: center;
+        width: 48%;
+    }
+
+
+    .fitness-box h3.bmi-index{
+        width: 100%;
+    }
+.legend-level .level-01 span {
+    color: #000;
+}
+
+
+.center-text h4, .left-text h4 {
+    font-size: 24px;
+    font-weight: 300;
+    color: #252f44;
+}
+
+
+.center-text span {font-size: 24px; font-weight:500;
+}
+
+.left-text h4 {
+    margin-bottom: 5px;
+    margin-top:0;
+}
+
+.left-text span {
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    color: #252f44;    
+}
+
+.img-rectangle {
+    float: left;
+    margin-left: 15px;
+}
+
+.under-weight, .normal, .over-weight, .Obese {
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    padding-left: 29%;
+}
+
+.normal {
+    color: #ffaa62;
+}
+
+.under-weight {
+    color: #fe4a5d;
+}
+
+.over-weight {
+    color: #ffd26e;
+}
+
+.obese {
+    color: #74c4d6;
+}
+
+.fitness-box .ml-label {
+    margin: 10px 0 10px 70px;
+}
+
+.fitness-box .list-inline {
+    margin-bottom: 0px;
+}
+.ofl-heading {
+    padding-top:15px;
+}
+
+.bmi-tooltip-center, .ofl-tooltip-center {
+    position: relative;
+    float: left;
+    /*width:100%;*/
+}
+
+/*Overall Fitness Level tooltip*/
+
+.ofl-tooltip-left span    {position: absolute; background: #8bd470; padding: 0px 15px; border-radius: 20px; color: #fff; left: 22%; top: 20px; font-size: 24px; }
+.ofl-tooltip-left span::after{
+        left:5px; bottom: -15px; border: solid transparent; content: " "; height: 0; width: 0;position: absolute; pointer-events: none; border-top-color: #8bd470;       border-width: 10px;
+        margin-left: 0; border-right-color: #8bd470;
+      }
+
+.ofl-tooltip-center span, .bmi-tooltip-center span {
+    position: absolute;
+    background: #fc6ba9;
+    padding: 0px 15px;
+    border-radius: 20px;
+    color: #fff;
+    left: 15%;
+    top: 20px;
+    font-size: 24px;
+    font-size: 20px;
+    width: 72px;
+    text-align: center;
+}
+/*.ofl-tooltip-center span::after{
+              left: 30px;
+              bottom: -20px;
+              border: solid transparent;
+              content: " ";
+              height: 0;
+              width: 0;
+              position: absolute;
+              pointer-events: none;
+              border-top-color: #fc6ba9;
+              border-width: 10px;
+              margin-left: -8px;
+            }*/
+
+
+.down-arrow-left, .down-arrow-center, .down-arrow-right {   
+    bottom: -12px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;   
+    border-width: 6px;
+    margin-left: -8px;
+}
+
+
+.down-arrow-center {
+    left: 33px;
+}
+
+.ofl-tooltip-right span {
+    position: absolute;
+    background: #8bd470;
+    padding: 0px 15px;
+    border-radius: 20px;
+    color: #fff;
+    left: 30%;
+    top: -53px;
+    font-size: 24px;
+}
+ .ofl-tooltip-right span::after{
+                    right: 5px; bottom: -15px; border: solid transparent; content: " "; height: 0; width: 0;position: absolute; pointer-events: none; border-top-color: #8bd470;  border-width: 10px;
+                    margin-left: 0; border-right-color: #8bd470;
+                  } 
+     
+      /*Body Composition tooltip*/    
+    
+.bmi-tooltip-left span    {position: absolute; background: #8bd470; padding: 0px 15px; border-radius: 20px; color: #fff; left: 22%; top: 20px; font-size: 24px; }
+.bmi-tooltip-left span::after{
+              left:5px; bottom: -15px; border: solid transparent; content: " "; height: 0; width: 0;position: absolute; pointer-events: none; border-top-color: #8bd470; border-width: 10px;
+              margin-left: 0; border-right-color: #8bd470;
+            }
+      
+ /*.bmi-tooltip-center span    {position: absolute; z-index:2; background: #8bd470; padding: 0px 15px; border-radius: 20px; color: #fff; left: 22%; top: 20px; font-size: 24px; }
+ .bmi-tooltip-center span::after{
+                    left: 30px; bottom: -20px; border: solid transparent; content: " "; height: 0; width: 0;position: absolute; pointer-events: none; border-top-color: #8bd470;  border-width: 10px;
+                    margin-left: -1px;
+                  }*/ 
+      
+.bmi-tooltip-right span    {position: absolute; background: #8bd470; padding: 0px 15px; border-radius: 20px; color: #fff; left: 30%; top: -53px; font-size: 24px; }
+.bmi-tooltip-right span::after{
+                          right: 5px; bottom: -15px; border: solid transparent; content: " "; height: 0; width: 0;position: absolute; pointer-events: none; border-top-color: #8bd470;  border-width: 10px;
+                          margin-left: 0; border-right-color: #8bd470;
+                        } 
+
+
+
+      .bmi-label .multi-label-val .L_01 {    
+        background: #f7d54e;
+    }
+    
+    .bmi-label .multi-label-val .L_02 {       
+        background-color: #8bd470;
+    }
+    
+    .bmi-label .multi-label-val .L_03 {      
+        background-color: #ffaa62;
+    }
+    
+    .bmi-label .multi-label-val .L_04 {
+              background-color: #ff043f;
+    }
+    .bmi-label h4 {
+        font-size: 30px;
+        color: #6bc04b;
+        margin-top: 0px;
+    }
+
+    .bmi-label .bmi-box-01 span {
+        border-radius: 20px;
+        /*  display: inline-block; */
+        font-size: 14px;
+        color: #000;
+        padding: 4px 15px;
+        margin: 0 0 10px 0;
+        height: 20px;
+        position: absolute;
+        right: -26px;
+        top: -28px;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .bmi-label a {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration:none;
+    }
+
+.bmi-label-text {
+    float: left;
+    width: 100%;
+    margin-top: 15px; 
+    border-top: 1px solid #dedede; 
+}
+
+    .bmi-label-text p {
+        color: #656b78;
+        line-height: 24px;
+        font-weight: 300;
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .bmi-label-text a {
+        color: #091c44;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+        .bmi-label-text a i {
+            font-size: 15px;
+        }
+
+.bmi-label .bmi-box-01 .colorPickBox {
+    float: left;
+    height: 6px;
+}
+
+.bg2 {
+    background: #fff;
+}
+
+/*sprite images*/
+.img {
+    width: 85px;
+    height: 85px;
+    background-image: url(../images/test-all-sprite.png);
+    float: left;
+}
+
+.balance {
+    background-position: -3px 9px;
+}
+
+.strength {
+    background-position: -100px 9px;
+}
+
+.speed {
+    background-position: -194px 9px;
+}
+
+.endurance {
+    background-position: -3px -80px;
+}
+
+.catch {
+    background-position: -100px -80px;
+}
+
+.flexibility {
+    background-position: -100px -79px;
+}
+
+.progress-group {
+    float: left;
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+.progress-gray-bg {
+    height: 5px;
+    background: #e4e4e4;
+    border-radius: 0px;
+    position: relative;
+}
+.progress-bar{
+    background: none;
+    width: 43%;
+    position: absolute;
+    float:none;
+    box-shadow: none;
+}
+
+.progress-bar-less-20-perc{
+    background: none;
+    width: 0%;
+    position: absolute;
+    float:none;
+    box-shadow: none;
+    left: 0px;
+}
+
+.progress-bar-less-20-perc .progress-score, .progress-bar-less-20-perc .progress-unit {
+    font-size: 14px;
+    text-align: right;
+    float: left;
+    font-weight: 400;
+    color: #575757;
+    position: relative;
+    width: 95%;
+    padding-left: 10px;
+   
+}
+
+
+.progress-endurance,
+.progress-speed,
+.progress-flexibility,
+.progress-muscular,
+.progress-strength  {
+    width: 100%;
+}
+.endurance-bg-orange,
+.speed-bg-yellow,
+.flexibility-bg-green,
+.muscular-bg-red,
+.strength-bg-orange{
+    height: 5px;
+    position: relative;
+    z-index: 2;
+    margin-top: -5px;
+}
+.endurance-bg-orange {
+    background: #ffaa62;
+}
+.speed-bg-yellow {
+    background: #f7d54e;
+}
+.flexibility-bg-green {
+    background: #fc6ba9;;
+}
+.muscular-bg-red  {
+    background: #ff043f;
+}
+.strength-bg-orange {
+    background: #ffaa62;
+}
+.performance {
+    float: left;
+    width: 12%;
+    text-align: center;
+}
+
+    .performance p {
+        font-size: 36px;
+        color: #ffd26e;
+    }
+
+.progress-label-col label {
+    display: block;
+    padding: 5px 0;
+    font-size: 14px;
+    color: #999999;
+    font-weight: normal;
+}
+
+.performance p span {
+    font-size: 14px;
+    display: block;
+}
+
+.performance-deatls {
+    float: left;
+    width: 85%;
+    margin-left: 2.2%;
+}
+
+.text-h2-margin {
+    margin: 50px 0;
+}
+
+.info-box {  
+    width: 100%;
+    position:relative;
+    float: left;
+    height:250px;
+}
+    .info-box .text-content {
+        font-size: 14px;
+        line-height: 2.25rem;
+    }
+.info-box-text, .info-box-number {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+}
+
+.info-box-text{
+    color: #737578;
+    font-size:14px;
+}
+
+.info-box-number{
+   color: #091c44;
+   font-size:18px;
+}
+
+    .level-box .current-lavel, .level-box .current-duration, .level-box p {
+        font-size: 18px;
+    }
+	
+	.info-head-caption{		
+		float:left;
+		width:100%;
+	}
+	.info-box .img-icon{
+    float: left;
+    margin-top: 0px;
+	padding-right:10px;
+}
+
+.info-box-content{    
+    position: relative;
+    margin-top: 15px;
+	float:left;
+	width:68%;
+}
+
+	
+	.percentage-box{
+		float:right;
+		width:auto;
+		margin-top:12px;
+		text-align:center;
+	}
+
+    .increase-percentage{
+         font-size: 15px;
+        color: #252f44;
+        font-weight:bold;
+        padding: 4px 8px 0px 8px;
+        border-radius: 20px;        
+        display: inline-block;
+        text-align: center;
+    }
+
+   /*.percentage-box .label-text-a{background:#ffaa62;}
+   .percentage-box .label-text-b{background: #f7d54e;}
+   .percentage-box .label-text-c{background: #fc6ba9;}
+   .percentage-box .label-text-d{background: #ff043f;}
+   .percentage-box .label-text-e{background: #ffaa62;}*/
+   
+.percentage-box .small-caption{
+	font-size:10px;
+	padding-right:0px;
+	font-weight:bold;
+	text-align:center;
+	display:block;
+	padding-top:3px;
+}
+
+/*.percentage-box .text-color-cdb {color: #ffaa62;}
+.percentage-box .text-color-good {color: #f7d54e;}
+.percentage-box .text-color-must-improve{color:#fc6ba9;}
+.percentage-box .text-color-work-harder{color:#ff043f;}
+.percentage-box .text-color-work-harder{color:#ff043f;}*/
+
+
+
+.level-box {
+    float: left;
+    width: 100%;
+    position: relative;
+    margin: 25px 0 10px 0;
+}
+
+
+.border-box-right {
+    border-right: none;
+}
+
+.border-box-bottom {
+    border-bottom: 1px solid #eee;
+}
+
+.download-report button {
+    width: 100%;
+    border-radius: 0px;
+    background-color: #091c44 !important;
+    padding: 10px 0 10px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    color: #f9cd35;
+    text-align: left;
+}
+
+    .download-report button:hover {
+        background: #091c44;
+        color: #f9cd35;
+    }
+
+.pdf {
+    background: #091c44 url(../images/pdf_icon.png) right 15px top 11px no-repeat !important;
+    background-size: 7% !important;
+}
+
+.text-02 {
+    text-align: center;
+    color: #252f44;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.test-details-label {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    font-size: 24px;
+    color: #252f44;
+    font-weight: 500;
+}
+
+.level-details-main {
+    float: left;
+    width: 100%;
+}
+
+.colorPickBox {
+    display: inline-block;    
+    height: 6px;
+}
+
+
+.progress-number{
+    position: relative;
+    float: left;
+    margin-top: -26px;
+}
+
+.pointer-position {
+    position: absolute;    
+    top: -28px;
+    right: -5px;
+    z-index: 5;   
+}
+
+    .pointer-position span {
+        font-size: 14px;
+        background: #ffaa62;
+        padding: 5px 15px;
+        border-radius: 20px;
+        color: #000;
+        position: relative;
+        top: -35px;
+        right: 32px;
+    }
+
+.progress-score,.progress-unit {
+    font-size: 14px;
+    text-align: right;
+    float: left;
+    font-weight: 400;
+    color: #575757;
+    position: relative;
+    width: 95%;
+	
+}
+
+    .progress-unit
+    {
+        width:100%;
+    }
+    .progress-score {
+        margin-top: -30px;
+    }
+
+.progress-unit{
+    margin-top: 7px;
+}
+
+.text-content {
+    float: left;
+    width: 100%;
+    height: 100px;
+    margin-top: 15px;
+}
+
+    .text-content p {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 2.25rem;
+        color: #656b78;
+    }
+
+    .text-content a {
+        color: #ea6334;
+        font-weight: 700;
+        clear: both;
+        display: inline-block;
+    }
+
+    .text-content h5{
+     color:#000000;
+     font-size: 14px;
+     font-weight: 600;
+    }
+
+
+
+.fitness-label-details {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.valeu-details {
+    width: 100%;
+    float: left;
+    position: relative;
+    margin-top:77px;
+    padding: 0 10px; 
+}
+
+.label-color-box {
+    float: left;   
+    text-align: center;
+    width: 14.2%;
+    position: relative;
+}
+
+.legend-level .level-02 {
+    border-left: 1px solid #ffaa62;
+}
+
+.legend-level .level-03 {
+    border-left: 1px solid #ffaa62;
+}
+
+.legend-level .level-04 {
+    border-left: 1px solid #74c4d6;
+}
+
+.legend-level .level-05 {
+    border-left: 1px solid #a3d55f;
+}
+
+.legend-level .level-06 {
+    border-left: 1px solid #6bc04b;
+}
+
+.legend-level .level-07 {
+    border-left: 1px solid #00953b;
+}
+
+.legend-level .text-bold {
+    font-weight: 400;
+    color: #000;
+}
+
+.legend-level ul li > span > img {
+    margin-right: 5px;
+    margin-top: -6px;
+}
+
+.color-val-wh,
+.color-val-mi,
+.color-val-cb,
+.color-val-gd,
+.color-val-vg,
+.color-val-athletic,
+.color-val-fit {
+    float: left;
+    width: 100%;
+    height: 6px;
+}
+
+.color-val-wh {
+    background: #ff043f;
+}
+
+.color-val-mi {
+    background: #fc6ba9;
+}
+
+.color-val-cb {
+    background: #ffaa62;
+}
+
+.color-val-gd {
+    background: #f7d54e;
+}
+
+.color-val-vg {
+    background: #8bd470;
+}
+
+.color-val-athletic {
+    background: #00b289;
+}
+
+.color-val-fit {
+    background: #009bdf;
+}
+
+.point_01 {
+    position: absolute;
+    z-index: 10;    
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    color: #000;
+    font-size: 11px;   
+    font-weight: 400;    
+    right: -14px;   
+    top: -10px;  
+}
+
+.point_01 span{
+    background: #fff;
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 1px 0;
+    padding: 5px 2px;
+}
+
+.border-g-a{
+    background-image: linear-gradient(90deg, #ff043f, #fc6ba9);
+    background-image: -webkit-linear-gradient(-360deg, #ff043f, #fc6ba9);
+    background-image: -moz-linear-gradient(-360deg, #ff043f, #fc6ba9);
+    background-image: -o-linear-gradient(-360deg, #ff043f, #fc6ba9);
+    background-image: -ms-linear-gradient(-360deg, #ff043f, #fc6ba9);
+}
+
+.border-g-b{
+    background-image: linear-gradient(90deg, #fc6ba9, #ffaa62);
+    background-image: -webkit-linear-gradient(-360deg, #fc6ba9, #ffaa62);
+    background-image: -moz-linear-gradient(-360deg, #fc6ba9, #ffaa62);
+    background-image: -o-linear-gradient(-360deg, #fc6ba9, #ffaa62);
+    background-image: -ms-linear-gradient(-360deg, #fc6ba9, #ffaa62);
+}
+.border-g-c{
+    background-image: linear-gradient(90deg, #ffaa62, #f7d54e);
+    background-image: -webkit-linear-gradient(-360deg, #ffaa62, #f7d54e);
+    background-image: -moz-linear-gradient(-360deg, #ffaa62, #f7d54e);
+    background-image: -o-linear-gradient(-360deg, #ffaa62, #f7d54e);
+    background-image: -ms-linear-gradient(-360deg, #ffaa62, #f7d54e);
+}
+.border-g-d{
+    background-image: linear-gradient(90deg, #f7d54e, #8bd470);
+    background-image: -webkit-linear-gradient(-360deg, #f7d54e, #8bd470);
+    background-image: -moz-linear-gradient(-360deg, #f7d54e, #8bd470);
+    background-image: -o-linear-gradient(-360deg, #f7d54e, #8bd470);
+    background-image: -ms-linear-gradient(-360deg, #f7d54e, #8bd470);
+}
+.border-g-e{
+    background-image: linear-gradient(90deg, #8bd470, #00b289);
+    background-image: -webkit-linear-gradient(-360deg, #8bd470, #00b289);
+    background-image: -moz-linear-gradient(-360deg,#8bd470, #00b289);
+    background-image: -o-linear-gradient(-360deg, #8bd470, #00b289);
+    background-image: -ms-linear-gradient(-360deg, #8bd470, #00b289);
+}
+.border-g-f{
+    background-image: linear-gradient(90deg,#00b289, #009bdf);
+    background-image: -webkit-linear-gradient(-360deg, #00b289, #009bdf);
+    background-image: -moz-linear-gradient(-360deg,#00b289, #009bdf);
+    background-image: -o-linear-gradient(-360deg, #00b289, #009bdf);
+    background-image: -ms-linear-gradient(-360deg, #00b289, #009bdf);
+}
+.border-g-g{
+    background-image: linear-gradient(90deg,#009bdf, #009bdf);
+    background-image: -webkit-linear-gradient(-360deg,#009bdf, #009bdf);
+    background-image: -moz-linear-gradient(-360deg,#009bdf, #009bdf);
+    background-image: -o-linear-gradient(-360deg, #009bdf, #009bdf);
+    background-image: -ms-linear-gradient(-360deg, #009bdf, #009bdf);
+}
+
+.text-value {
+    float: left;
+    width: 100%;
+}
+.text-label, .text-label-name {
+    float: left;
+    width: 100%;
+    padding: 20px 0 0 0;
+    text-align: center;
+	}
+
+.text-label-name {
+    padding: 10px 0 0 0px;
+}
+ .text-label span, .text-label-name span {
+        font-size: 14px;
+        color: #000;
+    }
+
+.border-color-01 {
+    border-left: 1px solid #fc6ba9;
+}
+
+.border-color-02 {
+    border-left: 1px solid #ffaa62;
+}
+
+.border-color-03 {
+    border-left: 1px solid #f7d54e;
+}
+
+.border-color-04 {
+    border-left: 1px solid #8bd470;
+}
+
+.border-color-05 {
+    border-left: 1px solid #00b289;
+}
+
+.border-color-06 {
+    border-left: 1px solid #009bdf;
+}
+
+.level-box .current-lavel {
+    float: left;
+}
+
+.level-box .current-duration {
+    float: right;
+}
+
+.level-box p {
+    padding: 8px 0 0 0;
+}
+
+.progress-level-01,
+.progress-level-02,
+.progress-level-03,
+.progress-level-04 {
+    font-size: 14px;
+    font-weight: 400;
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.progress-text {
+    float: left;
+    width: 100%;
+}
+
+    .progress-text p {
+        padding-top: 15px;
+        font-size: 14px;
+    }
+
+.progress-level-01 {
+    border-right: 1px solid #ffd26e;
+}
+
+.progress-level-02 {
+    border-right: 1px solid #6bc04b;
+}
+
+.progress-level-03 {
+    border-right: 1px solid #ffaa62;
+}
+
+.overall-fitess .legend-level .pointer-position {
+    position: absolute;
+    z-index: 10;
+    left: 21%;
+    top: -14px;
+    ;
+}
+
+.w_01 {
+    width: 43%;
+}
+
+.w_02 {
+    width: 65%;
+}
+
+.w_03 {
+    width: 34%;
+}
+
+.w_04 {
+    width: 22%;
+}
+
+.w_05 {
+    width: 50%;
+}
+
+.app-header-icon ul li .icon-i span {
+    top: 4px !important;
+}
+
+
+/*Footer*/
+
+#footer {
+    background: #737578;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+}
+
+    #footer a {
+        color: #fff;
+        font-size: 12px;
+        text-decoration: none;
+        font-weight: 300;
+    }
+
+    #footer span {
+        display: inline-block;
+        color: #fff;
+        font-size: 12px;
+    }
+
+.download-dashboard-btn {
+    color: #4F83D1;
+    background: #fff;
+    border: 0px;
+    font-size: 14px;
+    padding: 0px 0px;
+}
+.download-dashboard-btn:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+.download-dashboard-btn span.download-i {
+    display:none;
+}
+
+/*================ 11/12/2018 Sanjay ===================*/
+
+.toggel-section{
+    padding:0px;
+}
+.toggel-section .checkbox, .toggel-section .radio {
+    position: relative;
+    display: block;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+    .toggel-section .btn-primary {
+        color: #fff;
+        background-color: #ea6334;
+        border-color: #ea6334;
+    }
+        .toggel-section .btn-primary.active.focus,
+        .toggel-section .btn-primary.active:focus,
+        .toggel-section .btn-primary.active:hover,
+        .toggel-section .btn-primary:active.focus,
+        .toggel-section .btn-primary:active:focus,
+        .toggel-section .btn-primary:active:hover,
+        .toggel-section .open > .dropdown-toggle.btn-primary.focus,
+        .toggel-section .open > .dropdown-toggle.btn-primary:focus,
+        .toggel-section .open > .dropdown-toggle.btn-primary:hover {
+            color: #fff;
+            background-color: #00b289;
+            border-color: #00b289;
+        }
+    .toggel-section .btn-default.active, .toggel-section .btn-default:active, .toggel-section .open > .dropdown-toggle.btn-default {
+        color: #fff;
+        background-color: #13418c;
+        border-color: #13418c;
+    }
+
+
+    .toggel-section .btn-default.active.focus,
+    .toggel-section .btn-default.active:focus,
+    .toggel-section .btn-default.active:hover,
+    .toggel-section .btn-default:active.focus,
+    .toggel-section .btn-default:active:focus,
+    .toggel-section .btn-default:active:hover,
+    .toggel-section .open > .dropdown-toggle.btn-default.focus,
+    .toggel-section .open > .dropdown-toggle.btn-default:focus,
+    .toggel-section .open > .dropdown-toggle.btn-default:hover {
+        color: #fff;
+        background-color: #009bdf;
+        border-color: #009bdf;
+    }
+
+    .toggel-section .btn {
+        border-radius: 30px !important;
+        padding: 6px 30px !important;
+    }
+    .toggel-section .toggle.btn.btn-primary, .toggel-section .toggle.btn.btn-default.off {
+        width: 94px !important;
+    }
+    .toggel-section .btn.btn-primary.toggle-on {
+        margin-left: -24px;
+    }
+    .toggel-section .btn.btn-default.active.toggle-off {
+        margin-left: 8px;
+    }
+    .toggel-section .btn.active, .toggel-section .btn:active {
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+        box-shadow: none;
+    }
+
+.app-header-icon ul li .icon-i span {
+    font-size: 14px;
+}
+
+
+@media only screen and (max-width : 600px) {
+}
+
+
+/* extera Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .legend-level .point_01 {
+        width: 15px;
+        height: 15px;
+        font-size: 8px;
+        right: -7px;
+        padding-top: 3px;
+    }
+	
+	.valeu-details{
+		
+		margin-top:55px;
+	}
+	
+	.ofl-tooltip-center{
+		margin-top:-17px;
+	}
+	.ofl-tooltip-center span::after{
+		left:27px;
+	}
+
+
+    .download-report {
+        width: 100% !important;
+    }
+
+    .list-inline li{
+        width: 45%;
+        padding-right: 0px;
+        font-size: 12px;
+    }
+   
+.progress-score, .progress-unit {
+    /* width: 86%; */
+}
+    .overall-fitess .legend-level p {
+        font-size: 10px;
+    }
+
+    .n_01 {
+        top: -80px !important;
+    }
+
+    .legend-level .level-01 span, .legend-level p {
+        font-size: 10px;
+    }
+   
+    .bmi-label .bmi-box-01 p {
+        font-size: 10px;
+    }
+
+    .download-report a {
+        margin-bottom:5px;
+    }
+    
+    .list-inline li i{
+        padding-right: 10px;
+		font-size:12px;
+    }
+}
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 640px) {
+    .top-header, .top-menu, .user-information, .student-info {
+        width: 100%;
+    }
+
+    .bmi-label-text p {
+        font-size: 13px;
+    }
+
+    .top-menu p, .user {
+        font-size: 11px;
+    }
+	
+	.text-content{
+		margin-top:15px;
+	}
+
+    .download-report{
+      width:93%;
+    }
+
+    .info-box {
+        min-height: auto;
+        height: auto;
+    }
+   
+    .share-btn-mobile {
+        display: none;
+        padding-top: 14px;
+        margin-bottom: 0px;
+        position: fixed;
+        bottom: 15px;
+        z-index: 999;
+        right: 30px;
+        background: #f27025;
+        border: 1px solid #f27025;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        text-align: center;
+        vertical-align: middle;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .top-menu p {
+        padding-top: 6px;
+    }
+
+    .increase-percentage{
+        padding: 1px 6px;
+        font-size: 12px;
+    }
+    .valeu-details{
+
+        width: 97%;
+    }
+
+    .info-box-text {
+        font-size: 12px;
+    }
+
+    .info-box-number{
+        font-size: 12px;
+        font-weight: 700;
+    }
+     
+    .text-label, .text-label-name{
+        padding: 10px 0 0 0;
+    }
+    .point_01{
+        width: 20px;
+        height: 20px;
+		right:-10px;
+    }
+    .point_01 span{
+        width: 18px;
+        font-size:8px;
+        height: 18px;
+    }
+
+    .student-info {
+        border: none;
+    }
+    .st-ht-wet-detail{
+
+        width: 55%;
+        border-right:0px;
+		margin-top:-15px;
+    }
+
+    .st-ht-wet-detail{
+        padding: 0px;
+    }
+
+    .age-group{
+        width: 45%;
+        padding:0px 0 0;
+		margin-top:-13px;
+		
+    }
+    .list-inline li{
+        width: 45.7%;
+    }   
+    .col-test-taken{
+        width: 27%;
+    }
+	
+	
+    .col-test-taken span,.share-icon a{
+
+        font-size: 100%;
+    }
+    .st-ht span, .st-wet span,.age-group span{
+        font-size: 100%;
+        font-weight: bold;
+    }
+
+    .share-icon a span{
+
+        display: block;
+    }
+
+    .share-icon{
+        width: 10%;
+    }
+
+    .col-test-date{
+
+        width: 42%;
+        margin-right:10px;
+    }
+
+        .col-test-date .form-control {
+            border: 1px solid #e5e5e5;
+            font-size: 12px;
+            border-radius: 6px;
+            box-shadow: none;
+        }
+
+    .info-box .img-icon {      
+        width: 40px;
+    }
+
+    .img-icon img{
+        width: 100%;
+    }
+    .info-box-content {
+        /*margin-left: 50px;*/
+    }
+.ml-label ul{
+	
+	margin-bottom:7px;
+}
+	
+    .text-label-name span, .bmi-label .bmi-box-01 p {
+        font-size: 10px;
+    }
+  
+    .track-detail {
+        width: 100%;
+        margin-top: 10px;
+        margin-right: 0px;
+    }
+
+  
+        .download-report button {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+    .pdf {
+        background-size: 4% !important;
+    }
+
+    .benchmark span {
+        left: 40%;
+    }
+
+    .legend-level p {
+        font-size: 8px;
+    }
+
+    .user-information {
+        padding:0px 0px 15px 0px;
+    }
+
+    .bmi-index {
+        margin-top: 0px;
+    }
+
+    .legend-level .level-01 span, .legend-level .level-02 span, .legend-level .level-03 span, .legend-level .level-04 span, .legend-level .level-05 span, .legend-level .level-06 span, .legend-level .level-07 span {
+        font-size: 10px;
+    }
+
+    .left-text .m-ltf {
+        margin-left: 0px;
+    }
+
+    .legend-level .point_01 {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+        top: -5px;
+        right: -10px;
+    }
+
+    .text-label span {
+        font-size: 12px;
+    }
+
+    .bmi-label, .bmi-label-text {
+        width: 100%;
+    }
+    
+        .bmi-label .legend-level ul li p {
+            font-size: 12px;
+        }
+
+    .fitness-box {
+        height: auto;
+    }
+
+        .fitness-box h3, .legend-level h3 {
+            width: 100% !important;
+            padding-left: 0px !important;
+            font-size: 18px;
+        }
+
+    .test-details-label {
+        font-size: 18px;
+    }
+
+    .bmi-label-text {
+        width: 100%;
+        margin: 15px 0 0px 0;
+    }
+
+    .test-details a {
+        padding-top: 25px;
+    }
+
+    .weight_01 span, .weight_02 span {
+        font-size: 18px;
+    }
+       
+    .top-menu .top-icons-app img {
+        width: 20px !important;
+    }
+
+    .top-menu .preview-back {
+        margin-right: 0px;
+    }
+
+    .download-report a {
+        margin-bottom: 10px;
+    }
+
+    .overall-fitess .legend-level p {
+        font-size: 10px;
+    }
+
+    .height-auto{
+    height:auto;
+}
+
+/* Sanjay */
+.app-dasboard-user-detail, .app-dasboard-user-other-detail{
+    width:100%; 
+}
+.fitness-box h4.bmi-index {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.left-text{
+
+    width:auto;
+}
+
+.st-img{
+
+visibility:hidden;
+}
+
+.center-text h4, .left-text h4,.bmi-heading h3, .ofl-heading h3{
+    font-size: 18px;
+}
+
+.bmi-heading h3, .ofl-heading h3{
+    margin: 20px 0;
+}
+.bmi-tooltip-center span,.ofl-tooltip-center span{
+    font-size: 14px;   
+    top: 30px;
+}
+.text-content{
+    height: auto;
+}
+
+.progress-text{
+
+    height: 40px;
+}
+
+.goBtn input[type="submit"]{
+
+    padding: 13px 25px;
+}
+
+.share-icon {
+    border: 0px;
+    height: 15px;
+    display: block;
+}
+
+.st-ht, .st-img, .st-wet{
+	
+	width:32%;	
+	text-align:center;
+}
+
+.st-ht h4, .st-ht span{
+	
+	text-align:center;
+}
+
+.list-inline li i{
+	font-size:12px;
+}
+    span.download-txt {
+        display: none;
+    }
+
+    .download-dashboard-btn span.download-i {
+        display: block;
+    }
+
+    button.download-dashboard-btn {
+        padding-top: 14px;
+        margin-bottom: 0px;
+        position: fixed;
+        bottom: 22px;
+        z-index: 999;
+        right: 15px;
+        background: #4F83D1;
+        border: 1px solid #4F83D1;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        padding: 0px;
+    }
+
+    .ofl-tooltip-center span {
+        padding: 0px 10px;
+        font-size: 14px;
+        width: auto;
+        min-width:42px;
+        text-align: center;
+        display:inline-block;
+    }
+
+
+    .down-arrow-left, .down-arrow-center, .down-arrow-right {
+    }
+
+
+    .down-arrow-center {
+        left: 25px;
+    }
+
+    .overall-fitess-label{
+
+        width:97%;
+
+    }
+
+.test-hide-on-mob {
+    display: none;
+}
+.toggel-section{
+
+    padding:0px !important;
+    width:38% !important;
+    display:none;
+}
+.toggel-section .checkbox, .toggel-section .radio {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+    .khelo-text-padding{
+        padding:15px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .height-auto{
+    height:auto;
+}
+
+.center-text h4, .left-text h4{
+    font-size: 15px;
+}
+
+    .info-box {
+        min-height: auto;
+        height: auto;
+    }
+
+    .left-text {
+        width: auto;
+    }
+
+.list-inline li i{
+	font-size:12px;
+}
+
+    .text-label span, .text-label-name span, .progress-text p {
+        font-size: 12px;
+    }
+
+
+    .bmi-label-text p {
+        line-height: 18px;
+    }
+
+    .top-menu .top-icons-app img {
+        width: 20px;
+    }
+
+    .level-box {
+        width: 42%;
+    }
+    
+
+    .fitness-box {
+        margin-bottom: 0px;
+    }
+
+    .valeu-details{
+        width:99%;
+    }
+
+    /*.col-test-taken,.col-test-date{
+        width: 16%;
+    }*/
+    .col-test-taken span, .share-icon a,.col-test-date .form-control {
+        font-size: 12px;
+    }
+    .st-ht span, .st-wet span,.age-group span{
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .download-report button {
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .pdf {
+        background-size: 4% !important;
+    }
+
+    .test-details a {
+        padding-top: 22px;
+    }
+
+    .download-report a {
+        margin-bottom:10px;
+    }
+	
+	.st-ht-wet-detail{		
+		width:41%;		
+	}
+	.age-group{
+		
+		width:19%;
+	}
+	
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    .text-content {
+        min-height:120px;
+    }
+
+    .bmi-label-text p {
+        line-height: 18px;
+    }
+
+    .level-box {
+        width: 100%;
+    }
+
+    .progress-text p {
+        font-size: 12px;
+    }
+	
+	.st-ht-wet-detail{		
+		width:31%;		
+	}
+	.age-group{
+		
+		width:29%;
+	}
+
+    .percentage-box .small-caption, .increase-percentage {
+        font-size: 9px;
+    }
+
+   
+
+     /*.fitness-box{
+
+        height:150px;
+    }*/
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+    .text-content {
+        min-height: 72px;
+    }
+
+    .percentage-box .increase-percentage {
+        font-size: 15px;
+    }
+
+    .percentage-box .small-caption {
+        font-size: 10px;
+    }
+    .bmi-label .legend-level ul li p {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+	.progress-score, .progress-unit{
+		padding-right:5px;		
+	}
+  
+    .level-box {
+        width: 100%;
+    }
+.st-ht-wet-detail{		
+		width:31%;		
+	}
+	.age-group{
+		
+		width:29%;
+	}
+	
+    .text-label span, .text-label-name span, .progress-text p {
+    font-size: 14px;
+}
+
+    .col-test-taken span {
+    font-size: 14px;
+	}	
+	
+	.test-details{
+		width:80%;
+	}
+	
+	.col-test-taken,.col-test-date{
+		width:11%;
+	}
+
+    
+
+	
+}
+	

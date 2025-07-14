@@ -1,0 +1,1196 @@
+@font-face {
+    font-family: 'Barlow-Black';
+    src: url('../fonts/barlaw/Barlow-Black.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Black.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-BlackItalic';
+    src: url('../fonts/barlaw/Barlow-BlackItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-BlackItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-Bold';
+    src: url('../fonts/barlaw/Barlow-Bold.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-BoldItalic';
+    src: url('../fonts/barlaw/Barlow-BoldItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-BoldItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-ExtraBold';
+    src: url('../fonts/barlaw/Barlow-ExtraBold.woff2') format('woff2'), url('../fonts/barlaw/Barlow-ExtraBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-ExtraBoldItalic';
+    src: url('../fonts/barlaw/Barlow-ExtraBoldItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-ExtraBoldItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-ExtraLight';
+    src: url('../fonts/barlaw/Barlow-ExtraLight.woff2') format('woff2'), url('../fonts/barlaw/Barlow-ExtraLight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-Italic';
+    src: url('../fonts/barlaw/Barlow-Italic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Barlow-Light';
+    src: url('../fonts/barlaw/Barlow-Light.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Barlow-LightItalic';
+    src: url('../fonts/barlaw/Barlow-LightItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-LightItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Barlow-Medium';
+    src: url('../fonts/barlaw/Barlow-Medium.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-MediumItalic';
+    src: url('../fonts/barlaw/Barlow-MediumItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-MediumItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-Regular';
+    src: url('../fonts/barlaw/Barlow-Regular.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Barlow-SemiBold';
+    src: url('../fonts/barlaw/Barlow-SemiBold.woff2') format('woff2'), url('../fonts/barlaw/Barlow-SemiBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Barlow-SemiBoldItalic';
+    src: url('../fonts/barlaw/Barlow-SemiBoldItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-SemiBoldItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-Thin';
+    src: url('../fonts/barlaw/Barlow-Thin.woff2') format('woff2'), url('../fonts/barlaw/Barlow-Thin.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Barlow-ThinItalic';
+    src: url('../fonts/barlaw/Barlow-ThinItalic.woff2') format('woff2'), url('../fonts/barlaw/Barlow-ThinItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+body {
+    background: #f2f2f6;
+    font-family: 'Barlow-Medium';
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barlow-Medium';
+}
+
+header {
+    height: auto;
+}
+
+.fix-header-app {
+    background: #FCFCFD;
+    top: auto;
+    position: relative;
+}
+
+.app-header-icon {
+    display: none;
+}
+
+#navbar {
+    overflow: hidden;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+    .sticky + .content {
+        padding-top: 60px;
+    }
+
+/**************************************** KheloIndia */
+
+.header-top-text-contaner h1 {
+    font-family: Barlow-BlackItalic;
+    text-transform: uppercase;
+}
+
+.header-top-text-contaner h2 {
+    font-family: Barlow-BlackItalic;
+}
+
+.header-top-text-contaner p {
+    font-family: 'Barlow-Regular';
+    font-size: 16px;
+}
+
+.header-top-text-contaner {
+    padding: 10px 15px 15px;
+    text-align: center;
+    color: #fff;
+    margin-top: 170px;
+}
+
+/**************************************** End KheloIndia */
+
+/**************************************** FitIndia */
+
+.header-top-text-contaner-fitindia h1 {
+    font-family: Barlow-BlackItalic;
+    text-transform: uppercase;
+}
+
+.header-top-text-contaner-fitindia h2 {
+    font-family: Barlow-BlackItalic;
+}
+
+.header-top-text-contaner-fitindia p {
+    font-family: 'Barlow-Regular';
+    font-size: 16px;
+}
+
+.header-top-text-contaner-fitindia {
+    padding: 10px 15px 15px;
+    text-align: center;
+    color: #240C00;
+    margin-top: 0px;
+}
+
+/**************************************** End FitIndia */
+
+
+
+.header-menu-tab {
+    background: #FCFCFD;
+    padding: 5px 0px 0px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}
+
+    .header-menu-tab ul {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        text-align: center;
+    }
+
+        .header-menu-tab ul li {
+            list-style-type: none;
+            display: inline-block;
+            /*width: 33.3%;*/
+            width: 50%;
+            float: left;
+            text-transform: uppercase;
+            font-family: Barlow-Bold;
+        }
+
+            .header-menu-tab ul li a {
+                color: #4F83D1;
+                /*border-bottom: 3px solid #13418c;*/
+                display: block;
+                padding: 8px 5px 16px;
+            }
+            .header-menu-tab ul li a:focus {
+                text-decoration:none;
+            }
+            .header-menu-tab ul li.active a {
+                border-bottom: 3px solid #4F83D1;
+            }
+            /*.header-menu-tab ul li.active a, .header-menu-tab ul li:hover a {
+                color: #292775;W
+                border-bottom: 3px solid transparent;
+            }*/
+
+.test-banner, .dash-do-dont-col, .app-member-col h4 {
+    display: none;
+}
+
+.app-member-col {
+    margin: 0px;
+}
+
+.member-detail .detail {
+    color: #555;
+}
+
+    .member-detail .detail p {
+        text-transform: uppercase;
+        color: #333;
+    }
+
+.score-col span.score {
+    color: #000;
+}
+
+.add-child-btn-col {
+    /*text-align: center;
+    margin-top: 0px;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index:10;*/
+    text-align: right;
+    margin-top: 0px;
+    right: 14px;
+    z-index: 10;
+    position: fixed;
+    top: 60px;
+}
+.app-member-detail .member-detail .score-col .score-level {
+    margin-top: 3px;
+    /*font-size: 14px;*/
+}
+   .app-member-detail .member-detail .score-col .score-level i:before {
+        margin-right: 2px;
+    }
+
+.label-color-01 {
+    color: #ff043f !important;
+}
+
+.label-color-02 {
+    color: #fc6ba9 !important;
+}
+
+.label-color-03 {
+    color: #ffaa62 !important;
+}
+
+.label-color-04 {
+    color: #f7d54e !important;
+}
+
+.label-color-05 {
+    color: #8bd470 !important;
+}
+
+.label-color-06 {
+    color: #00b289 !important;
+}
+
+.label-color-07 {
+    color: #009bdf !important;
+}
+
+/*a.add-child-btn {
+    background: #B00086;
+    border: 0px;
+    padding: 10px 25px;
+    color: #FFFFFF;
+    font-size: 16px;
+    box-shadow: 0px 8px 15px rgba(242, 88, 26, 0.30);
+}*/
+a.add-child-btn {
+    /* background: #4F83D1;
+    border: 0px;
+    padding: 0px 10px;
+    color: #FFFFFF;
+    font-size: 12px;
+    box-shadow: 0px 4px 10px rgb(54 66 255 / 40%);
+    border-radius: 10%;
+    width: 100px;
+    height: 30px;
+    display: table;*/
+    background: #4F83D1;
+    border: 0px;
+    color: #FFFFFF;
+    font-size: 12px;
+    box-shadow: 0px 4px 10px rgb(54 66 255 / 40%);
+    border-radius: 4px;
+    padding: 8px 15px;
+    display: inline-block;
+}
+a.add-school-btn {
+    background: #fff;
+    border: 0px;
+    padding: 10px 25px;
+    color: #f2581a;
+    font-size: 16px;
+    clear: both;
+    margin-top: 40px;
+    display: inline-block;
+}
+
+a.add-school-btn img {
+    margin-right:15px;
+}
+.add-member-mob {
+    display: none;
+}
+
+.modal-dialog.full-width-model {
+    width: 700px;
+    margin: 30px auto;
+    border: 0px;
+    font-family: 'Barlow-Regular';
+}
+
+    .modal-dialog.full-width-model .modal-header {
+        padding: 15px;
+        border-bottom: #fff;
+        background: #fff;
+        color: #333;
+        font-family: 'Barlow-Bold';
+        text-align: left;
+        position: relative;
+        overflow:hidden;
+    }
+
+        .modal-dialog.full-width-model .modal-header h4 {
+            font-family: Barlow-Bold;
+            text-transform: uppercase;
+            text-align: left;
+            float: left;
+        }
+
+    .modal-dialog.full-width-model .modal-body {
+        font-family: 'Barlow-Medium'
+    }
+
+        .modal-dialog.full-width-model .modal-body label {
+            font-weight: normal;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .modal-dialog.full-width-model .modal-body .form-control {
+            height: 42px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 6px;
+        }
+
+.gender-div {
+    color: #000;
+    font-size: 18px;
+}
+
+#privacyterms p {
+    font-family: 'Barlow-Italic';
+    color: #777;
+    font-size: 16px;
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px;
+    height: 100vh;
+}
+.fxd-mdl {
+    overflow-y: auto;
+}
+.modal-dialog.fxd-modal-bx {
+    height: 100vh;
+}
+    .modal-dialog.fxd-modal-bx .modal-content {
+        height: inherit;
+    }
+
+.fxd-modal-bx .modal-body {
+    overflow-y: auto;
+    height: inherit;
+}
+.fxd-modal-bx .fitness-app-main-col {
+    margin-bottom:20px;
+}
+
+.modal-dialog.full-width-model .modal-body .radio-inline label {
+    color: #444;
+    font-size: 18px;
+    font-family: 'Barlow-Regular';
+}
+
+.modal-dialog.full-width-model .modal-body .radio-inline input[type=radio] {
+    margin-top: 5px;
+}
+
+#ContentPlaceHolder1_ibiCaptcha {
+    padding: 4px 10px;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.modal-dialog.full-width-model .member-btn-submit {
+    background: #B00086;
+    border: 0px;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 18px;
+    box-shadow: 0px 8px 15px rgba(242, 88, 26, 0.30);
+    font-family: 'Barlow-Medium' !important;
+    background: #4F83D1;
+    box-shadow: none;
+    width: 100%;
+    min-height: 46px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
+.member-btn, .no-thanks-btn {
+    color: #464545 !important;
+    border: 1px solid #7d7b7b !important;
+    padding: 5px 15px !important;
+    font-size: 18px !important;
+    font-family: 'Barlow-Medium' !important;
+}
+
+/*.modal-header .close {
+    padding: 4px 0px;
+    background: transparent;
+    left: 15px !important;
+    border: 0px;
+    position: absolute;
+    top: 6px;
+    right: 0;
+    float: left !important;
+    width: 30px;
+}*/
+.modal-header .close {
+    padding: 0px;
+    background: transparent;
+    border: 0px;
+    position: absolute;
+    top: 0px;
+    right: 16px;
+    left: auto !important;
+    float: left !important;
+    width: 30px;
+    color: #333;
+    text-shadow: none;
+    font-size: 38px;
+}
+.cross {
+    font-size: 38px;
+}
+
+.modal-header .close img {
+    width: 24px;
+}
+.fxd-head {
+    position:fixed;
+}
+.modal-header .backtomain {
+    padding: 0px;
+    background: transparent;
+    border: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: auto;
+    width: 42px;
+    height: 42px;
+}
+    .modal-header .backtomain .back-arrow {
+        width: 14px;
+    }
+.modal.right.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+.model-inactive-btn {
+    background: #908e8d !important;
+    box-shadow: 0px 8px 15px rgba(144, 142, 141, 0.30) !important;
+}
+
+.without-login-user {
+    text-align: center;
+    margin: 15px 0px;
+}
+
+    .without-login-user img {
+        width: 100px;
+    }
+
+p.without-login-text {
+    text-align: center;
+    margin: 15px 0px 20px;
+    font-size: 18px;
+    color: #777;
+}
+
+.inner-page-header {
+    width: 100%;
+    padding: 8px 0px;
+    background: #F9F9FB;
+    text-align: center;
+    color: #333;
+    /*margin-top: 169px;*/
+    font-family: 'Barlow-Bold';
+    position: relative;
+}
+    .inner-page-header.fixed-header {
+        position:fixed;
+        top:0;
+        z-index:1;
+    }
+.inner-page-header .back-btn-set {
+    position: relative;
+}
+.all-text-dv {
+    padding-top:50px;
+}
+.inner-page-header h4 {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Barlow-Medium';
+}
+
+    .inner-page-header button {
+        padding: 4px 0px;
+        background: transparent;
+        border: 0px;
+        position: absolute;
+        top:-2px;
+        left: auto;
+        right: 20px;
+    }
+
+        .inner-page-header button img {
+            width: 24px;
+        }
+
+*:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.know-more-new-col.take-test-top-margin {
+    margin-top: 20px;
+}
+
+footer {
+    font-size: 12px;
+}
+
+/*============ Take test ===============*/
+
+.take-test-banner {
+    color: #666;
+    font-family: 'Barlow-Medium';
+    margin-bottom: 0px;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 20px;
+    position:relative;
+}
+
+
+.test-heading-col .test-heading p {
+    color: #777;
+    font-family: 'Barlow-Medium';
+}
+
+.text-bdr-btm {
+    border-bottom: 0px solid #ddd;
+    font-family: 'Barlow-Medium';
+    border-bottom: none;
+}
+
+.test-heading-col {
+    border-bottom: 0px;
+    font-family: 'Barlow-Medium';
+}
+
+.take-test-section {
+    padding-top: 0px;
+    margin-top: 6px;
+    font-family: 'Barlow-Medium';
+}
+
+.fa {
+    margin-right: 5px;
+}
+
+button.take-test-save-btn {
+    padding: 6px 3px;
+    background: #fff;
+    border: 1px solid #4F83D1;
+    color: #4F83D1;
+    font-family: 'Barlow-Medium';
+    border-radius: 5px;
+    transition: 0.5s;
+    height: 34px;
+}
+    button.take-test-save-btn:hover {
+        background: #4F83D1;
+        color: #fff;
+    }
+.test-heading-col .test-heading h4, .take-test-input-col label {
+    font-family: 'Barlow-Medium';
+    color: #333;
+}
+
+.test-info-col img {
+    width: 86%;
+}
+
+.take-test-popup .modal-title {
+    padding-left: 30px;
+    padding-right: 0px;
+}
+
+.tast-page-view-btn, .tast-page-view-btn:hover {
+    background: #4F83D1;
+    border: 0px;
+    padding: 10px 25px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0px 8px 15px rgba(54, 66, 255, 20%);
+    border-radius: 5px;
+}
+
+.take-test-section input {
+    text-align: center;
+    border-radius: 5px;
+    height: 34px;
+}
+
+.take-test-popup .panel-main .panel-title span {
+    font-family: 'Barlow-Medium';
+}
+
+.take-test-popup .app-head-text, .take-test-popup .app-page-list li {
+    font-family: Barlow-Regular;
+}
+
+.modal-dialog .btn-default {
+    color: #232323;
+    background-color: #fff;
+    border-color: #7d7c7c;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Barlow-Medium';
+    min-width: 80px;
+}
+
+.howto-margin {
+    margin-top: 61px;
+    margin-bottom:40px;
+}
+.cards-margin {
+    padding-bottom: 90px !important;
+}
+.know-about-tab > li > a {
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: 'Barlow-Medium';
+    font-weight: normal;
+}
+
+.test1-bg {
+    background: #ffd400;
+}
+
+.test2-bg {
+    background: #ffa500;
+}
+
+.test3-bg {
+    background: #00DFB0;
+}
+
+.test4-bg {
+    background: #00C198;
+}
+
+.test5-bg {
+    background: #FF7894;
+}
+
+.test6-bg {
+    background: #F7375E;
+}
+
+.test-all-banner-col .banner-text-col h2 {
+    font-family: 'Barlow-Medium';
+    font-size: 18px;
+    line-height: 18px;
+    white-space: normal;
+    margin-top:8px;
+}
+
+.test-all-banner-col .banner-text-col p {
+    font-family: Barlow-Regular;
+    font-size: 16px;
+    color: #fff;
+}
+
+.teext-color {
+    background: #B00086;
+    color: #fff;
+    border: 1px solid #B00086;
+}
+
+.no-thanks-btn, .no-thanks-btn.teext-color {
+    background: #3642ff;
+    border: 0px;
+    padding: 10px 25px;
+    color: #fff !important;
+    font-size: 16px;
+    /*box-shadow: 0px 8px 15px rgba(242, 88, 26, 0.30);*/
+    border: 1px solid #3642ff !important;
+    border-radius:6px;
+}
+
+.no-thanks-btn {
+    background: transparent;
+    box-shadow: none;
+    color: #3642ff !important;
+}
+
+.banner-bg-col {
+    position: relative;
+}
+    .banner-bg-col p {
+        margin-top: 5px;
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+.video-icon-col {
+    /*position: absolute;
+    top: 15px;*/
+    float:left;
+}
+
+    .video-icon-col img {
+        width: 24px;
+    }
+
+/*.banner-bg-col .banner-text-col .test-name {
+    width: 65%;
+}*/
+
+.panel-main .panel-heading a {
+    font-family: 'Barlow-Medium';
+    position: relative;
+    padding: 10px 10px !important;
+}
+
+.app-head-text, .panel-main .app-page-list li, .bmi-label-text, .text-label span, .list-inline li {
+    font-family: 'Barlow-Regular';
+}
+
+/*.top-margin {
+    margin-top: 0px;
+}*/
+
+.header-bg-2 {
+    margin-top: 0px !important;
+}
+
+.hide-all-view {
+    display: none;
+}
+
+.re-take-text {
+    width: 12% !important;
+}
+
+.left-text span, .text-label-name span, .bmi-label .bmi-box-01 p {
+    font-family: 'Barlow-Regular';
+}
+
+.st-ht span, .st-wet span, .age-group span, .bmi-heading h3, .ofl-heading h3 {
+    font-family: Barlow-Bold;
+    font-weight: normal;
+}
+
+.bmi-label-text p {
+    font-size: 16px !important;
+}
+
+.list-inline li i {
+    margin-top: 4px !important;
+}
+
+.list-inline li, .text-content p {
+    font-size: 14px !important;
+}
+
+.fitness-app-main-col, .signup-col {
+    margin-top: 15px !important;
+    padding: 0 15px;
+}
+
+
+.panel-main .panel-title span {
+    position: absolute;
+    right: 0px;
+    top: 8px;
+}
+
+.equipment-col a span, .scoring-col a span, .infrastructure-col a span, .perform-col a span {
+    position: inherit !important;
+}
+
+.memberdiv {
+    margin-top: 0px !important;
+}
+
+#ContentPlaceHolder1_ibiCaptcha {
+    padding: 8px 10px;
+    width: 35%;
+    display: inline-block;
+    text-align: center;
+    float: left;
+    font-size: 18px;
+    height: 42px;
+    border: 1px solid #ccc;
+    border-right-width: 0px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+input#ContentPlaceHolder1_btnRefresh {
+    position: absolute;
+    right: 0px;
+    bottom: -48%;
+    z-index: 9;
+    background-size: 18px;
+    width: 56px;
+    height: 56px;
+    background-position-x: center;
+    font-size: 12px;
+    padding: 0;
+}
+
+.modal-dialog.full-width-model .modal-body .form-control#ContentPlaceHolder1_txtCaptcha {
+    height: 42px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width: 44%;
+    float: left;
+    display: inline-block;
+    border-radius: 6px;
+}
+
+h4 p.header-child-name {
+    font-family: 'Barlow-Medium';
+    font-size: 16px;
+    text-transform: capitalize;
+    margin: 0px;
+    padding: 0;
+}
+
+.take-testheader {
+    margin: 3px !important;
+    padding: 0px !important;
+}
+
+.errorMessage.captcha-span {
+    position: absolute;
+    bottom: -16px;
+}
+
+input#ContentPlaceHolder1_FileUpload1 {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    width: 99.5%;
+}
+
+.unic-id-input .form-control {
+    width: 85%;
+    float: left;
+}
+
+.validate-btn {
+    width: 15%;
+    float: left;
+    height: 28px;
+    box-shadow: none !important;
+    background: url(../SchoolImages/validate_active_i.png) center center no-repeat !important;
+    background-size: 24px !important;
+}
+
+    .validate-btn .btn-text-velidate {
+        display: block;
+        color: #333;
+        font-size: 12px;
+        position: absolute;
+        bottom: -2px;
+        right: 12px;
+    }
+
+.errorMessage.validate-error-span {
+    position: absolute;
+    bottom: -16px;
+}
+
+.user-upload-image {
+    border-radius: 50%;
+    height: 95px;
+    width: 95px;
+    border: 1px solid #d0cfcf;
+    padding: 2px;
+}
+
+.user-defult-img {
+    border-radius: 50%;
+    height: 98px;
+    width: 98px;
+}
+
+#ProfileImage {
+    text-align: center;
+}
+
+.take-test-popup .app-page-list li {
+    margin-bottom: 0px;
+    font-size: 16px;
+    text-align: left;
+}
+
+.take-test-popup .app-head-text {
+    text-align: left;
+}
+a.add-child-btn:focus {
+    text-decoration: none;
+}
+.modal-dialog {
+    margin: 0;
+}
+.panel-group {
+    padding: 0px 30px;
+}
+.modal-body {
+    /*padding: 10px 0 0 0; */
+    padding: 0px;
+}
+.btn-action {
+    margin:0 25px;
+}
+
+.notFound {
+    text-align:center;
+    font-size:1.5rem;
+    color:#999;
+    margin-top:25%;
+}
+.notFound img {
+    width:100px;
+    opacity:0.3;
+}
+
+@media only screen and (max-width: 768px) {
+    body, html {
+        height: 100%;
+    }
+
+    /**************************************** KheloIndia */
+
+    .header-top-text-contaner, .inner-page-header {
+        margin-top: 0px;
+    }
+
+    /**************************************** End KheloIndia */
+
+    /**************************************** FitIndia */
+    .header-top-text-contaner-fitindia, .inner-page-header {
+        margin-top: 0px;
+    }
+    /**************************************** End FitIndia */
+
+    .hide-all-view {
+        display: none;
+    }
+
+    .text-bdr-btm {
+        border-bottom: none;
+    }
+
+    span.download-i {
+    }
+
+        span.download-i.re-take img {
+            width: 28px;
+        }
+
+    button.download-dashboard-btn {
+        height: 70px !important;
+        width: 70px !important;
+    }
+
+    .modal-dialog.full-width-model {
+        width: 100%;
+        margin: 0px;
+        height: 100%;
+    }
+
+    .full-width-model .modal-content.add-member-popup {
+        min-height: 100%;
+    }
+
+    .know-about-tab > li {
+        width: 36%;
+    }
+
+    .download-dashboard-btn span.download-i {
+        margin-top: 11px;
+    }
+
+    .mob-test {
+        display: block;
+        margin-top: 12px;
+        width: 82px;
+        text-align: center;
+        margin-left: -18px;
+        font-size:12px;
+    }
+
+    iframe {
+        width: 100% !important;
+        height: 300px;
+    }
+    .fxd-mdl iframe {
+        height: 225px;
+    }
+
+    footer{
+        display:none;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .last-bner-height {
+        min-height: 140px;
+    }
+
+    .hide-all-view {
+        display: none;
+    }
+
+    button.download-dashboard-btn {
+        height: 48px !important;
+        width: 48px !important;
+    }
+
+    .app-member-col {
+        padding: 0px;
+        padding-top:40px;
+    }
+
+    .memberdiv {
+        margin-top: 0px !important;
+    }
+
+    button.download-dashboard-btn {
+        bottom: 30px !important;
+    }
+
+    .user-defult-img {
+        height: 65px;
+        width: 65px;
+    }
+
+    iframe {
+        width: 100% !important;
+        height: 220px;
+        margin-bottom: 13px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .inner-page-header h4 {
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        /*margin-left: 26px;  */
+        padding:0 48px;
+    }
+
+    .take-testheader {
+        margin: 8px !important;
+        padding: 0px !important;
+    }
+
+    .goBtn input[type="submit"] {
+        padding: 9px 15px !important;
+    }
+
+    .btnTI {
+        margin-bottom: 10px !important;
+        margin-top: 10px;
+        padding: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .btnTI {
+        padding: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .member-btn, .no-thanks-btn, .modal-dialog.full-width-model .member-btn-submit {
+        padding: 5px 10px !important;
+    }
+}

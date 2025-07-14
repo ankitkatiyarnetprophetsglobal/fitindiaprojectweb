@@ -1,0 +1,390 @@
+﻿/**********************************
+
+Project   : Fitness365
+Style     : graph.css 
+Created By: Rajeev Ranjan
+
+*********************************/
+
+.level-box {float: left; width: 100%;position: relative; margin: 10px 0;}
+.level-gray-all {border-top: 6px solid #e0e6ea;position: relative;}
+.level-01,.level-02,.level-03,.level-04,.level-05,.level-06,.level-07 {
+    position: absolute; z-index: 2; padding: 3px 0; min-height: 6px; top: -6px;
+}
+
+.level-01 {border-top: 6px solid #fe4a5d; width: 30%;}
+.level-02 {border-top: 6px solid #ffaa62; width: 30%;}
+.level-03 {border-top: 6px solid #ffd26e; width: 80%;}
+.level-04 {border-top: 6px solid #74c4d6; width: 50%;}
+.level-05 {border-top: 6px solid #a3d55f; width: 72%;}
+.level-06 {border-top: 6px solid #6bc04b; width: 10%;}
+.level-07 {border-top: 6px solid #00953b; width: 30%;}
+.level-box .current-lavel,
+.level-box .current-duration,
+.level-box p {
+    font-size: 15px;
+    color: #000;
+    font-weight: 300;
+}
+.level-box .current-lavel {float: left;}
+.level-box .current-duration {float: right;}
+.level-box p {padding: 8px 0 0 0;}
+
+/*===========================Performance Details================================*/
+.bmi-performance{
+    margin-top:15px;
+}
+.bmi-performance,.fitness-score,.test-summery, .camp-details,.current-camp-record{float:left; width:100%; margin-bottom:20px;}
+.bmi-performance::after,.fitness-score::after,.test-summery::after, .camp-details::after,.current-camp-record::after{content:""; clear:both;}
+.bmi-performance ul { margin: 0px; padding: 0px;}
+.bmi-performance ul li {float: left; display: inline-block; text-align: center; width: 25%; position: relative;}
+.bmi-performance .level-01, .bmi-performance .level-02, .bmi-performance .level-03, .bmi-performance .level-04, .bmi-performance .level-05, .bmi-performance .level-06, .bmi-performance .level-07 {
+    width: 100%; padding: 15px 0; margin: 10px 0 0; position: static; font-size: 18px; font-weight: 300;}
+.performace-details{}
+
+
+
+
+/*===========================legend label===============================================*/
+
+.legend-level{ float:left; width:100%; margin:30px 0;}
+.legend-level ul{ margin:0px; padding:0px;}
+.legend-level ul li{ float:left;display:inline-block; text-align:center; width:14.2%; position:relative;}
+.legend-level ul li>span, .bmi-performance ul li>span{display:block; text-align:center; font-size:18px; font-weight:300;color:#999999; }
+
+.legend-level .level-01,
+.legend-level .level-02,
+.legend-level .level-03,
+.legend-level .level-04,
+.legend-level .level-05,
+.legend-level .level-06,
+.legend-level .level-07{ width:100%; padding:15px 0; margin:10px 0 0; position:static; font-size:18px; font-weight:300; height:40px;}
+
+
+
+/*===========================legend label border right ===============================================*/
+
+/*.legend-level .level-01{border-right:1px solid #fe4a5d;}*/
+.legend-level .level-02{border-left:1px solid #ffaa62;}
+.legend-level .level-03{border-left:1px solid #ffaa62;}
+.legend-level .level-04{border-left:1px solid #74c4d6;}
+.legend-level .level-05{border-left:1px solid #a3d55f;}
+.legend-level .level-06{border-left:1px solid #6bc04b;}
+.legend-level .level-07{border-left:1px solid #00953b;}
+
+.legend-level .text-bold{font-weight:400; color:#000;}
+.legend-level ul li>span>img{margin-right:5px; margin-top:-6px;}
+
+.current-camp-record{position:relative; margin-top:30px;}
+.current-camp-record ul{float:left;margin:0px 0 0 15%; padding:0px;  list-style-type:none; width:75%; border:1px solid #c2c2c3; border-width:0 0 1px 1px;}
+.current-camp-record ul li{float:left; width:100%;  position:relative;padding:5px 0;}
+.current-camp-record ul li:last-child{  padding:5px 0 15px 0}
+.current-camp-record ul li > span {
+    font-size: 15px;
+    font-weight: 300;
+    color: #868686;
+    margin: 20px 0 0 -105px;
+    float: left;
+    display: block;
+    width: 23%;
+    text-align: right;
+}
+
+.current-camp-record .legend-level{width:100%; display:block; margin:0px;}
+
+.current-camp-record .level-01,
+.current-camp-record .level-02,
+.current-camp-record .level-03,
+.current-camp-record .level-04,
+.current-camp-record .level-05,
+.current-camp-record .level-06,
+.current-camp-record .level-07{ width:14.2%;  font-size:18px; font-weight:300; height:30px; float:left;}
+
+.current-camp-record .level-01 {background: #fe4a5d; }
+.current-camp-record .level-02 {background: #ffaa62; }
+.current-camp-record .level-03 {background: #ffd26e; }
+.current-camp-record .level-04 {background: #74c4d6; }
+.current-camp-record .level-05 {background: #a3d55f;}
+.current-camp-record .level-06 {background: #6bc04b;}
+.current-camp-record .level-07 {background: #00953b;}
+
+.current-camp-record .scale {
+    position: absolute;
+    width: 100%;
+    bottom: -25px;
+    left: 0%;
+}
+
+.current-camp-record h3{ margin:0 0 20px 0}
+
+.current-camp-record .scale > div{float:left; width:10%; text-align:center;}
+.current-camp-record .scale > div > div{margin:10px 0 0 0}
+.current-camp-record .scale > div >span{ height:10px; border-right:1px solid #ccc;}
+.border-right{border-right:1px solid #d4d4d5;}
+
+.button-pre-next{text-align:center; width:100%; float:left;}
+.button-pre-next .prevue, .button-pre-next .pan-india{ display:inline-block; font-size:16px; font-weight:300;}
+.button-pre-next .prevue{padding:8px 20px; border-bottom:10px solid #c8c8c8;}
+.button-pre-next .pan-india{padding:8px 20px; border-bottom:5px solid #8094dd;}
+
+
+
+
+.chart-1{
+       
+       width:250px!important;
+       height:250px!important;
+       margin:0 auto;
+   
+    }
+
+
+.chartDetails{
+
+    
+    width:350px;
+    background:#fff;    
+    padding: 0;
+    height:auto !important;
+    margin:0 auto;
+}
+.prfile-graph{
+
+     width:100%;
+    float:left;
+    margin:3px 0;
+}
+
+.prfile-name{float:left; width:30%; font-size:11px; font-weight:500;
+}
+
+.prfile {
+    width: 56%;
+    float: left;
+    background: #c8c8c8;
+    position: relative;
+    height: 15px;
+}
+
+.color-box{
+
+    position:absolute;
+     height:15px;
+     background:#ff0000;
+     width:56%;
+}
+
+.ProfileLabel{
+
+    float:left;
+    width:9%;
+    color:#000;
+    font-size:13px;
+    margin-left:15px;
+}
+
+.heading{
+
+    display:block;
+    margin:5px 0;
+    clear:both;
+
+}
+@media( min-width: 992px) {
+
+ .chartDetails{
+       
+       width:300px!important;
+       height:300px!important;
+   
+    }
+
+
+
+.chart-1{
+       
+       width:250px!important;
+       height:250px!important;
+       margin:0 auto;
+   
+    }
+
+
+.prfile{
+
+    width:46%;
+
+}
+
+.prfile-name, .ProfileLabel{
+    font-size:11px;
+
+}
+
+.current-camp-record .legend-level{
+
+    width:96%;
+}
+
+
+}
+
+
+
+@media( max-width: 768px) {
+
+    .legend-level .level-01 p, .legend-level .level-02 p, .legend-level .level-03 p, .legend-level .level-04 p, .legend-level .level-05 p, .legend-level .level-06 p, .legend-level .level-07 p {
+        font-size: 12px;
+    }
+
+    .legend-level ul li>span, .bmi-performance ul li>span{
+        font-size: 12px;
+
+    }
+
+    .chart-1, .chartDetails{
+       
+       
+        margin-bottom:15px;
+        margin:0 auto;
+
+    }
+
+.chart-box-container .heading, .chart-box-container h3{
+
+    text-align:center;
+
+    }
+
+#topscoremale0{
+    height:250px !important;
+
+}
+
+.chart-box-container h3{
+    font-size:18px;
+    font-weight:600;
+
+}
+
+.chart-box-container .heading h4{
+    font-size:16px;
+
+}
+.prfile-name,.ProfileLabel{
+
+    font-size:9px;
+
+}
+
+
+}
+
+
+
+
+@media ( max-width: 480px) {
+
+   .chart-1, .chartDetails{
+        margin-bottom:15px;        
+        width:300px!important;
+    }
+
+ 
+
+   
+.prfile-name{
+
+    width:45%;
+}
+.prfile{
+
+
+    width:40% !important;
+
+}
+
+.ProfileLabel{
+
+    width:8%;
+}
+
+.prfile-name, .ProfileLabel{
+
+    font-size:10px;
+}
+
+
+.current-camp-record ul{
+
+    margin-left:21%;
+}
+
+.current-camp-record .level-07{
+    width:70%;
+
+}
+
+.current-camp-record ul li > span{
+
+    margin:20px 0 0 -87px;
+}
+
+
+.camp-details .border-right{
+
+    border-right:none;
+}
+
+}
+
+
+
+
+@media ( max-width: 320px) {
+
+   .chart-1, .chartDetails, .chart-1.canvasjs-chart-canvas, .chartDetails.canvasjs-chart-canvas{
+        margin-bottom:15px;
+        margin-left:0%;
+        width:250px!important;
+    }
+
+   .legend-level ul li{
+       width:100%;
+   }
+   .legend-level .level-01 p, .legend-level .level-02 p, .legend-level .level-03 p, .legend-level .level-04 p, .legend-level .level-05 p, .legend-level .level-06 p, .legend-level .level-07 p {
+    font-size: 12px!important;
+}
+
+.prfile-name{
+
+    width:45%;
+}
+.prfile{
+
+
+    width:40% !important;
+
+}
+
+.ProfileLabel{
+
+    width:8%;
+}
+
+
+.current-camp-record ul{
+  margin-left:27%;
+
+}
+
+
+
+
+  
+
+
+}
+
+
+

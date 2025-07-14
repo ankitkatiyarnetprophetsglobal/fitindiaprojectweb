@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Event;
+class LoginController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
+	
+	protected function redirectTo()
+    {
+		$events = Event::where( 'user_id', auth()->user()->id )->count();
+		
+        if (auth()->user()->role == 'school') {
+			/*if(!empty($events)){
+				//return '/my-events';
+			     return '/create-event';
+            }else{
+				return '/fit-india-school-certification';
+			}*/
+            // return '/create-school-event'; // change 09082023
+            return '/create-event';
+		}
+        
+        // if (
+        //     auth()->user()->role == 'mexta' 
+        //     || auth()->user()->role == 'mhrddsel' 
+        //     || auth()->user()->role == 'mhrdhei' 
+        //     || auth()->user()->role == 'mha' 
+        //     || auth()->user()->role == 'mpng' 
+        //     || auth()->user()->role == 'md' 
+        //     || auth()->user()->role == 'mfinance'
+        //     ) {
+		// 	/*if(!empty($events)){
+		// 		//return '/my-events';
+		// 	     return '/create-event';
+        //     }else{
+		// 		return '/fit-india-school-certification';
+		// 	}*/
+        //     // return '/create-school-event'; // change 09082023
+        //     return '/create-event';
+		// }
+        
+		
+		// if (auth()->user()->role == 'youthclub') {
+		// 	if(!empty($events)){
+		// 		//return '/my-events';
+        //          return '/dashboard';
+		// 	}else{
+		// 		//return '/fit-india-youth-club-certificate';
+        //         return '/dashboard';
+		// 	}
+		// }
+		
+		
+        return '/create-event';
+        // return '/dashboard';
+        //return '/create-freedomrun-event';
+        //return '/create-event';
+    }
+	
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+}

@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap');
+
+html {
+    font-size: 87.5%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f2f2f2;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.3rem;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+    font-family: 'Barlow', sans-serif;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+.no-padding {
+    overflow: hidden;
+}
+
+.result h1 {
+    padding: 10px;
+    background-color: #13418c;
+    font-size: 2.5rem;
+    color: #fff;
+    padding-left: 4%;
+    padding-right: 4%;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.result_area {
+    margin: 30px 30px;
+    padding: 30px;
+}
+
+.result_area table {
+    padding: 30px;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.card {
+    -moz-box-shadow: 0px 0px 9px 0px #ccc;
+    -webkit-box-shadow: 0px 0px 9px 0px #ccc;
+    box-shadow: 0px 0px 9px 0px #ccc;
+}
+
+
+.select_right {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.select_wrong {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.select_wrong i {
+    color: #fb6118;
+    position: absolute;
+    top: 6px;
+    bottom: 0px;
+    left: 6px;
+    font-size: larger;
+}
+
+.select_right i {
+    color: #16d024;
+    position: absolute;
+    top: 6px;
+    bottom: 0px;
+    left: 6px;
+    font-size: larger;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered thead td,
+.table-bordered thead th {
+    border-bottom-width: 0px;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 0px solid #dee2e6;
+}
+
+.md-progress {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: .25rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    background-color: #eee;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.md-progress .progress-bar {
+    height: .25rem;
+    background-color: #0d47a1;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #007bff;
+    transition: width .6s ease;
+}
+
+.p_area {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.p_area h4 {
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    ;
+}
+
+.p_area p {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.res_table thead th {
+    background: #f2581c;
+    color: #fff;
+    font-weight: 600;
+}
+
+.result_flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+}
+
+.result_flex_r {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px 0;
+
+}
+
+.result_flex_list {
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-pack: flex-start;
+    ;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.result_flex_list h2 {
+    font-size: 1.8rem;
+    width: 200px;
+}
+
+.result_flex_list h2,
+p {
+    margin: 0;
+    padding: 8px;
+}
+
+.select_right_r {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    margin-left: 10px;
+}
+
+.select_right_r i {
+    color: #16d024;
+    position: absolute;
+    top: 6px;
+    bottom: 0px;
+    left: 6px;
+    font-size: larger;
+}
+
+.select_wrong_r {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    margin-left: 10px
+}
+
+.select_wrong_r i {
+    color: #fb6118;
+    position: absolute;
+    top: 6px;
+    bottom: 0px;
+    left: 6px;
+    font-size: larger;
+}
+
+.md-progress_r {
+    background-color: #fff;
+}

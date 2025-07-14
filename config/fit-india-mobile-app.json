@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "fit-india-mobile-app",
+  "private_key_id": "17e2ed907e646a7b9afdac16add320d68b0ff5ee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDPeGB8jL9tAQcF\n++gdWq4m35D1zLfDeFYzAycXajjCZNFHwUtXiO+9q9xy5xqyKDFxkyFTYc0YFtva\nBxfwtTeRwKULO/xI3ifZQrvu0oSfOYzKemHGV8kP0GMslLVUS0oXU+Uec5ayMYst\nJNOBIKFk1xp706BtMbIDcanf/3rSO7fKDQPQGa/yQEe85r/wTRM+aj3cyXJV7nZr\n41iANUsOp0HO3oAT8pefjI3FeW+K6HUf+Bri589I2512PxmRbA9PiXxkYkwBCJcy\nmlUntS0/zuyPNJqNJ/XQMJQlzTcduAY2xwx2BKVMmlJqsZ3RC7AyCT+aAIMfJm87\n5nOh8OZVAgMBAAECggEAArKWOSEWdneCudKC00FuLc6UpCtcITw0df7jFuq24tq6\n0s1AePHbGOMGxVz5RHqTCaSayOqJxElIKp61oNfVRowcp87gRap2LYtq6Jnpr9Ai\n4zC6obrPqN0dvbpV0RDn6QlI/oKBPsrmZN7UNhscGcBs+zq9nMOs+QGsS44uWWvg\nV8hoUhv7epzDEg0t+HfG8isJjn7igH8CgvJAmUkIJ4rz/WPDtKZRkXo5M5/9KLOP\nbv6F9c1Qrd11YovMLZy35/yEvjdVd/4lNpwzBY84t6/ZU/H5BWYkoFQpCC0mjO+t\ny+SnTH6othQgB37wN0T3OfO9tpfzfwtMR5boJX4LBwKBgQD7lj2zY4xbKnWrUMyB\nFKXSLWgPE8z/htBOjso5mCkZq1q27dhrHG9jAnVfof50RsuRgAEqFK94i5Jpo8T5\nYBWyAS5CMO5KMzvxaM1q6+lLz5lQlrLYfhRTbBC219m79p6kRaHiDaZsnLKhP/78\nO4vBnNWoAIknv+KoKMIZvUD2dwKBgQDTHAdTReJZ6e0XRMuKywPIU7+A7UJWkHL3\nxLnHLA3IClsI7PpWOZyRDfKcj8sYVguBj9Y1WqcTu3SpPp1pmsZ/gZnPWCZVYwUb\nG6aLWHfbYB3tF3ucChyEOIupeevxfiAH/C4iX+oPccDZxO7UUfIpYX90GpWarjbp\nlrmk8m+gkwKBgHN5AdjUWBd/5YI8E6ErWPCe5qQE8pJVzkZAQ5ErxbGCdKCBilOf\nOYC4ICdEswWreMPPfLlTxTYO2aSjBkVvVIXfBNxcmQJ1gY3MDHyGyw2Au13BzVSQ\nicPAVeuWJtme2DGNxD99BGXVhid8uAwNSJgU4/u4Qzt7VwzXqD8oHikBAoGAQRt/\n1trSuFBA4tBAxglenUXW5fhGYVQjYO63LQoVJgCrmtEbU8Ro2QOoM0jVpifDXK3z\nrnjK1ncVv6yj95HYbjKWMTBKgkMLrBSXBJrAPFQkZp67bKBhsxWNXTNQ5SW000Gf\nKNLT6Pd4NrFZxvmO6dw75p7cTNw160yk7I4ohykCgYAVmwUoWIkgHB2cGPF29F4L\nl3XEb+nhXWDd6HCSEHxceg30aTUVXQcGE7jUOhParN1huyy47HE4x5jlv6tI4y4D\nItzUrwM09jfuZ9ljggOqSmrXFOntWTgQ1VWrt4IbuTzforko2Gn77yPurBDpMCiK\nCr664xgDz5fdSeU87AeMxg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ua4vq@fit-india-mobile-app.iam.gserviceaccount.com",
+  "client_id": "106536186415555229831",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ua4vq%40fit-india-mobile-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

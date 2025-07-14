@@ -1,0 +1,2240 @@
+﻿
+/*-----------------------------------------------------------------------------------CSS/Style_new.css---------------------------------------------------------------------------------------*/
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.grid1 {
+    border: 0;
+}
+
+.toplink {
+    float: right;
+    padding: 0px 10px 0px 10px;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.divMaster {
+    width: 100%;
+    background-color: white;
+}
+
+.divBody {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    vertical-align: top;
+    padding-bottom: 4px;
+    display: block;
+}
+
+.divInnerBody {
+    width: 100%;
+    text-align: left;
+    vertical-align: top;
+    background-image: url( 'NIITTP_Images/homeInnerBG.jpg' );
+    background-repeat: no-repeat;
+}
+
+.divTopImage {
+    height: auto;
+    width: 212px;
+    float: left;
+}
+
+    .divTopImage a {
+        float: left;
+    }
+
+.divTopRight {
+    width: 75%;
+    float: left;
+    padding: 0;
+    margin: 0px;
+}
+
+.tab-data, .tab-data table {
+    width: 100% !important;
+    border-spacing: 5px;
+}
+
+    .tab-data table td {
+        padding: 3px !important;
+    }
+
+    .tab-data table:nth-child(1), .tab-data table:nth-child(2n+1) {
+        width: 90% !important;
+    }
+
+    .tab-data table td {
+        position: relative !important;
+    }
+
+        .tab-data table td span {
+            position: absolute !important;
+        }
+
+
+.divTopRightLogin {
+    width: 300px;
+    height: 25px;
+    float: right;
+    margin-top: 30px;
+    padding-left: 10px;
+}
+
+.divTopRightLogin {
+    width: 300px;
+    height: 25px;
+    float: right;
+    margin-top: 30px;
+    padding-left: 10px;
+}
+
+.divTopLink {
+    float: right;
+    vertical-align: bottom;
+    text-align: right;
+}
+
+.divLogin {
+    float: right;
+    width: 350px;
+}
+
+.divTopLinkImage {
+    text-align: center;
+}
+
+.txtLoginText {
+    padding-right: 5px;
+    float: left;
+}
+
+.divBodyLeft {
+    float: left;
+    vertical-align: top;
+    text-align: left;
+    width: 640px;
+}
+
+.divFlash {
+    float: left;
+    vertical-align: top;
+    width: 635px;
+    margin: 0px 5px 5px 0px;
+    border: solid 1px #96A6C5;
+    height: 211px;
+    background-image: url( 'NIITTP_Images/FLash_Bg.jpg' );
+}
+
+.divBodyRight {
+    float: left;
+    vertical-align: top;
+    text-align: left;
+    width: 350px;
+    height: 421px;
+}
+
+.SignUpText {
+    color: #203360;
+    font-family: Calibri;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 4px;
+}
+
+.divSignUpButton {
+    padding: 4px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.divBenefits {
+    /*background-color:#DBE3F6;      border:none;     */
+    padding: 4px;
+    margin-top: 5px; /* border:solid 1px #96A6C5;*/
+    border: solid 1px #CCCCCC;
+    width: 346px;
+    background-color: #F2F2F2; /* border-top:solid 1px #CCCCCC; */
+}
+
+    .divBenefits a {
+        color: #0C808D;
+        text-decoration: none;
+    }
+
+        .divBenefits a:hover {
+            text-decoration: underline;
+        }
+
+
+/*Modified by Bishwajit Sahoo on 27th Feb*/
+.divBenifitsHead {
+    color: #333333;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 8pt;
+    padding: 15px 0px 12px 4px;
+    font-size: 15px;
+    float: left;
+}
+
+.divBenefitLink {
+    width: 346px;
+    text-align: right;
+}
+
+.divFName {
+    float: left;
+    padding: 2px;
+    width: 100px;
+    text-align: left;
+}
+
+.divtxtSignUp {
+    float: left;
+}
+
+.divInput {
+    width: 300px;
+    padding: 2px;
+}
+
+.divBottomContent {
+    width: 635px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.divBottomSection {
+    width: 210px;
+    vertical-align: top;
+    text-align: left;
+    float: left;
+    padding-left: 2px;
+}
+
+.divBottomColumn {
+    background-color: #F2F2F2;
+    border: solid 1px #CCCCCC; /*background-color:#DBE3F6;       border:solid 1px #96A6C5;*/ /*border:none;*/
+    width: 203px;
+    height: 200px;
+}
+
+.divBrand {
+    padding: 4px 0px 4px 0px;
+    margin: auto;
+    width: 1010px;
+}
+
+.divFooter {
+    width: 100%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.divCopyRight {
+    border-top: solid 1px #B3B3B3;
+    margin: auto;
+    width: 1010px;
+}
+
+.divSearchSection {
+}
+/*Users Profile Link*/
+.UserProfileLink {
+}
+/*------------------------------------------------------Core CSS--------------------------------------------------------------------*/
+/*For all the section ie: Section for new, Customers, Testimonials*/
+.divSection {
+    background-color: #DBE3F6;
+    padding: 4px border:solid 1px #96A6C5;
+    font-family: Arial;
+    color: #203360;
+    font-size: 8pt;
+    text-decoration: none;
+}
+/*--------------------------For Text Color,size and family--------------------*/
+.textSchoolDashboard {
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.textt {
+    font-family: Arial;
+    font-weight: bold;
+    color: #203360;
+    vertical-align: top;
+    font-size: 11pt;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.text {
+    font-family: Arial;
+    color: #203360;
+    vertical-align: top;
+    font-size: 8pt;
+}
+
+.texta {
+    font-family: Arial;
+    color: #203360;
+    font-variant: small-caps;
+    vertical-align: top;
+    font-size: 8pt;
+}
+
+.textBold {
+    font-family: Arial;
+    color: #203360; /*color:#5cccf6;*/
+    vertical-align: top;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.textPartnerSchools {
+    font-family: Arial;
+    color: White;
+    text-align: center; /*vertical-align:top;*/
+    font-size: 8pt;
+}
+
+.textPartnerSchoolsScore {
+    font-family: Arial;
+    color: #203360;
+    text-align: center; /*vertical-align:top;*/
+    font-size: 8pt;
+}
+
+.textn {
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+    font-weight: lighter;
+}
+
+.textm {
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.text a {
+    color: #655998;
+    text-decoration: underline;
+}
+
+    .text a:hover {
+        text-decoration: underline;
+    }
+
+
+
+/*-------------------------For All input TextBox---------------------------*/
+.txtInputBox {
+    border: solid 1px #96A6C5;
+    font-size: 10px;
+    padding: 2px;
+}
+/*To Styling the Body*/
+.styleBody {
+    padding: 0px;
+    margin: auto;
+    width: 100%;
+}
+/*-----------TO Styling the text and Links which are in dark backfround---------------*/
+.whiteText {
+    color: #3C5A9A;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+    .whiteText a {
+        color: #3C5A9A;
+        text-decoration: none;
+    }
+
+        .whiteText a:hover {
+            text-decoration: underline;
+        }
+/*--------------------------Button Green Color-------------------------------*/
+.btnGreen {
+    color: white; /*background-color:#70AB56;*/
+    background-color: #42599D;
+    font-family: Calibri;
+    font-size: 9pt;
+    border: solid 1px #4A7438;
+    font-weight: bold;
+}
+/*------------------------To set button style on with text color white-----------------------------------*/
+.btnWhite {
+    color: white;
+    background-color: #5C74A9;
+    font-family: Arial;
+    font-size: 9pt;
+    border: none;
+    font-weight: bold;
+}
+
+    .btnWhite a {
+        color: white;
+    }
+
+.btnPadding {
+    padding: 1px 3px 1px 3px;
+    font-weight: bold;
+}
+
+.divdash {
+    background-color: #F2F2F2;
+    padding-top: 10px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: 1px #B3B3B3;
+    float: left;
+    border: solid 1px #cccccc;
+}
+/*----------To Set Div defult float and align Left-----------*/
+.divLeft {
+    float: left;
+    vertical-align: top;
+    text-align: left;
+    margin: 0px;
+    width: 99%; /* --- width:100%; ----*/
+}
+/*----------To Set Div defult float and align Right-----------*/
+.divRight {
+    float: right;
+    vertical-align: top;
+    text-align: left;
+}
+/*----------------To Set Div default float value none and align left------------*/
+.divDefault {
+    vertical-align: top;
+    text-align: left;
+}
+/*----------To Set Div top porsion color and Style--------------------------------- */
+.divTop {
+    vertical-align: top;
+    width: 100%;
+    text-align: center; /*background-color:#3B5998;*/
+    background-color: white; /*height:80px;*/
+    float: none;
+    margin: auto;
+}
+/*----------To Set top div inner position,color and Style--------------------------------- */
+.divInnerTop {
+    width: 90%;
+    height: auto;
+    margin: 0 auto; /*border-Bottom:solid 1px #B3B3B3 !important;   */
+}
+/*----------To Set top div menu position,color and Style--------------------------------- */
+.divInnerTopMenu {
+    vertical-align: top;
+    text-align: left;
+    width: 100%;
+    margin: auto; /* height:px;  margin-top:0;  margin:auto;  /*border-Top:solid 1px #eeeeee;   */
+}
+/*--------------------Left Menu Section-------------------------*/
+.divUserProfile {
+    padding: 20px 4px 4px 2px;
+}
+
+.SignUpInnerText {
+    padding: 4px 2px 4px 0px;
+    color: #203360;
+    font-family: Calibri;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 4px;
+}
+
+.divUser {
+}
+
+/*-------------------------------MenuText-------------------------*/
+
+.menuText {
+}
+/*--------------Menu Item---------------------*/
+.menuItem {
+    padding: 3px 0px 3px 0px;
+    color: #203360;
+    font-family: Arial;
+    font-size: 10pt;
+}
+
+    .menuItem a {
+        color: #203360;
+        text-decoration: none;
+    }
+
+        .menuItem a:hover {
+            text-decoration: none;
+        }
+
+.MenuHover {
+    background-color: #D8DFEA;
+}
+
+.menuItem image {
+    padding-right: 4px;
+}
+
+.menuItem a {
+    padding-left: 2px;
+}
+
+.menuItemSelected {
+    font-weight: bold;
+    background-color: #D8DFEA !important;
+    width: 99%;
+}
+
+.divBGMaster {
+    width: 100%;
+    margin: auto;
+    background-color: White;
+}
+/*-------------------------Page Headers-----------------------------*/
+.Headers {
+    color: #5CCCF6;
+    font-size: 18px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+    .Headers image {
+        padding-right: 5px;
+    }
+/*-------------------------Style for Search Text Box---------------------------------*/
+.txtSearch {
+    border: none;
+    border-right: solid 1px #96A6C5;
+    font-size: 11px;
+    color: #333333;
+}
+
+.txtInnerSearch {
+    border: none;
+    border-right: solid 1px #999999;
+    font-size: 11px;
+    color: #333333;
+}
+
+.paddingLeft {
+    padding-left: 5px;
+}
+
+.paddingRight {
+    padding-right: 5px;
+}
+
+/*------------------------------------------------------End Core CSS--------------------------------------------------------------------*/
+
+/*-----------------Style for links for selected Message box--------------*/
+.btnSelect {
+    font-family: Arial;
+    font-size: 9pt;
+    border: none;
+    font-weight: bold;
+}
+
+    .btnSelect a {
+    }
+
+        .btnSelect a.selected {
+            color: white;
+            background-color: #5C74A9;
+        }
+
+/*----------------Style for div Header section--------------------------*/
+.divHeaderSection {
+    width: 98%;
+    padding: 20px 0px 10px 0px;
+    height: 35px;
+}
+
+.divHeaderRight {
+    border: solid 1px #999999;
+}
+
+.btnInnerFunctionalButton {
+    border: solid 1px #999999;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #F2F2F2;
+    font-family: Arial;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.divNewMessageSection {
+    padding: 0px 0px 0px 8px;
+}
+
+.styleLeftMenu {
+    padding: 2px 4px 2px 2px;
+    width: 99%;
+    font-family: Arial,helvetica,Sans-Serif;
+    font-size: 9pt;
+    color: #333333;
+    text-align: left; /* vertical-align:top;*/
+}
+
+.DynamicLeftMenu {
+    padding: 3px 20px 3px 20px;
+    text-indent: -8px; /*vertical-align:top;*/
+}
+
+.MenuItemHover {
+    background-color: #3C5A9A;
+    color: White;
+}
+
+.styleLeftMenu1 {
+    padding: 3px 25px 3px 25px;
+    width: 100%;
+    font-family: Arial,helvetica,Sans-Serif;
+    font-size: 12pt;
+    color: red;
+    background-color: #eeeeee;
+    text-align: left;
+}
+
+
+
+/*----------------------------To Style div Functionality Section------------------------*/
+.divFunctionalitySection {
+    background-color: #F2F2F2;
+    border-top: solid 1px #CCCCCC;
+    color: #D6D6D6;
+    height: 25px;
+    width: 100%;
+    padding: 8px 0px 5px 10px;
+    clear: both;
+    margin-bottom: 4px;
+}
+
+.divMessageBox {
+    width: 99%;
+    padding: 8px 0px 5px 0px;
+}
+
+.divprofileSubSections {
+    width: 802px;
+    clear: both;
+    padding: 4px;
+}
+
+.fontprofileLeftText {
+    color: #797474;
+    padding-left: 5px;
+}
+
+.fontprofileRightText {
+    color: #333333;
+}
+/*----------------Div Left Menu--------------------*/
+/*Changed by Rahul on 27th Feb 2010*/
+.divLeftMenu {
+    width: 19%;
+    padding: 1% 0 0 0; /*display:block;*/ /* height:500px;  border-right:solid 1px #B3B3B3;*/
+}
+
+.textSelectSection {
+    color: #808080;
+    font-weight: bold;
+}
+
+.divMessageSelect {
+    width: 806px;
+    padding: 5px 0px 5px 0px;
+    border-bottom: solid 1px #D9D9D9;
+    height: 16px;
+}
+
+.divNavigationButton {
+    padding: 2px 4px 2px 4px;
+    border: solid 1px #D9D9D9;
+    background-color: #F2F2F2;
+}
+
+.divBackWordDis {
+    border: solid 1px #D9D9D9;
+}
+
+.divForwordWordDis {
+    border: solid 1px #999999;
+}
+
+.grdMessage {
+    width: 806px;
+    border: none;
+}
+
+.divMessage {
+    width: 806px;
+    padding: 5px 0px 5px 0px;
+    height: 300px;
+}
+
+.itemTemplateReceived {
+    width: 100px;
+    padding: 5px;
+    text-align: left;
+}
+
+.Headers {
+    color: #058fc2; /*#5cccf6*/
+    font-size: 18px;
+    font-family: Arial;
+    font-weight: inherit;
+}
+/*.Headings
+{
+	color: #203360;
+	font-size: 15px;
+	font-family: Arial;
+	font-weight: bold;
+}*/
+.divInnerCopyRight {
+    clear: both;
+    border-top: solid 1px #B3B3B3;
+    height: 25px;
+    width: 992px;
+    padding: 4px 6px 5px 14px;
+    height: 20px;
+    margin: auto;
+}
+
+.fontBold {
+    font-weight: bold;
+}
+
+.divHeaderSearch {
+    width: 145px;
+    border: solid 1px #cccccc;
+    background-color: White;
+}
+
+.divImage {
+    padding: 5px 5px 5px 5px;
+}
+
+.divInnerSubject {
+    padding: 10px 10px 10px 0px;
+}
+
+.styleDate {
+    color: #9191AA;
+}
+
+/*---------------------------------For Li on the top person of the site---------------------------------------*/
+.topLinkTab {
+    padding: 3px 0 0px;
+    margin-left: 0;
+    font: bold 12px arial;
+    margin: 0px;
+    list-style-type: none;
+    text-align: left;
+    color: White;
+    float: right;
+}
+
+    .topLinkTab li {
+        display: inline;
+        margin: 0px;
+    }
+
+        .topLinkTab li a, .topLinkTab li span a {
+            text-decoration: none;
+            padding: 5px 7px;
+            margin-right: 3px;
+            border: none;
+            color: #3C5A9A;
+            display: block;
+            float: left;
+        }
+
+        .topLinkTab li span a {
+            color: #96A70F !important;
+        }
+
+        .topLinkTab li a:hover {
+            text-decoration: underline;
+        }
+/*------------------------For all the sub heading on the site----------------------------*/
+.subHeadding {
+    font-weight: bold;
+    font-size: 12px;
+}
+/*------------------------style for div Right Body----------------*/
+.divRightBody {
+    width: 70%;
+    padding: 1% 0 0 1%;
+    min-height: 500px; /*display:block;*/
+    border: solid 1px #eee;
+    border-width: 1px 0 0 1px;
+    float: left;
+    height: auto; /*height:450px;*/
+    margin: 0 0 40px 0;
+    border: none;
+}
+
+.subheader {
+    color: #00a718;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 10pt;
+    padding: 0px;
+    border-bottom: #d8dfea 1px solid;
+    text-align: left;
+    width: 100%;
+}
+
+.subheaderfooter {
+    color: #00a718;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 10pt;
+    padding: 0px; /* border-bottom: #d8dfea 1px solid; */
+    text-align: center;
+    width: 100%;
+}
+
+.subheaderfooterBMI {
+    color: #00a718;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 10pt;
+    padding-top: 10pt; /*  padding:0px;      border-bottom: #d8dfea 1px solid; */
+    text-align: center;
+    width: 100%;
+}
+
+.divMain {
+    width: 100%;
+    min-height: 400px;
+    height: auto;
+}
+
+.divStatusDetails {
+    padding: 0px 0px 10px 0px;
+    width: 20%;
+}
+/*Created by Bishwajit on 18th Feb */
+.divBlockFuncation {
+    width: 30%;
+}
+
+.imgIconPadding {
+    padding: 2px 4px 0px 8px;
+}
+
+.calendarShedule {
+    background-color: White;
+    border: solid 1px #CCCCCC;
+    padding: none;
+}
+
+    .calendarShedule td {
+        border: none;
+        padding: none;
+        margin: none;
+        background-color: white;
+    }
+
+.calendarSheduleHeader1 {
+    background-color: White;
+    color: #cccccc;
+}
+
+.calendarSheduleHeader {
+    border: solid 1px #CCCCCC;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #F2F2F2;
+    padding: none;
+}
+
+    .calendarSheduleHeader td {
+        padding: none;
+        border: none;
+    }
+
+    .calendarSheduleHeader th {
+        padding: none;
+        border: none;
+    }
+
+
+.tblSearch {
+    width: 90%;
+    background-color: White;
+    font-family: Arial;
+    color: #203360;
+    font-size: 8pt;
+    text-align: left;
+    vertical-align: top;
+    padding: 6px 0px 6px 0px; /*border:solid 1px #999999;*/
+}
+
+.tblSearchLeft {
+    text-align: left;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.tblSearchRight {
+    width: 75%;
+    text-align: left;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.tblSearchRight1 {
+    width: 75%;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tblSearchSubRight {
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+    padding: 4px 4px 4px 4px;
+}
+
+.tblSearchInput {
+    border: solid 1px #999999;
+    font-size: 11px;
+    color: #333333;
+}
+
+.ntblSearchInput {
+    border: solid 1px #999999;
+    font-size: 11px;
+    color: #333333;
+    overflow: hidden;
+}
+
+.lblSearchInput {
+    font-size: 11px;
+    color: #333333;
+}
+
+.tblSearchInput1 {
+    border: solid 1px #999999;
+    font-size: 5px;
+    color: #333333;
+    padding: 2px 4px 2px 4px;
+}
+
+.tblSearchDropDown {
+    border: solid 1px #999999;
+    font-size: 11px;
+    color: #333333;
+    width: 200px;
+    padding: 0px;
+}
+
+.tblRunTime {
+    border: none;
+    font-size: 11px;
+    color: #333333;
+    padding: 2px 4px 2px 4px;
+    height: 20px;
+}
+/*-------------to Hide the Boundary of text box (yash)-------*/
+.txtboxHide {
+    border: none;
+    font-size: 10px;
+    color: #333333;
+    padding: 2px 4px 2px 4px;
+    height: 20px;
+    width: 200px;
+}
+/*----------------------------GridView Header-------------------------*/
+.grdSearchHeader {
+    padding: 10px 0px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+    color: #999999;
+    font-size: 12px;
+    font-weight: bold; /*background-color:#F2F2F2;*/
+    font-family: Arial; /*text-align:left;*/
+    vertical-align: middle;
+}
+
+.grdSearch {
+    /*border:solid 1px #cccccc;*/
+    width: 100%;
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+}
+
+.grdlbl {
+    font-family: Arial halvetica Sans-Serif;
+    color: #203360;
+    font-size: 8pt;
+    text-align: center;
+}
+
+.certificateSubTbl {
+    text-align: left;
+}
+
+    .certificateSubTbl td {
+        padding: 2px;
+        padding-left: 10px;
+    }
+
+.CertificateText {
+    font-family: Arial halvetica Sans-Serif;
+    color: #2D2C2B;
+    font-size: 11pt;
+    text-align: left;
+}
+
+.CertificateDivHead {
+    font-family: Arial halvetica Sans-Serif;
+    color: #2D2C2B;
+    font-size: 14pt;
+    text-align: center;
+    font-weight: bold;
+}
+
+.certificateTblHeader {
+    background-color: #F2DDDC;
+    border: solid 1px black;
+    text-align: center;
+    font-weight: bold;
+}
+
+.certificateTblSubHeader {
+    text-align: left;
+    color: Red;
+    font-weight: bold;
+}
+
+
+.grdSearch td {
+    padding: 5px 6px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.grdSearch th {
+    padding: 5px 6px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+    vertical-align: top;
+}
+
+.grdSearch a {
+    color: #655998;
+    text-decoration: underline;
+}
+
+    .grdSearch a:hover {
+        text-decoration: underline;
+    }
+
+
+.grdSearchItem {
+    padding: 8px 6px 8px 6px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.grdSearchItemLeft {
+    padding: 5px 6px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.grdText {
+    padding: 2px;
+}
+/*TO give bold to all the detailview header*/
+.dltViewheaderfont {
+    font-weight: bold;
+    padding: 5px 0px 5px 8px;
+    text-decoration: none;
+}
+/*stylsheet for detailview*/
+.detailviewstl {
+    width: 56%;
+    border: none;
+}
+
+.detailviewItem {
+    border: none;
+    padding: 2px;
+}
+/*For Style on main div of Inner page*/
+.divMainPage {
+    width: 95%;
+    padding: 5px 0px 5px 13px;
+}
+/*Text Content*/
+.textContent {
+    font-family: Arial;
+    color: #203360;
+    font-size: 9pt;
+    line-height: 18px;
+}
+
+    .textContent a {
+        color: #655998;
+        text-decoration: none;
+    }
+/*Shedule Calendar Style*/
+.tdHeaderWeek {
+    border: solid 1px #3C5A9A;
+    text-align: center;
+    background-color: #3C5A9A;
+    padding: 4px 6px 4px 6px;
+    color: white;
+}
+
+.tdItemWeek {
+    text-align: center;
+}
+/*for a div which is 100% divAll*/
+.divAll {
+    width: 100%;
+    padding: 5px 0px 5px 0px;
+}
+
+/*jquery*/
+
+th {
+    background-color: #f2f2f2;
+}
+
+.highlight {
+    /*background-color: #ffcc00;*/
+    background-color: #EFF2F7; /*font-weight:bold;*/
+    color: black;
+}
+
+    .highlight a {
+        color: #495673;
+    }
+
+th {
+    background-color: White;
+    /*display:none;*/
+}
+
+.th1 {
+    display: none;
+}
+
+/*For Link button in Profile by Rahul*/
+.LinkbuttonEffect {
+    padding-left: 5px;
+}
+/*For Mail Format text box By rahul*/
+.txtmailRightTo {
+    width: 300px;
+    text-align: left;
+    vertical-align: top;
+    border: solid 1px #999999;
+    font-size: 11px;
+    color: #333333;
+    padding: 2px 4px 2px 4px;
+}
+
+/*.......Ajax Dropdown Styles*/
+
+#master_content .ajax__combobox_itemlist {
+    margin: 15px;
+}
+
+.AjaxToolkitStyle .ajax__combobox_inputcontainer .ajax__combobox_textboxcontainer input {
+    background-position: top left;
+    color: #FFFFFF;
+    padding: 4px 0px 3px 5px;
+    font-size: 13px;
+    height: 16px;
+    width: 150px;
+    border: solid 1px #999999;
+    font-size: 13px;
+    color: #333333;
+    padding: 0px;
+}
+
+.AjaxToolkitStyle .ajax__combobox_inputcontainer .ajax__combobox_buttoncontainer button {
+    background-image: url(NIITTP_Images/toolkit-arrow.gif);
+    background-position: top left;
+    border: 0px none;
+    height: 23px;
+    width: 23px;
+}
+
+.AjaxToolkitStyle .ajax__combobox_itemlist {
+    border-color: #F2F2F2;
+    background-color: #F2F2F2;
+    font-size: 13px;
+}
+/*--------------------For Modal popup Div-----------------------*/
+.modalBackground {
+    /* background-color:Gray;     filter:alpha(opacity=70);     opacity:0.7;*/
+}
+
+.divModalMaster {
+    width: 98%;
+    padding: 6px;
+    clear: both;
+}
+
+.divModalLeft {
+    width: 50%;
+}
+
+.divModalRight {
+    width: 50%;
+}
+
+#divUNameTxt {
+    float: left;
+    font-family: Arial;
+    font-size: small;
+    width: 60%;
+}
+
+#divPasswordTxt {
+    float: left;
+    font-family: Arial;
+    font-size: small;
+    width: 60%;
+}
+/* for sign in by rahul   */
+.btnsignupbutton {
+    color: white; /*background-color:#70AB56;*/
+    background-color: Blue;
+    font-family: Calibri;
+    font-size: 9pt;
+    border: solid 1px #4A7438;
+    font-weight: bold;
+}
+/*  for trainer home page by rahul*/
+
+.fortop {
+    float: left;
+    width: 200px;
+    border-top: solid 1px gray;
+}
+
+.forbottom {
+    float: left;
+    width: 340px;
+    border-bottom: solid 1px gray;
+}
+
+.text1 {
+    font-family: Arial;
+    color: #203360;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.textrddblhead {
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.textrdbl {
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+}
+
+.paddiv {
+    padding: 2px 2px,px,2px;
+}
+/*div inner tab on 17th Feb 2010 by Bishwajit Sahoo*/
+/*Div Inner Left*/
+.divInnerLeft {
+    width: 25%;
+    padding: 0px 8px 0px 20px;
+    background-repeat: repeat-y;
+}
+
+.divInnerRight {
+    width: 70%;
+}
+
+.grdNewsHome {
+    width: 98%;
+    padding: 2px 0px 2px 4px;
+}
+
+.divRightTop {
+    background-image: url( 'NIITTP_Images/homeimgBg1.gif' );
+    background-repeat: no-repeat;
+    padding: 0px 10px 2px 15px;
+    width: 97%;
+}
+
+.divRightTopLeft {
+    width: 44%;
+    padding: 0px 4px 0px 4px;
+    height: 185px;
+    background-repeat: no-repeat;
+    vertical-align: bottom;
+    text-align: left;
+    padding: 260px 0px 0px 12px;
+    float: left;
+}
+
+.divRightTopMiddle {
+    width: 4%;
+}
+
+.divRightTopRight {
+    width: 48%;
+    padding: 0px 4px 0px 4px;
+    height: 185px;
+}
+
+.divHomeWhiteBand {
+    background-color: white; /*filter:alpha(opacity=90);   opacity:0.9;*/
+    width: 289px;
+    height: 155px;
+    padding: 15px 10px 01px 10px;
+    color: #696969;
+    font-family: Arial,helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 18px;
+}
+
+.divHomeWhiteBandRight {
+    background-color: white; /*filter:alpha(opacity=90);   opacity:0.9;8*/
+    width: 289px;
+    height: 155px;
+    padding: 15px 10px 01px 10px;
+    color: #696969;
+    font-family: Arial,helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 18px;
+}
+
+.floatCubicMenu {
+    vertical-align: middle;
+    text-align: center;
+    padding: 0px 10px 0px 10px;
+    float: left;
+    list-style-type: none;
+    background-image: url( 'NIITTP_Images/ScrollBG.gif' );
+}
+
+.HeaderTestimonialHome {
+    font-size: 17px;
+    padding-bottom: 5px;
+    font-family: Arial Verdana Sans-Serif;
+    font-weight: 700;
+    line-height: normal;
+    color: #3C5A9A;
+}
+
+.ScrollMainDiv {
+    padding: 10px 0px 0px 0px;
+    text-align: right;
+    width: 100%;
+    height: 80px;
+    background-image: url( 'NIITTP_Images/ScrollBG.gif' );
+}
+
+.BannerNumber {
+    background-color: White;
+    color: #1B2B45;
+    padding: 2px 4px 2px 4px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 4px;
+    cursor: pointer;
+}
+/*div inner tab on 17th Feb 2010 by Bishwajit Sahoo-------------------------End*/
+
+/*----------------------------------------------------------------------------*/
+.divLatestMessages1 {
+    padding: 3px 0 0px;
+    margin-left: 0;
+    font: bold 12px arial;
+    margin: 0px;
+    list-style-type: none;
+    text-align: left;
+    color: White;
+}
+
+    .divLatestMessages1 li {
+        padding: 4px 2px 4px 2px;
+        display: block;
+        margin: 0px;
+        color: #203360;
+    }
+
+        .divLatestMessages1 li a {
+            text-decoration: none;
+            padding: 5px 7px 0px;
+            margin-right: 3px;
+            border-bottom: none;
+            color: #3C5A9A;
+            cursor: pointer;
+        }
+
+            .divLatestMessages1 li a:hover {
+                text-decoration: underline;
+            }
+/*For thankyou page of sgn up by rahul  02 -march-2010          */
+.textSignup {
+    font-family: Arial;
+    color: #203360;
+    font-size: 9pt;
+}
+/*For Custom Grid View by rahul 25 march*/
+.Gridviewmain {
+    width: 100%;
+}
+
+    .Gridviewmain th {
+        padding: 10px 0px 5px 6px;
+        border-bottom: solid 1px #cccccc;
+        color: #999999;
+        font-size: 12px;
+        font-weight: bold; /*background-color:#F2F2F2;*/
+        font-family: Arial; /*text-align:left;*/
+        vertical-align: middle;
+    }
+
+
+/*Style for Custom Gridview*/
+/*----------------------------GridView Header-------------------------*/
+.Customgrd.th {
+    padding: 10px 0px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+    color: #999999;
+    font-size: 12px;
+    font-weight: bold; /*background-color:#F2F2F2;*/
+    font-family: Arial; /*text-align:left;*/
+    vertical-align: middle;
+}
+
+.Customgrd {
+    /*border:solid 1px #cccccc;*/
+    width: 100%;
+}
+
+    .Customgrd.td {
+        padding: 8px 6px 8px 6px;
+        border-bottom: solid 1px #cccccc;
+    }
+
+.CustomgrdLeft {
+    padding: 5px 6px 5px 6px; /*border-left:solid 1px #cccccc;     border-right:solid 1px #cccccc; */
+    border-bottom: solid 1px #cccccc;
+}
+
+.grdText {
+    padding: 2px;
+}
+
+/**/
+
+/*Start Update Progress by Rahul*/
+#UpdateProgress1 {
+    width: 400px;
+    background-color: Red;
+    bottom: 0%;
+    left: 0px;
+    position: absolute;
+    height: 400px;
+}
+
+/*End Update Progress by Rahul*/
+
+.textBox {
+    width: 125px;
+    background-color: White;
+    height: 18px;
+    vertical-align: top; /*height:18px;*/
+}
+
+.textBoxExt {
+    width: 160px;
+    background-color: White;
+    height: 18px;
+    vertical-align: top; /*height:18px;*/
+}
+
+.frmtd {
+    vertical-align: top;
+}
+
+.tdleft {
+    width: 130px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tdAlign {
+    vertical-align: top !important;
+}
+
+
+.divMain {
+    width: 100%;
+    min-height: 370px;
+    height: auto;
+    margin-top: 10px;
+}
+
+
+.divMainKIB {
+    width: 100%;
+    min-height: 370px;
+    height: auto;
+    margin-top: 12px;
+}
+
+.fieldsetMargin {
+    margin-bottom: 10px;
+}
+
+.AdminHeading {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+
+.LinkButtontext {
+    font-size: 9pt;
+    font-family: Arial;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+    .LinkButtontext a {
+        text-decoration: none;
+    }
+
+        .LinkButtontext a:hover {
+            text-decoration: underline;
+        }
+
+.RuntimeText {
+    font-size: 9pt;
+    font-family: Arial;
+    color: #333333;
+    vertical-align: top;
+}
+
+.CaptionText {
+    font-size: 8pt;
+    font-family: Arial;
+    font-weight: bold;
+    color: #3C5A9A;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.ButtonInnerText {
+    font-family: Arial;
+    font-size: 8pt;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.PicArea {
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+
+.Student_image {
+    width: auto;
+    margin: 0;
+    border: 1px solid #eee;
+    border-width: 1px 0 1px 1px;
+    padding: 5px;
+    min-height: 450px;
+}
+
+img {
+    border: 0;
+}
+
+table#studDetails {
+    float: left;
+    font-size: 13px;
+}
+
+    table#studDetails td {
+        padding: 3px;
+        background: #f9f9f9;
+    }
+
+        table#studDetails td.txtvalue {
+        }
+
+.Labeltxt {
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.txtvalue strong {
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+}
+
+table.bmihead {
+    width: 100%;
+    float: left;
+}
+
+    table.bmihead th {
+        background: #3c7265;
+        font-size: 16px;
+        color: #fff;
+        font-weight: bold;
+        padding: 3px;
+    }
+
+.bmihead th span {
+    float: right;
+}
+
+table td strong {
+    font-size: 14px;
+    color: #ffffff; /*color:#5CCCF6;*/
+    font-weight: bold;
+}
+
+.grdSearch {
+    /*border:solid 1px #cccccc;*/
+    width: 97%;
+    font-family: Arial;
+    color: #203360;
+    font-size: 10pt;
+    text-align: left;
+}
+
+.grdSearchN {
+    /*border:solid 1px #cccccc;*/
+    width: 100%;
+    font-family: Arial;
+    color: #203360;
+    font-size: 8pt;
+}
+
+.grdSearchTopperList {
+    /*border:solid 1px #cccccc;*/
+    font-family: Arial;
+    color: #203360;
+    font-size: 8pt;
+    text-align: left;
+}
+
+.grdSearchHeader {
+    padding: 10px 0px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+    color: #999999;
+    font-size: 11px;
+    font-weight: bold; /*background-color:#F2F2F2;*/
+    font-family: Arial;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.grdSearchHeaderN {
+    padding: 10px 0px 5px 6px;
+    border-bottom: solid 1px #cccccc;
+    color: #999999;
+    font-size: 12px;
+    font-weight: bold; /*background-color:#F2F2F2;*/
+    font-family: Arial;
+    text-align: left;
+    vertical-align: middle;
+    width: 100px;
+}
+
+.divLeft {
+    float: left;
+    vertical-align: top;
+    text-align: left;
+    width: 100%;
+}
+
+.divbak {
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+    background-color: Gray;
+}
+
+.divbak_1 {
+    filter: alpha(opacity=90);
+    opacity: 0.99;
+    background-color: #424242;
+}
+
+.divbakInner {
+    min-height: 420px !important;
+}
+
+.divbakInnerM {
+    min-height: 250px !important;
+}
+
+.divQrtr1 {
+}
+
+.Heading {
+    width: auto; /*98%*/
+    height: 18px;
+    background: #eee;
+    padding: 3px 8px 3px 8px;
+    color: #444;
+    text-transform: capitalize; /*position:relative;                */
+    margin: 0;
+}
+
+.HeadingSyllabus {
+    width: 98%;
+    height: 18px;
+    background: #eee;
+    padding: 1%;
+    color: #444;
+    float: left;
+    position: relative;
+    margin: 0;
+    font-family: Arial;
+    font-size: 16px;
+}
+
+.Close {
+    width: 25px;
+    height: 20px;
+    font-family: Arial;
+    text-align: right;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+}
+
+    .Close a {
+        width: 25px;
+        height: 20px;
+        background: #ccc;
+        padding: 2px 6px;
+        text-decoration: none;
+    }
+
+.FooterSyllabus {
+    width: 98%;
+    background: #eee;
+    padding: 1%;
+    color: #444;
+    margin: 0;
+    float: left;
+}
+
+.HeadingM {
+    width: 96%;
+    height: 18px;
+    background: #eee;
+    padding: 3px 8px 3px 8px;
+    color: #203360;
+    text-transform: capitalize; /*position:relative;                */
+    margin: 0;
+}
+
+.HeadingO {
+    width: 98.4%;
+    height: 24px;
+    background: #5cccf6;
+    padding: 12px 8px 6px 8px;
+    color: #fff;
+    text-transform: uppercase; /*position:relative;                */
+    margin: 0;
+}
+
+.close_x {
+    width: 25px;
+    overflow: hidden;
+    top: 5px;
+    right: -7px;
+    position: absolute;
+}
+
+    .close_x a {
+        display: block;
+        font-weight: bold;
+        color: #bbb;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+.txtArea {
+    /*	padding:10px 0 0 0;                */
+    padding: 0 0 0 0;
+    float: left;
+    width: 100%;
+    min-height: 350px; /*!important;*/
+}
+
+.txtAreaM {
+    /*	padding:10px 0 0 0;                */
+    padding: 0 0 0 0;
+    float: left;
+    width: 100%;
+    min-height: 250px; /*!important;   */
+}
+
+
+.txtArea img {
+    float: right;
+    width: 165px;
+    height: 300px;
+    margin: 0 0 25px 25px;
+}
+
+.technique {
+    width: 100%;
+    font-family: Arial;
+    color: #203360;
+    font-size: 8pt; /*text-align:left;    */
+    margin: 10px 0;
+}
+
+    .technique th {
+        background: #f5f5f5 !important;
+        padding: 5px 2px !important;
+        text-transform: uppercase;
+    }
+
+    .technique th, .technique td {
+        text-align: center;
+        color: #555;
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 2px;
+        font-weight: bold;
+    }
+
+        .technique td td {
+            border: none;
+            font-weight: normal;
+        }
+
+        .technique td a {
+            text-align: center;
+            color: #555;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+.techniqueN th {
+    text-align: center !important;
+    color: #555;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 2px;
+    font-weight: bold;
+}
+
+
+/**************CHANGES BY MOHIT*******************/
+
+/*#fotter
+{
+	width: 100%;
+	background: #fff url(../images/fitness365_footerbg.png) center bottom repeat-x;
+	height: 180px;
+	z-index: 90;
+	float: left;
+	margin: 0; /*position:fixed;                  bottom:0;*/
+/*clear: both;
+	font-family: Arial;
+	font-size: 12px;
+}*/
+/*.fotter_Carector
+{
+	width: 982px;
+	margin: 0 auto;
+	background: url(../images/fitness365_carector.png) top center no-repeat;
+	height: 170px;
+	position: relative;
+}*/
+/*.fotterBase {
+    width: 960px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 147px;
+    left: 8px;
+}*/
+
+.copy {
+    color: #fff;
+    text-decoration: none;
+    float: right;
+}
+
+    .copy a {
+        padding: 0;
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        margin: 0 0 0 4px;
+        font-style: italic;
+    }
+
+        .copy a:hover {
+            color: #4b7614;
+        }
+
+
+.SampleCssClass {
+    font-size: 11px;
+    z-index: 1;
+    position: absolute;
+    margin-left: 0px;
+    overflow: Auto;
+    height: 6px;
+}
+
+.imagethumbs a img {
+    border: 5px solid #ccc;
+    width: 250px;
+    height: 187px;
+}
+
+.PhGalleryImgText {
+    font-size: 8pt;
+    font-family: Arial;
+    font-weight: bold;
+    color: #3C5A9A;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+/*-----------------------------------------------------------------------------MyHomePage.aspx---------------------------------------------------------------------------------------*/
+
+.panelclass {
+    margin-bottom: 30px;
+}
+
+.heading_Cat {
+    padding: 15px;
+    background: #0981ba;
+    color: #fff;
+}
+
+.level-01 {
+    border-top: 0px !important;
+}
+
+.grdSearch td a {
+    cursor: pointer !important;
+}
+
+
+.level-01 {
+    border-top: 0px !important;
+}
+
+#rightPnl_1 {
+    display: none;
+}
+
+.download-pdf {
+    width: 100%;
+    border-radius: 0;
+    padding: 22px 0;
+    outline: none;
+    border: none;
+    height: 68px;
+    margin: 0px;
+    color: #fff;
+}
+
+    .download-pdf:hover {
+        background: #286090;
+    }
+
+
+
+.row-02, .row-01 {
+    float: left;
+    width: 100%;
+}
+
+.text-heading-01 {
+    padding: 10px 0;
+    color: #000;
+    text-align: left;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+    .text-heading-01 b {
+        font-size: 14px;
+        padding-left: 20px;
+    }
+
+.col-small {
+    float: left;
+    width: 50%;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+    .col-small span {
+        display: block;
+        margin: 3px 0;
+        font-size: 13px;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+.col-small {
+}
+
+.font-size-class {
+    text-align: left;
+    padding-left: 5px;
+}
+
+    .font-size-class span {
+        font-size: 15px;
+        display: block;
+    }
+
+.center-text h4.weight-class {
+    font-weight: 500;
+    display: block;
+    white-space: pre-line;
+}
+
+.remove-h-m {
+    margin: 0px 0 10px !important;
+}
+
+.mySports-02 {
+    border-right: 0px;
+}
+
+    .mySports-02 h4 {
+        font-weight: 500;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+.mySports {
+    width: 43%;
+}
+
+    .mySports h4 {
+        font-weight: 500;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+.mySports-02 {
+    width: 57%;
+}
+
+.mySports span {
+    font-size: 15px;
+    float: left;
+    padding-left: 10px;
+}
+
+.mySports-02 ul {
+    margin-left: 0px;
+    padding: 0 0 0 26px;
+    font-size: 14px;
+}
+
+    .mySports-02 ul li {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+    }
+
+/*--------------------------------------------------------------------------------------------------GaugeNew.css----------------------------------------------------------------------------------------------------*/
+
+/*.wrapper {
+    position: relative;
+    width: 640px;
+    height: 480px;
+    margin: 50px auto 0 auto;
+    padding-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    clear: both;
+}*/
+
+.box {
+    float: left;
+    width: 50%;
+    height: 50%;
+    box-sizing: border-box;
+}
+
+
+
+.gauge {
+    width: 320px;
+    height: 240px;
+}
+
+.n_wrapper{
+
+    width:50%;
+}
+
+.n_change_01 {
+    height: 136px;
+    padding: 0px 0;
+}
+
+.n_change_02 {
+    height: 136px;
+    padding: 10px 0;
+}
+.n_bmi_01 {
+    float: left;
+    width: 25%;
+    padding: 10px 0;
+}
+
+.bmi-content {
+    float: left;
+    width: 75%;
+    padding: 10px 0;
+}
+
+.n_info {
+    height: 136px;
+}
+/*.bmi-content {
+    float: left;
+    width: 50%;
+    padding: 10px 0;
+}*/
+
+.highlight-text {
+    background: #5cb027;
+    color: #fff !important;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+.weight_01, .weight_02{
+
+    padding-top:24px;
+}
+
+.n_bmi_01 h4 {
+    font-size: 15px;
+    margin: 10px 0px;
+    font-weight: 600;
+
+}
+
+.embed-responsive-16by9 {
+    padding-bottom: 42.5%;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .n_wrapper{
+        width:100%;        
+    }
+
+    .n_info, .n_change_02 {
+        height: auto;
+    }
+
+        .n_change_02{
+            height:auto;
+        }
+
+        .n_info span {
+            font-size: 16px !important;
+        }
+
+    .n_bmi_01, .bmi-content{
+
+        width:100%;
+        padding:5px 0;
+    }
+       
+            .item iframe{
+
+        height:auto !important;
+    }
+
+    .center-text span {
+        font-size:14px !important
+   
+    }
+
+    .n_change_02 .garph-02{
+
+        height:auto;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+
+    .n_wrapper{
+
+        width:100%;
+    }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+   
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
+
+.embed-responsive .embed-responsive-item, .embed-responsive embed, .embed-responsive iframe, .embed-responsive object, .embed-responsive video {
+
+    height: 100% !important;
+
+}

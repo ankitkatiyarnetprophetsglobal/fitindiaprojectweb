@@ -1,0 +1,842 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Siteoption;
+use App\Models\Event;
+use App\Models\EventCat;
+use App\Models\Feedback;
+use App\Models\State;
+use App\Models\Shareyourstory;
+use App\Models\Registrationemailotp;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use App\Models\Schoolquiz;
+use PDF;
+use DateTime;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
+use App\Models\Role;
+use App\Models\District;
+use App\Models\Block;
+
+class GeneralController extends Controller
+{
+
+	private $OPENSSL_CIPHER_NAME = "aes-128-cbc"; //Name of OpenSSL Cipher
+    private $CIPHER_KEY_LEN = 16; //128 bits
+
+	// function encrypt($key, $iv, $data) {
+	// 	$CIPHER_KEY_LEN = 16; // Define the constant for key length
+	// 	// $CIPHER_NAME = 'AES/ECB/PKCS5Padding'; // Define the cipher name
+	// 	$CIPHER_NAME = 'aes-128-cbc'; // Define the cipher name
+
+	// 	try {
+	// 		if (strlen($key) < $CIPHER_KEY_LEN) {
+	// 			$numPad = $CIPHER_KEY_LEN - strlen($key);
+	// 			for ($i = 0; $i < $numPad; $i++) {
+	// 				$key .= "0"; // 0 pad to len 16 bytes
+	// 			}
+	// 		} else if (strlen($key) > $CIPHER_KEY_LEN) {
+	// 			$key = substr($key, 0, $CIPHER_KEY_LEN); // truncate to 16 bytes
+	// 		}
+
+	// 		$initVector = $iv; // In PHP, we don't need to create an IvParameterSpec
+	// 		$skeySpec = $key; // In PHP, we use the key directly
+
+	// 		// Create the cipher
+	// 		// $cipher = openssl_encrypt($data, 'AES-128-ECB', $skeySpec, OPENSSL_RAW_DATA);
+	// 		$cipher = openssl_encrypt($data, 'aes-128-cbc', $skeySpec, OPENSSL_RAW_DATA);
+
+	// 		$base64_EncryptedData = base64_encode($cipher);
+	// 		$base64_IV = base64_encode($iv); // This line is not used in the return
+
+	// 		return $base64_EncryptedData;
+
+	// 	} catch (Exception $ex) {
+
+	// 		error_log($ex->getMessage());
+	// 	}
+	// 	return null;
+	// }
+
+
+	// function encrypt($key, $iv, $data) {
+    //     if (strlen($key) < $this->CIPHER_KEY_LEN) {
+    //         $key = str_pad("$key", $this->CIPHER_KEY_LEN, "0"); //0 pad to len 16
+    //     } else if (strlen($key) > $this->CIPHER_KEY_LEN) {
+    //         $key = substr($str, 0, $this->CIPHER_KEY_LEN); //truncate to 16 bytes
+    //     }
+
+    //     $encodedEncryptedData = base64_encode(openssl_encrypt($data, $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, $iv));
+    //     $encodedIV = base64_encode($iv);
+    //     $encryptedPayload = $encodedEncryptedData.":".$encodedIV;
+
+    //     return $encryptedPayload;
+
+    // }
+
+    // function decrypt($key, $iv, $data) {
+    //     if (strlen($key) < $this->CIPHER_KEY_LEN) {
+    //         $key = str_pad("$key", $this->CIPHER_KEY_LEN, "0"); //0 pad to len 16
+    //     } else if (strlen($key) > $this->CIPHER_KEY_LEN) {
+    //         $key = substr($str, 0, $this->CIPHER_KEY_LEN); //truncate to 16 bytes
+    //     }
+
+    //     // $parts = explode(':', $data);
+    //     //$decryptedData = openssl_decrypt(base64_decode($parts[0]), $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, base64_decode($parts[1]));
+
+    //     $decryptedData = openssl_decrypt( base64_decode($data), $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, $iv);
+    //     return $decryptedData;
+    // }
+	// old this is working code
+	function encrypt($key, $iv, $data) {
+
+        if (strlen($key) < $this->CIPHER_KEY_LEN) {
+
+            $key = str_pad("$key", $this->CIPHER_KEY_LEN, "0"); //0 pad to len 16
+
+        } else if (strlen($key) > $this->CIPHER_KEY_LEN) {
+
+            $key = substr($str, 0, $this->CIPHER_KEY_LEN); //truncate to 16 bytes
+
+        }
+
+        $encodedEncryptedData = base64_encode(openssl_encrypt($data, $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, $iv));
+        $encodedIV = base64_encode($iv);
+        // $encryptedPayload = $encodedEncryptedData.":".$encodedIV;
+        $encryptedPayload = $encodedEncryptedData;
+
+        return $encryptedPayload;
+
+    }
+
+	function decrypt($key, $iv, $data) {
+
+        if (strlen($key) < $this->CIPHER_KEY_LEN) {
+
+            $key = str_pad("$key", $this->CIPHER_KEY_LEN, "0"); //0 pad to len 16
+
+        } else if (strlen($key) > $this->CIPHER_KEY_LEN) {
+
+            $key = substr($str, 0, $this->CIPHER_KEY_LEN); //truncate to 16 bytes
+
+        }
+
+        // $parts = explode(':', $data);
+        //$decryptedData = openssl_decrypt(base64_decode($parts[0]), $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, base64_decode($parts[1]));
+
+        $decryptedData = openssl_decrypt(base64_decode($data), $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, $iv);
+        return $decryptedData;
+    }
+
+	// End old working code
+
+
+
+
+
+
+
+	public function fitindschoolweek2020(){
+
+    	return view('fit-india-school-week');
+    }
+
+	static public function sitecounter(){
+		// dd(123456);
+		try {
+
+			$vistor = Siteoption::where('key','visitors')->first();
+			$vistor->increment('value');
+			return $vistor->value;
+
+		}catch (Exception $e) {
+
+			return abort(404);
+		}
+	}
+
+	static public function updatedon(){
+		try{
+			$updatedon = Siteoption::where('key','siteupdateOn')->first();
+			// dd($updatedon);
+			return $updatedon->value;
+		}catch (Exception $e) {
+			return abort(404);
+		}
+
+	}
+
+	public function getallEvents(Request $request)
+	{
+		try{
+			$categories = EventCat::all();
+			if($request->input('search') == 'search')
+			{
+
+				$events =  DB::table('events')
+					->leftJoin('users', 'users.id', '=', 'events.user_id')
+					->leftJoin('usermetas', 'usermetas.user_id', '=', 'events.user_id')
+					->leftJoin('event_cats', 'event_cats.id', '=', 'events.category')
+					->orderBy('events.eventimage1','desc')
+					->select(['events.id','event_cats.name  as catname','events.eventimage1','events.eventimage2','events.name as eventname','events.eventstartdate','users.name'])
+
+					->where('events.category',$request->category)
+					->whereNotNull('events.eventimage1');
+					$count = $events->count();
+					$events = $events->paginate(40);
+			}
+			else{
+			$events =  DB::table('events')
+					->Join('users', 'users.id', '=', 'events.user_id')
+
+					->Join('event_cats', 'event_cats.id', '=', 'events.category')
+					->orderBy('events.eventimage1','desc')
+					->select(['events.id','event_cats.name  as catname','events.eventimage1','events.eventimage2','events.name as eventname','events.eventstartdate','users.name'])
+
+					->whereNotNull('events.eventimage1');
+
+			$count = $events->count();
+			$events = $events->paginate(40);
+			}
+			return view('all-events',compact('events','categories','count'));
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function showEvent($id)
+	{
+		// dd($id);
+		try{
+			$events =  DB::table('events')
+					->Join('users', 'users.id', '=', 'events.user_id')
+					->Join('event_cats', 'event_cats.id', '=', 'events.category')
+					->select(['event_cats.name  as catname','events.eventstartdate', 'events.eventenddate', 'events.eventimage1','events.name as eventname','users.name'])
+					->where('events.id',$id)
+					->first();
+			// $events =  DB::table('events')->where('events.id',$id)->first();
+			if($events != null){
+				// dd($events);
+				return view('show-events-list',compact('events'));
+			}else{
+				$data = "Event has been expired";
+				return view('data-not-found',compact('data'));
+			}
+
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function showVideo(Request $request)
+	{
+		try{
+			$categories = EventCat::all();
+			if($request->input('search') == 'search')
+			{
+
+				$events =  DB::table('events')
+					->leftJoin('users', 'users.id', '=', 'events.user_id')
+					->leftJoin('usermetas', 'usermetas.user_id', '=', 'events.user_id')
+					->leftJoin('event_cats', 'event_cats.id', '=', 'events.category')
+					->orderBy('events.video','desc')
+					->select(['events.id','event_cats.name  as catname','events.name as eventname','events.video','users.name','usermetas.city','usermetas.state'])
+
+					->where('events.category', $request->category)
+					->whereNotNull('events.video')->paginate(40);
+
+			}
+			else{
+
+			$events =  DB::table('events')
+					->leftJoin('users', 'users.id', '=', 'events.user_id')
+					->leftJoin('usermetas', 'usermetas.user_id', '=', 'events.user_id')
+					->leftJoin('event_cats', 'event_cats.id', '=', 'events.category')
+					->orderBy('events.video','desc')
+					->select(['events.id','event_cats.name  as catname','events.name as eventname','events.video','users.name','usermetas.city','usermetas.state'])
+
+					->whereNotNull('events.video')
+					->paginate(40);
+
+
+			}
+			return view('video-stream',compact('events','categories'));
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function getallPhotos(Request $request)
+	{
+		try{
+
+			$categories = EventCat::all();
+			if($request->input('search') == 'search')
+			{
+
+				$events =  DB::table('events')
+					->leftJoin('users', 'users.id', '=', 'events.user_id')
+					->leftJoin('usermetas', 'usermetas.user_id', '=', 'events.user_id')
+					->leftJoin('event_cats', 'event_cats.id', '=', 'events.category')
+					->select(['events.id','event_cats.name  as catname','events.name as eventname','users.name','usermetas.city','usermetas.state','events.eventimage1','events.eventimage2'])
+					->orderBy('events.eventimage1','desc')
+					->where('events.category',$request->category)
+					->whereNotNull('events.eventimage1')->paginate(40);
+
+			}
+			else{
+
+			$events =  DB::table('events')
+					->leftJoin('users', 'users.id', '=', 'events.user_id')
+					->leftJoin('usermetas', 'usermetas.user_id', '=', 'events.user_id')
+					->leftJoin('event_cats', 'event_cats.id', '=', 'events.category')
+					->select(['events.id','event_cats.name  as catname','events.name as eventname','users.name','usermetas.city','usermetas.state','events.eventimage1','events.eventimage2'])
+					->orderBy('events.eventimage1','desc')
+					->whereNotNull('events.eventimage1')
+					->paginate(40);
+
+
+			}
+			return view('photo-stream',compact('events','categories'));
+
+		}catch (Exception $e) {
+			return abort(404);
+		}
+
+	}
+
+	public function feedback()
+	{
+		try{
+			return view('feedback');
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function feedbackStore(Request $request)
+	{
+		try{
+			$request->validate([
+			'department' => 'required',
+			'name' => 'required',
+			'email' =>'required',
+			'mobile' => 'required|digits:10',
+			'feedback' => 'required',
+			]);
+			$feedback = new Feedback();
+			$feedback->department = $request->department;
+			$feedback->name = $request->name;
+			$feedback->email = $request->email;
+			$feedback->mobile = $request->mobile;
+			$feedback->feedback = $request->feedback;
+			$feedback->save();
+
+			try {
+					$email = 'contact.fitindia@gmail.com';
+					//$email = 'partnership.fitindia@gmail.com';
+					$message = "Dear Fit India Team,";
+					$message.= "<br><br>";
+
+					$message .= "Below are request for Fit India FEEDBACK";
+					$message.= "<br><br>";
+					$message.= $request->department."<br>";
+					$message.=  $request->name."<br>";
+					$message.=  $request->email."<br>";
+					$message.=  $request->mobile."<br>";
+					$message.=  $request->feedback."<br>";
+
+
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_URL,"http://10.247.140.87/mail.php");
+						curl_setopt($ch, CURLOPT_POST, 1);
+						curl_setopt($ch, CURLOPT_POSTFIELDS,"user_email=$email&message=$message&subject='Fit India FEEDBACK Request'");
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						$server_output = curl_exec($ch);
+						curl_close ($ch);
+
+
+				}
+				catch (Exception $e) {
+					return $e->message();
+				}
+
+
+			return back()->with('message','Thank you!!! for your response');
+
+		}catch (Exception $e) {
+			return abort(404);
+		}
+
+	}
+
+	public function shareStory(Request $request)
+	{
+		try{
+			$states = State::all();
+			return view('your-story',compact('states'));
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function saveStory(Request $request)
+	{
+		try{
+			$image = '';
+			$year = date("Y/m");
+			/*
+			if($request->file('image'))
+			{
+				$image = $request->file('image')->store($year,['disk'=> 'uploads']);
+				$image = url('wp-content/uploads/'.$image);
+			}
+			*/
+			$request->validate([
+				//'youare' => 'required|string|min:3|max:255',
+				'mobile' => 'required|digits:10',
+				'designation' => 'required|string|min:3|max:255',
+				'email' => 'required|string|email|max:255',
+				'fullname' => 'required|string|min:3|max:255',
+				'videourl' => 'required',
+				'state' => 'required',
+				'title' => 'required|string|min:3|max:255',
+			//  'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+				'story' => 'required|string|min:3|max:255',
+				'captcha' => ['required', 'captcha'],
+			]);
+
+			$yourstory = new Shareyourstory;
+			//$yourstory->youare = $request->youare;
+			$yourstory->mobile = $request->mobile;
+			$yourstory->designation = $request->designation;
+			$yourstory->email = $request->email;
+			$yourstory->fullname = $request->fullname;
+			$yourstory->videourl = $request->videourl;
+			$yourstory->title = $request->title;
+		// $yourstory->image =  $image;
+			$yourstory->story = $request->story;
+			$yourstory->state = $request->state;
+			$yourstory->save();
+
+				try {
+					$email = 'fitnessstories123@gmail.com';
+					//$email = 'dasshaktiraj@gmail.com';
+					$message = "Dear Fit India Team,";
+					$message.= "<br><br>";
+
+					$message .= "Below are request for Fit India SHARE YOUR STORY";
+					$message.= "<br><br>";
+					$message.=  "Name : ".$request->fullname."<br>";
+					//$message.= $request->youare."<br>";
+					$message.=  "Designation : ".$request->designation."<br>";
+					$message.=  "Email id : ".$request->email."<br>";
+					$message.=  "Contact No : ".$request->mobile."<br>";
+					$message.= "State : ".$request->state."<br>";
+					$message.=  "URL : ".$request->videourl."<br>";
+
+					$message.= "Story title : ".$request->title."<br>";
+					$message.= "Your Story : ".$request->story."<br>";
+
+
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_URL,"http://10.247.140.87/mail.php");
+						curl_setopt($ch, CURLOPT_POST, 1);
+						curl_setopt($ch, CURLOPT_POSTFIELDS,"user_email=$email&message=$message&subject='Fit India SHARE YOUR STORY Request'");
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						$server_output = curl_exec($ch);
+						curl_close ($ch);
+
+
+				}
+					catch (Exception $e) {
+					return $e->message();
+				}
+
+
+			return back()->with('message',"Your story has been successfully submitted, Fit India Team will review it, if approved, the story will be displayed on the Fit India Portal/Social Media handles.");
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+
+	public function schoolQuiz(Request $request)
+	{
+		try{
+			return view('school-quiz');
+		}catch (Exception $e) {
+			return abort(404);
+		}
+
+	}
+
+
+	public function saveQuiz(Request $request)
+	{
+		try{
+			echo '<pre>';
+			$cnt = $request->noofstud;
+
+
+			for($i=0; $i<$cnt; $i++){
+
+				$image = '';
+				$year = date("Y/m");
+
+
+				if(!empty($request->file('image')[$i]))
+				{
+					$image = $request->file('image')[$i]->store( $year,['disk'=> 'uploads']);
+					$image = url('wp-content/uploads/'.$image);
+				}
+
+
+
+				$schoolquiz[] = [
+
+
+				'studentname' => $request->studentname[$i],
+				'mobile' => $request->mobile[$i],
+				'class' => $request->class[$i],
+				'age' => $request->age[$i],
+				'email' => $request->email[$i],
+				'image' => $image,
+				'gender' => $request->gender[$i][0],
+
+
+				];
+
+
+			}
+			Schoolquiz::insert($schoolquiz);
+			return back()->with('message','Student details submitted Successfully');
+
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function downloadSchoolBanner(){
+		try{
+			$banner_type = $_REQUEST['banner_type'];
+			if($banner_type=='week_1'){
+				$school_name = $_REQUEST['school_name'];
+				$pdf = PDF::loadView('school-week-banner',['school_name' => $school_name])->setPaper('a4', 'landscape');
+			}elseif($banner_type=='week_2'){
+				$school_name = $_REQUEST['school_name'];
+				$pdf = PDF::loadView('school-week-banner_second',['school_name' => $school_name])->setPaper('a4', 'landscape');
+			}else{
+				$school_name = $_REQUEST['school_name'];
+				$pdf = PDF::loadView('school-week-banner_third',['school_name' => $school_name])->setPaper('a4', 'landscape');
+			}
+
+			return $pdf->stream($school_name.".pdf");
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+	public function fitindschoolweek2022(){
+		try{
+    		return view('fitIndiaSchoolWeek2022.fit-india-school-week');
+		}catch (Exception $e) {
+			return abort(404);
+		}
+    }
+
+	// public function duplicate_email_check($emailid){
+	public function duplicate_email_check(Request $request){
+
+		try{
+
+			// dd($request->all());
+            $role_name = $request['role_name'];
+			$currentdatetime = time();
+			$iv = "fedcba9876543210"; #Same as in JAVA
+			$key = "0a9b8c7d6e5f4g3h"; #Same as in JAVA
+
+			$reqtimeencrypt = $this->encrypt($key, $iv, $currentdatetime);
+			$reqtimeencrypt_trim = trim($reqtimeencrypt);
+
+			$key = $currentdatetime.'fitind';
+			$phone = "";
+			$emailid = $request->email;
+			// dd($emailid);
+			$emailencrypt_trim = $this->encrypt($key, $iv, $emailid);
+			$phoneencrypt_trim = $this->encrypt($key, $iv, $phone);
+
+			$records = DB::table('users')
+							->where('email', $emailid)
+							->get();
+
+			if(count($records) == 0 || $role_name == "bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi" || $role_name == "bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==" || $role_name == "Y3ljbG90aG9uLTIwMjQ="){
+
+				$success = 'No duplicate';
+				// $apiurl = config('app.api_url').'generateotpvtwo';
+				// $response = Http::post($apiurl, [
+                // $response = Http::post('http://localhost/fit_india_api_git/api/v2/generateotpvtwo', [
+				$response = Http::post('https://service.fitindia.gov.in/api/v2/generateotpvtwo', [
+
+						'reqtime' => $reqtimeencrypt_trim,
+						'email' => $emailencrypt_trim,
+						'mobile' => $phoneencrypt_trim,
+
+				]);
+				// dd($response->collect());
+				$Registrationemail = new Registrationemailotp;
+				$Registrationemail->mode = "email";
+				$Registrationemail->email = $emailid;
+				$Registrationemail->verify_otp = 1;
+				$Registrationemail->save();
+				return response()->json(['success' => true]);
+
+			}else if(count($records)> 0){
+				// dd(count($records));
+				$error = 'Duplicate Email';
+				return response()->json(['success' => false, 'error' => $error]);
+
+			}
+
+		}catch (Exception $e) {
+			return response()->json(['error' => $e->getMessage()]);
+			// return abort(404);
+		}
+	}
+
+	public function duplicate_mobile_check(Request $request){
+
+		try{
+
+			// dd($request->all());
+			$currentdatetime = time();
+			$iv = "fedcba9876543210"; #Same as in JAVA
+			$key = "0a9b8c7d6e5f4g3h"; #Same as in JAVA
+
+			$reqtimeencrypt = $this->encrypt($key, $iv, $currentdatetime);
+			$reqtimeencrypt_trim = trim($reqtimeencrypt);
+
+			$key = $currentdatetime.'fitind';
+			$emailid = "";
+			$phone = trim($request->phone_number);
+			$emailencrypt_trim = $this->encrypt($key, $iv, $emailid);
+			$phoneencrypt_trim = $this->encrypt($key, $iv, $phone);
+            $role_name = $request['role_name'];
+
+			$records = DB::table('users')
+							->where('phone', $phone)
+							->get();
+			// dd(count($records));
+			if(count($records) == 0 || $role_name == "bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi" || $role_name == "bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==" || $role_name == "Y3ljbG90aG9uLTIwMjQ="){
+
+				$success = 'No duplicate';
+				$apiurl = config('app.api_url').'generateotpvtwo';
+				// $response = Http::post($apiurl, [
+				// $response = Http::post('http://localhost/fit_india_api_git/api/v2/generateotpvtwo', [
+				$response = Http::post('https://service.fitindia.gov.in/api/v2/generateotpvtwo', [
+
+						'reqtime' => $reqtimeencrypt_trim,
+						'email' => $emailencrypt_trim,
+						'mobile' => $phoneencrypt_trim,
+
+				]);
+				// dd($response->collect());
+				$Registrationemail = new Registrationemailotp;
+				$Registrationemail->mode = "mobile";
+				$Registrationemail->mobile = $phone;
+				$Registrationemail->verify_otp = 1;
+				$Registrationemail->save();
+				return response()->json(['success' => true]);
+
+			}else if(count($records)> 0){
+
+				$error = 'Duplicate Email';
+				return response()->json(['success' => false, 'error' => $error]);
+
+			}
+
+		}catch (Exception $e) {
+
+			return response()->json(['error' => $e->getMessage()]);
+
+		}
+	}
+
+	public function email_otp_check(Request $request){
+
+		try{
+
+			$currentdatetime = time();
+			$iv = "fedcba9876543210"; #Same as in JAVA
+			$key = "0a9b8c7d6e5f4g3h"; #Same as in JAVA
+
+			$reqtimeencrypt = $this->encrypt($key, $iv, $currentdatetime);
+			$reqtimeencrypt_trim = trim($reqtimeencrypt);
+			$otp_v = trim($request->otp_value);
+			$otp_valuecrypt_trim = $this->encrypt($key, $iv, $otp_v);
+
+			$key = $currentdatetime.'fitind';
+			$email_trim = trim($request->email);
+			$emailencrypt_trim = $this->encrypt($key, $iv, $email_trim);
+
+			$apiurl = config('app.api_url').'verifyingemail';
+			// $response = Http::post($apiurl, [
+			// $response = Http::post('http://localhost/fit_india_api_git/api/v2/verifyingemail', [
+			$response = Http::post('https://service.fitindia.gov.in/api/v2/verifyingemail', [
+
+						'reqtime' => $reqtimeencrypt_trim,
+						'email' => $emailencrypt_trim,
+						'otp' => $otp_valuecrypt_trim,
+				]);
+
+			// dd($response->collect());
+			// dd($response['success']);
+			if($response['success'] == true){
+
+				$records = DB::table('registration_email_otp_trackings')
+							->where('email', $email_trim)
+							->orderBy('id', 'desc')
+							->first();
+				Registrationemailotp::query()->where(['id' => $records->id])
+						->take(1)->update(['verified_otp' => 1]);
+
+				$message = $response['message'];
+				return response()->json(['success' => true, 'message' => $message]);
+
+			}else{
+				// dd('111');
+                return response()->json(['success' => false]);
+
+            }
+
+		}catch (Exception $e) {
+
+			return response()->json(['error' => $e->getMessage()]);
+
+		}
+	}
+
+	public function mobile_otp_check(Request $request){
+
+		try{
+			// dd($request->all());
+			$currentdatetime = time();
+			$iv = "fedcba9876543210"; #Same as in JAVA
+			$key = "0a9b8c7d6e5f4g3h"; #Same as in JAVA
+
+			$reqtimeencrypt = $this->encrypt($key, $iv, $currentdatetime);
+			$reqtimeencrypt_trim = trim($reqtimeencrypt);
+			$otp_v = trim($request->otp_value);
+			$otp_valuecrypt_trim = $this->encrypt($key, $iv, $otp_v);
+
+			$key = $currentdatetime.'fitind';
+			$email_trim = trim($request->mobile);
+			$emailencrypt_trim = $this->encrypt($key, $iv, $email_trim);
+			$apiurl = config('app.api_url').'verifyingemail';
+			// $response = Http::post($apiurl, [
+			// $response = Http::post('http://localhost/fit_india_api_git/api/v2/verifyingemail', [
+			$response = Http::post('https://service.fitindia.gov.in/api/v2/verifyingemail', [
+
+						'reqtime' => $reqtimeencrypt_trim,
+						'email' => $emailencrypt_trim,
+						'otp' => $otp_valuecrypt_trim,
+				]);
+
+			// dd($response->collect());
+
+			if($response['success'] == true){
+
+				$records = DB::table('registration_email_otp_trackings')
+							->where('mobile', $email_trim)
+							->orderBy('id', 'desc')
+							->first();
+				Registrationemailotp::query()->where(['id' => $records->id])
+						->take(1)->update(['verified_otp' => 1]);
+
+				$message = $response['message'];
+				return response()->json(['success' => true, 'message' => $message]);
+
+			}else{
+
+                return response()->json(['success' => false]);
+
+            }
+
+		}catch (Exception $e) {
+
+			return response()->json(['error' => $e->getMessage()]);
+
+		}
+	}
+
+	// registercopy
+	public function registercopy(Request $request){
+		try{
+			// dd('registercopy');
+			$roles = Role::where('groupof', 1)
+					->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
+				$districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+
+				$blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
+				// dd($blocks->toArray());
+				$state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+
+				return view('auth.registercopy', compact('roles', 'state', 'districts', 'blocks'));
+		}catch (Exception $e) {
+
+			return response()->json(['error' => $e->getMessage()]);
+
+		}
+	}
+	
+	public function useremailw(Request $request){
+		try{
+			// dd('useremailw');
+			$users = DB::table('users')
+                ->select('id','email','name')
+                ->where('email','=','ankit.katiyar@netprophetsglobal.com')
+                ->get();
+			if(count($users) > 0 ){
+            
+				// \Log::info($users);
+				foreach ($users as $users_data) {
+	
+					$email = $users_data->email;
+					$name = $users_data->name;
+					$curl = curl_init();
+					curl_setopt_array($curl, array(
+						CURLOPT_URL => "http://10.246.120.18/test/mail/useremailsend.php?email=$email&name=$name",						   
+						CURLOPT_RETURNTRANSFER => true,
+						CURLOPT_ENCODING => '',
+						CURLOPT_MAXREDIRS => 10,
+						CURLOPT_TIMEOUT => 0,
+						CURLOPT_FOLLOWLOCATION => true,
+						CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+						CURLOPT_CUSTOMREQUEST => 'GET',
+					));
+					
+					$response = curl_exec($curl);
+					//dd($response);
+					curl_close($curl);
+					//$new_response = json_decode($response, true);
+					if($response){
+						return true;
+					}else{
+						return false;
+					}
+				
+					
+					\Log::info($email);
+				}
+				
+			}
+		}catch (Exception $e) {
+
+			return response()->json(['error' => $e->getMessage()]);
+
+		}
+	}
+}
