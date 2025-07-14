@@ -63,6 +63,12 @@ use App\Http\Controllers\Admin\WebsiteQuickChageController;
 
 use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\Admin\Auth\PushNotificationController;
+
+/* Use for Quiz master */
+use App\Http\Controllers\Admin\QuizMaster\QuizCategoryController;
+use App\Http\Controllers\Admin\QuizMaster\QuizTitleController;
+use App\Http\Controllers\Admin\QuizMaster\QuizQuestionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -960,5 +966,32 @@ Route::post('import-excel', [App\Http\Controllers\SocadminImportController::clas
 Route::get('/admin/banner-update', [App\Http\Controllers\Admin\WebsiteQuickChangeController::class, 'edit'])->name('banner.edit');
 Route::post('/admin/banner-update', [App\Http\Controllers\Admin\WebsiteQuickChangeController::class, 'update'])->name('banner.update');
 
+/* Below Routes for daily Dashboard */
+Route::get('quiz-dashboard', function () {
+    // dd('heer');
+    return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
+})->name('admin.Quizmaster.quiz-categories.quiz_dashboard');;
 
+    Route::get('quiz-categories', [QuizCategoryController::class, 'index'])->name('admin.quiz-categories.index');
+    Route::get('quiz-categories/create', [QuizCategoryController::class, 'create'])->name('admin.quiz-categories.create');
+    Route::post('quiz-categories', [QuizCategoryController::class, 'store'])->name('admin.quiz-categories.store');
+    Route::get('quiz-categories/{id}/edit', [QuizCategoryController::class, 'edit'])->name('admin.quiz-categories.edit');
+    Route::put('quiz-categories/{id}', [QuizCategoryController::class, 'update'])->name('admin.quiz-categories.update');
+    Route::delete('quiz-categories/{id}', [QuizCategoryController::class, 'destroy'])->name('admin.quiz-categories.destroy');
+
+    // 🔹 Quiz Titles
+    Route::get('quiz-titles', [QuizTitleController::class, 'index'])->name('admin.quiz-titles.index');
+    Route::get('quiz-titles/create', [QuizTitleController::class, 'create'])->name('admin.quiz-titles.create');
+    Route::post('quiz-titles', [QuizTitleController::class, 'store'])->name('admin.quiz-titles.store');
+    Route::get('quiz-titles/{id}/edit', [QuizTitleController::class, 'edit'])->name('admin.quiz-titles.edit');
+    Route::put('quiz-titles/{id}', [QuizTitleController::class, 'update'])->name('admin.quiz-titles.update');
+    Route::delete('quiz-titles/{id}', [QuizTitleController::class, 'destroy'])->name('admin.quiz-titles.destroy');
+
+    // 🔹 Quiz Questions
+    Route::get('quiz-questions', [QuizQuestionController::class, 'index'])->name('admin.quiz-questions.index');
+    Route::get('quiz-questions/create', [QuizQuestionController::class, 'create'])->name('admin.quiz-questions.create');
+    Route::post('quiz-questions', [QuizQuestionController::class, 'store'])->name('admin.quiz-questions.store');
+    Route::get('quiz-questions/{id}/edit', [QuizQuestionController::class, 'edit'])->name('admin.quiz-questions.edit');
+    Route::put('quiz-questions/{id}', [QuizQuestionController::class, 'update'])->name('admin.quiz-questions.update');
+    Route::delete('quiz-questions/{id}', [QuizQuestionController::class, 'destroy'])->name('admin.quiz-questions.destroy');
 URL::forceScheme('https');
