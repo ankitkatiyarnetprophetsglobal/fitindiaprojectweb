@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class QuizTitleController extends Controller
 {
     public function index() {
-        $titles = QuizTitleList::with('category')->get();
+        $titles = QuizTitleList::with('category')->paginate(10);
         return view('admin.Quizmaster.quiz_titles.index', compact('titles'));
     }
 

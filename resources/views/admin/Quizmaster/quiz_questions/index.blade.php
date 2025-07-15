@@ -2,10 +2,16 @@
 @section('content')
 <div class="container">
     <h2>Quiz Questions</h2>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <a href="{{ route('admin.quiz-questions.create') }}" class="btn btn-primary mb-2">Add Question</a>
     <table class="table table-bordered">
         <tr>
-            <th>Question</th><th>Quiz</th><th>Answer</th><th>Actions</th>
+            <th>Question</th>
+            <th>Quiz</th>
+            <th>Answer</th>
+            <th>Actions</th>
         </tr>
         @foreach($questions as $q)
         <tr>
@@ -22,5 +28,9 @@
         </tr>
         @endforeach
     </table>
+     {{-- ✅ Pagination --}}
+    <div class="mt-3">
+        {{ $questions->links('pagination::bootstrap-4') }}
+    </div>
 </div>
 @endsection

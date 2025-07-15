@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <h2>Quiz Titles</h2>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <a href="{{ route('admin.quiz-titles.create') }}" class="btn btn-primary mb-2">Add Quiz</a>
     <table class="table table-bordered">
         <thead>
@@ -48,5 +51,9 @@
         @endforeach
         </tbody>
     </table>
+     {{-- ✅ Pagination --}}
+    <div class="mt-3">
+        {{ $titles->links('pagination::bootstrap-4') }}
+    </div>
 </div>
 @endsection

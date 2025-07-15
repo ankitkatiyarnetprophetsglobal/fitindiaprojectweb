@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
     <h2>Quiz Categories</h2>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <a href="{{ route('admin.quiz-categories.create') }}" class="btn btn-primary mb-2">Add Category</a>
 
     <table class="table table-bordered table-striped">
@@ -17,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($categories as $cat)
+            @foreach($categories as $key=>$cat)
             <tr>
                 <td>{{ $cat->name }}</td>
                 <td>
