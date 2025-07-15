@@ -10,38 +10,30 @@ use App\Http\Controllers\Controller;
 class QuizQuestionController extends Controller
 {
     public function index() {
-        $questions = QuizQuestionAnswer::with('quiz')->get();
+        $questions = QuizQuestionAnswer::with('quiz')->paginate(10);
         return view('admin.Quizmaster.quiz_questions.index', compact('questions'));
     }
 
     public function create() {
         $categories = QuizCategory::all();
-        $titles = QuizTitleList::all();
-        return view('admin.Quizmaster.quiz_questions.create', compact('categories', 'titles'));
+        $quizzes = QuizTitleList::all();
+        return view('admin.Quizmaster.quiz_questions.create', compact('categories', 'quizzes'));
     }
 
     public function store(Request $request) {
+      $request->validate([
+        'question' => 'required|string',
+        'quiz_categories_id' => 'required|integer',
+        'quiz_title_list_id' => 'required|integer',
+        'option1' => 'required|string',
+        'option2' => 'required|string',
+        'option2' => 'required|string',
+        'answer' => 'required|string',
+        'mark' => 'required|integer', // ✅ validate mark is an integer
+        'time' => 'required|integer', // ✅ validate mark is an integer
+    ]);
 
-        $request->validate([
-            'question' => 'required',
-            'quiz_categories_id' => 'required|exists:quiz_categories,id',
-            'quiz_title_list_id' => 'required|exists:quiz_titles,id',
-            'option1' => 'required',
-            'option2' => 'required',
-            'answer' => 'required',
-            'ans_remark' => 'nullable|string',
-            'mark' => 'required|integer|min:0',
-            'time' => 'required|date_format:H:i',
-            'lang' => 'nullable|string|max:10',
-            'status' => 'boolean',
-        ]);
-
-        $data = $request->all();
-
-        // Ensure status is set (checkbox may be missing if unchecked)
-        $data['status'] = $request->has('status') ? 1 : 0;
-
-        QuizQuestionAnswer::create($data);
+        QuizQuestionAnswer::create($request->all());
         return redirect()->route('admin.quiz-questions.index')->with('success', 'Question added.');
     }
 
@@ -53,6 +45,17 @@ class QuizQuestionController extends Controller
     }
 
     public function update(Request $request, $id) {
+    $request->validate([
+        'question' => 'required|string',
+        'quiz_categories_id' => 'required|integer',
+        'quiz_title_list_id' => 'required|integer',
+        'option1' => 'required|string',
+        'option2' => 'required|string',
+        'option2' => 'required|string',
+        'answer' => 'required|string',
+        'mark' => 'required|integer', // ✅ validate mark is an integer
+        'time' => 'required|integer', // ✅ validate mark is an integer
+    ]);
         $question = QuizQuestionAnswer::findOrFail($id);
         $question->update($request->all());
         return redirect()->route('admin.quiz-questions.index')->with('success', 'Updated.');

@@ -27,6 +27,25 @@
         <div class="form-group"><label>Option 4</label><input name="option4" value="{{ $question->option4 }}" class="form-control"></div>
         <div class="form-group"><label>Option 5</label><input name="option5" value="{{ $question->option5 }}" class="form-control"></div>
         <div class="form-group"><label>Answer</label><input name="answer" value="{{ $question->answer }}" class="form-control" required></div>
+           <div class="form-group"><label>Answer Remark</label><input name="ans_remark" value="{{ $question->ans_remark }}" class="form-control" required></div>
+        <div class="form-group"><label>Mark</label><input name="mark" value="{{ $question->mark }}" class="form-control" required></div>
+        <div class="form-group"><label>Duration</label><input name="time" value="{{ $question->time }}" class="form-control" required></div>
+       {{-- Language --}}
+        <div class="form-group mt-3">
+            <label>Language</label>
+            <select name="lang" class="form-control">
+                <option value="en" {{ $question->lang == 'en' ? 'selected' : '' }}>English</option>
+                <option value="hi" {{ $question->lang == 'hi' ? 'selected' : '' }}>Hindi</option>
+                <!-- Add more languages if needed -->
+            </select>
+        </div>
+
+        {{-- Status --}}
+        <div class="form-check mt-3">
+            <input type="checkbox" name="status" class="form-check-input" id="status"
+                   value="1" {{ $question->status == 1 ? 'checked' : '' }}>
+            <label class="form-check-label" for="status">Active</label>
+        </div>
         <br>
         <button class="btn btn-success">Update</button>
     </form>
