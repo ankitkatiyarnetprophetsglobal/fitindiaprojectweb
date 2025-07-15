@@ -938,4 +938,74 @@ class CsveventController extends Controller
             return Response::download($filename, "Fit India user list.csv", $headers);
 
     }
+
+    function socEventReport13072025(){
+
+
+
+        $query = "SELECT * FROM soc_event_participations WHERE created_at BETWEEN '2025-06-18 00:00:00' AND '2025-06-18 23:59:59';";
+
+        $data = DB::select(DB::raw($query));
+
+            $headers = array(
+                'Content-Type' => 'text/csv'
+            );
+
+        // dd($data);
+            $filename =  public_path("event13072025.csv");
+            $handle = fopen($filename, 'w');
+
+
+            fputcsv($handle, [
+                     "id",
+                    "socemid",
+                    "user_id",
+                    "uname",
+                    "cycle",
+                    "cycle_booking",
+                    "cycle_waiting",
+                    "t_shirt",
+                    "tshart_booking",
+                    "tshirt_waiting",
+                    "meal",
+                    "meal_booking",
+                    "meal_waiting",
+                    "latitude",
+                    "longitude",
+                    "event_date",
+                    "status",
+                    "created_at",
+                    "updated_at"
+            ]);
+
+            foreach ($data as $each_user) {
+                // dd($each_user->KheloIndiaId);
+                fputcsv($handle, [
+                        $each_user->id,
+                        $each_user->socemid,
+                        $each_user->user_id,
+                        $each_user->uname,
+                        $each_user->cycle,
+                        $each_user->cycle_booking,
+                        $each_user->cycle_waiting,
+                        $each_user->t_shirt,
+                        $each_user->tshart_booking,
+                        $each_user->tshirt_waiting,
+                        $each_user->meal,
+                        $each_user->meal_booking,
+                        $each_user->meal_waiting,
+                        $each_user->latitude,
+                        $each_user->longitude,
+                        $each_user->event_date,
+                        $each_user->status,
+                        $each_user->created_at,
+                        $each_user->updated_at
+                ]);
+
+            }
+
+            fclose($handle);
+            return Response::download($filename, "soceventdata.csv", $headers);
+
+    }
 }

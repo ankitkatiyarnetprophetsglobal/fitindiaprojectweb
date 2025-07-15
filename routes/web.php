@@ -765,6 +765,7 @@ Route::get('event_role_wise_user_registration', [\App\Http\Controllers\CsveventC
 Route::get('event_date_wise_user_registration', [\App\Http\Controllers\CsveventController::class, 'event_date_wise_user_registration']);
 Route::get('demandreport2023', [\App\Http\Controllers\CsveventController::class, 'demandreport2023']);
 Route::get('one-year-users', [\App\Http\Controllers\CsveventController::class, 'one_year_users']);
+Route::get('soc-event-report', [\App\Http\Controllers\CsveventController::class, 'socEventReport13072025']);
 // Route::get('all_data_registration', [\App\Http\Controllers\CsveventController::class, 'all_data_registration']);
 
 Route::get('delete-user-details', [\App\Http\Controllers\CsveventController::class, 'delete_user_detail']);
