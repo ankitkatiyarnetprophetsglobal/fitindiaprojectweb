@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\QuizMaster;
+namespace App\Http\Controllers\Admin\Auth\QuizMaster;
 use App\Models\QuizmasterModel\QuizCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 class QuizCategoryController extends Controller
 {
     public function index() {
+
         $categories = QuizCategory::paginate(10);
         return view('admin.Quizmaster.quiz_categories.index', compact('categories'));
     }

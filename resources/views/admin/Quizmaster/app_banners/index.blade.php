@@ -8,7 +8,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('app_banners.create') }}" class="btn btn-primary mb-3">+ Add New</a>
+    <a href="{{ route('admin.app_banners.create') }}" class="btn btn-primary mb-3">+ Add New</a>
 
     <table class="table table-bordered table-sm">
         <thead>
@@ -32,8 +32,8 @@
                     <td>{{ $banner->order }}</td>
                     <td>{{ $banner->status }}</td>
                     <td>
-                        <a href="{{ route('app_banners.edit', $banner->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('app_banners.destroy', $banner->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('admin.app_banners.edit', $banner->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.app_banners.destroy', $banner->id) }}" method="POST" style="display:inline;">
                             @csrf @method('DELETE')
                             <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this?')">Delete</button>
                         </form>

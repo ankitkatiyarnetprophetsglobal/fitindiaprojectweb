@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\QuizMaster;
+namespace App\Http\Controllers\Admin\Auth\QuizMaster;
 use App\Models\QuizmasterModel\AppBanner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,7 +36,7 @@ public function store(Request $request)
 
     AppBanner::create($request->all());
 
-    return redirect()->route('app_banners.index')->with('success', 'Banner added successfully!');
+    return redirect()->route('admin.app_banners.index')->with('success', 'Banner added successfully!');
 }
 
 public function edit($id)
@@ -63,13 +63,13 @@ public function update(Request $request, $id)
     $banner = AppBanner::findOrFail($id);
     $banner->update($request->all());
 
-    return redirect()->route('app_banners.index')->with('success', 'Banner updated successfully!');
+    return redirect()->route('admin.app_banners.index')->with('success', 'Banner updated successfully!');
 }
 
 public function destroy($id)
 {
     AppBanner::destroy($id);
-    return redirect()->route('app_banners.index')->with('success', 'Banner deleted successfully!');
+    return redirect()->route('admin.app_banners.index')->with('success', 'Banner deleted successfully!');
 }
 
 }

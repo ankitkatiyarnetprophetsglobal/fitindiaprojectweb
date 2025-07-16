@@ -8,7 +8,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('app_versions.create') }}" class="btn btn-primary mb-3">+ Add New Version</a>
+    <a href="{{ route('admin.app_versions.create') }}" class="btn btn-primary mb-3">+ Add New Version</a>
 
     <table class="table table-bordered">
         <thead>
@@ -40,8 +40,8 @@
                     <td>{{ $version->release_date }}</td>
                     <td>{{ $version->created_date }}</td>
                     <td>
-                        <a href="{{ route('app_versions.edit', $version->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('app_versions.destroy', $version->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('admin.app_versions.edit', $version->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.app_versions.destroy', $version->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>

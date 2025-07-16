@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\QuizMaster;
+namespace App\Http\Controllers\Admin\Auth\QuizMaster;
 use App\Models\QuizmasterModel\AppVersion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,7 +33,7 @@ public function store(Request $request) {
     ]);
 
     AppVersion::create($request->all());
-    return redirect()->route('app_versions.index')->with('success', 'Version created successfully');
+    return redirect()->route('admin.app_versions.index')->with('success', 'Version created successfully');
 }
 
 // Edit form
@@ -59,13 +59,13 @@ public function update(Request $request, $id) {
     $version = AppVersion::findOrFail($id);
     $version->update($request->all());
 
-    return redirect()->route('app_versions.index')->with('success', 'Version updated successfully');
+    return redirect()->route('admin.app_versions.index')->with('success', 'Version updated successfully');
 }
 
 // Delete version
 public function destroy($id) {
     AppVersion::destroy($id);
-    return redirect()->route('app_versions.index')->with('success', 'Version deleted successfully');
+    return redirect()->route('admin.app_versions.index')->with('success', 'Version deleted successfully');
 }
 
 }

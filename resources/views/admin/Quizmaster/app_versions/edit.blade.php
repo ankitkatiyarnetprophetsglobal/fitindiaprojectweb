@@ -15,14 +15,14 @@
         </div>
     @endif
 
-    <form action="{{ route('app_versions.update', $version->id) }}" method="POST">
+    <form action="{{ route('admin.app_versions.update', $version->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         @include('admin.Quizmaster.app_versions.form', ['version' => $version])
 
         <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{{ route('app_versions.index') }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('admin.app_versions.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection
