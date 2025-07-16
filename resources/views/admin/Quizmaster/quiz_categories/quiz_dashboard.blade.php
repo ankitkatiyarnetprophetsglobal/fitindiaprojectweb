@@ -50,7 +50,7 @@
      <h4 class="text-center mt-5 mb-4 fw-semibold">🖼️ Manage Queries  </h4>
     <div class="row justify-content-center">
         <div class="col-md-3">
-            <a href="{{ url('admin/soc-events') }}" class="btn btn-outline-info text-dark w-100 shadow-sm">
+            <a href="{{ url('admin/query-export') }}" class="btn btn-outline-info text-dark w-100 shadow-sm">
                 <i class="bi bi-image"></i> Manage Query 
             </a>
         </div>
