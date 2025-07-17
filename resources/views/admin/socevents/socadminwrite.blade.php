@@ -13,12 +13,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Posts</h1>
+            <h1>SOC Admin(Mobile) Permission</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active"aria-current="page">Posts</li>
+              <li class="breadcrumb-item active"aria-current="page">SOC Admin(Mobile) Permission</li>
             </ol>
           </div>
         </div>

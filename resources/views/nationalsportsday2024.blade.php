@@ -84,7 +84,7 @@ $active_section_id = trim($active_section);
 <div class="banner_area1">
   <section id="{{ $active_section_id }}">
     <div class="container">
-      <div class="row">
+      <!-- <div class="row">
         <a class="freedombtn1" href="register/">Register</a>
         <a class="freedombtn3" href="{{ url('resources/pdf/national-sports-day-2024-how-to-register.pdf') }}" target="_blank">How To Register</a>
         <a class="freedombtn3 freedombtn4" href="{{ url('national-sports-day-merchandise-creatives-2024') }}" data-target="#merchandisId" target="_blank">Merchandise/Creatives</a>
@@ -92,11 +92,11 @@ $active_section_id = trim($active_section);
         <a class="freedombtn3 freedombtn4" style="background-color:#6610f2;" href="{{ url('fit-india-pledge-2024') }}">Fit India Pledge</a>
         <a class="freedombtn3 freedombtn4" style="background-color:#4267B2;" href="{{ url('past-glimpses-2024') }}" data-target="#merchandisId">Past Glimpses</a>
         {{-- <a class="freedombtn3 freedombtn4" style="background-color:#6610f2;" href="{{ url('resources/pdf/FIT-INDIA-PLEDGE-v1.pdf') }}" target="_blank">Fit India Pledge</a> --}}
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-sm-12">
           <h1 class="headingh1">National Sports Day 2024</h1>
-		        <p>
+                <p>
               National Sports Day (NSD) is celebrated every year on 29 th August to commemorate India’s deep-rooted tradition of Sports. This is also a tribute to the
               Hockey legend Major Dhyan Chand. The day also celebrates the nation’s sporting icons, honouring their contribution and dedication toward s bringing laurels to the country at
               the international stage.
@@ -164,7 +164,7 @@ $active_section_id = trim($active_section);
         <p>For more details kindly visit the following link:
         <br/>
         <a href="https://drive.google.com/drive/folders/1thgTxydnX0VfIjaLrS2DmaEle2LHHh_e?usp=sharing" target="_blank">https://drive.google.com/drive/folders/1thgTxydnX0VfIjaLrS2DmaEle2LHHh_e?usp=sharing</a></p>
-		</div>
+        </div>
       </div>
 
 

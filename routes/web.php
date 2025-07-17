@@ -215,6 +215,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::resource('posts', PostController::class);
     Route::resource('socevents', SoceventController::class);
     Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
+    Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');

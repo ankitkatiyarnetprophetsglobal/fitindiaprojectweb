@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 use App\Models\Soceventmaster;
+use App\Exports\NemoClubExport;
 
 class SoceventController extends Controller
 {
@@ -23,13 +24,12 @@ class SoceventController extends Controller
     public function index(Request $request){
 
         try{
-
             return view('admin.socevents.index');
 
         } catch(Exception $e) {
 
             dd($e->getMessage());
-		}
+        }
     }
 
     public function create(){
@@ -221,134 +221,12 @@ class SoceventController extends Controller
         }
     }
 
-    public function nemoclubdata(Request $request){
-
+    public function nemoclubdataooooooooo16072025(Request $request){
         try{
-            // dd(798789798798797978);
-            // $users_club_data = User::where('role', 'like', 'namo-fit-india-cycling-club')->get();
-
-            // $total_count_cyclothon_club = User::Join('usermetas', 'users.id', '=', 'usermetas.user_id')
-            //                                 ->select(
-            //                                     'users.id',
-            //                                     'users.name',
-            //                                     'users.email',
-            //                                     'users.role',
-            //                                     'users.rolelabel',
-            //                                     'users.phone',
-            //                                     'usermetas.gender',
-            //                                     'usermetas.city',
-            //                                     'usermetas.state',
-            //                                     'usermetas.district',
-            //                                     'usermetas.block',
-            //                                     'users.created_at'
-            //                                 )
-            //                                 ->where(function($query) {
-            //                                             $query->where('users.role', 'like', '%namo-fit-india-cycling-club%')
-            //                                                 ->orWhere('users.rolewise', 'like', '%cyclothon-2024%')
-            //                                                 ->Where('usermetas.cyclothonrole', 'club');
-            //                                         })
-            //                                 // ->where('users.rolewise', 'like', '%cyclothon-2024%')
-            //                                 // ->where('usermetas.cyclothonrole', 'club')
-            //                                 ->get();
-
-
+            
             $admins_role = Auth::user()->role_id;
             $roles = Role:: orderBy("name")->get();
-
-            // $user = DB::table('users')
-            //             ->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
-            //             // ->leftJoin('event_organizations','event_organizations.user_id','=','users.id')
-            //             ->select(
-            //                 'users.id',
-            //                 'users.name',
-            //                 'users.email',
-            //                 'users.role',
-            //                 'users.rolelabel',
-            //                 'users.phone',
-            //                 'usermetas.gender',
-            //                 'usermetas.city',
-            //                 'usermetas.state',
-            //                 'usermetas.district',
-            //                 'usermetas.block',
-            //                 'users.created_at',
-            //                 'usermetas.kit_dispatch',
-            //                 DB::raw('(
-            //                             SELECT COUNT(*)
-            //                             FROM event_organizations AS eo
-            //                             WHERE eo.user_id = users.id
-            //                             AND (eo.event_bg_image IS NOT NULL OR eo.eventimg_meta != "a:0:{}")
-            //                         ) AS event_participation')
-            //             )
-            //             ->where(function($query) {
-            //                 $query->where('users.role', 'like', '%namo-fit-india-cycling-club%')
-            //                     ->orWhere('users.rolewise', 'like', '%cyclothon-2024%')
-            //                     ->Where('usermetas.cyclothonrole', 'club');
-            //             });
-
-            // $user = $results = DB::table('users')
-            //                                     ->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
-            //                                     ->select([
-            //                                         'users.id',
-            //                                         'users.name',
-            //                                         'users.email',
-            //                                         'users.role',
-            //                                         'users.rolelabel',
-            //                                         'users.phone',
-            //                                         'usermetas.gender',
-            //                                         'usermetas.city',
-            //                                         'usermetas.state',
-            //                                         'usermetas.district',
-            //                                         'usermetas.block',
-            //                                         'users.created_at',
-            //                                         'usermetas.kit_dispatch',
-
-                                                    // Subquery to count events per user
-                                                    // DB::raw('(
-                                                    //         SELECT COUNT(eo.category)
-                                                    //         FROM event_organizations AS eo
-                                                    //         WHERE eo.user_id = users.id
-                                                    //     ) AS event_participation')
-            //                                         ])
-            //                                     ->where(function ($query) {
-            //                                         $query->where('users.role', 'like', '%namo-fit-india-cycling-club%')
-            //                                             ->orWhere('users.rolewise', 'like', '%cyclothon-2024%')
-            //                                             ->orWhere('usermetas.cyclothonrole', 'club');
-            //                                     });
-            // $data = DB::select("SELECT
-            //     users.id,
-            //     users.name,
-            //     users.email,
-            //     users.role,
-            //     users.rolelabel,
-            //     users.phone,
-            //     usermetas.gender,
-            //     usermetas.city,
-            //     usermetas.state,
-            //     usermetas.district,
-            //     usermetas.block,
-            //     users.created_at,
-            //     usermetas.kit_dispatch AS kit_status,
-            //     eventcount
-            // FROM users
-            // LEFT JOIN usermetas ON users.id = usermetas.user_id
-            // left join(
-            //         SELECT user_id, COUNT(*)eventcount
-            //         FROM event_organizations
-
-            //           where category in (13077,13078,13075) and  (
-            //               eventimg_meta != 'a:0:{}'
-            //               OR event_bg_image != ''
-            //           )
-            //           group by user_id
-            //     ) AS event_participation
-            // on users.id=event_participation.user_id
-
-            //  where users.rolewise like '%cyclothon-2024%' and usermetas.cyclothonrole = 'club' or `role` LIKE 'namo-fit-india-cycling-club';");
-            //  dd($data);
-
-
-
-        $user =    DB::table('event_organizations')
+            $user =    DB::table('event_organizations')
                             ->select('user_id', DB::raw('COUNT(*) as eventcount'))
                             ->whereIn('category', [13077, 13078, 13075])
                             ->where(function ($query) {
@@ -357,7 +235,7 @@ class SoceventController extends Controller
                             })
                             ->groupBy('user_id');
 
-        $results = DB::table('users')
+           $results = DB::table('users')
                     ->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
                     ->leftJoinSub(
                         DB::table('event_organizations')
@@ -395,26 +273,98 @@ class SoceventController extends Controller
                             ->where('usermetas.cyclothonrole', '=', 'club');
                         })->orWhere('users.role', '=', 'namo-fit-india-cycling-club');
                     });
-                    // ->get();
-            //  dd($results);
-            // dd(11313213132);
+           
             $curcount = 0;
             $count = $results->count();
             $user = $results->paginate(10);
-            // $user = $results->get();
-            // dd($user);
+          
             $flag=1;
-            // dd($user);
             return view('admin.socevents.nemoclubdata', compact('user','count','admins_role','roles'));
-            // dd($total_count_cyclothon_club);
-            // dd($total_count_cyclothon_club);
-
-            // return view('admin.socevents.index');
 
         } catch(Exception $e) {
 
             dd($e->getMessage());
-		}
+        }
+    }
+
+      public function nemoclubdata(Request $request){
+    
+        try{
+            $search = $request->user_name;
+            $admins_role = Auth::user()->role_id;
+            $roles = Role:: orderBy("name")->get();
+            $user =    DB::table('event_organizations')
+                            ->select('user_id', DB::raw('COUNT(*) as eventcount'))
+                            ->whereIn('category', [13077, 13078, 13075])
+                            ->where(function ($query) {
+                                $query->where('eventimg_meta', '!=', 'a:0:{}')
+                                    ->orWhere('event_bg_image', '!=', '');
+                            })
+                            ->groupBy('user_id');
+
+
+           $results = DB::table('users')
+                    ->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
+                    ->leftJoinSub(
+                        DB::table('event_organizations')
+                            ->select('user_id', DB::raw('COUNT(*) as eventcount'))
+                            ->whereIn('category', [13077, 13078, 13075])
+                            ->where(function ($q) {
+                                $q->where('eventimg_meta', '!=', 'a:0:{}')
+                                ->orWhere('event_bg_image', '!=', '');
+                            })
+                            ->groupBy('user_id'),
+                        'event_participation',
+                        function ($join) {
+                            $join->on('users.id', '=', 'event_participation.user_id');
+                        }
+                    )
+                    ->select(
+                        'users.id',
+                        'users.name',
+                        'users.email',
+                        'users.role',
+                        'users.rolelabel',
+                        'users.phone',
+                        'usermetas.gender',
+                        'usermetas.city',
+                        'usermetas.state',
+                        'usermetas.district',
+                        'usermetas.block',
+                        'users.created_at',
+                        'usermetas.kit_dispatch as kit_dispatch',
+                        DB::raw('IFNULL(event_participation.eventcount, 0) as event_participation')
+                    )
+                    ->where(function ($query) {
+                        $query->where(function ($q) {
+                            $q->where('users.rolewise', 'like', '%cyclothon-2024%')
+                            ->where('usermetas.cyclothonrole', '=', 'club');
+                        })->orWhere('users.role', '=', 'namo-fit-india-cycling-club');
+                    });
+           
+            if (!empty($search)) {
+                $results = $results->where(function ($q) use ($search) {
+                    $q->where('users.name', 'like', '%' . $search . '%')
+                    ->orWhere('users.email', 'like', '%' . $search . '%')
+                    ->orWhere('users.phone', 'like', '%' . $search . '%');
+                });
+            }
+            $curcount = 0;
+            $count = $results->count();
+            $user = $results->paginate(10);
+          
+            $flag=1;
+            return view('admin.socevents.nemoclubdata', compact('user','count','curcount','admins_role','roles'));
+
+        } catch(Exception $e) {
+
+            dd($e->getMessage());
+        }
+    }
+
+    public function exportNemoClubData(Request $request)
+    {
+        return Excel::download(new NemoClubExport($request->user_name), 'nemo_club_data.xlsx');
     }
 
     public function nemoclub_dispatch_status(Request $request){
@@ -466,7 +416,7 @@ class SoceventController extends Controller
         } catch(Exception $e) {
 
             dd($e->getMessage());
-		}
+        }
     }
 
     public function socadmin_write(Request $request){
@@ -493,7 +443,7 @@ class SoceventController extends Controller
         } catch(Exception $e) {
 
             dd($e->getMessage());
-		}
+        }
     }
 
     public function socadmin_create_write(Request $request){
@@ -506,7 +456,7 @@ class SoceventController extends Controller
         } catch(Exception $e) {
 
             dd($e->getMessage());
-		}
+        }
     }
 
     public function store_soc_admin_user(Request $request){
@@ -541,7 +491,7 @@ class SoceventController extends Controller
         } catch(Exception $e) {
 
             dd($e->getMessage());
-		}
+        }
     }
 
 
