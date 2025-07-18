@@ -22,7 +22,9 @@
         -ms-transform: rotate(-180deg); /* IE 9 */
         transform: rotate(-180deg); /* Standard syntax */
     }
-
+ .fit-india-dashboard .boxcolor .box-6{
+  background-color: #7c4293 !important;
+ }
 </style>
 
   <body>
@@ -77,6 +79,15 @@
             </div> --}}
           </div>
           <div class="row justify-content-center tile-detail-section">
+            <div class="col-lg-4 col-md-6 col-12 boxcolor">
+              <div class="tile-detail-box box-5 fit-india-dashboard box-6" >
+                <div class="tile-detail-img">
+                  <img style="width:66%" src="{{ asset('resources/images/dashbord/fit-india-img-6.svg') }}" class="img-fluid "/>
+                </div>
+                <h3>FIT India Sundays on Cycle</h3>
+                <p>6,04,780 participants registered from 23,356 locations till July'25</p>
+              </div>
+            </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="tile-detail-box box-1">
                 <div class="tile-detail-img">
@@ -84,7 +95,7 @@
                   {{-- <img src="" class="img-fluid" alt="" /> --}}
                 </div>
                 <h3>FIT India Mobile App Downloads</h3>
-                <p>5 Lakh Downloads</p>
+                <p>11.5+ Lakh Downloads</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -93,7 +104,7 @@
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-2.svg') }}" class="img-fluid "/>
                 </div>
                 <h3>FIT India Quiz</h3>
-                <p>1,74,473 students registered from 42,490 schools across 36 States/UTs in 2022</p>
+                <p>1,74,473 students registered from 42,490 schools across 36 States/UTs in 2025</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -102,7 +113,7 @@
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-3.svg') }}" class="img-fluid "/>
                 </div>
                 <h3>FIT India Freedom Run</h3>
-                <p>7.08 crore citizens covered 18,40,69,332 kms in 2022</p>
+                <p>7.08 crore citizens covered 18,40,69,332 kms in 2025</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -111,11 +122,11 @@
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-4.svg') }}" class="img-fluid "/>
                 </div>
                 <h3>FIT India School Week</h3>
-                <p>1,17,844 students participated in 2022</p>
+                <p>1,17,844 students participated in 2025</p>
               </div  v>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
-              <div class="tile-detail-box box-5">
+              <div class="tile-detail-box box-5 ">
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-5.svg') }}" class="img-fluid "/>
                 </div>
@@ -123,13 +134,14 @@
                 <p>75 Bikers (including 10 female bikers) covered 21,000+ kms across 75 iconic locations in 75 days</p>
               </div>
             </div>
+            
           </div>
 
           <!-- Leading States For School Certificate Requests -->
           <div class="row mt-5">
-          <div class="col-12">
+          {{-- <div class="col-12">
             <h3 class="text-center mb-5">Leading States For School Certificate Requests</h3>
-          </div>
+          </div> --}}
           <div class="col-12">
             <div class="leading-state">
                 <div class="table-responsive">
@@ -187,90 +199,6 @@
                                </tr>
                        
                        @endforeach  
-                     {{-- <tr>
-                       <td>Rajeshthan</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td style="width: 380px;">
-                           <div class="progress">
-                               <div class="progress-bar green" role="progressbar" style="width:70%"></div>
-                               <div class="progress-bar blue" role="progressbar" style="width:10%"> </div>
-                               <div class="progress-bar orange" role="progressbar" style="width:20%"> </div>                      
-                           </div>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td>Bhihar</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Gujrat</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Tamil Nadu</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Odisha</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Assam</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Jharkhand</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Karnataka</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Maharashtra</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Jammu and Kashmir</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr>
-                     <tr>
-                       <td>Punjab</td>
-                       <td><div class="green">55512</div></td>
-                       <td><div class="blue">55512</div></td>
-                       <td><div class="orange">55512</div></td>
-                       <td></td>
-                     </tr> --}}
-                     
                    </tbody>
                  </table>
                 </div>
