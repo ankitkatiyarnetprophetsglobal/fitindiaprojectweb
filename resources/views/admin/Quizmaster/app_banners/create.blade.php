@@ -10,14 +10,14 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ isset($banner) ? route('app_banners.update', $banner->id) : route('app_banners.store') }}">
+    <form method="POST" action="{{ isset($banner) ? route('admin.app_banners.update', $banner->id) : route('admin.app_banners.store') }}">
         @csrf
         @if(isset($banner)) @method('PUT') @endif
 
         @include('admin.Quizmaster.app_banners.form', ['banner' => $banner ?? null])
 
         <button type="submit" class="btn btn-success">Save</button>
-        <a href="{{ route('app_banners.index') }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('admin.app_banners.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection

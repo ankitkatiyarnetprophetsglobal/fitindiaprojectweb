@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\QuizMaster;
+namespace App\Http\Controllers\Admin\Auth\QuizMaster;
 use App\Models\QuizmasterModel\QuizCategory;
 use App\Models\QuizmasterModel\QuizTitleList;
 use App\Models\QuizmasterModel\QuizQuestionAnswer;

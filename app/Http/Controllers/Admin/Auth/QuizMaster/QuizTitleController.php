@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\QuizMaster;
+namespace App\Http\Controllers\Admin\Auth\QuizMaster;
 use App\Models\QuizmasterModel\QuizCategory;
 use App\Models\QuizmasterModel\QuizTitleList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class QuizTitleController extends Controller
 {

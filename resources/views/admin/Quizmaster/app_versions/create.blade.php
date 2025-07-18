@@ -15,13 +15,13 @@
         </div>
     @endif
 
-    <form action="{{ route('app_versions.store') }}" method="POST">
+    <form action="{{ route('admin.app_versions.store') }}" method="POST">
         @csrf
 
         @include('admin.Quizmaster.app_versions.form')
 
         <button type="submit" class="btn btn-success">Save</button>
-        <a href="{{ route('app_versions.index') }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('admin.app_versions.index') }}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection

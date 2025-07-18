@@ -1,43 +1,88 @@
 @extends('layouts.app')
+<style>
+    .col{
+        padding: 30px;
+    }
+    .card{
+        padding: inherit;
+    }
+</style>
 @section('content')
 <div class="container py-5">
-    <h2 class="text-center mb-5 fw-bold">🎯 Quiz Management Dashboard</h2>
+    <h2 class="text-center mb-5 fw-bold text-primary">🎯 Quiz Management Dashboard</h2>
 
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-3 mb-3">
-            <a href="{{ url('quiz-categories') }}" class="btn btn-outline-warning w-100 shadow-sm">
-                <i class="bi bi-collection"></i> Manage Quiz Categories
-            </a>
-        </div>
-        <div class="col-md-3 mb-3">
-            <a href="{{ url('quiz-titles') }}" class="btn btn-outline-secondary w-100 shadow-sm">
-                <i class="bi bi-list-task"></i> Manage Quiz Titles
-            </a>
-        </div>
-        <div class="col-md-3 mb-3">
-            <a href="{{ url('quiz-questions') }}" class="btn btn-outline-success w-100 shadow-sm">
-                <i class="bi bi-patch-question"></i> Manage Quiz Questions
-            </a>
-        </div>
-    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
 
-    <h4 class="text-center mt-5 mb-4 fw-semibold">📱 Manage Mobile Version</h4>
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-3">
-            <a href="{{ url('app_versions') }}" class="btn btn-dark w-100 shadow-sm">
-                <i class="bi bi-phone"></i> Manage Version
-            </a>
+        {{-- Quiz Categories --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Quiz Categories</h5>
+                    <a href="{{ url('admin/quiz-categories') }}" class="btn btn-outline-warning w-100">Manage Quiz Categories</a>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <h4 class="text-center mt-5 mb-4 fw-semibold">🖼️ Manage Mobile Banner</h4>
-    <div class="row justify-content-center">
-        <div class="col-md-3">
-            <a href="{{ url('app_banners') }}" class="btn btn-warning text-dark w-100 shadow-sm">
-                <i class="bi bi-image"></i> Manage Banner
-            </a>
+        {{-- Quiz Titles --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Quiz Titles</h5>
+                    <a href="{{ url('admin/quiz-titles') }}" class="btn btn-outline-secondary w-100">Manage Quiz Titles</a>
+                </div>
+            </div>
         </div>
+
+        {{-- Quiz Questions --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Quiz Questions</h5>
+                    <a href="{{ url('admin/quiz-questions') }}" class="btn btn-outline-success w-100">Manage Quiz Questions</a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Mobile Version --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Mobile Version</h5>
+                    <a href="{{ url('admin/app_versions') }}" class="btn btn-dark w-100">Manage Version</a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Mobile Banner --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Mobile Banner</h5>
+                    <a href="{{ url('admin/app_banners') }}" class="btn btn-warning text-dark w-100">Manage Banner</a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Event Master --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Event Master</h5>
+                    <a href="{{ url('admin/soc-events') }}" class="btn btn-outline-info w-100">Manage Event</a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Query Export --}}
+        <div class="col">
+            <div class="card text-center shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 fw-semibold">Query Export</h5>
+                    <a href="{{ url('admin/query-export') }}" class="btn btn-outline-primary w-100">Manage Query</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-
 @endsection

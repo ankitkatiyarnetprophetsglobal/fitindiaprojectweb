@@ -65,11 +65,13 @@ use App\Http\Controllers\WebNotificationController;
 use App\Http\Controllers\Admin\Auth\PushNotificationController;
 
 /* Use for Quiz master */
-use App\Http\Controllers\Admin\QuizMaster\QuizCategoryController;
-use App\Http\Controllers\Admin\QuizMaster\QuizTitleController;
-use App\Http\Controllers\Admin\QuizMaster\QuizQuestionController;
-use App\Http\Controllers\Admin\QuizMaster\AppVersionController;
-use App\Http\Controllers\Admin\QuizMaster\AppBannerController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\QuizCategoryController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\QuizTitleController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\QuizQuestionController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\AppVersionController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\AppBannerController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\SocEventMasterController;
+use App\Http\Controllers\Admin\Auth\QuizMaster\QueryExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -213,6 +215,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::resource('posts', PostController::class);
     Route::resource('socevents', SoceventController::class);
     Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
+    Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
@@ -261,6 +264,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::post('sendingwebnotification', [App\Http\Controllers\Admin\Auth\WebNotificationController::class, 'sendingwebnotification'])->name('sendingwebnotification');
 
 
+<<<<<<< HEAD
     /* Below Routes for daily Dashboard */
     Route::get('quiz-dashboard', function () {
         return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
@@ -288,8 +292,22 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::get('quiz-questions/{id}/edit', [QuizQuestionController::class, 'edit'])->name('admin.quiz-questions.edit');
     Route::put('quiz-questions/{id}', [QuizQuestionController::class, 'update'])->name('admin.quiz-questions.update');
     Route::delete('quiz-questions/{id}', [QuizQuestionController::class, 'destroy'])->name('admin.quiz-questions.destroy');
+=======
+    /* 16-07-2025 Below Routes for daily Dashboard  */
+    Route::get('quiz-dashboard', function () {
+        return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
+    })->name('admin.Quizmaster.quiz-categories.quiz_dashboard');;
+    // Quiz Categories 🔹 Quiz Titles 🔹 Quiz Questions
+    Route::resource('quiz-categories', QuizCategoryController::class);
+    Route::resource('quiz-titles', QuizTitleController::class);
+    Route::resource('quiz-questions', QuizQuestionController::class);
+>>>>>>> 1ca76fa0fe84676da7aaf6b7ef9a090f933def09
     Route::resource('app_versions', AppVersionController::class);
     Route::resource('app_banners', AppBannerController::class);
+    Route::resource('soc-events', SocEventMasterController::class);
+    Route::get('/query-export', [QueryExportController::class, 'index'])->name('query.form');
+    Route::post('/query-export', [QueryExportController::class, 'export'])->name('query.export');
+    /* 16-07-2025  End Routes for daily Dashboard  */
 });
 
 Route::get('wp-admin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
