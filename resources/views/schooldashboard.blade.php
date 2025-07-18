@@ -84,8 +84,8 @@
                 <div class="tile-detail-img">
                   <img style="width:66%" src="{{ asset('resources/images/dashbord/fit-india-img-6.svg') }}" class="img-fluid "/>
                 </div>
-                <h3>FIT India Sundays on Cycle</h3>
-                <p>6,04,780 participants registered from 23,356 locations till July'25</p>
+                <h3>{{$tiles[0]->title??''}}</h3>
+                <p>{{$tiles[0]->description??''}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -94,8 +94,8 @@
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-1.svg') }}" class="img-fluid "/>
                   {{-- <img src="" class="img-fluid" alt="" /> --}}
                 </div>
-                <h3>FIT India Mobile App Downloads</h3>
-                <p>11.5+ Lakh Downloads</p>
+               <h3>{{$tiles[1]->title??''}}</h3>
+                <p>{{$tiles[1]->description??''}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -103,8 +103,8 @@
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-2.svg') }}" class="img-fluid "/>
                 </div>
-                <h3>FIT India Quiz</h3>
-                <p>1,74,473 students registered from 42,490 schools across 36 States/UTs in 2025</p>
+                <h3>{{$tiles[2]->title??''}}</h3>
+                <p>{{$tiles[2]->description??''}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -112,8 +112,8 @@
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-3.svg') }}" class="img-fluid "/>
                 </div>
-                <h3>FIT India Freedom Run</h3>
-                <p>7.08 crore citizens covered 18,40,69,332 kms in 2025</p>
+                 <h3>{{$tiles[3]->title??''}}</h3>
+                <p>{{$tiles[3]->description??''}}</p>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
@@ -121,17 +121,17 @@
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-4.svg') }}" class="img-fluid "/>
                 </div>
-                <h3>FIT India School Week</h3>
-                <p>1,17,844 students participated in 2025</p>
-              </div  v>
+                <h3>{{$tiles[4]->title??''}}</h3>
+                <p>{{$tiles[4]->description??''}}</p>
+              </div>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="tile-detail-box box-5 ">
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-5.svg') }}" class="img-fluid "/>
                 </div>
-                <h3>FIT India Freedom Rider Biker Rallies</h3>
-                <p>75 Bikers (including 10 female bikers) covered 21,000+ kms across 75 iconic locations in 75 days</p>
+                 <h3>{{$tiles[5]->title??''}}</h3>
+                <p>{{$tiles[5]->description??''}}</p>
               </div>
             </div>
             
