@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\Auth\AmbsController;
 use App\Http\Controllers\Admin\Auth\ChampController;
 use App\Http\Controllers\Admin\Auth\PostController;
 use App\Http\Controllers\Admin\Auth\SoceventController;
+use App\Http\Controllers\Admin\Auth\MaganageDashboardController ;
 use App\Http\Controllers\Admin\Auth\PostCatController;
 use App\Http\Controllers\Admin\Auth\FoodnameController;
 use App\Http\Controllers\Admin\Auth\FoodquantityController;
@@ -217,6 +218,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
+    Route::resource('dashboard-tiles', MaganageDashboardController::class);
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
     Route::get('destroy-soc-admin-id/{id}', [SoceventController::class, 'destroy_soc_admin_id'])->name('destroysocadminid');
