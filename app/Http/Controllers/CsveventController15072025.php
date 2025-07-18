@@ -942,20 +942,12 @@ class CsveventController extends Controller
     function socEventReport13072025(){
 
 
-        
-        // $query = "SELECT sop.user_id,sop.uname, sop.event_date,
-        //             sop.cycle_booking,
-        //             sop.cycle_waiting,
-        //             sop.cycle,
-        //             sop.meal_booking,
-        //             sop.meal_waiting,
-        //             sop.meal
-        //             FROM soc_event_participations as sop LEFT join soc_event_participation_receives as sopr on sop.user_id = sopr.user_id and sop.socemid = sopr.socemid where sop.socemid = 3;";
 
-        $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sop.user_id,sop.uname, sop.event_date,sop.cycle_booking,sop.cycle_waiting,sop.cycle,sop.meal_booking,sop.meal_waiting,sop.meal
-                    FROM soc_event_participations as sop INNER join users on users.id = sop.user_id join usermetas on users.id = usermetas.user_id LEFT join soc_event_participation_receives as sopr on sop.user_id = sopr.user_id and sop.socemid = sopr.socemid
-                    where sop.socemid = 3;";
-
+        // $query = "SELECT * FROM soc_event_participations WHERE created_at BETWEEN '2025-06-18 00:00:00' AND '2025-06-18 23:59:59';";
+        $query = "SELECT sop.user_id,sop.uname,
+                case when sop.cycle_waiting is null then sop.cycle_booking else sop.cycle_waiting end as cycle_booking_id,
+                case when sop.meal_waiting is null then sop.meal_booking else sop.meal_waiting end as meal_booking_id,
+                sop.meal, sopr.cycle,sopr.meal FROM soc_event_participations as sop LEFT join soc_event_participation_receives as sopr on sop.user_id = sopr.user_id and sop.socemid = sopr.socemid where sop.socemid = 3;";
 
         $data = DB::select(DB::raw($query));
 
@@ -963,42 +955,30 @@ class CsveventController extends Controller
                 'Content-Type' => 'text/csv'
             );
 
-        
-            $filename =  public_path("event.csv");
+        // dd($data);
+            $filename =  public_path("event13072025.csv");
             $handle = fopen($filename, 'w');
 
 
             fputcsv($handle, [
                     "User ID",
                     "Name",
-                    "Email",
-                    "Phone",
-                    "Address Line One",
-                    "Address Line Two",
-                    "Cycle Booking",
-                    "Cycle Waiting",
-                    "Cycle",
-                    "Meal Booking",
-                    "Meal Waiting",
-                    "Meal",                    
+                    "Cycle booking ID",
+                    "Cycle Recive",
+                    "Meal Booking ID",
+                    "Meal Recive",
                     "Date",
 
             ]);
 
             foreach ($data as $each_user) {
-            //    dd($each_user);
+                // dd($each_user->KheloIndiaId);
                 fputcsv($handle, [
                         $each_user->user_id,
                         $each_user->uname,
-                        $each_user->email,
-                        $each_user->phone,
-                        $each_user->address_line_one,
-                        $each_user->address_line_one,
                         $each_user->cycle_booking,
-                        $each_user->cycle_waiting,
                         $each_user->cycle,
                         $each_user->meal_booking,
-                        $each_user->meal_waiting,
                         $each_user->meal,
                         $each_user->event_date,
                 ]);
@@ -1007,67 +987,6 @@ class CsveventController extends Controller
 
             fclose($handle);
             return Response::download($filename, "soceventdata.csv", $headers);
+
     }
-    
-    
-    function socEventReportdata13072025(){       
-        
-
-        // $query = "SELECT sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr where sopr.socemid = 3 and sopr.user_id not in (select user_id from soc_event_participations where socemid = 3);";
-        $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr INNER join users on users.id = sopr.user_id join usermetas on users.id = usermetas.user_id where sopr.socemid = 3 and sopr.user_id not in (select user_id from soc_event_participations where socemid = 3);";
-
-        $data = DB::select(DB::raw($query));
-
-            $headers = array(
-                'Content-Type' => 'text/csv'
-            );
-
-        
-            $filename =  public_path("event.csv");
-            $handle = fopen($filename, 'w');
-
-
-            fputcsv($handle, [
-                    "User ID",
-                    "Name",
-                    "email",
-                    "Phone",
-                    "Address Line One",
-                    "Address Line Two",
-                    "Cycle Booking",
-                    "Cycle Waiting",
-                    "Cycle",
-                    "Meal Booking",
-                    "Meal Waiting",
-                    "Meal",                    
-                    "Date",
-
-            ]);
-
-            foreach ($data as $each_user) {
-            //    dd($each_user);
-                fputcsv($handle, [
-                        $each_user->user_id,
-                        $each_user->uname,
-                        $each_user->email,
-                        $each_user->phone,
-                        $each_user->address_line_one,
-                        $each_user->address_line_two,
-                        "",
-                        "",
-                        $each_user->cycle,
-                        "",
-                        "",
-                        $each_user->meal,
-                        $each_user->event_date,
-                ]);
-
-            }
-
-            fclose($handle);
-            return Response::download($filename, "soceventdatadata.csv", $headers);
-    }
-
-
-    
 }
