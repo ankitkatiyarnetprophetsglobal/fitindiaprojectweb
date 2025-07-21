@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Create Posts - Fit India')
+@section('title', 'Edit Dashboard tiles - Fit India')
 @section('content')
 <style>
     .mb-3 {
@@ -22,7 +22,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <a class="" href="{{ route('admin.dashboard-tiles.index') }}"> <i class="fas fa-long-arrow-alt-left"></i> Back </a>
-                    <h1 scope="col">Add Dashboard tile</h1>
+                    <h1 scope="col">Edit Dashboard tile</h1>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard-tiles.index') }}">Add Dashboard tile</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard-tiles.index') }}">Edit Dashboard tile</a></li>
                     </ol>
                 </div>
 
@@ -57,7 +57,7 @@
                     <!-- general form elements -->
 
                     <div class="card">
-                        <div class="card-header bg-primary">Add Dashboard tile</div>
+                        <div class="card-header bg-primary">Edit Dashboard tile</div>
                         <div class="card-body">
                     <form action="{{ isset($dashboardTile) ? route('admin.dashboard-tiles.update', $dashboardTile->id) : route('admin.dashboard-tiles.store') }}" method="POST">
                             @csrf

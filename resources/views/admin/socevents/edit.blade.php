@@ -8,7 +8,7 @@
       <div class="container-fluid">
      <div class="row mb-2">
       <div class="col-sm-12">       
-		<a class="" href="{{ route('admin.posts.index') }}"> <i class="fas fa-long-arrow-alt-left"></i> Back </a>
+          <a class="" href="{{ route('admin.posts.index') }}"> <i class="fas fa-long-arrow-alt-left"></i> Back </a>
       <h1>Edit Posts</h1>
       </div>
      </div>    
