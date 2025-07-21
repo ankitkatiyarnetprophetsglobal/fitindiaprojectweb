@@ -280,6 +280,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::resource('app_versions', AppVersionController::class);
     Route::resource('app_banners', AppBannerController::class);
     Route::resource('soc-events', SocEventMasterController::class);
+    Route::post('soc-events-upload', [SocEventMasterController::class,'upload'])->name('socevent.upload');
     Route::get('/query-export', [QueryExportController::class, 'index'])->name('query.form');
     Route::post('/query-export', [QueryExportController::class, 'export'])->name('query.export');
     /* 16-07-2025  End Routes for daily Dashboard  */

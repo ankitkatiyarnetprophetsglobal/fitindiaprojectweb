@@ -348,7 +348,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin.socevents.index') }}" class="nav-link @if($routename =='admin.socevents.index') {{ 'active' }} @endif">
+                                <a href="{{ route('admin.soc-events.index') }}" class="nav-link @if($routename =='admin.soc-events.index' || $routename =='admin.soc-events.create' ||$routename =='admin.socevent.upload' || $routename =='admin.soc-events.edit') {{ 'active' }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
                                     <p>Upload SOC venue data</p>
                                 </a>
