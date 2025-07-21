@@ -382,7 +382,7 @@
                         </ul>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin.dashboard-tiles.index') }}" class="nav-link @if($routename =='admin.socadminwrite') {{ 'active'  }} @endif">
+                                <a href="{{ route('admin.dashboard-tiles.index') }}" class="nav-link @if($routename =='admin.dashboard-tiles.index') {{ 'active'  }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
                                     <p>Manage Dashboard Card</p>
                                 </a>

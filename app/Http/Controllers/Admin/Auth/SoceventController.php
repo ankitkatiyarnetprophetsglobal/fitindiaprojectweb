@@ -24,6 +24,7 @@ class SoceventController extends Controller
     public function index(Request $request){
 
         try{
+            
             return view('admin.socevents.index');
 
         } catch(Exception $e) {
@@ -221,71 +222,7 @@ class SoceventController extends Controller
         }
     }
 
-    public function nemoclubdataooooooooo16072025(Request $request){
-        try{
-            
-            $admins_role = Auth::user()->role_id;
-            $roles = Role:: orderBy("name")->get();
-            $user =    DB::table('event_organizations')
-                            ->select('user_id', DB::raw('COUNT(*) as eventcount'))
-                            ->whereIn('category', [13077, 13078, 13075])
-                            ->where(function ($query) {
-                                $query->where('eventimg_meta', '!=', 'a:0:{}')
-                                    ->orWhere('event_bg_image', '!=', '');
-                            })
-                            ->groupBy('user_id');
-
-           $results = DB::table('users')
-                    ->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
-                    ->leftJoinSub(
-                        DB::table('event_organizations')
-                            ->select('user_id', DB::raw('COUNT(*) as eventcount'))
-                            ->whereIn('category', [13077, 13078, 13075])
-                            ->where(function ($q) {
-                                $q->where('eventimg_meta', '!=', 'a:0:{}')
-                                ->orWhere('event_bg_image', '!=', '');
-                            })
-                            ->groupBy('user_id'),
-                        'event_participation',
-                        function ($join) {
-                            $join->on('users.id', '=', 'event_participation.user_id');
-                        }
-                    )
-                    ->select(
-                        'users.id',
-                        'users.name',
-                        'users.email',
-                        'users.role',
-                        'users.rolelabel',
-                        'users.phone',
-                        'usermetas.gender',
-                        'usermetas.city',
-                        'usermetas.state',
-                        'usermetas.district',
-                        'usermetas.block',
-                        'users.created_at',
-                        'usermetas.kit_dispatch as kit_dispatch',
-                        DB::raw('IFNULL(event_participation.eventcount, 0) as event_participation')
-                    )
-                    ->where(function ($query) {
-                        $query->where(function ($q) {
-                            $q->where('users.rolewise', 'like', '%cyclothon-2024%')
-                            ->where('usermetas.cyclothonrole', '=', 'club');
-                        })->orWhere('users.role', '=', 'namo-fit-india-cycling-club');
-                    });
-           
-            $curcount = 0;
-            $count = $results->count();
-            $user = $results->paginate(10);
-          
-            $flag=1;
-            return view('admin.socevents.nemoclubdata', compact('user','count','admins_role','roles'));
-
-        } catch(Exception $e) {
-
-            dd($e->getMessage());
-        }
-    }
+   
 
       public function nemoclubdata(Request $request){
     
