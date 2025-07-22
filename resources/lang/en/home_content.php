@@ -210,7 +210,7 @@ return [
 	'namo-fit-india-cycling-club' => 'Namo Fit India Youth Club',
 	'namo-fit-india-club' => 'Namo Fit India Club',
 	'international-women' => "Fit India Women's Week",
-	'fit-india-cycling-drive' => 'Fit India Cycling Drive',
+	'fit-india-cycling-drive' => 'Fit India Sundays on Cycle',
 	'womens-week-bicycle-day' => "World Bicycle Day",
 	'home-news-letter' => "Newsletter",
 ];

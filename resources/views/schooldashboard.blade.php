@@ -294,7 +294,7 @@
                                     <table class="table table-bordered">
                                       <thead>
                                           <tr>
-                                          <th>EVENT NAME</th>
+                                              <th>EVENT NAME</th>
                                               <th>EVENT DATE</th>
                                               <th>NO OF EVENTS</th>                                    
                                               <th>SOCIAL MEDIA OUTREACH</th>                                    
@@ -302,6 +302,13 @@
                                           </tr> 
                                       </thead>
                                       <tbody>
+                                          <tr>
+                                            <td>Fit India Sundays on Cycle</td>
+                                            <td>Ongoing</td>
+                                            <td>29,356</td>                                
+                                            <td>---</td>                                
+                                            <td>6.54 Lakhs</td>
+                                          </tr>
                                           <tr>
                                             <td>National Sports Day 2024</td>
                                             <td>26th August to 31st August 2024</td>
@@ -313,7 +320,7 @@
                                           <tr>
                                           <td>Fit India Freedom Run 5.0</td>
                                           <td>2nd October to 31st october 2024</td>
-                                          <td>10433</td>                                
+                                          <td>10,433</td>                                
                                           <td> --- </td>                                
                                           <td>1.3 Crore</td>
                                           </tr>
@@ -323,7 +330,7 @@
                                             <td>Ongoing</td>
                                             <td> --- </td>                                
                                             <td> --- </td>                                
-                                            <td>8.55 Lakhs</td>
+                                            <td>11.5+ Lakhs</td>
                                           </tr>
                                           {{-- <tr>
                                             <td>Fit India Week 2023</td>
