@@ -75,7 +75,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-        <h1 class="et_pb_text_0">Fit India Cycling Drive</h1>
+        <h1 class="et_pb_text_0">Fit India Sundays on Cycle</h1>
         {{-- <a class="freedombtn3" href="{{ url('resources/pdf/how-to-register-for-namo-fit-india-cycling-club.pdf') }}" target="_blank">How To Register</a> --}}
     </div>
 </div>
@@ -109,6 +109,7 @@
                                 <li>People’s participation (Jan Bhagidari) in national fitness efforts</li>
                             </ul>
                             <p>Sundays on Cycle is more than just a campaign—it is a weekly reminder that fitness can be fun, inclusive, and community-driven.</p>
+                            <p><b>Want to participate? Register now on the Fit India Mobile App to join <i> Sundays on Cycle </i> and enjoy a variety of fun-filled activities every Sunday, along with cycling at the designated venue. Don’t miss out—be a part of the movement by signing up through our app today!</b></p>
                             {{-- <ol>
                                 <li class="mb-2">
                                   Cycling is one of the most accessible and effective ways to incorporate fitness into daily routines, offering benefits such as enhanced stamina, stress reduction, and improved cardiovascular health.
@@ -166,11 +167,11 @@
         <section>
             <div class="container">
                 <div class="row et_pb_row_2">
-                    <div class="col-sm-12">
-                        <div class="et_pb_bg_layout_light">
+                    {{-- <div class="col-sm-12">
+                        <div class="et_pb_bg_layout_light"> --}}
                         {{-- <a class="" href="register?role=Y3ljbG90aG9uLTIwMjQ=">Register For Fit India Cycling Drive<span style="margin-left:10px"><svg aria-hidden="true" --}}
                         {{-- <a class="" href="cyclothonregistrationform">Register For Fit India Cycling Drive<span style="margin-left:10px"><svg aria-hidden="true" --}}
-                        <a class="" href="coiregistration">Register For Fit India Cycling Drive<span style="margin-left:10px"><svg aria-hidden="true"
+                        {{-- <a class="" href="coiregistration">Register For Fit India Cycling Drive<span style="margin-left:10px"><svg aria-hidden="true"
                                     focusable="false" data-prefix="fas" data-icon="chevron-right"
                                     class="svg-inline--fa fa-chevron-right fa-w-1" role="img"
                                     xmlns="http://www.w3.org/2000/svg" width="12px" height="15px"
@@ -180,7 +181,7 @@
                                     </path>
                                 </svg></span></a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
