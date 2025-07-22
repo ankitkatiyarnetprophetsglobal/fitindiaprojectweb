@@ -58,7 +58,7 @@
             </button>
           </div>
           <div class="col-lg-11 col-md-10 col-9">
-            <h2 class="text-center">Fit India Dashboard</h2>
+            <h2 class="text-center">Events at a Glance</h2>
           </div>
         </div>
         
@@ -98,6 +98,15 @@
                 <p>{{$tiles[1]->description??''}}</p>
               </div>
             </div>
+                <div class="col-lg-4 col-md-6 col-12">
+              <div class="tile-detail-box box-4">
+                <div class="tile-detail-img">
+                  <img src="{{ asset('resources/images/dashbord/fit-india-img-4.svg') }}" class="img-fluid "/>
+                </div>
+                <h3>{{$tiles[4]->title??''}}</h3>
+                <p>{{$tiles[4]->description??''}}</p>
+              </div>
+            </div>
             <div class="col-lg-4 col-md-6 col-12">
               <div class="tile-detail-box box-2">
                 <div class="tile-detail-img">
@@ -116,22 +125,33 @@
                 <p>{{$tiles[3]->description??''}}</p>
               </div>
             </div>
+        
             <div class="col-lg-4 col-md-6 col-12">
-              <div class="tile-detail-box box-4">
-                <div class="tile-detail-img">
-                  <img src="{{ asset('resources/images/dashbord/fit-india-img-4.svg') }}" class="img-fluid "/>
-                </div>
-                <h3>{{$tiles[4]->title??''}}</h3>
-                <p>{{$tiles[4]->description??''}}</p>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-12">
-              <div class="tile-detail-box box-5 ">
+              <div class="tile-detail-box box-5">
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/fit-india-img-5.svg') }}" class="img-fluid "/>
                 </div>
                  <h3>{{$tiles[5]->title??''}}</h3>
                 <p>{{$tiles[5]->description??''}}</p>
+              </div>
+            </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+              <div class="tile-detail-box box-6">
+                <div class="tile-detail-img">
+                  <img src="{{ asset('resources/images/dashbord/women.svg') }}" class="img-fluid1 "/>
+                </div>
+                 <h3>{{$tiles[6]->title??''}}</h3>
+                <p>{{$tiles[6]->description??''}}</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="tile-detail-box box-7">
+                <div class="tile-detail-img">
+                  <img src="{{ asset('resources/images/dashbord/yoga.svg') }}" class="img-fluid1 "/>
+                </div>
+                 <h3>{{$tiles[7]->title??''}}</h3>
+                <p>{{$tiles[7]->description??''}}</p>
               </div>
             </div>
             
