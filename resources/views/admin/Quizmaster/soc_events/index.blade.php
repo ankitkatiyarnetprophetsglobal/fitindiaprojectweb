@@ -243,10 +243,10 @@
                                     <td>{{ $event->status }}</td>
                                     <td>
                                         <a href="{{ route('admin.soc-events.edit', $event->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                        <form action="{{ route('admin.soc-events.destroy', $event->id) }}" method="POST" style="display:inline">
+                                        <!-- <form  action="{{ route('admin.soc-events.destroy', $event->id) }}" method="POST" style="display:inline">
                                             @csrf @method('DELETE')
                                             <button class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</button>
-                                        </form>
+                                        </form> -->
                                     </td>
                                 </tr>
                                 @endforeach
