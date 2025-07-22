@@ -87,14 +87,29 @@
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Background
+                        Overview
                     </a>
                     </h4>
                 </div>
                   <div id="collapseOne" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingOne">
                       <div class="panel-body">
                           <div class="table-responsive">
-                            <ol>
+                            <p>India’s Movement Against Obesity and for a Fitter Tomorrow</p>
+                            <p>Cycling is one of the most accessible and effective forms of exercise—enhancing stamina, reducing stress, improving cardiovascular health, and promoting mental well-being. It is also a clean, eco-friendly mode of transport that contributes to reducing pollution and building a greener nation.</p>
+                            <p>In line with the Hon’ble Prime Minister’s call, “Fitness ki dose, aadha ghanta roz,” cycling has become a popular fitness activity that blends health with sustainability.</p>
+                            <p>Building on the success of the Fit India Cycling Drive, which saw the participation of over 1.5 crore citizens across India, FIT India, under the leadership of Honourable MYAS Shri Mansukh Mandaviya, launched “Sundays on Cycle” on 17th December 2024 as a weekly national movement.</p>
+                            <p>MYAS Shri Mansukh Mandaviya, launched “Sundays on Cycle” on 17th December 2024 as a weekly national movement.</p>
+                            <p>The inaugural event was flagged off from Major Dhyan Chand National Stadium to Kartavya Path in New Delhi, setting the tone for what has now become a community-led fitness revolution.</p>
+                            <p>Since its launch, Sundays on Cycle has been celebrated every Sunday at thousands of locations across the country—bringing together citizens of all age groups to take a stand against obesity and commit to a healthier, more active lifestyle.</p>
+                            <p>Local authorities, schools, colleges, RWAs, and fitness groups organise weekly cycling rallies that promote:</p>
+                            <ul>
+                                <li>Regular physical activity for all</li>
+                                <li>Awareness about lifestyle diseases and preventive health</li>
+                                <li>Eco-friendly mobility and reduced carbon footprint</li>
+                                <li>People’s participation (Jan Bhagidari) in national fitness efforts</li>
+                            </ul>
+                            <p>Sundays on Cycle is more than just a campaign—it is a weekly reminder that fitness can be fun, inclusive, and community-driven.</p>
+                            {{-- <ol>
                                 <li class="mb-2">
                                   Cycling is one of the most accessible and effective ways to incorporate fitness into daily routines, offering benefits such as enhanced stamina, stress reduction, and improved cardiovascular health.
                                 </li>
@@ -110,7 +125,7 @@
                                 <li class="mb-2">
                                   The Fit India Cycling Drive - Cycling Sunday's reflects the core mission of the Fit India Movement—fostering health, fitness, and sustainability. By inspiring millions across the nation to pedal towards a fitter future, it successfully bridges individual wellness with collective environmental responsibility.
                                 </li>
-                            </ol>
+                            </ol> --}}
                           </div>
                       </div>
                   </div>
