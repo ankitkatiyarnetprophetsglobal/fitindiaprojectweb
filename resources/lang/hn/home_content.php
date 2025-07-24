@@ -215,6 +215,8 @@ return [
 	'namo-fit-india-club' => 'नमो फिट इंडिया क्लब',
 	'international-women' => 'फिट इंडिया महिला सप्ताह',
 	'fit-india-cycling-drive' => 'फिट इंडिया संडे ऑन साइकिल',
+	'fit-india-cycling-drive' => 'फिट इंडिया संडे ऑन साइकिल',
+    'national-sports-day-2025' => 'राष्ट्रीय खेल दिवस',
 	'womens-week-bicycle-day' => 'विश्व साइकिल दिवस',
     'home-news-letter' => "समाचार पत्रिका",
 

@@ -325,32 +325,32 @@
                                           <tr>
                                             <td>Fit India Sundays on Cycle</td>
                                             <td>Ongoing</td>
-                                            <td>29,356</td>
-                                            <td>3.04</td>
-                                            <td>6.54 Lakhs</td>
+                                            <td><center>29,356</center></td>
+                                            <td><center>3.04 Bn</center></td>
+                                            <td><center>6.54 Lakhs</center></td>
                                           </tr>
                                           <tr>
                                             <td>National Sports Day 2024</td>
                                             <td>26th August to 31st August 2024</td>
-                                            <td>8627</td>
-                                            <td>---</td>
-                                            <td>25 Lakhs</td>
+                                            <td><center>8627</center></td>
+                                            <td><center>---</center></td>
+                                            <td><center>25 Lakhs</center></td>
                                           </tr>
 
                                           <tr>
                                           <td>Fit India Freedom Run 5.0</td>
                                           <td>2nd October to 31st october 2024</td>
-                                          <td>10,433</td>
-                                          <td> --- </td>
-                                          <td>1.3 Crore</td>
+                                          <td><center>10,433</center></td>
+                                          <td> <center>--- </center></td>
+                                          <td><center>4+ Crore</center></td>
                                           </tr>
 
                                           <tr>
                                             <td>Fit India Mobile Application</td>
                                             <td>Ongoing</td>
-                                            <td> --- </td>
-                                            <td> --- </td>
-                                            <td>11.5+ Lakhs</td>
+                                            <td> <center>---</center> </td>
+                                            <td> <center>---</center> </td>
+                                            <td><center>11.5+ Lakhs</center></td>
                                           </tr>
                                           {{-- <tr>
                                             <td>Fit India Week 2023</td>
@@ -392,31 +392,31 @@
                                   <tr>
                                     <td>National Sports Day 2023</td>
                                     <td>21st August to 29th August 2023 </td>
-                                    <td>14294</td>
-                                    <td>32000</td>
-                                    <td>15.98 Lakhs</td>
+                                    <td><center>14294</center></td>
+                                    <td><center>32000</center></td>
+                                    <td><center>15.98 Lakhs</center></td>
                                   </tr>
 
                                   <tr>
                                   <td>Fit India Freedom Run</td>
                                   <td>1st to 31st October, 2023 </td>
-                                  <td> --- </td>
-                                  <td> --- </td>
-                                  <td>4.5 Crore</td>
+                                  <td> <center>---</center> </td>
+                                  <td> <center>---</center> </td>
+                                  <td><center>4.5 Crore</center></td>
                                   </tr>
 
                                   <tr>
                                     <td>Fit India Quiz 2023</td>
                                     <td>Ongoing</td>
-                                    <td> --- </td>
-                                    <td> --- </td>
-                                    <td>41,789  Schools</td>
+                                    <td> <center>---</center> </td>
+                                    <td> <center>---</center> </td>
+                                    <td><center>41,789  Schools</center></td>
                                   </tr>
                                   <tr>
                                     <td>Fit India Week 2023</td>
                                     <td>15th November 2023 to 31st January 2024</td>
-                                    <td>--</td>
-                                    <td>--</td>
+                                    <td><center>---</center></td>
+                                    <td><center>---</center></td>
                                     <td>4.16 lakh plus schools & 1028 universities</td>
                                   </tr>
                                 </tbody>
@@ -453,37 +453,37 @@
                                       <td>02nd October to 31st October 2022</td>
                                       <td> --- </td>
                                       <td> --- </td>
-                                      <td>7.08 crores</td>
+                                      <td><center>7.08 crores</center></td>
                                     </tr>
 
                                     <tr>
                                     <td>Fit India Plog Run 2022</td>
                                     <td>02nd October</td>
-                                    <td> 343 </td>
-                                    <td> 4.3 crores </td>
-                                    <td>27,000</td>
+                                    <td> <center>343</center> </td>
+                                    <td> <center>4.3 crores</center> </td>
+                                    <td><center>27,000</center></td>
                                     </tr>
 
                                     <tr>
                                       <td>Fit India Mobile Application</td>
                                       <td>Ongoing</td>
-                                      <td> --- </td>
-                                      <td> --- </td>
-                                      <td>8 lakhs</td>
+                                      <td> <center>---</center> </td>
+                                      <td> <center>---</center> </td>
+                                      <td><center>8 lakhs</center></td>
                                     </tr>
                                     <tr>
                                       <td>Fit India Quiz 2022</td>
                                       <td>3rd September 2022- 30th July 2023</td>
-                                      <td>--</td>
-                                      <td>--</td>
-                                      <td>61981 Schools</td>
+                                      <td><center>---</center></td>
+                                      <td><center>---</center></td>
+                                      <td><center>61981 Schools</center></td>
                                     </tr>
                                     <tr>
                                       <td>Fit India School Week 2022</td>
                                       <td>15th November to 31st January 2023</td>
-                                      <td>--</td>
-                                      <td>--</td>
-                                      <td>5.7 lakhs Schools</td>
+                                      <td><center>---</center></td>
+                                      <td><center>---</center></td>
+                                      <td><center>5.7 lakhs Schools</center></td>
                                     </tr>
                                     {{-- <tr>
                                       <td>Fit India School Week 2022</td>
@@ -523,17 +523,17 @@
                                     <tr>
                                       <td>Road to Tokyo ‘Olympics Quiz’</td>
                                       <td>23 June – 23 July 22</td>
-                                      <td> --- </td>
-                                      <td> 10,000 </td>
-                                      <td>9 lakhs</td>
+                                      <td> <center>---</center> </td>
+                                      <td> <center>10,000</center> </td>
+                                      <td><center>9 lakhs</center></td>
                                     </tr>
 
                                     <tr>
                                       <td>Fit India Quiz 2021</td>
                                       <td>21st November to February 2022</td>
-                                      <td> --- </td>
-                                      <td> --- </td>
-                                      <td>36,000</td>
+                                      <td> <center>---</center> </td>
+                                      <td> <center>---</center> </td>
+                                      <td><center>36,000</center></td>
                                     </tr>
                                 </tbody>
                                 </table>
@@ -567,136 +567,136 @@
                                     <tr>
                                       <td>Fit India Active Day series</td>
                                       <td>April & May  2020</td>
-                                      <td>---</td>
-                                      <td>18 lakhs</td>
-                                      <td>---</td>
+                                      <td><center>---</center></td>
+                                      <td><center>18 lakhs</center></td>
+                                      <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                     <td>Fit India Dance Week</td>
                                       <td>1st week of June 2020</td>
-                                      <td>---</td>
-                                      <td>51,000</td>
-                                      <td>---</td>
+                                      <td><center>---</center></td>
+                                      <td><center>51,000</center></td>
+                                      <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                       <td>Indigenous Sports of India</td>
                                       <td>8th to 19th  June 2020</td>
-                                      <td>---</td>
-                                      <td>10 lakhs</td>
-                                      <td>---</td>
+                                      <td><center>---</center></td>
+                                      <td><center>10 lakhs</center></td>
+                                      <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                     <td>FIT India Yoga Day</td>
                                     <td>21st June 2020</td>
-                                    <td>---</td>
-                                    <td>15 lakhs</td>
-                                    <td>---</td>
+                                    <td><center>---</center></td>
+                                    <td><center>15 lakhs</center></td>
+                                    <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                       <td>Fit India Talks</td>
                                       <td>Wednesday, July 01, 2020</td>
-                                      <td>---</td>
-                                      <td>3.5 lakhs</td>
-                                      <td>---</td>
+                                      <td><center>---</center></td>
+                                      <td><center>3.5 lakhs</center></td>
+                                      <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India Freedom Run</td>
                                         <td>15th August to 2nd October 2020</td>
-                                        <td>---</td>
-                                        <td>36 crore</td>
-                                        <td>6.5 crore</td>
+                                        <td><center>3.5 lakhs</center></td>
+                                        <td><center>36 crore</center></td>
+                                        <td><center>6.5 crore</center></td>
                                     </tr>
 
                                     <tr>
                                         <td>Fit India Youth Club Certification</td>
                                         <td>14th August 2020</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>48,000</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>48,000</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India Dialogue</td>
                                         <td>24th September 2019</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>1 crore</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>98</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India Walkathon 200 km</td>
                                         <td>31st-2nd November</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>98</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>98</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India Dialgoue part 2</td>
                                         <td>Tuesday, December 01, 2020</td>
-                                        <td>---</td>
-                                        <td>9 lakhs</td>
-                                        <td>---</td>
+                                        <td><center>---</center></td>
+                                        <td><center>9 lakhs</center></td>
+                                        <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India Prabhat Pheri</td>
                                         <td>1st week of December 2020</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>14.12 lakhs</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>14.12 lakhs</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India Cycothon</td>
                                         <td>December 2020 – 31st January 2021</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>1.2 crore</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>1.2 crore</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit India School Week 2020</td>
                                         <td>15th November 2020 to 31st January 2021</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>4.3 lakhs</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>4.3 lakhs</center></td>
                                     </tr>
                                     <tr>
                                         <td>Indigenous Sports-4 Episodes</td>
                                         <td>28-31 December 2021</td>
-                                        <td>---</td>
-                                        <td>66,000</td>
-                                        <td>---</td>
+                                        <td><center>---</center></td>
+                                        <td><center>65,000</center></td>
+                                        <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                         <td>School Week Virtual Event</td>
                                         <td>Wednesday, January 27, 2021</td>
-                                        <td>---</td>
-                                        <td>65,000</td>
-                                        <td>---</td>
+                                        <td><center>---</center></td>
+                                        <td><center>65,000</center></td>
+                                        <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                         <td>Desh ki Mitti, Desh k Khel</td>
                                         <td>Friday, January 29, 2021</td>
-                                        <td>---</td>
-                                        <td>80,000</td>
-                                        <td>---</td>
+                                        <td><center>---</center></td>
+                                        <td><center>80,000</center></td>
+                                        <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                         <td>Walkathon</td>
                                         <td>Monday, March 08, 2021</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>500</td>
+                                        <td><center>---</center></td>
+                                        <td><center>---</center></td>
+                                        <td><center>500</center></td>
                                     </tr>
                                     <tr>
                                         <td>Launch of PE & Community Coaching Programme</td>
                                         <td>Monday, March 08, 2021</td>
-                                        <td>---</td>
-                                        <td>10,000</td>
-                                        <td>---</td>
+                                        <td><center>---</center></td>
+                                        <td><center>10,000</center></td>
+                                        <td><center>---</center></td>
                                     </tr>
                                     <tr>
                                         <td>Fit Women, Fit Families, Fit India</td>
                                         <td>Wednesday, March 10, 2021</td>
-                                        <td>---</td>
-                                        <td>10,000</td>
-                                        <td>---</td>
+                                        <td><center>---</center></td>
+                                        <td><center>10,000</center></td>
+                                        <td><center>---</center></td>
                                     </tr>
 
                                 </tbody>
@@ -732,44 +732,44 @@
                                     <tr>
                                     <td>Fit India Website</td>
                                     <td>29th August 2019</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>11 crore</td>
+                                    <td><center>---</center></td>
+                                    <td><center>---</center></td>
+                                    <td><center>11 crore</center></td>
                                   </tr>
                                   <tr>
                                     <td>Fit India Plog Run</td>
                                     <td>2nd October 2019</td>
-                                    <td>55,000</td>
-                                    <td>---</td>
-                                    <td>30 lakhs</td>
+                                    <td><center>55,000</center></td>
+                                    <td><center>---</center></td>
+                                    <td><center>30 lakhs</center></td>
                                     </tr>
                                     <tr>
                                     <td>Fit India School Week</td>
                                     <td>Friday, November 01, 2019</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>15,000</td>
+                                    <td><center>---</center></td>
+                                    <td><center>---</center></td>
+                                    <td><center>15,000</center></td>
                                     </tr>
                                     <tr>
                                     <td>Fit India School Certification</td>
                                     <td>Sunday, December 01, 2019</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>4.5 lakhs</td>
+                                    <td><center>---</center></td>
+                                    <td><center>---</center></td>
+                                    <td><center>4.5 lakhs</center></td>
                                     </tr>
                                     <tr>
                                     <td>Fit India Cyclothon</td>
                                     <td>18th January 2020</td>
-                                    <td>15,706</td>
-                                    <td>0</td>
-                                    <td>35 lakhs</td>
+                                    <td><center>15,706</center></td>
+                                    <td><center>0</center></td>
+                                    <td><center>35 lakhs</center></td>
                                     </tr>
                                     <tr>
                                     <td>Fit India March for Women</td>
                                     <td>Sunday, March 01, 2020</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>---</td>
+                                    <td><center>---</center></td>
+                                    <td><center>---</center></td>
+                                    <td><center>---</center></td>
                                     </tr>
 
                                 </tbody>

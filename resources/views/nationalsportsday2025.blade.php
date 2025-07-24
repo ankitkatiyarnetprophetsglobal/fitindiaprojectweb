@@ -95,18 +95,89 @@ $active_section_id = trim($active_section);
         </div>
       <div class="row">
         <div class="col-sm-12">
-          <h1 class="headingh1">National Sports Day 2024</h1>
-                <p>
-              National Sports Day (NSD) is celebrated every year on 29 th August to commemorate India’s deep-rooted tradition of Sports. This is also a tribute to the
-              Hockey legend Major Dhyan Chand. The day also celebrates the nation’s sporting icons, honouring their contribution and dedication toward s bringing laurels to the country at
-              the international stage.
+          <h1 class="headingh1">National Sports Day 2025</h1>
+            <p>
+                <b>National Sports Day 2025 – A Public Movement by Mass Celebrations</b>
             </p>
             <p>
-              This year as part of celebration of NSD, all stakeholders may organize sporting events and engagement activities, both fun and competitive throughout the country.
-              <b>Further, stakeholders will be free to choose any day between 26 th August to 31 st August 2024.</b>
+                National Sports Day (NSD) is celebrated annually on 29th August to honor India's rich sports tradition and the legacy of Hockey legend Major Dhyan Chand.
+                This day also celebrates the nation's sporting icons and their contributions to international sports.
+                National Sports Day (NSD) is celebrated every year on 29 th August to commemorate India’s deep-rooted tradition of Sports. This is also a tribute to the
+                Hockey legend Major Dhyan Chand. The day also celebrates the nation’s sporting icons, honouring their contribution and dedication toward s bringing laurels to the country at
+                the international stage.
             </p>
-            <p><strong><u>Standard format of the event to be:</strong></u></p>
             <p>
+                <b>Highlights of Previous Celebrations:</b>
+            </p>
+
+            <ul>
+                <li>
+                    <b>NSD 2024:</b>
+                    Engaged various stakeholders including government offices, armed forces, educational institutions, and more.
+                    A total of 8,627 events were organized with 2.5 million participants.
+                </li>
+                <li>
+                    <b>NSD 2023:</b>
+                    Saw 14,294 events with 1.6 million participants.
+                </li>
+                <li>
+                    <b>NSD 2022:</b>
+                    Featured "Meet the Champion Events" in schools, where sporting icons shared their fitness journeys.
+                </li>
+            </ul>
+            <p><b>Standard format of the event to be:</b></p>
+            <ul>
+                <li>
+                    Each organization to be divided into two, four or six teams depending on the number of participations maintaining gender equality.
+                </li>
+                <li>
+                    Organizations are at liberty to choose games for competition from any popular sports of the locality and availability of Infrastructure.
+                </li>
+                <li>
+                    Name of teams can be based on freedom fighters or prominent sportspersons of the country.
+                </li>
+            </ul>
+            <p><b>Proposed Activities:</b></p>
+            <ol>
+                <li>
+                    <b>Sporting Events:</b> Competitive and fun games for employees of government departments and ministries.
+                </li>
+                <li>
+                    <b>Mohalla Outreach:</b> Sports and fitness activities in villages and urban areas.
+                </li>
+                <li>
+                    <b>Events at Stadiums: </b>
+                    Organized by SAI, NSFs, and other sports organizations.
+                </li>
+                <li>
+                    <b>University and School Events:</b>Coordinated by UGC and educational boards.
+                </li>
+                <li>
+                    <b>Sports and Fitness Quiz: </b>Hosted on the MyGov platform.
+                </li>
+                <li>
+                    <b>Fit India Talk Sessions: </b>With special guests at JLN Stadium.
+                </li>
+                <li>
+                    <b>NSD Steps Challenge: </b>A 30-day digitally-driven challenge to walk 10K steps daily via the Fit India Mobile App.
+                </li>
+                <li>
+                    <b>Collaborative Partners: </b>
+                    Engagement with National Sports Promotion Organizations.
+                </li>
+                <li>
+                    <b>Healthy Diet Campaign: </b>Collaboration with the Ministry of Health and Family Welfare.
+                </li>
+                <li>
+                    <b>FIT India Fitness Pledge: </b>In addition, all the organizations may organize a FIT India Fitness pledge event where all key stakeholders including their employees may take the FIT India Fitness pledge.
+                </li>
+            </ol>
+            <p>
+                <b> A dedicated portal for registering the events on this occasion</b> developed through the Fit India Mission, accessible from its website and Fit India Mobile App.
+                Organizers to register their event on Fit India portal (<a href="https://fitindia.gov.in">https://fitindia.gov.in</a>) or Fit India Mobile App and upload details of participation, pictures & videos of the event.
+
+            </p>
+            {{-- <p>
               <ul>
                 <li>Each organization to be divided into two, four or six teams depending on the number of participations maintaining gender equality.</li>
                 <li>Medal tally for each team to be maintained. Highest points team will win Major Dhyan Chand Trophy.</li>
@@ -159,11 +230,11 @@ $active_section_id = trim($active_section);
             <p><strong>FIT India Fitness Pledge: </strong>In addition, all the organizations may organize a FIT India Fitness pledge event where all key stakeholders including their employees may take the
               FIT India Fitness pledge.</p>
             <p><strong>A dedicated portal for registering the events on this occasion </strong>developed through the Fit India Mission, accessible from its website and Fit India Mobile App.</p>
-            <p>Organizers to register their event on Fit India portal (<a href="https://fitindia.gov.in">https://fitindia.gov.in</a>) or Fit India Mobile App and upload details of participation, pictures &amp; videos of the event.</p>
-        <br/>
+            <p>Organizers to register their event on Fit India portal (<a href="https://fitindia.gov.in">https://fitindia.gov.in</a>) or Fit India Mobile App and upload details of participation, pictures &amp; videos of the event.</p> --}}
+        {{-- <br/>
         <p>For more details kindly visit the following link:
         <br/>
-        <a href="https://drive.google.com/drive/folders/1thgTxydnX0VfIjaLrS2DmaEle2LHHh_e?usp=sharing" target="_blank">https://drive.google.com/drive/folders/1thgTxydnX0VfIjaLrS2DmaEle2LHHh_e?usp=sharing</a></p>
+        <a href="https://drive.google.com/drive/folders/1thgTxydnX0VfIjaLrS2DmaEle2LHHh_e?usp=sharing" target="_blank">https://drive.google.com/drive/folders/1thgTxydnX0VfIjaLrS2DmaEle2LHHh_e?usp=sharing</a></p> --}}
         </div>
       </div>
 

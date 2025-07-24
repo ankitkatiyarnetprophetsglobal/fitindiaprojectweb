@@ -68,6 +68,9 @@
 				<li class="nav-item {{ (request()->is('fit-india-cycling-drive')) ? 'active' : 'active' }}">
 				  <a class="nav-link  home-menu {{ (request()->is('fit-india-cycling-drive')) ? 'active' : '' }}" href="{{url('fit-india-cycling-drive')}}">{{ __('home_content.fit-india-cycling-drive')}}</span></a>
 				</li>
+				<li class="nav-item {{ (request()->is('national-sports-day-2025')) ? 'active' : 'active' }}">
+				  <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2025')) ? 'active' : '' }}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}}</span></a>
+				</li>
 				{{-- <li class="nav-item {{ (request()->is('womens-week-bicycle-day')) ? 'active' : 'active' }}">
 				  <a class="nav-link  home-menu {{ (request()->is('womens-week-bicycle-day')) ? 'active' : '' }}" href="{{url('womens-week-bicycle-day')}}">{{ __('home_content.womens-week-bicycle-day')}}</span></a>
 				</li> --}}

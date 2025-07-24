@@ -140,8 +140,14 @@ if (in_array($role_value, $validation_role_arr)){*/
 																{{-- <option value="13080">Fit India Women's Week</option> --}}
 																<option value="13078">Fit India Cycling Drive</option>
 															</select>
+                                                        @else
+                                                            <select class="select_category change_category_name" name="category_name" id="category_name" class="fit-pe-inputs" required>
+																@foreach ($categories as $key => $value)
+																	<option value="{{ $value->id }}" >{{$value->name}}</option>
+																@endforeach
+															</select>
 														@endif
-					                                  <input type="hidden" name="event_name_store" id="event_name_store" class="form-control change_event_name" placeholder="Event Name" value="{{ $categories[0]['name'] ?? '' }}" readonly>
+					                                  <input type="hidden" name="event_name_store" id="event_name_store" class="form-control change_event_name" placeholder="Event Name" value="{{ $categories[0]['name'] ?? '' }}">
 					                               </div>
 											</div>
 
@@ -218,7 +224,7 @@ if (in_array($role_value, $validation_role_arr)){*/
 													<select name="state" id="state" class="fit-pe-inputs" required>
 														<option value = "">Select State</option>
 														@foreach ($state as $value)
-														<option value = "{{ $value['name'] }}" <?=(!empty($value['name'])&&($value['name']== $usermeta_data_state))? 'selected=selected' : ''?>>{{ $value['name'] }}</option>
+														<option value = "{{ $value['name'] }}">{{ $value['name'] }}</option>
 														{{-- <option value = "<?php //echo $value['id'],'_',$value['name']?>">{{ $value['name'] }}</option> --}}
 														@endforeach
 													</select>
@@ -226,7 +232,7 @@ if (in_array($role_value, $validation_role_arr)){*/
 												</div>
 											</div>
 
-                                            <div class="um-field">
+											<div class="um-field">
 												<div class="um-field-label">
 													<label for="eventname">Districts *</label>
 													<div class="um-clear"></div>
@@ -804,8 +810,8 @@ $('.select_category').on('change', function(){
 
 		let id = $(this).val();
 
-		baseurl = "https://localhost/fitindiaweb_gitnew/";
-		// baseurl = "<?php echo config('app.website_url'); ?>";
+		// baseurl = "https://localhost/fitindiawebgit/";
+		baseurl = "<?php echo config('app.website_url'); ?>";
 
 		$.ajax({
 
