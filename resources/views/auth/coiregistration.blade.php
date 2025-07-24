@@ -90,710 +90,710 @@
 </style>
 <section class="log_sec">
 {{-- {{ dd("cyclothonregister") }} --}}
-    <div class="container">
-        <div id="divloader" class="loaderregister" style="display: none">
-        {{-- <div id="divloader" class="loaderregister" style="display: block"> --}}
-            <img style="margin-top:15%; width: 15%; height: 25%;" src="{{ url('/wp-content/uploads/2021/01/loader.gif') }}" />
-        </div>
-        <div class="row">
-            <div class="col-12 signup_frm">
-                <div class="">
-                    <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate="novalidate">
-                        @csrf
-                        <p>Already have an account?
-                        <a id="fi_signin" href="login">Login</a>
-                        </p>
-                        <div class="frm-details res_mobile">
-                            <h1>{{ __('Register') }}</h1>
-                            <label for="role">{{ __('Register As') }}</label>
-                            <div class="register-row">
-                                <div class="register-row-lft">
-                                    <div class="role-row">
-                                        <input type="hidden" class="mobile_verified_status" id="mobile_verified_status" value="1">
-                                        {{-- <input type="radio" name="roletype"  value="1" onclick="fi_rolechange(this.value)" checked=""> Ministries/Departments
-                                        <input type="radio" name="roletype" value="2" onclick="fi_rolechange(this.value)"> Armed forces/CPF
-                                        <input type="radio" name="roletype" value="0" onclick="fi_rolechange(this.value)"> Other --}}
-                                        {{-- <input type="radio" name="roletype" value="0" {{ (request()->is('role')) }}  onclick="fi_rolechange(this.value)"> Other    --}}
+  <div class="container">
+    <div id="divloader" class="loaderregister" style="display: none">
+    {{-- <div id="divloader" class="loaderregister" style="display: block"> --}}
+        <img style="margin-top:15%; width: 15%; height: 25%;" src="{{ url('/wp-content/uploads/2021/01/loader.gif') }}" />
+    </div>
+    <div class="row">
+      <div class="col-12 signup_frm">
+
+         <div class="">
+            <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate="novalidate">
+			    @csrf
+                <p>Already have an account?
+                  <a id="fi_signin" href="login">Login</a>
+                </p>
+                <div class="frm-details res_mobile">
+                <h1>{{ __('Register') }}</h1>
+                <label for="role">{{ __('Register As') }}</label>
+                <div class="register-row">
+                    <div class="register-row-lft">
+                        <div class="role-row">
+                            <input type="hidden" class="mobile_verified_status" id="mobile_verified_status" value="0">
+                            {{-- <input type="radio" name="roletype"  value="1" onclick="fi_rolechange(this.value)" checked=""> Ministries/Departments
+                            <input type="radio" name="roletype" value="2" onclick="fi_rolechange(this.value)"> Armed forces/CPF
+                            <input type="radio" name="roletype" value="0" onclick="fi_rolechange(this.value)"> Other --}}
+                            {{-- <input type="radio" name="roletype" value="0" {{ (request()->is('role')) }}  onclick="fi_rolechange(this.value)"> Other    --}}
+                        </div>
+                        @if (isset($_GET['role']))
+
+                            @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
+                                <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autocomplete="cyclothonrole" autofocus>
+                                    <option value="club" selected>Club</option>
+                                </select>
+                            @endif
+                            @error('cyclothonrole')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <span id="blankcyclothonrole" style="display:none; color:red; font-size:12px;">
+                                Role is required
+                            </span>
+                            <div class="register-row-rt">
+                            </div>
+                        @else
+
+                            <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autocomplete="cyclothonrole" autofocus>
+                                <option value="">Please select Individual/Organization/Club</option>
+                                <option value="individual">Individual</option>
+                                <option value="organization">Organization</option>
+                                <option value="club">Club</option>
+                            </select>
+                            @error('cyclothonrole')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <span id="blankcyclothonrole" style="display:none; color:red; font-size:12px;">
+                                Role is required
+                            </span>
+                            <div class="register-row-rt">
+                            </div>
+                        @endif
+
+                         <input type="hidden" name="role_name" id="role_name" value="{{ $_GET['role'] ?? '' }}">
+                          <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required autocomplete="role" autofocus>
+                            @if (isset($_GET['role']))
+                                @if ($_GET['role'] != 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi')
+							        {{-- <option value="">{{'Select'}}</option> --}}
+                                @endif
+                            @endif
+							@foreach ($roles as $role)
+							<?php if(in_array($role->slug, array( 'champion' , 'smambassador', 'sai_user', 'author', 'gmambassador','gram_panchayat','caadmin') )){ continue; } ?>
+
+                            <option <?php if(isset($_GET['role'])){ if(base64_decode($_GET['role']) ==  $role->slug){ echo "selected='selected'";}} ?> value="{{ $role->slug }}"  @if(old('role') == $role->slug) {{ 'selected' }} @endif >{{ Str::upper($role->name)}}</option>
+
+                            @endforeach
+						  </select>
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                    </div>
+
+                    <div class="register-row-rt">
+                    </div>
+
+                </div>
+                <div style="clear:both"></div>
+                    @if (isset($role_name))
+                        @if($role_name == 'cyclothon-2024')
+                            <div class="register-row my-search-select-cls" id="user_join_club_id_show" style="display:block;">
+                            {{-- <div id="user_join_club_id_show" style="display:none;"> --}}
+                                <div class="register-row" >
+                                            <div class="register-row-lft">
+                                                {{-- {{ dd($club_name_with_id) }} --}}
+                                                <select class="form-control @error('user_join_club_id') is-invalid @enderror  select2" name="user_join_club_id" id="user_join_club_id" required autocomplete="user_join_club_id" autofocus>
+                                                    <option value="">Do you belong to any of the NAMO cycling Clubs?</option>
+                                                    @if(isset($club_name_with_id))
+                                                        @if(count($club_name_with_id) > 0)
+                                                            @foreach ($club_name_with_id as $row)
+                                                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    @endif
+                                                </select>
+                                                <br/>
+                                                <br/>
+                                                {{-- @error('cyclothonrole')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <span id="blankcyclothonrole" style="display:none; color:red; font-size:12px;">
+                                                    Role is required
+                                                </span> --}}
+
+                                            </div>
+
+                                    <div class="register-row-rt">
+                                    <div id="udise_row" style="display:none;">
+                                        <input id="fi_udise" type="text" class="form-control @error('udise') is-invalid @enderror" name="udise" value="{{ old('udise') }}" required autocomplete="U-Dise Number" placeholder="U-Dise Number">
+                                        @error('udise')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        <!--<input id="fi_udise" type="number" class="required" name="udise" min="1" placeholder="U-Dise Number" aria-required="true">-->
                                     </div>
-                                    @if (isset($_GET['role']))
-
-                                        @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
-                                            <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autocomplete="cyclothonrole" autofocus>
-                                                <option value="club" selected>Club</option>
-                                            </select>
-                                        @endif
-                                        @error('cyclothonrole')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <span id="blankcyclothonrole" style="display:none; color:red; font-size:12px;">
-                                            Role is required
-                                        </span>
-                                        <div class="register-row-rt">
-                                        </div>
-                                    @else
-
-                                        <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autocomplete="cyclothonrole" autofocus>
-                                            <option value="">Please select Individual/Organization/Club</option>
-                                            <option value="individual">Individual</option>
-                                            <option value="organization">Organization</option>
-                                            <option value="club">Club</option>
-                                        </select>
-                                        @error('cyclothonrole')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <span id="blankcyclothonrole" style="display:none; color:red; font-size:12px;">
-                                            Role is required
-                                        </span>
-                                        <div class="register-row-rt">
-                                        </div>
-                                    @endif
-
-                                    <input type="hidden" name="role_name" id="role_name" value="{{ $_GET['role'] ?? '' }}">
-                                    <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required autocomplete="role" autofocus>
-                                        @if (isset($_GET['role']))
-                                            @if ($_GET['role'] != 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi')
-                                                {{-- <option value="">{{'Select'}}</option> --}}
-                                            @endif
-                                        @endif
-                                        @foreach ($roles as $role)
-                                        <?php if(in_array($role->slug, array( 'champion' , 'smambassador', 'sai_user', 'author', 'gmambassador','gram_panchayat','caadmin') )){ continue; } ?>
-
-                                        <option <?php if(isset($_GET['role'])){ if(base64_decode($_GET['role']) ==  $role->slug){ echo "selected='selected'";}} ?> value="{{ $role->slug }}"  @if(old('role') == $role->slug) {{ 'selected' }} @endif >{{ Str::upper($role->name)}}</option>
-
-                                        @endforeach
-                                    </select>
-                                            @error('role')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                    <input id="fi_orgname" type="text" class="required" name="orgname" style="display:none;" placeholder="Organisation Name" aria-required="true">
+                                    </div>
                                 </div>
-
-                                <div class="register-row-rt">
-                                </div>
-
                             </div>
                             <div style="clear:both"></div>
-                                @if (isset($role_name))
-                                    @if($role_name == 'cyclothon-2024')
+                        @endif
+                    @endif
 
-                                        <div class="register-row my-search-select-cls" id="user_join_club_id_show" style="display:block;">
-                                        {{-- <div id="user_join_club_id_show" style="display:none;"> --}}
-                                            <div class="register-row" >
-                                                <div class="register-row-lft">
-                                                    {{-- {{ dd($club_name_with_id) }} --}}
-                                                    <select class="form-control @error('user_join_club_id') is-invalid @enderror select2"  name="user_join_club_id" id="user_join_club_id" required autocomplete="user_join_club_id" autofocus>
-                                                        <option value="">Do you belong to any of the NAMO cycling Clubs?</option>
-                                                        @if(isset($club_name_with_id))
-                                                            @if(count($club_name_with_id) > 0)
-                                                                @foreach ($club_name_with_id as $row)
-                                                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endif
-                                                    </select>
-                                                    <br/>
-                                                    <br/>
-                                                    {{-- @error('cyclothonrole')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                    <span id="blankcyclothonrole" style="display:none; color:red; font-size:12px;">
-                                                        Role is required
-                                                    </span> --}}
+                <div id="udisenumrow" class="register-row">
+                    <div class="register-row-lft">
+					 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="{{ $club_name ?? 'Name' }}">
+						@error('name')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
+                        <span id="blankname" style="display:none; color:red; font-size:12px;">
+                            Name is required
+                        </span>
 
-                                                </div>
-
-                                                <div class="register-row-rt">
-                                                <div id="udise_row" style="display:none;">
-                                                    <input id="fi_udise" type="text" class="form-control @error('udise') is-invalid @enderror" name="udise" value="{{ old('udise') }}" required autocomplete="U-Dise Number" placeholder="U-Dise Number">
-                                                    @error('udise')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                    <!--<input id="fi_udise" type="number" class="required" name="udise" min="1" placeholder="U-Dise Number" aria-required="true">-->
-                                                </div>
-                                                <input id="fi_orgname" type="text" class="required" name="orgname" style="display:none;" placeholder="Organisation Name" aria-required="true">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="clear:both"></div>
-                                    @endif
-                                @endif
-
-                                <div id="udisenumrow" class="register-row">
-                                    <div class="register-row-lft">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="{{ $club_name ?? 'Name' }}">
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <span id="blankname" style="display:none; color:red; font-size:12px;">
-                                            Name is required
-                                        </span>
-
-                                    </div>
-                                    <div class="register-row-rt">
-                                        @if (isset($_GET['role']))
-                                            @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
-                                                {{-- <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="Participant Number" min="0"> --}}
-                                                <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="{{ $participant ?? 'Participant Number' }}" min="0">
-                                                @error('participant_number')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="blankparticipant" style="display:none; color:red; font-size:12px;">
-                                                    Participant number is required
-                                                </span>
-                                            @endif
-                                        @else
-                                            <div id="participant_number_row" style="display:none;">
-                                                <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="Participant Number" min="0">
-                                                @error('participant_number')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="blankparticipant" style="display:none; color:red; font-size:12px;">
-                                                    Participant number is required
-                                                </span>
-                                                <!--<input id="fi_udise" type="number" class="required" name="udise" min="1" placeholder="U-Dise Number" aria-required="true">-->
-                                            </div>
-                                            <input id="fi_orgname" type="text" class="required" name="orgname" style="display:none;" placeholder="Organisation Name" aria-required="true">
-                                        @endif
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-
-                                {{-- <div class="register-row" style="align-items: center">  --}}
-                                <div class="register-row e-mob-fx" >
-                                    <div class="register-row-lft">
-
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="email_error" style="display:none; color:red; font-size:12px;">
-                                                    Please enter a valid email address
-                                                </span>
-                                                <span id="duplicate_email_error" style="display:none; color:red; font-size:12px;">
-                                                    Email already exists
-                                                </span>
-                                    </div>
-                                    <div class="register-row-rt">
-                                        {{-- <span id="verify_button_hide" display:block;>
-                                            <button type="button" class="btn btn-info" style="min-width: 120px;">
-                                                <a class="email_verify" style="color:#fff;"> Verify email </a>
-                                            </button>
-                                        </span> --}}
-                                        <span id="verifyed_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
-                                            Email verified
-                                            <i class="fa fa-check" style="font-size:12px"></i>
-                                        </span>
-                                        {{-- cursor: pointer; --}}
-                                        {{-- <div><a href="url">link text</a></div> --}}
-                                        {{-- <button type="button">Click Me!</button> --}}
-                                        {{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
-                                            @error('phone')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror --}}
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-
-                                {{-- <div class="register-row" style="align-items: center">  --}}
-                                <div class="register-row e-mob-fx" >
-                                    <div class="register-row-lft">
-                                        <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') ?? "" }}" required autocomplete="phone" min="0" max="9999999999" placeholder="Mobile">
-                                            @error('phone')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <span id="phone_error" style="display:none; color:red; font-size:12px;">
-                                                Please enter a valid mobile number
-                                            </span>
-                                            <span id="duplicate_phone_error" style="display:none; color:red; font-size:12px;">
-                                                Phone already exists
-                                            </span>
-                                            <span id="verified_phone_error" style="display:none; color:red; font-size:12px;">
-                                                Please verifiy your mobile number
-                                            </span>
-                                    </div>
-                                    <div class="register-row-rt">
-                                        <span id="verify_button_mobile_hide" display:block;>
-                                            <button type="button" class="btn btn-info" display:block; style="min-width: 120px;">
-                                                <a class="mobile_verify" style="color:#fff;">Verify mobile</a>
-                                            </button>
-                                        </span>
-                                        <span id="verifyed_mobile_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
-                                            Mobile verified
-                                            <i class="fa fa-check" style="font-size:12px"></i>
-                                        </span>
-                                        {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror --}}
-
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-                                @if (isset($_GET['role']))
-                                    @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
-                                        <div id="udisenumrow" class="register-row">
-                                            <div class="register-row-lft">
-                                            <input id="address_line_one" type="text" class="form-control @error('address_line_one') is-invalid @enderror" name="address_line_one" value="{{ old('address_line_one') }}" required autocomplete="address_line_one" autofocus placeholder="Address Line 1">
-                                                @error('address_line_one')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="blankaddress_line_one" style="display:none; color:red; font-size:12px;">
-                                                    Address Line 1 is required
-                                                </span>
-
-                                            </div>
-                                            <div class="register-row-rt">
-                                                        <input id="address_line_two" type="text" class="form-control @error('address_line_two') is-invalid @enderror" name="address_line_two" value="{{ old('address_line_two') }}" required autocomplete="address_line_two" placeholder="Address Line 2">
-                                                        @error('address_line_two')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                        <span id="blankaddress_line_two" style="display:none; color:red; font-size:12px;">
-                                                            Address Line 2 number is required
-                                                        </span>
-                                            </div>
-                                        </div>
-                                        <div style="clear:both"></div>
-                                    @endif
-                                @endif
-                                <div class="register-row e-mob-fx" >
-                                    <div class="register-row-lft">
-                                        <input id="pincode" type="number" class="form-control @error('pincode') is-invalid @enderror pincode_value" name="pincode" value="{{ old('phone') ?? "" }}" required autocomplete="pincode" min="0" max="999999" placeholder="Pin Code">
-                                            @error('pincode')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <span id="pincode_error" style="display:none; color:red; font-size:12px;">
-                                                Please enter a valid pin code number
-                                            </span>
-                                    </div>
-                                    {{-- <div class="register-row-rt"> --}}
-                                        <div class="register-row-rt" id="tshirtsizeshow" style="display: none">
-                                                <select id="tshirtsize" name="tshirtsize" class="form-control @error('tshirtsize') is-invalid @enderror" aria-required="true" >
-                                                    <option value="">T-Shirt size</option>
-                                                    <option value="S">S</option>
-                                                    <option value="M">M</option>
-                                                    <option value="L">L</option>
-                                                    <option value="XL">XL</option>
-                                                    <option value="XXL">XXL</option>
-                                                </select>
-                                                @error('tshirtsize')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                                <span id="tshirtsizeerror" style="display:none; color:red; font-size:12px;">
-                                                    Shirt size is required
-                                                </span>
-                                        </div>
-                                        {{-- <span id="verifyed_mobile_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
-                                            Mobile verified
-                                            <i class="fa fa-check" style="font-size:12px"></i>
-                                        </span> --}}
-                                        {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror --}}
-
-                                    {{-- </div> --}}
-                                </div>
-                                <div style="clear:both"></div>
-                                <div class="register-row my-search-select-cls">
-                                    <div class="register-row-lft">
-                                        <select id="state" name="state" class="form-control @error('state') is-invalid @enderror select2" aria-required="true">
-                                            <option value="">Select State</option>
-                                            @foreach($state->sortBy('name') as $st)
-                                                @if($st->name)
-                                                    <option value="{{ $st->id }}"  @if(!empty(old('state')) && old('state') == $st->id) {{ 'selected' }} @endif >
-                                                        {{ $st->name }}
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        @error('state')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <span id="blankstate" style="display: none; color: red; margin-top:15px; font-size:12px;">
-                                            State is required
-                                        </span>
-                                        <?php
-                                        /* <select id="state" name="state" class="form-control @error('state') is-invalid @enderror" aria-required="true">
-                                            <option value="">Select State</option>
-                                            @foreach($state as $st)
-                                                <option value="{{ $st->id }}"  @if(!empty(old('state')) && old('state') == $st->id) {{ 'selected' }} @endif >
-                                                {{ $st->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('state')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                        @enderror */ ?>
-                                    </div>
-                                    <br/>
-                                    <div style="clear:both"></div>
-                                    <div class="register-row-rt">
-                                        <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" aria-required="true">
-                                            <option value="">Select district</option>
-                                            <?php
-                                            if(!empty($districts)){
-                                            ?>
-                                                @foreach($districts->sortBy('name') as $st)
-                                                @if($st->name)
-                                                <option value="{{ $st->id }}"  @if(!empty(old('district')) && old('district') == $st->id) {{ 'selected' }} @endif >
-                                                {{ $st->name }}
-                                                </option>
-                                                @endif
-                                            @endforeach
-                                            <?php
-                                            }
-                                            ?>
-
-                                        </select>
-                                        @error('district')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                        <span id="blankdistrict" style="display:none; color:red; font-size:12px;">
-                                            District is required
-                                        </span>
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-                                <div class="register-row">
-                                    <div class="register-row-lft">
-                                        <select id="block" name="block" class="form-control @error('block') is-invalid @enderror" aria-required="true">
-                                            <option value="">Select block</option>
-                                            <?php
-                                                if(!empty($districts)){
-                                            ?>
-                                                @foreach($blocks->sortBy('name') as $st)
-                                                @if($st->name)
-                                                    <option value="{{ $st->id }}"  @if(!empty(old('block')) && old('block') == $st->id) {{ 'selected' }} @endif >
-                                                    {{ ucwords(strtolower($st->name)) }}
-                                                    </option>
-                                                @endif
-                                                @endforeach
-                                            <?php
-                                            }
-                                            ?>
-                                        </select>
-                                        @error('block')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                        <span id="blankblock" style="display:none; color:red; font-size:12px;">
-                                            Block is required
-                                        </span>
-                                    </div>
-
-                                    <div class="register-row-rt">
-
-                                        <div id="city_show"></div>
-                                        <div id="city_show_hide" style="display:block;">
-                                            <input id="fi_city" type="text" class="form-control required  @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" placeholder="City/Town/Village" aria-required="true" onkeydown="return /[a-z, ]/i.test(event.key)"
-                                            onblur="if (this.value == '') {this.value = '';}"
-                                            onfocus="if (this.value == '') {this.value = '';}">
-                                                    @error('city')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                    <span id="blankfi_city_value" style="display:none; color:red; font-size:12px;">
-                                                        City/Town/Village is required
-                                                    </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-
-                                <div class="register-row">
-                                    <div class="register-row-lft r_parent">
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                                        name="password" value="{{ old('password') }}" required autocomplete="new-password" placeholder="Password">
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="passwordmismatch" style="display:none; color:red; font-size:12px;">
-                                                    Password does not match.
-                                                </span>
-                                                <span id="blankpassword" style="display:none; color:red; font-size:12px;">
-                                                    Password is required
-                                                </span>
-                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="password_show()"></span>
-
-
-
-
-                                    </div>
-                                    <div class="register-row-rt r_parent">
-
-                                        <input id="password-confirm" type="password" class="form-control  @error('password') is-invalid @enderror" value="{{ old('password_confirmation') }}" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
-                                                @error('password_confirmation')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                                <span id="blankconfirmpassword" style="display:none; color:red; font-size:12px;">
-                                                    Confirm password is required
-                                                </span>
-                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="confirm_password_show()"></span>
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-                                <div id="cycle_display" style="display:block;">
-                                    <div class="register-row">
-                                        <div class="register-row-lft r_parent">
-                                            <select id="cycle" name="cycle" class="form-control @error('block') is-invalid @enderror" aria-required="true">
-                                                {{-- <option value="">Need a cycle for your ride</option> --}}
-                                                <option value="no" selected>Do you require a cycle? - No</option>
-                                                <option value="yes">Do you require a cycle? - Yes</option>
-                                            </select>
-                                            @error('cycle')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                            <span id="blankcycle" style="display:none; color:red; font-size:12px;">
-                                                Please select cycle type
-                                            </span>
-                                            {{-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="password_show()"></span> --}}
-
-
-
-
-                                        </div>
-                                        <div class="register-row-rt r_parent tooltipcycle">
-                                            {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg> --}}
-                                            <i style="font-size:24px" class="fa fa-info-circle fa-circle-info my-tool-cycle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="- ⁠Cycles are available in limited numbers and on first come first served basis"></i>
-                                            {{-- <span class="fa-solid fa-circle-info my-tool-cycle " data-toggle="tooltip" data-placement="top" title="Tooltip on top"></span> --}}
-                                            {{-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                                Tooltip on top
-                                            </button> --}}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div style="clear:both"></div>
-
-
-                                <div class="register-row">
-                                    <div class="register-row-lft">
-                                    <div class="um-field" id="rcapcha-main-cont">
-                                        <label for="captcha">Please enter the captcha text</label><br>
-                                        <div style="float:left; width:115px; margin: 6px 0;" id="rcaptcha-cont">
-                                            <div class="captchaimg">
-                                                <span>{!! captcha_img() !!}</span>
-                                            </div>
-                                        </div>
-                                        <div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;" >
-                                        <button type="button" class="btn btn-info" class="reload" id="reload">
-                                            ↻
-                                            </button>
-                                        </div>
-
-                                        <div style="left" class="cap_width_login">
-                                            <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
-                                            @error('captcha')
-                                                <span class="invalid-feedback" role="alert" >
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <span id="blankcaptcha" style="display:none; color:red; font-size:12px;">
-                                                Captcha is required
-                                            </span>
-                                        </div>
-
-                                        <div style="clear:both;"></div>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div style="clear:both"></div>
-                                {{-- <div class="register-row-submit">
-                                    @if (isset($listofcenter))
-                                        {{ $listofcenter ?? "" }}
-                                        <br/>
-                                        <b>
-                                            <a href="{{ url('resources/pdf/list-event-location-world-bicycle-day.pdf') }}" target="_blank">
-                                                Click here for list of centres
-                                            </a>
-                                        </b>
-                                    @endif
-                                </div> --}}
-
-                                <div class="register-row-submit">
-                                    <input id="btnSubmit" class="submit_button" type="submit" value="Register here">
-                                </div>
+                    </div>
+                    <div class="register-row-rt">
+                        @if (isset($_GET['role']))
+                            @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
+                                {{-- <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="Participant Number" min="0"> --}}
+                                <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="{{ $participant ?? 'Participant Number' }}" min="0">
+                                @error('participant_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <span id="blankparticipant" style="display:none; color:red; font-size:12px;">
+                                    Participant number is required
+                                </span>
+                            @endif
+                        @else
+                            <div id="participant_number_row" style="display:none;">
+                                <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="Participant Number" min="0">
+                                @error('participant_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <span id="blankparticipant" style="display:none; color:red; font-size:12px;">
+                                    Participant number is required
+                                </span>
+                                <!--<input id="fi_udise" type="number" class="required" name="udise" min="1" placeholder="U-Dise Number" aria-required="true">-->
                             </div>
-                    </form>
+                            <input id="fi_orgname" type="text" class="required" name="orgname" style="display:none;" placeholder="Organisation Name" aria-required="true">
+                        @endif
+                    </div>
                 </div>
-                    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content mheight-modal">
-                                <div class="modal-header">
-                                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button> --}}
-                                </div>
-                                <div class="modal-body" id="mediumBody">
-                                    <div class="row justify-content-center">
-                                        <h2 class="text-center">Verification code</h2>
-                                    </div>
-                                    <div class="row mt-2 justify-content-center">
-                                        <p class="w-100 text-center">We will send you an password via registered</p>
-                                        <h6 class="mt-1 w-100 text-center" style="font-weight: 700">Email</h6>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <div class="col-6">
-                                            <input type="number" class="form-control" id="email_otp" name="email_otp" size="100" maxlength="6" min="1">
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <span class="email_otp_error" style="display:none; color:red; font-size:12px;">
-                                            Please enter a valid OTP
-                                        </span>
-                                    </div>
-                                    <div  class="row justify-content-center mt-2">
-                                            Time left &nbsp; <span id="timer"> </span>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;">
-                                            <a id="email_otp_verify">OTP verify</a>
-                                        </button>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <p class="text-center mt-2">Didn't receive the verification OTP?
-                                            <br/>
-                                            <br/>
-                                            <span id="resend_otp" style="display:none;">
-                                                <button type="button" class="btn btn-info">
-                                                {{-- <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;"> --}}
-                                                    <a class="email_verify" style="color:#fff;">Resend OTP</a>
-                                                </button>
+                <div style="clear:both"></div>
+
+                {{-- <div class="register-row" style="align-items: center">  --}}
+                <div class="register-row e-mob-fx" >
+                    <div class="register-row-lft">
+
+						<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <span id="email_error" style="display:none; color:red; font-size:12px;">
+                                    Please enter a valid email address
+                                </span>
+                                <span id="duplicate_email_error" style="display:none; color:red; font-size:12px;">
+                                    Email already exists
+                                </span>
+                    </div>
+                    <div class="register-row-rt">
+                        {{-- <span id="verify_button_hide" display:block;>
+                            <button type="button" class="btn btn-info" style="min-width: 120px;">
+                                <a class="email_verify" style="color:#fff;"> Verify email </a>
+                            </button>
+                        </span> --}}
+                        <span id="verifyed_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
+                            Email verified
+                            <i class="fa fa-check" style="font-size:12px"></i>
+                        </span>
+                        {{-- cursor: pointer; --}}
+                        {{-- <div><a href="url">link text</a></div> --}}
+                        {{-- <button type="button">Click Me!</button> --}}
+						{{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
+							@error('phone')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror --}}
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+
+                {{-- <div class="register-row" style="align-items: center">  --}}
+                <div class="register-row e-mob-fx" >
+                    <div class="register-row-lft">
+                        <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') ?? "" }}" required autocomplete="phone" min="0" max="9999999999" placeholder="Mobile">
+							@error('phone')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+                            <span id="phone_error" style="display:none; color:red; font-size:12px;">
+                                Please enter a valid mobile number
+                            </span>
+                            <span id="duplicate_phone_error" style="display:none; color:red; font-size:12px;">
+                                Phone already exists
+                            </span>
+                            <span id="verified_phone_error" style="display:none; color:red; font-size:12px;">
+                                Please verifiy your mobile number
+                            </span>
+                    </div>
+                    <div class="register-row-rt">
+                        <span id="verify_button_mobile_hide" display:block;>
+                            <button type="button" class="btn btn-info" display:block; style="min-width: 120px;">
+                                <a class="mobile_verify" style="color:#fff;">Verify mobile</a>
+                            </button>
+                        </span>
+                        <span id="verifyed_mobile_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
+                            Mobile verified
+                            <i class="fa fa-check" style="font-size:12px"></i>
+                        </span>
+                        {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror --}}
+
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                @if (isset($_GET['role']))
+                    @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
+                        <div id="udisenumrow" class="register-row">
+                            <div class="register-row-lft">
+                            <input id="address_line_one" type="text" class="form-control @error('address_line_one') is-invalid @enderror" name="address_line_one" value="{{ old('address_line_one') }}" required autocomplete="address_line_one" autofocus placeholder="Address Line 1">
+                                @error('address_line_one')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <span id="blankaddress_line_one" style="display:none; color:red; font-size:12px;">
+                                    Address Line 1 is required
+                                </span>
+
+                            </div>
+                            <div class="register-row-rt">
+                                        <input id="address_line_two" type="text" class="form-control @error('address_line_two') is-invalid @enderror" name="address_line_two" value="{{ old('address_line_two') }}" required autocomplete="address_line_two" placeholder="Address Line 2">
+                                        @error('address_line_two')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
                                             </span>
-                                        </p>
-                                    </div>
-                                    {{-- <div>
-                                        <input type="number" id="email_otp" name="email_otp" size="50" maxlength="6" min="1">
-                                        <span id="email_otp_error" style="display:none; color:red;">
-                                            Please Enter A Valid OTP
+                                        @enderror
+                                        <span id="blankaddress_line_two" style="display:none; color:red; font-size:12px;">
+                                            Address Line 2 number is required
                                         </span>
-                                        <button type="button" class="btn btn-info">
-                                            <a id="email_otp_verify">otp verify</a>
-                                        </button>
-                                        <div>Time left = <span id="timer"></span></div>
-                                        <span id="resend_otp" style="display:none;">
-                                            <button type="button" class="btn btn-info">
-                                                <a id="resendotp">Resend OTP</a>
-                                            </button>
-                                        </span>
-                                    </div> --}}
-                                </div>
                             </div>
                         </div>
+                        <div style="clear:both"></div>
+                    @endif
+                @endif
+                <div class="register-row e-mob-fx" >
+                    <div class="register-row-lft">
+                        <input id="pincode" type="number" class="form-control @error('pincode') is-invalid @enderror pincode_value" name="pincode" value="{{ old('phone') ?? "" }}" required autocomplete="pincode" min="0" max="999999" placeholder="Pin Code">
+							@error('pincode')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+                            <span id="pincode_error" style="display:none; color:red; font-size:12px;">
+                                Please enter a valid pin code number
+                            </span>
                     </div>
-                    <div class="modal fade" id="mobileModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" >
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content mheight-modal">
-                                <div class="modal-header">
-                                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button> --}}
-                                </div>
-                                <div class="modal-body" id="mediumBody">
-                                    <div class="row justify-content-center">
-                                        <h2 class="text-center">Verification code</h2>
-                                    </div>
-                                    <div class="row mt-2 justify-content-center">
-                                        <p class="w-100 text-center">We will send you an password via registered</p>
-                                        <h6 class="mt-1 w-100 text-center" style="font-weight: 700">Mobile number</h6>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <div class="col-6">
-                                            <input type="number" class="form-control" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <span class="mobile_otp_error" style="display:none; color:red; font-size:12px;">
-                                            Please enter a valid OTP
+                    {{-- <div class="register-row-rt"> --}}
+                        <div class="register-row-rt" id="tshirtsizeshow" style="display: none">
+                                <select id="tshirtsize" name="tshirtsize" class="form-control @error('tshirtsize') is-invalid @enderror" aria-required="true" >
+                                    <option value="">T-Shirt size</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                                @error('tshirtsize')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <span id="tshirtsizeerror" style="display:none; color:red; font-size:12px;">
+                                    Shirt size is required
+                                </span>
+                        </div>
+                        {{-- <span id="verifyed_mobile_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
+                            Mobile verified
+                            <i class="fa fa-check" style="font-size:12px"></i>
+                        </span> --}}
+                        {{-- <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror --}}
+
+                    {{-- </div> --}}
+                </div>
+                <div style="clear:both"></div>
+             <div class="register-row my-search-select-cls">
+                    <div class="register-row-lft">
+                        <select id="state" name="state" class="form-control @error('state') is-invalid @enderror select2" aria-required="true">
+                            <option value="">Select State</option>
+                            @foreach($state->sortBy('name') as $st)
+                                @if($st->name)
+                                    <option value="{{ $st->id }}"  @if(!empty(old('state')) && old('state') == $st->id) {{ 'selected' }} @endif >
+                                        {{ $st->name }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+						@error('state')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{ $message }}</strong>
+							</span>
+                        @enderror
+                        <span id="blankstate" style="display: none; color: red; margin-top:15px; font-size:12px;">
+                            State is required
+                        </span>
+						<?php
+						/* <select id="state" name="state" class="form-control @error('state') is-invalid @enderror" aria-required="true">
+                            <option value="">Select State</option>
+                            @foreach($state as $st)
+                                <option value="{{ $st->id }}"  @if(!empty(old('state')) && old('state') == $st->id) {{ 'selected' }} @endif >
+								{{ $st->name }}
+								</option>
+                            @endforeach
+                        </select>
+						@error('state')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror */ ?>
+                    </div>
+                    <br/>
+                    <div style="clear:both"></div>
+                    <div class="register-row-rt">
+                        <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" aria-required="true">
+							<option value="">Select district</option>
+                            <?php
+                            if(!empty($districts)){
+                            ?>
+                                @foreach($districts->sortBy('name') as $st)
+							    @if($st->name)
+                                <option value="{{ $st->id }}"  @if(!empty(old('district')) && old('district') == $st->id) {{ 'selected' }} @endif >
+								{{ $st->name }}
+								</option>
+								@endif
+                            @endforeach
+                            <?php
+                            }
+                            ?>
+
+                        </select>
+						@error('district')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+                        @enderror
+                        <span id="blankdistrict" style="display:none; color:red; font-size:12px;">
+                            District is required
+                        </span>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div class="register-row">
+                    <div class="register-row-lft">
+                        <select id="block" name="block" class="form-control @error('block') is-invalid @enderror" aria-required="true">
+							<option value="">Select block</option>
+                            <?php
+                                if(!empty($districts)){
+                            ?>
+                                @foreach($blocks->sortBy('name') as $st)
+                                @if($st->name)
+                                    <option value="{{ $st->id }}"  @if(!empty(old('block')) && old('block') == $st->id) {{ 'selected' }} @endif >
+                                    {{ ucwords(strtolower($st->name)) }}
+                                    </option>
+                                @endif
+                                @endforeach
+                            <?php
+                            }
+                            ?>
+                        </select>
+						@error('block')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+                        @enderror
+                        <span id="blankblock" style="display:none; color:red; font-size:12px;">
+                            Block is required
+                        </span>
+                    </div>
+
+                    <div class="register-row-rt">
+
+                        <div id="city_show"></div>
+                        <div id="city_show_hide" style="display:block;">
+                            <input id="fi_city" type="text" class="form-control required  @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" placeholder="City/Town/Village" aria-required="true" onkeydown="return /[a-z, ]/i.test(event.key)"
+                            onblur="if (this.value == '') {this.value = '';}"
+                            onfocus="if (this.value == '') {this.value = '';}">
+                                    @error('city')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
                                         </span>
-                                    </div>
-                                    <div  class="row justify-content-center mt-2">
-                                            Time left &nbsp; <span id="mobile_timer"> </span>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;">
-                                            <a id="mobile_otp_verify">OTP verify</a>
-                                        </button>
-                                    </div>
-                                    <div class="row justify-content-center mt-2">
-                                        <p class="text-center mt-2">Didn't receive the verification OTP?
-                                            <br/>
-                                            <br/>
-                                                <span id="mobile_otp_resend" style="display:none;">
-                                                    <button type="button" class="btn btn-info">
-                                                        <a class="mobile_verify" style="color:#fff;">Resend OTP</a>
-                                                    </button>
-                                                </span>
-                                        </p>
-                                    </div>
-                                    {{-- <div>
-                                        Mobile
-                                        <input type="number" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
-                                        <span id="mobile_otp_error" style="display:none; color:red;">
-                                            Please Enter A Valid OTP
+                                    @enderror
+                                    <span id="blankfi_city_value" style="display:none; color:red; font-size:12px;">
+                                        City/Town/Village is required
+                                    </span>
+                        </div>
+					</div>
+                </div>
+                <div style="clear:both"></div>
+
+                <div class="register-row">
+                    <div class="register-row-lft r_parent">
+						<input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+						name="password" value="{{ old('password') }}" required autocomplete="new-password" placeholder="Password">
+								@error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <span id="passwordmismatch" style="display:none; color:red; font-size:12px;">
+                                    Password does not match.
+                                </span>
+                                <span id="blankpassword" style="display:none; color:red; font-size:12px;">
+                                    Password is required
+                                </span>
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="password_show()"></span>
+
+
+
+
+                    </div>
+                    <div class="register-row-rt r_parent">
+
+						<input id="password-confirm" type="password" class="form-control  @error('password') is-invalid @enderror" value="{{ old('password_confirmation') }}" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+								@error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <span id="blankconfirmpassword" style="display:none; color:red; font-size:12px;">
+                                    Confirm password is required
+                                </span>
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="confirm_password_show()"></span>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div id="cycle_display" style="display:block;">
+                    <div class="register-row">
+                        <div class="register-row-lft r_parent">
+                            <select id="cycle" name="cycle" class="form-control @error('block') is-invalid @enderror" aria-required="true">
+                                {{-- <option value="">Need a cycle for your ride</option> --}}
+                                <option value="no" selected>Do you require a cycle? - No</option>
+                                <option value="yes">Do you require a cycle? - Yes</option>
+                            </select>
+                            @error('cycle')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
                                         </span>
-                                        <button type="button" class="btn btn-info">
-                                            <a id="mobile_otp_verify">otp verify</a>
-                                        </button>
-                                    </div> --}}
-                                </div>
-                            </div>
+                                    @enderror
+                            <span id="blankcycle" style="display:none; color:red; font-size:12px;">
+                                Please select cycle type
+                            </span>
+                            {{-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="password_show()"></span> --}}
+
+
+
+
+                        </div>
+                        <div class="register-row-rt r_parent tooltipcycle">
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg> --}}
+                            <i style="font-size:24px" class="fa fa-info-circle fa-circle-info my-tool-cycle" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="- ⁠Cycles are available in limited numbers and on first come first served basis"></i>
+                            {{-- <span class="fa-solid fa-circle-info my-tool-cycle " data-toggle="tooltip" data-placement="top" title="Tooltip on top"></span> --}}
+                            {{-- <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                Tooltip on top
+                              </button> --}}
                         </div>
                     </div>
+                </div>
+
+                <div style="clear:both"></div>
+
+
+				<div class="register-row">
+                    <div class="register-row-lft">
+					<div class="um-field" id="rcapcha-main-cont">
+						<label for="captcha">Please enter the captcha text</label><br>
+						<div style="float:left; width:115px; margin: 6px 0;" id="rcaptcha-cont">
+							<div class="captchaimg">
+								<span>{!! captcha_img() !!}</span>
+							</div>
+						</div>
+						<div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;" >
+						  <button type="button" class="btn btn-info" class="reload" id="reload">
+							↻
+							</button>
+						</div>
+
+						<div style="left" class="cap_width_login">
+							<input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
+							@error('captcha')
+								<span class="invalid-feedback" role="alert" >
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+                            <span id="blankcaptcha" style="display:none; color:red; font-size:12px;">
+                                Captcha is required
+                            </span>
+						</div>
+
+						<div style="clear:both;"></div>
+					</div>
+                    </div>
+                </div>
+
+                <div style="clear:both"></div>
+                {{-- <div class="register-row-submit">
+                    @if (isset($listofcenter))
+                        {{ $listofcenter ?? "" }}
+                        <br/>
+                        <b>
+                            <a href="{{ url('resources/pdf/list-event-location-world-bicycle-day.pdf') }}" target="_blank">
+                                Click here for list of centres
+                            </a>
+                        </b>
+                    @endif
+                </div> --}}
+
+                <div class="register-row-submit">
+                    <input id="btnSubmit" class="submit_button" type="submit" value="Register here">
+                </div>
+                </div>
+            </form>
+         </div>
+        <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content mheight-modal">
+                    <div class="modal-header">
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                    </div>
+                    <div class="modal-body" id="mediumBody">
+                        <div class="row justify-content-center">
+                            <h2 class="text-center">Verification code</h2>
+                        </div>
+                        <div class="row mt-2 justify-content-center">
+                            <p class="w-100 text-center">We will send you an password via registered</p>
+                            <h6 class="mt-1 w-100 text-center" style="font-weight: 700">Email</h6>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-6">
+                                <input type="number" class="form-control" id="email_otp" name="email_otp" size="100" maxlength="6" min="1">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <span class="email_otp_error" style="display:none; color:red; font-size:12px;">
+                                Please enter a valid OTP
+                            </span>
+                        </div>
+                        <div  class="row justify-content-center mt-2">
+                                Time left &nbsp; <span id="timer"> </span>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;">
+                                <a id="email_otp_verify">OTP verify</a>
+                            </button>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <p class="text-center mt-2">Didn't receive the verification OTP?
+                                <br/>
+                                <br/>
+                                <span id="resend_otp" style="display:none;">
+                                    <button type="button" class="btn btn-info">
+                                    {{-- <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;"> --}}
+                                        <a class="email_verify" style="color:#fff;">Resend OTP</a>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                        {{-- <div>
+                            <input type="number" id="email_otp" name="email_otp" size="50" maxlength="6" min="1">
+                            <span id="email_otp_error" style="display:none; color:red;">
+                                Please Enter A Valid OTP
+                            </span>
+                            <button type="button" class="btn btn-info">
+                                <a id="email_otp_verify">otp verify</a>
+                            </button>
+                            <div>Time left = <span id="timer"></span></div>
+                            <span id="resend_otp" style="display:none;">
+                                <button type="button" class="btn btn-info">
+                                    <a id="resendotp">Resend OTP</a>
+                                </button>
+                            </span>
+                        </div> --}}
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="modal fade" id="mobileModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content mheight-modal">
+                    <div class="modal-header">
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                    </div>
+                    <div class="modal-body" id="mediumBody">
+                        <div class="row justify-content-center">
+                            <h2 class="text-center">Verification code</h2>
+                        </div>
+                        <div class="row mt-2 justify-content-center">
+                            <p class="w-100 text-center">We will send you an password via registered</p>
+                            <h6 class="mt-1 w-100 text-center" style="font-weight: 700">Mobile number</h6>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-6">
+                                <input type="number" class="form-control" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <span class="mobile_otp_error" style="display:none; color:red; font-size:12px;">
+                                Please enter a valid OTP
+                            </span>
+                        </div>
+                        <div  class="row justify-content-center mt-2">
+                                Time left &nbsp; <span id="mobile_timer"> </span>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;">
+                                <a id="mobile_otp_verify">OTP verify</a>
+                            </button>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <p class="text-center mt-2">Didn't receive the verification OTP?
+                                <br/>
+                                <br/>
+                                    <span id="mobile_otp_resend" style="display:none;">
+                                        <button type="button" class="btn btn-info">
+                                            <a class="mobile_verify" style="color:#fff;">Resend OTP</a>
+                                        </button>
+                                    </span>
+                            </p>
+                        </div>
+                        {{-- <div>
+                            Mobile
+                            <input type="number" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
+                            <span id="mobile_otp_error" style="display:none; color:red;">
+                                Please Enter A Valid OTP
+                            </span>
+                            <button type="button" class="btn btn-info">
+                                <a id="mobile_otp_verify">otp verify</a>
+                            </button>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 {{-- <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">
 <script src="{{ asset('resources/js/ajaxjquery.min.js') }}"></script> --}}
@@ -812,6 +812,7 @@
 </script>
 <script>
     $(document).ready(function() {
+
         $("#user_join_club_id_show").css("display", "none");
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),

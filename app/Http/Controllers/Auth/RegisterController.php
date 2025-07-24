@@ -88,10 +88,13 @@ class RegisterController extends Controller
 		$role_name = $request->input('role');
 		// dd($role_name);
 		// dd('its here you');
-		//$roles = Role::where('groupof',0)->get();
+		// //$roles = Role::where('groupof',0)->get();
+        // $role_name = "national-sports-day-2025";
 		// echo $encode = base64_encode($role_name);
+        // exit;
 		// echo '<br/>';
 		// echo base64_decode($encode);
+		// echo base64_decode($role_name);
 		// exit;
 		if($role_name == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg=='){
 			// dd(123);
@@ -137,6 +140,11 @@ class RegisterController extends Controller
 			->where('slug','=','cyclothon-2024')
 			->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
 			// dd($roles);
+
+        }else if($role_name == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1'){
+
+            $roles = Role::where('groupof', 1)
+				->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
 
 		}else{
 
@@ -387,7 +395,49 @@ class RegisterController extends Controller
                             ]
                         );
 
-                    }else if ($data['role'] == 'school') {
+                    }else if(base64_decode($data['role_name']) == 'national-sports-day-2025'){
+
+                        return Validator::make(
+                            $data,
+                            [
+                                'name' => 'required|string|max:255',
+                                'role' => 'required',
+                                'email' => 'required|string|email|max:255|unique:users',
+                                'phone' => 'required|digits:10|unique:users',
+                                'state' => 'required',
+                                'district' => 'required',
+                                'block' => 'required',
+                                'city' => 'required|regex:/^[\pL\s\-]+$/u',
+                                'password' => 'required|string|min:8|confirmed',
+                                'password_confirmation' => 'required',
+                                // 'captcha' => 'required|captcha',
+                                'captcha' => 'required',
+                            ],
+                            [
+                                'name.required' => 'Your Name/School Name/Organisation Name field is required.',
+                                'role.required' => 'Role field is required.',
+                                'email.required' => 'Email field is required.',
+                                'email.email' => 'Please enter correct email format.',
+                                'email.unique' => 'Email already exist.',
+                                'phone.required' => 'Mobile field is required.',
+                                'phone.digits' => 'Mobile field must have 10 digit.',
+                                'phone.unique' => 'Mobile Number already exist.',
+                                'state.required' => 'State is required.',
+                                'district.required' => 'District is required.',
+                                'block.required' => 'Block field is required.',
+                                'city.required' => 'City field is required.',
+                                'city.regex' => 'Please enter character value only.',
+                                'password.required' => 'Password is required.',
+                                'password.min' => 'Please enter 8 digit value.',
+                                'password.confirmed' => 'Password does not match.',
+                                'password_confirmation.required' => 'Confirmation password is required.',
+                                // 'captcha.required' => 'Captcha field is required.',
+                                // 'captcha.captcha' => 'Please fill correct value.',
+                            ]
+                        );
+
+                    }
+                    else if ($data['role'] == 'school') {
                         // echo "aaaa";die;
                         return Validator::make(
                             $data,
@@ -671,7 +721,7 @@ class RegisterController extends Controller
 	{
 
         $role_name = $data['role'];
-        // dd($data);
+
         if($role_name == "cyclothon-2024"){
             // dd($data);
             $records = DB::table('users')
@@ -896,6 +946,7 @@ class RegisterController extends Controller
             }
 
         }elseif($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club"){
+
             // dd("done");
 
             $records = DB::table('users')
@@ -1065,6 +1116,50 @@ class RegisterController extends Controller
                 }
 
             }
+
+        }elseif($data['role_name'] == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1'){
+
+            // dd(base64_decode($data['role_name']));
+
+
+
+            $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+
+            if (!empty($data['state'])) {
+                $state = State::find($data['state']);
+            }
+            if (!empty($data['district'])) {
+                $district = District::find($data['district']);
+            }
+            if (!empty($data['block'])) {
+                $block = Block::find($data['block']);
+            }
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'role' =>  $data['role'],
+                'rolelabel' => $rolearr['name'],
+                'role_id' => $rolearr['id'],
+                'rolewise' =>  base64_decode($data['role_name']),
+                'password' => Hash::make($data['password']),
+            ]);
+
+            if ($user->id) {
+                $usermeta = new Usermeta();
+                $usermeta->user_id = $user->id;
+                if (!empty($state['name'])) $usermeta->state = $state['name'];
+                if (!empty($district['name'])) $usermeta->district = $district['name'];
+                if (!empty($block['name'])) $usermeta->block = $block['name'];
+                if (!empty($data['city'])) $usermeta->city = $data['city'];
+                if (!empty($data['udise'])) $usermeta->udise = $data['udise'];
+                if (!empty($data['phone'])) $usermeta->mobile = $data['phone'];
+                if (!empty($data['orgname'])) $usermeta->orgname = $data['orgname'];
+
+                $usermeta->save();
+            }
+
         }else{
             $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
 

@@ -8,7 +8,7 @@
   {{-- <link rel="stylesheet" href="resources/css/dashboard.css">   --}}
   {{-- <link rel="stylesheet" href="resources/css/bootstrap.min.css">   --}}
   {{-- <link rel="stylesheet" href="resources/css/style.css">   --}}
-  <link rel="stylesheet" href="resources/css/style3.css">
+  <link rel="stylesheet" href="resources/css/style3.css">  
   {{-- <link rel="stylesheet" href="resources/css/aos.css">   --}}
   {{-- <link rel="stylesheet" href="resources/css/bootstrap-icons.css">   --}}
   {{-- <link rel="stylesheet" href="resources/css/fontawesome-all.min.css">   --}}
@@ -30,7 +30,7 @@
   <body>
     {{-- <header id="header">
       <nav class="navbar navbar-expand-md navbar-dark">
-        <div class="container">
+        <div class="container">          
           <button  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="fa fa-bars"></span>
           </button>
@@ -61,8 +61,8 @@
             <h2 class="text-center">Events at a Glance</h2>
           </div>
         </div>
-
-
+        
+       
         <div class="fit-india-dashboard">
           <div class="row justify-content-center mb-5">
             {{-- <div class="col-md-6 col-12">
@@ -125,7 +125,7 @@
                 <p>{{$tiles[3]->description??''}}</p>
               </div>
             </div>
-
+        
             <div class="col-lg-4 col-md-6 col-12">
               <div class="tile-detail-box box-5">
                 <div class="tile-detail-img">
@@ -154,7 +154,7 @@
                 <p>{{$tiles[7]->description??''}}</p>
               </div>
             </div>
-
+            
           </div>
 
           <!-- Leading States For School Certificate Requests -->
@@ -179,20 +179,20 @@
                        @php
                        $flgcount = 0; $tscount = 0; $fscount = 0;  $i=0;
                        @endphp
-
+                       
                        @foreach($schooldata as $data)
                                @php
                                        $tot = $data['flag'] + $data['threestar'] + $data['fivestar'];
                                        $flgcount += $data['flag']; $tscount += $data['threestar']; $fscount += $data['fivestar'];
                                        if(!$i){ $finflag = $tot; $i++; }
-
-
+                                       
+                                       
                                        $mainwidth = ($tot / $finflag) * 100;
                                        $flag_width = ($data['flag'] / $tot) * 100;
                                        $threestar_width = ($data['threestar'] / $tot) * 100;
                                        $fivestar_width = ($data['fivestar'] / $tot) * 100;
                                @endphp
-                               <tr>
+                               <tr>                        
                                        <td>{{ $data['state'] }}</td>
                                        <td>
                                            <div class="green">
@@ -217,8 +217,8 @@
                                            </div>
                                        </td>
                                </tr>
-
-                       @endforeach
+                       
+                       @endforeach  
                    </tbody>
                  </table>
                 </div>
@@ -237,7 +237,7 @@
                     <th>INDIVIDUAL REGISTRATION</th>
                     <th>ORGANISATIONS REGISTRATION</th>
                     <th>TOTAL PARTICIPATION</th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
                 <tr>
@@ -297,7 +297,7 @@
                 <h3 class="text-center mb-5">List of Events</h3>
             </div>
            <div class="col-12">
-
+                
 
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -307,7 +307,7 @@
                               2024-25
                             </a>
                             </h4>
-                        </div>
+                        </div>                          
                           <div id="collapseOne" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingOne">
                               <div class="panel-body">
                                   <div class="table-responsive">
@@ -316,52 +316,52 @@
                                           <tr>
                                               <th>EVENT NAME</th>
                                               <th>EVENT DATE</th>
-                                              <th>NO OF EVENTS</th>
-                                              <th>SOCIAL MEDIA OUTREACH</th>
+                                              <th>NO OF EVENTS</th>                                    
+                                              <th>SOCIAL MEDIA OUTREACH</th>                                    
                                               <th>TOTAL PARTICIPATION</th>
-                                          </tr>
+                                          </tr> 
                                       </thead>
                                       <tbody>
                                           <tr>
                                             <td>Fit India Sundays on Cycle</td>
                                             <td>Ongoing</td>
-                                            <td>29,356</td>
-                                            <td>3.04</td>
+                                            <td>29,356</td>                                
+                                            <td>3.04</td>                                
                                             <td>6.54 Lakhs</td>
                                           </tr>
                                           <tr>
                                             <td>National Sports Day 2024</td>
                                             <td>26th August to 31st August 2024</td>
-                                            <td>8627</td>
-                                            <td>---</td>
+                                            <td>8627</td>                                
+                                            <td>---</td>                                
                                             <td>25 Lakhs</td>
                                           </tr>
-
+                                          
                                           <tr>
                                           <td>Fit India Freedom Run 5.0</td>
                                           <td>2nd October to 31st october 2024</td>
-                                          <td>10,433</td>
-                                          <td> --- </td>
+                                          <td>10,433</td>                                
+                                          <td> --- </td>                                
                                           <td>1.3 Crore</td>
                                           </tr>
-
+                                          
                                           <tr>
                                             <td>Fit India Mobile Application</td>
                                             <td>Ongoing</td>
-                                            <td> --- </td>
-                                            <td> --- </td>
+                                            <td> --- </td>                                
+                                            <td> --- </td>                                
                                             <td>11.5+ Lakhs</td>
                                           </tr>
                                           {{-- <tr>
                                             <td>Fit India Week 2023</td>
                                             <td>15th November 2023 to 31st January 2024</td>
-                                            <td>--</td>
+                                            <td>--</td>                                
                                             <td>--</td>
                                             <td>4.16 lakh plus schools & 1028 universities</td>
                                           </tr>                                           --}}
                                       </tbody>
                                     </table>
-                                  </div>
+                                  </div> 
                               </div>
                           </div>
                     </div>
@@ -383,45 +383,45 @@
                                     <tr>
                                     <th>EVENT NAME</th>
                                         <th>EVENT DATE</th>
-                                        <th>NO OF EVENTS</th>
-                                        <th>SOCIAL MEDIA OUTREACH</th>
+                                        <th>NO OF EVENTS</th>                                    
+                                        <th>SOCIAL MEDIA OUTREACH</th>                                    
                                         <th>TOTAL PARTICIPATION</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                   <tr>
                                     <td>National Sports Day 2023</td>
                                     <td>21st August to 29th August 2023 </td>
-                                    <td>14294</td>
-                                    <td>32000</td>
+                                    <td>14294</td>                                
+                                    <td>32000</td>                                
                                     <td>15.98 Lakhs</td>
                                   </tr>
-
+                                  
                                   <tr>
                                   <td>Fit India Freedom Run</td>
                                   <td>1st to 31st October, 2023 </td>
-                                  <td> --- </td>
-                                  <td> --- </td>
+                                  <td> --- </td>                                
+                                  <td> --- </td>                                
                                   <td>4.5 Crore</td>
                                   </tr>
-
+                                  
                                   <tr>
                                     <td>Fit India Quiz 2023</td>
                                     <td>Ongoing</td>
-                                    <td> --- </td>
-                                    <td> --- </td>
+                                    <td> --- </td>                                
+                                    <td> --- </td>                                
                                     <td>41,789  Schools</td>
                                   </tr>
                                   <tr>
                                     <td>Fit India Week 2023</td>
                                     <td>15th November 2023 to 31st January 2024</td>
-                                    <td>--</td>
+                                    <td>--</td>                                
                                     <td>--</td>
                                     <td>4.16 lakh plus schools & 1028 universities</td>
                                   </tr>
                                 </tbody>
                               </table>
-                            </div>
+                            </div> 
                         </div>
                       </div>
                     </div>
@@ -442,59 +442,59 @@
                                     <tr>
                                     <th>EVENT NAME</th>
                                         <th>EVENT DATE</th>
-                                        <th>NO OF EVENTS</th>
-                                        <th>SOCIAL MEDIA OUTREACH</th>
+                                        <th>NO OF EVENTS</th>                                    
+                                        <th>SOCIAL MEDIA OUTREACH</th>                                    
                                         <th>TOTAL PARTICIPATION</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                     <tr>
                                       <td>Fit India Freedom Run</td>
                                       <td>02nd October to 31st October 2022</td>
-                                      <td> --- </td>
-                                      <td> --- </td>
+                                      <td> --- </td>                                
+                                      <td> --- </td>                                
                                       <td>7.08 crores</td>
                                     </tr>
-
+                                    
                                     <tr>
                                     <td>Fit India Plog Run 2022</td>
                                     <td>02nd October</td>
-                                    <td> 343 </td>
-                                    <td> 4.3 crores </td>
+                                    <td> 343 </td>                                
+                                    <td> 4.3 crores </td>                                
                                     <td>27,000</td>
                                     </tr>
-
+                                    
                                     <tr>
                                       <td>Fit India Mobile Application</td>
                                       <td>Ongoing</td>
-                                      <td> --- </td>
-                                      <td> --- </td>
+                                      <td> --- </td>                                
+                                      <td> --- </td>                                
                                       <td>8 lakhs</td>
                                     </tr>
                                     <tr>
                                       <td>Fit India Quiz 2022</td>
                                       <td>3rd September 2022- 30th July 2023</td>
-                                      <td>--</td>
+                                      <td>--</td>                                
                                       <td>--</td>
                                       <td>61981 Schools</td>
                                     </tr>
                                     <tr>
                                       <td>Fit India School Week 2022</td>
                                       <td>15th November to 31st January 2023</td>
-                                      <td>--</td>
-                                      <td>--</td>
+                                      <td>--</td>                                
+                                      <td>--</td>                                
                                       <td>5.7 lakhs Schools</td>
                                     </tr>
                                     {{-- <tr>
                                       <td>Fit India School Week 2022</td>
                                       <td>15th November to 31st January 2023</td>
-                                      <td>--</td>
-                                      <td>--</td>
+                                      <td>--</td>                                
+                                      <td>--</td>                                
                                       <td>5.58 lakhs</td>
                                     </tr> --}}
                                 </tbody>
                               </table>
-                            </div>
+                            </div> 
                         </div>
                       </div>
                     </div>
@@ -514,30 +514,30 @@
                                     <tr>
                                     <th>EVENT NAME</th>
                                         <th>EVENT DATE</th>
-                                        <th>NO OF EVENTS</th>
-                                        <th>SOCIAL MEDIA OUTREACH</th>
+                                        <th>NO OF EVENTS</th>                                    
+                                        <th>SOCIAL MEDIA OUTREACH</th>                                    
                                         <th>TOTAL PARTICIPATION</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                     <tr>
                                       <td>Road to Tokyo ‘Olympics Quiz’</td>
                                       <td>23 June – 23 July 22</td>
-                                      <td> --- </td>
-                                      <td> 10,000 </td>
+                                      <td> --- </td>                                
+                                      <td> 10,000 </td>                                
                                       <td>9 lakhs</td>
                                     </tr>
-
+                                    
                                     <tr>
                                       <td>Fit India Quiz 2021</td>
                                       <td>21st November to February 2022</td>
-                                      <td> --- </td>
-                                      <td> --- </td>
+                                      <td> --- </td>                                
+                                      <td> --- </td>                                
                                       <td>36,000</td>
                                     </tr>
                                 </tbody>
                                 </table>
-                            </div>
+                            </div> 
                         </div>
                       </div>
                     </div>
@@ -548,7 +548,7 @@
                           2020-21
                         </a>
                         </h4>
-                    </div>
+                    </div>                    
                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -558,44 +558,44 @@
                                     <tr>
                                     <th>EVENT NAME</th>
                                         <th>EVENT DATE</th>
-                                        <th>NO OF EVENTS</th>
-                                        <th>SOCIAL MEDIA OUTREACH</th>
+                                        <th>NO OF EVENTS</th>         
+                                        <th>SOCIAL MEDIA OUTREACH</th>                           
                                         <th>TOTAL PARTICIPATION</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                     <tr>
                                       <td>Fit India Active Day series</td>
                                       <td>April & May  2020</td>
-                                      <td>---</td>
+                                      <td>---</td>                                
                                       <td>18 lakhs</td>
                                       <td>---</td>
                                     </tr>
                                     <tr>
                                     <td>Fit India Dance Week</td>
                                       <td>1st week of June 2020</td>
-                                      <td>---</td>
+                                      <td>---</td>                                
                                       <td>51,000</td>
                                       <td>---</td>
                                     </tr>
                                     <tr>
                                       <td>Indigenous Sports of India</td>
                                       <td>8th to 19th  June 2020</td>
-                                      <td>---</td>
+                                      <td>---</td>                                
                                       <td>10 lakhs</td>
                                       <td>---</td>
                                     </tr>
                                     <tr>
                                     <td>FIT India Yoga Day</td>
                                     <td>21st June 2020</td>
-                                    <td>---</td>
+                                    <td>---</td>                                
                                     <td>15 lakhs</td>
                                     <td>---</td>
                                     </tr>
                                     <tr>
                                       <td>Fit India Talks</td>
                                       <td>Wednesday, July 01, 2020</td>
-                                      <td>---</td>
+                                      <td>---</td>                                
                                       <td>3.5 lakhs</td>
                                       <td>---</td>
                                     </tr>
@@ -606,7 +606,7 @@
                                         <td>36 crore</td>
                                         <td>6.5 crore</td>
                                     </tr>
-
+                                    
                                     <tr>
                                         <td>Fit India Youth Club Certification</td>
                                         <td>14th August 2020</td>
@@ -697,11 +697,11 @@
                                         <td>---</td>
                                         <td>10,000</td>
                                         <td>---</td>
-                                    </tr>
-
+                                    </tr>                                    
+                    
                                 </tbody>
-                                </table>
-                            </div>
+                                </table>                               
+                            </div> 
                         </div>
                         </div>
                     </div>
@@ -723,59 +723,59 @@
                                     <tr>
                                     <th>EVENT NAME</th>
                                         <th>EVENT DATE</th>
-                                        <th>NO OF EVENTS</th>
-                                        <th>SOCIAL MEDIA OUTREACH</th>
+                                        <th>NO OF EVENTS</th>         
+                                        <th>SOCIAL MEDIA OUTREACH</th>                           
                                         <th>TOTAL PARTICIPATION</th>
-                                    </tr>
+                                    </tr> 
                                 </thead>
                                 <tbody>
                                     <tr>
                                     <td>Fit India Website</td>
                                     <td>29th August 2019</td>
-                                    <td>---</td>
-                                    <td>---</td>
+                                    <td>---</td>                                
+                                    <td>---</td>                                
                                     <td>11 crore</td>
                                   </tr>
                                   <tr>
                                     <td>Fit India Plog Run</td>
                                     <td>2nd October 2019</td>
-                                    <td>55,000</td>
-                                    <td>---</td>
+                                    <td>55,000</td>                                
+                                    <td>---</td>                                
                                     <td>30 lakhs</td>
                                     </tr>
                                     <tr>
                                     <td>Fit India School Week</td>
                                     <td>Friday, November 01, 2019</td>
-                                    <td>---</td>
-                                    <td>---</td>
+                                    <td>---</td>                                
+                                    <td>---</td>                                
                                     <td>15,000</td>
                                     </tr>
                                     <tr>
                                     <td>Fit India School Certification</td>
                                     <td>Sunday, December 01, 2019</td>
-                                    <td>---</td>
-                                    <td>---</td>
+                                    <td>---</td>                                
+                                    <td>---</td>                                
                                     <td>4.5 lakhs</td>
                                     </tr>
                                     <tr>
                                     <td>Fit India Cyclothon</td>
                                     <td>18th January 2020</td>
-                                    <td>15,706</td>
-                                    <td>0</td>
+                                    <td>15,706</td>                                
+                                    <td>0</td>                                
                                     <td>35 lakhs</td>
                                     </tr>
                                     <tr>
                                     <td>Fit India March for Women</td>
                                     <td>Sunday, March 01, 2020</td>
-                                    <td>---</td>
+                                    <td>---</td>                                
                                     <td>---</td>
                                     <td>---</td>
                                     </tr>
-
+                    
                                 </tbody>
                                 </table>
-
-                            </div>
+                                
+                            </div> 
                         </div>
                         </div>
                     </div>
@@ -815,14 +815,14 @@
     </footer> --}}
     {{-- <script src="js/jquery.min.js"></script> --}}
     {{-- <script src="{{ asset('resources/js/jquery.min.js')}}"></script> --}}
-
+    
     {{-- <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://rawgit.com/highcharts/rounded-corners/master/rounded-corners.js"></script> --}}
     {{-- <script src="js/bootstrap.bundle.min.js"></script> --}}
-
+    
     {{-- <script src="{{ asset('resources/js/jquery.min.js')}}"></script> --}}
     {{-- <script src="{{ asset('resources/js/highcharts.js')}}"></script> --}}
     {{-- <script src="{{ asset('resources/js/exporting.js')}}"></script> --}}
@@ -841,10 +841,10 @@
     <script src="http://127.0.0.1:8001/fit_india_web/resources/js/export-data.js"></script>
     <script src="http://127.0.0.1:8001/fit_india_web/resources/js/accessibility.js"></script>
     <script src="http://127.0.0.1:8001/fit_india_web/resources/js/rounded-corners.js"></script>
-    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/bootstrap.bundle.min.js"></script>
-    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/custom1.js"></script>
-    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/owl.carousel.js"></script>
-    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/aos.js"></script>
+    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/bootstrap.bundle.min.js"></script>    
+    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/custom1.js"></script>    
+    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/owl.carousel.js"></script>    
+    <script src="http://127.0.0.1:8001/fit_india_web/resources/js/aos.js"></script>    
     <script src="http://127.0.0.1:8001/fit_india_web/resources/js/jquery.fancybox.pack.js"></script>     --}}
 </body>
 <script>

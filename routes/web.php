@@ -450,6 +450,10 @@ Route::get('/sendemail',[SendmailController::class,'sendemail'])->name('sendemai
 // National Sports day
 // Route::view('national-sports-day-2022', 'national-sports-day');
 Route::view('national-sports-day-2023', 'nationalsportsday2023');
+Route::view('national-sports-day-2025', 'nationalsportsday2025');
+Route::view('national-sports-day-merchandise-creatives-2025','nationalsportsdaymerchandisecreatives2025');
+Route::view('past-glimpses-2025', 'pastglimpses2025');
+Route::view('fit-india-pledge-2025', 'fitindiapledgeview2025');
 Route::view('fit-india-week-2023', 'fitindiaweek2023');
 Route::view('fit-india-week-2024', 'fitindiaweek2024');
 Route::view('fit-india-women-week', 'internationalwomen');
@@ -471,7 +475,7 @@ Route::view('excel-fit-india-week-report-copy', 'excelfitindiaweekreportcopy'); 
 Route::view('fit-india-rajasthan-report-2024', 'fitindiaweekreport2024'); // Report execl
 Route::view('fit-india-report', 'fitindiareport'); // Report execl
 Route::view('fit-india-pledge-2023', 'fitindiapledgeview2023');
-Route::view('fit-india-pledge-2024', 'fitindiapledgeview2024');
+
 // open event page
 Route::view('fit-india-swacchta-freedom-run-5.0', 'fitinswacchtafreedomrun5');
 Route::view('freedom-run-5.0-merchandise','freedomrunmerchandise');

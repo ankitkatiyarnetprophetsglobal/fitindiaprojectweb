@@ -22,11 +22,11 @@ $active_section_id = trim($active_section);
         <a class="freedombtn3" style="background-color:#6610f2;" href="{{ url('resources/pdf/SOP_NSD_2023.pdf') }}" target="_blank">SOP</a>
         <a class="freedombtn4" href="javascript:void(0)" data-toggle="modal" data-target="#merchandisId">Download Merchandise</a>
         <a class="freedombtn4" href="javascript:void(0)" data-toggle="modal" data-target="#merchandisId">Merchandise/Creatives</a>
-        <a class="freedombtn3 freedombtn4" href="{{ url('nationalsportsdaymerchandise2023') }}" data-target="#merchandisId">Merchandise/Creatives</a>        
+        <a class="freedombtn3 freedombtn4" href="{{ url('nationalsportsdaymerchandise2023') }}" data-target="#merchandisId">Merchandise/Creatives</a>
       </div> --}}
       <div class="row">
         <div class="col-sm-12">
-          <h1 class="headingh1">NATIONAL SPORTS DAY</h1>          
+          <h1 class="headingh1">NATIONAL SPORTS DAY</h1>
 		        <p>
               India celebrates National Sports Day on 29th August to commemorate the birth anniversary of hockey legend, Major Dhyan Chand. The day is also dedicated to the nations’ sports heroes and champions, honoring their contribution and dedication towards bringing laurels to the country. With the aim to raise awareness about the values of sports: discipline, perseverance, sportsman spirit, teamwork, and to encourage public in large to take up sports and make it an integral part of their lives while emphasizing on the importance of being fit and healthy.
             </p>
@@ -48,16 +48,16 @@ $active_section_id = trim($active_section);
                 <h2 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseFISW3" aria-expanded="false" aria-controls="collapseone">
                   How to participate
                 </h2>
-				
+
               </div>
 
               {{-- <div id="collapseFISW1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionFISW"> --}}
               <div id="collapseFISW3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionFISW">
                 <div class="card-body" style="padding-top:10px;">
-                
-                  
+
+
                   <p>
-                    <strong style=" font-size:16px;">                      
+                    <strong style=" font-size:16px;">
                       What can we do to pay tribute to the biggest sporting icon of India History
                     </strong>
                     </br></br>
@@ -104,7 +104,7 @@ $active_section_id = trim($active_section);
                         <td>Squat Challenge</td>
                       </tr>
                     </table>
-				 
+
                   </p>
 				  <p><strong style=" font-size:16px;">Mode of participation</strong></p>
 				  <ul style="list-style-type: circle; margin-left: 15px;">
@@ -180,10 +180,10 @@ $active_section_id = trim($active_section);
                 </div>
               </div>
             </div>
-            
+
           </div>
 
-         
+
         </div>
       </div>
     </div>

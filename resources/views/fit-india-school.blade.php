@@ -8,20 +8,21 @@
 
     <div class="video_sec">
         <video autoplay muted loop id="VideoId">
-          <source src="{{ url('resources/imgs/home/share_story_video.mp4') }}" type="video/mp4">
+          <source src="{{ url('resources/imgs/home/share_story_video23072025.mp4') }}" type="video/mp4">
+          {{-- <source src="{{ url('resources/imgs/home/share_story_video.mp4') }}" type="video/mp4"> --}}
         </video>
-        <div class="ove_text">
+        {{-- <div class="ove_text">
           <h1>{{ __('sentence.fit_india_school')}}</h1> <!--Fit India Schools-->
-          <p>{{ __('sentence.join_the_Fit_India_School_movement_Increase_physical_education_and_physical_activity_for_your')}}<br>{{ __('sentence.students_and_in_your_school_and_make_a_fitter_healthier_and_happier_India')}}
+          <p>{{ __('sentence.join_the_Fit_India_School_movement_Increase_physical_education_and_physical_activity_for_your')}}<br>{{ __('sentence.students_and_in_your_school_and_make_a_fitter_healthier_and_happier_India')}} --}}
 
 		  <!--Join the Fit India School movement. Increase physical education and physical activity for your <br>students and in your school and make a fitter, healthier and happier India.-->
-		  </p>
-        </div>
+		  {{-- </p>
+        </div> --}}
     </div>
 
     <section id="{{ $active_section_id }}">
         <div class="container" >
-        <div class="row " >
+        <div class="row" >
             <div class="col-sm-12 col-md-8 col-lg-9" >
                 <p>{{ __('sentence.Honble_Prime_Minister_of_India_has_launched_the_Fit_India_Movement_on_29_Aug_2019_with_a_view_to_make_Physical_Fitness_a_way_of_life')}}
                    {{ __('sentence.Fit_India_Movement_aims_at_behavioural_changes_from_sedentary_lifestyle_to_physically_active_way_of_day_to_day_living')}}
