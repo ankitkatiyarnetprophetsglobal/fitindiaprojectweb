@@ -31,225 +31,7 @@ class CertificateController extends Controller
         $this->middleware('auth');
     }
 
-    public function flagstorebk(Request $request)
-    {
-
-        $rules = [
-            'peteacherno' => 'required|numeric|min:1|max:50',
-            'peteachernames' => 'required|array|min:1',
-            'peteachernames.*'  => 'required|min:2|regex:/(^[A-Za-z ]+$)+/',
-            'playgroundno' => 'required|numeric|min:1|max:20',
-            'playgroundshape' => 'required|array',
-            'playgroundarea' => 'required',
-            'playgroundarea.*' => 'required|numeric',
-            'playgroundlside' => 'required',
-            'playgroundlside.*' => 'required|numeric|lt:playgroundarea.*',
-            'schooldistance' => 'required',
-            'schooldistance.*' => 'required',
-            'outdoorsports' => 'required|array|min:2',
-            'outdoorsports.*' => 'required',
-            'playgroundimg' => 'required|array',
-            'playgroundimg.*' => 'required|mimes:jpg,jpeg,png,bmp,pdf|max:2000',
-            'studentspending60min' => 'required',
-            'declation' => 'required'
-        ];
-
-        $messages = [
-            'peteacherno.required' => 'No. of teachers trained in PE is required',
-            'peteacherno.numeric' => 'No. of teachers trained in PE must be number',
-            'peteacherno.min' => 'No. of teachers trained in PE must be at least 1',
-            'peteachernames.required' => 'Name of teacher is required',
-            'peteachernames.*.required' => 'Name of teacher is required',
-            'peteachernames.*.regex' => 'Name of teacher must contain letters only',
-            'playgroundno.required' => 'No. of playgrounds is required',
-            'playgroundno.min' => 'No. of playgrounds must be at least 1',
-            'playgroundshape.required' => 'All playground shape are required',
-            'playgroundarea.required' => 'Playground area is required',
-            'playgroundarea.*.required' => 'Playground area is required',
-            'playgroundarea.*.numeric' => 'Playground area must be number',
-            'playgroundlside.required' => 'Playground longest side is required',
-            'playgroundlside.*.required' => 'Playground longest side is required',
-            'playgroundlside.*.numeric' => 'Playground longest side must be number',
-            'playgroundlside.*.lt' => 'Playground longest side :input (ft) must be less than playgound Area in sqft',
-            'schooldistance.required' => 'Playground distance from school is required',
-            'schooldistance.*.required' => 'Playground distance from School is required',
-            'outdoorsports.required' => 'Outdoor sports is required',
-            'outdoorsports.*.required' => 'Outdoor sports is required',
-            'playgroundimg.required' => 'Please upload all playground images',
-            'playgroundimg.*.required' => ' Please upload playground image',
-            'playgroundimg.*.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
-            'playgroundimg.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
-            'studentspending60min.required' => 'Please check having one PE period each day for every section and physical activities',
-            'declation.required' => 'Please select self declaration'
-        ];
-
-
-        $totmin = 0;
-
-        if (!empty($request->assemblyactivityno)) {
-            $totmin += $request->assemblyactivityno;
-        }
-        if (!empty($request->physeduperiodno)) {
-            $totmin += $request->physeduperiodno;
-        }
-        if (!empty($request->schoolclosreno)) {
-            $totmin += $request->schoolclosreno;
-        }
-        if (!empty($request->schoolclosreno)) {
-            $totmin += $request->otheractivityno;
-        }
-
-
-        $request->validate($rules, $messages);
-
-        $chkerro = false;
-        $validator = Validator::make([], []);
-        $i = 0;
-        while ($i < $request->playgroundno) {
-            if (empty($request->playgroundshape[$i])) {
-                $chkerro = true;
-                $validator->errors()->add("playgroundshape." . $i, 'Please select playground ' . ($i + 1) . ' shape ');
-            }
-
-            if (empty($request->playgroundimg[$i])) {
-                $chkerro = true;
-                $validator->errors()->add("playgroundimg." . $i, 'Please upload playground ' . ($i + 1) . ' image ');
-            }
-
-            $i++;
-        }
-
-        if ($totmin < 60) {
-            $chkerro = true;
-            $validator->errors()->add('assemblyactivityno', 'Sum of total minutes must be greater than 60 minutes for Daily Physical Activities by Students');
-
-            /*
-             return redirect()->back()->withErrors('error','Total minutes must be greater than 60 minutes for Daily Physical Activities by Students')->withInput();
-            return back()->withErrors('activity','Total minutes must be greater than 60 minutes for Daily Physical Activities by Students');
-         */
-        }
-
-        if ($chkerro) {
-            throw new ValidationException($validator);
-        }
-
-
-        $flag = 0;
-        $cflag = 0;
-
-        $csts = CertStatus::where('user_id', $request->user_id)->first();
-
-        if (!empty($csts)) {
-            $flag = 1;
-        } else {
-            $flag = 0;
-        }
-
-        if ($flag == 1) {
-
-            $crsts = CertRequest::where('user_id', $request->user_id)->first();
-
-            if (!empty($crsts)) {
-                $cflag = 1;
-            } else {
-                $cflag = 0;
-            }
-        }
-
-        if ($flag == 1 && $cflag == 0) {
-            try {
-                CertStatus::where('user_id', $request->user_id)->delete();
-                return back()->with('error', 'Please try again.');
-            } catch (\Exception $e) {
-                return back()->with('error', $e->getMessage());
-            }
-        } else if (($flag == 0) || ($flag == 1 && $cflag == 1)) {
-
-            try {
-
-                $certstatus = new CertStatus();
-                $certstatus->user_id = $request->user_id;
-                $certstatus->cat_id  = $request->ratingreqid;
-                $certstatus->cur_status = 'awarded';
-                $certstatus->status = 'awarded';
-                $certstatus->created  = date('Y-m-d H:i:s');
-                $certstatus->updated  = date('Y-m-d H:i:s');
-                //$certreq = new CertRequest();
-
-                if ($certstatus->save()) {
-
-                    $playgroundimgarr = array();
-                    if ($request->hasfile('playgroundimg')) {
-                        $year = date("Y/m");
-                        foreach ($request->file('playgroundimg') as $file) {
-                            $name = $file->getClientOriginalName();
-                            $name = $file->store($year, ['disk' => 'uploads']);
-                            $name = url('wp-content/uploads/' . $name);
-                            $playgroundimgarr[] = $name;
-                        }
-                    }
-
-                    try {
-                        $certreq = new CertRequest();
-                        $certreq->user_id = $request->user_id;
-                        $certreq->cat_id  = $request->ratingreqid;
-                        $certreq->peteacherno = $request->peteacherno;
-                        $certreq->peteachernames = serialize($request->peteachernames);
-                        $certreq->playgroundno = $request->playgroundno;
-                        $certreq->playgroundshape = serialize($request->playgroundshape);
-                        $certreq->playgroundarea =  serialize($request->playgroundarea);
-                        $certreq->playgroundlside = serialize($request->playgroundlside);
-                        $certreq->schooldistance =  serialize($request->schooldistance);
-                        $certreq->playgroundimg = serialize($playgroundimgarr);
-                        if (!empty($request->othersportsplayed)) {
-                            $certreq->othersportsplayed = $request->othersportsplayed;
-                        }
-
-                        $certreq->outdoorsports = serialize($request->outdoorsports);
-                        if (!empty($request->assemblyactivityno)) {
-                            $certreq->assemblyactivityno = $request->assemblyactivityno;
-                        }
-                        if (!empty($request->physeduperiodno)) {
-                            $certreq->physeduperiodno = $request->physeduperiodno;
-                        }
-                        if (!empty($request->schoolclosreno)) {
-                            $certreq->schoolclosreno = $request->schoolclosreno;
-                        }
-                        if (!empty($request->schoolclosreno)) {
-                            $certreq->otheractivityno = $request->otheractivityno;
-                        }
-
-
-                        $certreq->studentspending60min = $request->studentspending60min;
-                        $certreq->declation = $request->declation;
-                        $certreq->created  = date('Y-m-d H:i:s');
-
-                        if ($certreq->save()) {
-
-                            $userkey = new Userkey();
-                            $userkey->user_id = $request->user_id;
-                            $userkey->key = 'ratingreqid';
-                            $userkey->value = $request->ratingreqid;
-                            $userkey->save();
-
-                            return back()->with('success', 'Your request have submitted successfully.');
-                        } else {
-                            return back()->with('error', 'Your request not submitted successfully.');
-                        }
-                    } catch (\Exception $e) {
-                        return back()->with('error', $e->getMessage());
-                    }
-
-
-                    return back()->with('success', 'Request added successsfully');
-                } else {
-                    return back()->with('error', 'Request not added successsfully');
-                }
-            } catch (\Exception $e) {
-                return back()->with('error', $e->getMessage());
-            }
-        }
-    }
+   
 
     public function flagstore(Request $request)
     {
@@ -361,25 +143,26 @@ class CertificateController extends Controller
                     // Save images
                     $image_urls = [];
                     if ($request->hasFile('sports_facility_images')) {
-                        $year = date("Y/m");
+                        $year = date("Y/m").'SCIMG1STAR';
                         foreach ($request->file('sports_facility_images') as $file) {
                             $path = $file->store($year, ['disk' => 'uploads']);
                             $image_urls[] = url('wp-content/uploads/' . $path);
                         }
                     }
+                    $year1 = date("Y/m").'SCDOCS1STAR';
 
                     // Save request
                     $certreq = new CertRequest();
                     $certreq->user_id = $request->user_id;
                     $certreq->cat_id = $request->ratingreqid;
                     $certreq->peteacherno = $request->num_teachers;
-                    $certreq->teacher_cert_doc = $request->file('teacher_cert_doc')->store('docs', ['disk' => 'uploads']);
+                    $certreq->teacher_cert_doc = $request->file('teacher_cert_doc')->store($year1, ['disk' => 'uploads']);
                     $certreq->outdoorsports = serialize($request->outdoor_sports);
                     $certreq->indoorsports = serialize($request->indoor_sports);
-                    $certreq->town_planning_doc = $request->file('town_planning_doc')->store('docs', ['disk' => 'uploads']);
+                    $certreq->town_planning_doc = $request->file('town_planning_doc')->store($year1, ['disk' => 'uploads']);
                     $certreq->noofstudents = $request->num_students;
                     $certreq->students_active_30min = $request->students_active_30min;
-                    $certreq->activity_timetable_doc = $request->file('activity_timetable_doc')->store('docs', ['disk' => 'uploads']);
+                    $certreq->activity_timetable_doc = $request->file('activity_timetable_doc')->store($year1, ['disk' => 'uploads']);
                     $certreq->sports_facility_images = serialize($image_urls);
                     $certreq->fit_india_participation = $request->has('fit_india_participation') ? 1 : 0;
                     $certreq->created = now();
@@ -535,12 +318,13 @@ class CertificateController extends Controller
                     try {
                         $image_urls = [];
                         if ($request->hasFile('geo_tagged_images')) {
-                            $year = date("Y/m");
+                            $year = date("Y/m")."SC3STAR";
                             foreach ($request->file('geo_tagged_images') as $file) {
                                 $path = $file->store($year, ['disk' => 'uploads']);
                                 $image_urls[] = url('wp-content/uploads/' . $path);
                             }
                         }
+                        $year1 = date("Y/m").'SCDOCS3STAR';
                         $certreq = new CertRequest();
 
                         $certreq->user_id = $request->user_id;
@@ -552,9 +336,9 @@ class CertificateController extends Controller
                         $certreq->peteacherno           = $request->peteacherno;
                         $certreq->outdoorsports = serialize($request->outdoor_sports);
                         $certreq->indoorsports = serialize($request->indoor_sports);
-                        $certreq->timetable_doc = $request->file('timetable_doc')->store('docs', ['disk' => 'uploads']);
-                        $certreq->teacher_certification = $request->file('teacher_certification')->store('docs', ['disk' => 'uploads']);
-                        $certreq->town_country_plan_doc = $request->file('town_country_plan_doc')->store('docs', ['disk' => 'uploads']);
+                        $certreq->timetable_doc = $request->file('timetable_doc')->store($year1, ['disk' => 'uploads']);
+                        $certreq->teacher_certification = $request->file('teacher_certification')->store($year1, ['disk' => 'uploads']);
+                        $certreq->town_country_plan_doc = $request->file('town_country_plan_doc')->store($year1, ['disk' => 'uploads']);
                         $certreq->geo_tagged_images = serialize($image_urls);
 
 
@@ -707,7 +491,7 @@ class CertificateController extends Controller
                 $certstatus->updated  = date('Y-m-d H:i:s');
 
                 if ($certstatus->save()) {
-                    $year = date("Y/m");
+                    $year = date("Y/m")."SC5STAR";
                     try {
                         $certreq = new CertRequest();
                         $certreq->user_id = $request->user_id;
@@ -720,6 +504,7 @@ class CertificateController extends Controller
                                 $image_urls[] = url('wp-content/uploads/' . $path);
                             }
                         }
+                        $year1 = date("Y/m").'SCDOCS5STAR';
                         $certreq->user_id = $request->user_id;
                         $certreq->cat_id  = $request->ratingreqid;
                         $certreq->no_of_schools         = $request->no_of_schools_5start;
@@ -728,8 +513,8 @@ class CertificateController extends Controller
                         $certreq->grade6_12_students    = $request->grade6_12_students_5start;
                         $certreq->outdoorsports = serialize($request->outdoor_sports_5start);
                         $certreq->indoorsports = serialize($request->indoor_sports_5start);
-                        $certreq->timetable_doc = $request->file('timetable_doc_5start')->store('docs', ['disk' => 'uploads']);
-                        $certreq->town_country_plan_doc = $request->file('town_country_plan_doc_5start')->store('docs', ['disk' => 'uploads']);
+                        $certreq->timetable_doc = $request->file('timetable_doc_5start')->store($year1, ['disk' => 'uploads']);
+                        $certreq->town_country_plan_doc = $request->file('town_country_plan_doc_5start')->store($year1, ['disk' => 'uploads']);
                         $certreq->geo_tagged_images = serialize($image_urls);
                         $certreq->fit_india_participation = $request->has('fit_india_participation_5start') ? 1 : 0;
                         $certreq->school_initiative = $request->has('school_initiative') ? 1 : 0;
