@@ -27,236 +27,236 @@ class StarratingstatusController extends Controller
 
     public function index(Request $request){
 
-		$states = State::orderBy("name")->get();
-		$admins_role = Auth::user()->role_id;
-		$flag = 0;
-		$stateadmin = "";
+        $states = State::orderBy("name")->get();
+        $admins_role = Auth::user()->role_id;
+        $flag = 0;
+        $stateadmin = "";
 
-		$certcats = CertCat::all();
+        $certcats = CertCat::all();
 
-		if($admins_role == '3'){
-			$admins_state = Auth::user()->state;
-		    $stateadmin = State::where('id',$admins_state)->first()->name;
-
-
-			if(!empty($admins_state)){
-				$statesid = $admins_state;
-				$districts = District:: where('state_id', $statesid)->orderBy("name")->get();
-			}else{
-				$districts = District::orderBy("name")->get();
-			}
-
-			if(!empty($admins_state) && !empty($request->district)){
-				$disid = District:: where('name', 'like', $request->district)->first()->id;
-				$blocks = Block:: where('district_id', $disid)->orderBy("name")->get();
-			} else{
-				$blocks = Block::orderBy("name")->get();
-			}
+        if($admins_role == '3'){
+            $admins_state = Auth::user()->state;
+            $stateadmin = State::where('id',$admins_state)->first()->name;
 
 
-			if($request->input('searchdata')=='searchdata'){
+            if(!empty($admins_state)){
+                $statesid = $admins_state;
+                $districts = District:: where('state_id', $statesid)->orderBy("name")->get();
+            }else{
+                $districts = District::orderBy("name")->get();
+            }
 
-				$result = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
-				->where('usermetas.state',$stateadmin);
+            if(!empty($admins_state) && !empty($request->district)){
+                $disid = District:: where('name', 'like', $request->district)->first()->id;
+                $blocks = Block:: where('district_id', $disid)->orderBy("name")->get();
+            } else{
+                $blocks = Block::orderBy("name")->get();
+            }
 
-				/*if($request->state) {
-				   $result = $result->where('usermetas.state', 'LIKE', "%".$request->state."%");
-				}*/
 
-				if($request->district){
-					$result = $result->where('usermetas.district', 'LIKE', "%".$request->district."%");
-				}
+            if($request->input('searchdata')=='searchdata'){
 
-				if($request->block){
-				   $result = $result->where('usermetas.block', 'LIKE', "%".$request->block."%");
-				}
+                $result = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
+                ->where('usermetas.state',$stateadmin);
 
-				if($request->month){
-					$result = $result->where('wp_star_rating_status.created', 'LIKE', "%".$request->month."%");
-				}
+                /*if($request->state) {
+                   $result = $result->where('usermetas.state', 'LIKE', "%".$request->state."%");
+                }*/
 
-				if($request->certificate){
-					if($request->certificate ==  '1622'){
+                if($request->district){
+                    $result = $result->where('usermetas.district', 'LIKE', "%".$request->district."%");
+                }
 
-					$result = $result->leftJoin('wp_star_rating_status as fvs', function($join)
+                if($request->block){
+                   $result = $result->where('usermetas.block', 'LIKE', "%".$request->block."%");
+                }
+
+                if($request->month){
+                    $result = $result->where('wp_star_rating_status.created', 'LIKE', "%".$request->month."%");
+                }
+
+                if($request->certificate){
+                    if($request->certificate ==  '1622'){
+
+                    $result = $result->leftJoin('wp_star_rating_status as fvs', function($join)
                          {
                              $join->on('fvs.user_id', '=', 'usermetas.user_id')
                              ->where('fvs.cat_id',  1623);
 
                           })
-						  ->where('wp_star_rating_status.cat_id', 1622)
-						  ->whereNull('fvs.user_id');
+                          ->where('wp_star_rating_status.cat_id', 1622)
+                          ->whereNull('fvs.user_id');
 
-					}
+                    }
 
-					$result = $result->where('wp_star_rating_status.cat_id',$request->certificate);
+                    $result = $result->where('wp_star_rating_status.cat_id',$request->certificate);
 
-				}
+                }
 
-				$curcount = $result->count();
-				$starratingstatus = $result->paginate(50);
-				$flag = 1;
-				unset($result);
+                $curcount = $result->count();
+                $starratingstatus = $result->paginate(50);
+                $flag = 1;
+                unset($result);
 
-				$count = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
-				->where('usermetas.state', '=' ,$stateadmin)
-				->count();
+                $count = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
+                ->where('usermetas.state', '=' ,$stateadmin)
+                ->count();
 
-			} else if($request->input('search')=='search'){
+            } else if($request->input('search')=='search'){
 
-				$result = DB::table('wp_star_rating_status')
-					->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-					->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-					->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
-					->where('usermetas.state', '=' ,$stateadmin);
+                $result = DB::table('wp_star_rating_status')
+                    ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                    ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                    ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
+                    ->where('usermetas.state', '=' ,$stateadmin);
 
-				if($request->name){
-				   $result = $result->where('users.name', 'LIKE', "%".$request->name."%")->orWhere('users.email','LIKE',"%".$request->name."%")->orWhere('users.phone', 'LIKE', "%".$request->name."%");
-				}
+                if($request->name){
+                   $result = $result->where('users.name', 'LIKE', "%".$request->name."%")->orWhere('users.email','LIKE',"%".$request->name."%")->orWhere('users.phone', 'LIKE', "%".$request->name."%");
+                }
 
-				$curcount = $result->count();
-				$starratingstatus = $result->paginate(50);
-				$flag = 1;
-				unset($result);
+                $curcount = $result->count();
+                $starratingstatus = $result->paginate(50);
+                $flag = 1;
+                unset($result);
 
-				 $result = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
-				->where('usermetas.state', '=' ,$stateadmin);
+                 $result = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
+                ->where('usermetas.state', '=' ,$stateadmin);
 
-				$count = $result->count();
-				unset($result);
+                $count = $result->count();
+                unset($result);
 
-			} else {
+            } else {
 
-			   $result = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
-				->where('usermetas.state', '=' ,$stateadmin);
+               $result = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
+                ->where('usermetas.state', '=' ,$stateadmin);
 
-				$count = $result->count();
-				$starratingstatus = $result->paginate(50);
-			    $flag = 1;
-				$curcount = 0;
-				unset($result);
-			}
-		}
-		else {
+                $count = $result->count();
+                $starratingstatus = $result->paginate(50);
+                $flag = 1;
+                $curcount = 0;
+                unset($result);
+            }
+        }
+        else {
 
-			if(!empty($request->state)){
-			$statesid = State:: where('name', 'like', '%'.$request->state.'%')->first()->id;
-			$districts = District:: where('state_id', $statesid)->orderBy("name")->get();
-			}else{
-				$districts = District::orderBy("name")->get();
-			}
+            if(!empty($request->state)){
+            $statesid = State:: where('name', 'like', '%'.$request->state.'%')->first()->id;
+            $districts = District:: where('state_id', $statesid)->orderBy("name")->get();
+            }else{
+                $districts = District::orderBy("name")->get();
+            }
 
-			if(!empty($request->state) && !empty($request->district)){
-				$disid = District:: where('name', 'like', $request->district)->first()->id;
-				$blocks = Block:: where('district_id', $disid)->orderBy("name")->get();
-			} else{
-				$blocks = Block::orderBy("name")->get();
-			}
+            if(!empty($request->state) && !empty($request->district)){
+                $disid = District:: where('name', 'like', $request->district)->first()->id;
+                $blocks = Block:: where('district_id', $disid)->orderBy("name")->get();
+            } else{
+                $blocks = Block::orderBy("name")->get();
+            }
 
-			if($request->input('searchdata')=='searchdata'){
+            if($request->input('searchdata')=='searchdata'){
 
-				$result = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
+                $result = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
 
-				if($request->state) {
-				   $result = $result->where('usermetas.state', 'LIKE', "%".$request->state."%");
-				}
+                if($request->state) {
+                   $result = $result->where('usermetas.state', 'LIKE', "%".$request->state."%");
+                }
 
-				if($request->district){
-					$result = $result->where('usermetas.district', 'LIKE', "%".$request->district."%");
-				}
+                if($request->district){
+                    $result = $result->where('usermetas.district', 'LIKE', "%".$request->district."%");
+                }
 
-				if($request->block){
-				   $result = $result->where('usermetas.block', 'LIKE', "%".$request->block."%");
-				}
+                if($request->block){
+                   $result = $result->where('usermetas.block', 'LIKE', "%".$request->block."%");
+                }
 
-				if($request->month){
-					$result = $result->where('wp_star_rating_status.created', 'LIKE', "%".$request->month."%");
-				}
+                if($request->month){
+                    $result = $result->where('wp_star_rating_status.created', 'LIKE', "%".$request->month."%");
+                }
 
-				if($request->certificate){
-					if($request->certificate ==  '1622'){
+                if($request->certificate){
+                    if($request->certificate ==  '1622'){
 
-					$result = $result->leftJoin('wp_star_rating_status as fvs', function($join)
+                    $result = $result->leftJoin('wp_star_rating_status as fvs', function($join)
                          {
                              $join->on('fvs.user_id', '=', 'usermetas.user_id')
                              ->where('fvs.cat_id',  1623);
 
                           })
-						  ->where('wp_star_rating_status.cat_id', 1622)
-						  ->whereNull('fvs.user_id');
+                          ->where('wp_star_rating_status.cat_id', 1622)
+                          ->whereNull('fvs.user_id');
 
-					}
+                    }
 
-					$result = $result->where('wp_star_rating_status.cat_id',$request->certificate);
+                    $result = $result->where('wp_star_rating_status.cat_id',$request->certificate);
 
-				}
+                }
 
-				$curcount = $result->count();
-				$starratingstatus = $result->paginate(50);
-				$flag = 1;
-				unset($result);
+                $curcount = $result->count();
+                $starratingstatus = $result->paginate(50);
+                $flag = 1;
+                unset($result);
 
-				$count = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
-				->count();
+                $count = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'))
+                ->count();
 
 
-			} else if($request->input('search')=='search'){
+            } else if($request->input('search')=='search'){
 
-				$result = DB::table('wp_star_rating_status')
-					->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-					->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-					->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
+                $result = DB::table('wp_star_rating_status')
+                    ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                    ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                    ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role', 'users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
 
-				if($request->name){
-				   $result = $result->where('users.name', 'LIKE', "%".$request->name."%")->orWhere('users.email','LIKE',"%".$request->name."%")->orWhere('users.phone', 'LIKE', "%".$request->name."%");
-				}
+                if($request->name){
+                   $result = $result->where('users.name', 'LIKE', "%".$request->name."%")->orWhere('users.email','LIKE',"%".$request->name."%")->orWhere('users.phone', 'LIKE', "%".$request->name."%");
+                }
 
-				$curcount = $result->count();
-				$starratingstatus = $result->paginate(50);
-				$flag = 1;
-				unset($result);
+                $curcount = $result->count();
+                $starratingstatus = $result->paginate(50);
+                $flag = 1;
+                unset($result);
 
-				 $result = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
+                 $result = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
 
-				$count = $result->count();
-				unset($result);
+                $count = $result->count();
+                unset($result);
 
-			} else {
+            } else {
 
-			   $result = DB::table('wp_star_rating_status')
-				->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
-				->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
-				->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
-				$count = $result->count();
-				$starratingstatus = $result->paginate(50);
-			    $flag = 0;
-				$curcount = 0;
-				unset($result);
+               $result = DB::table('wp_star_rating_status')
+                ->leftJoin('users','users.id', '=', 'wp_star_rating_status.user_id')
+                ->leftJoin('usermetas', 'usermetas.user_id', '=', 'wp_star_rating_status.user_id')
+                ->select(array('wp_star_rating_status.*','users.id as userid','users.name','users.email','users.phone','users.role','users.rolelabel','usermetas.state','usermetas.district','usermetas.block','wp_star_rating_status.created'));
+                $count = $result->count();
+                $starratingstatus = $result->paginate(50);
+                $flag = 0;
+                $curcount = 0;
+                unset($result);
 
-			}
+            }
 
-		}
+        }
 
 
         return view('admin.starrating.index',compact('starratingstatus', 'states', 'districts', 'blocks', 'count','certcats','admins_role','curcount','flag','stateadmin'));
@@ -264,13 +264,13 @@ class StarratingstatusController extends Controller
     }
 
 
-	public function export()
+    public function export()
      {
 
 
 
-		if(request()->has('state'))
-		{
+        if(request()->has('state'))
+        {
 
 
           return Excel::download(new CertExport,'schoolcert.xlsx');
@@ -304,7 +304,7 @@ class StarratingstatusController extends Controller
           return Excel::download(new CertExport,'schoolcert.xlsx');
 
        }
-	   else if(request()->has('cert'))
+       else if(request()->has('cert'))
        {
 
 
@@ -312,11 +312,11 @@ class StarratingstatusController extends Controller
 
        }
         else
-		{
+        {
 
           return Excel::download(new CertExport,'schoolcert.xlsx');
 
-		}
+        }
 }
 
 
@@ -363,26 +363,26 @@ class StarratingstatusController extends Controller
         $flagdata = CertRequest::where('user_id',$user_id)->where('cat_id',$cat_id)->first();
         $starratingstatus = CertStatus::where('user_id',$user_id)->where('cat_id',$cat_id)->first();
         $flags = CertCat::where('id',$cat_id)->first();
-		$users = User::where('users.id',$user_id)->leftJoin('usermetas','usermetas.user_id','=', 'users.id')->get(['name', 'email', 'phone', 'state','district','block']);
-		$certques = CertQues::where('cert_cats_id',$cat_id)->get();
+        $users = User::where('users.id',$user_id)->leftJoin('usermetas','usermetas.user_id','=', 'users.id')->get(['name', 'email', 'phone', 'state','district','block']);
+        $certques = CertQues::where('cert_cats_id',$cat_id)->get();
 
-    	return view('admin.starrating.schoolflag',compact('flagdata','starratingstatus','flags', 'users', 'certques'));
+        return view('admin.starrating.schoolflag',compact('flagdata','starratingstatus','flags', 'users', 'certques'));
     }
     public function starRatingCertificate($cat_id,$user_id)
     {
         $flagdata = CertRequest::where('user_id',$user_id)->where('cat_id',$cat_id)->first();
         $starratingstatus = CertStatus::where('user_id',$user_id)->where('cat_id',$cat_id)->first();
         $flags = CertCat::where('id',$cat_id)->first();
-		$users = User::where('users.id',$user_id)->leftJoin('usermetas','usermetas.user_id','=', 'users.id')->get(['name', 'email', 'phone', 'state','district','block']);
-		$certques = CertQues::where('cert_cats_id',$cat_id)->get();
+        $users = User::where('users.id',$user_id)->leftJoin('usermetas','usermetas.user_id','=', 'users.id')->get(['name', 'email', 'phone', 'state','district','block']);
+        $certques = CertQues::where('cert_cats_id',$cat_id)->get();
 
-    	/*return view('admin.starrating.schoolflag',compact('flagdata','starratingstatus','flags', 'users', 'certques'));*/
+        /*return view('admin.starrating.schoolflag',compact('flagdata','starratingstatus','flags', 'users', 'certques'));*/
 
 
-    	$pdf = PDF::loadView('admin.starrating.starrating-doc',['flagdata' => $flagdata, 'starratingstatus'=> $starratingstatus, 'flags' => $flags, 'users' => $users, 'certques' => $certques])->setPaper('a4', 'landscape');
-    	$pdf->getDomPDF()->setHttpContext(
-			stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-		);
+        $pdf = PDF::loadView('admin.starrating.starrating-doc',['flagdata' => $flagdata, 'starratingstatus'=> $starratingstatus, 'flags' => $flags, 'users' => $users, 'certques' => $certques])->setPaper('a4', 'landscape');
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
+        );
         return $pdf->stream("starrating-certificate.pdf");
 
     }
