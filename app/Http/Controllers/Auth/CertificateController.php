@@ -362,6 +362,7 @@ class CertificateController extends Controller
         $rules = [
             // Section 01: Active Participation in Daily Physical Activity
             'num_students_5start'        => 'required|numeric|min:1',
+            'no_of_schools_5start'        => 'required|numeric|min:1',
             'grade1_5_students_5start'    => 'required|numeric|min:0',
             'grade6_12_students_5start'   => 'required|numeric|min:0',
             // Conditionally require timetable_doc
@@ -468,7 +469,7 @@ class CertificateController extends Controller
                     $certreq = CertRequest::updateOrCreate(
                         ['user_id' => $request->user_id, 'cat_id' => $request->ratingreqid],
                         [
-                            'noofstudents'         => $request->no_of_schools_5start,
+                            'no_of_schools'         => $request->no_of_schools_5start,
                             'noofstudents'         => $request->num_students_5start,
                             'grade1_5_students'     => $request->grade1_5_students_5start,
                             'grade6_12_students'    => $request->grade6_12_students_5start,
