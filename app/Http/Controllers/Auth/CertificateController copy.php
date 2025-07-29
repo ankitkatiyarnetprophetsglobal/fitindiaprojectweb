@@ -31,14 +31,14 @@ class CertificateController extends Controller
         $this->middleware('auth');
     }
 
-
+   
 
     public function flagstore(Request $request)
     {
         $flagdata = CertRequest::where('user_id', $request->user_id)->where('cat_id', 1621)->first();
         $rules = [
             'num_teachers' => 'required|numeric|min:1|max:100',
-            'teacher_cert_doc' => (
+             'teacher_cert_doc' => (
                 empty($flagdata) || empty($flagdata->teacher_cert_doc)
             ) ? 'required|mimes:pdf,doc,docx|max:20480' : 'nullable|mimes:pdf,doc,docx|max:20480',
 
@@ -47,7 +47,7 @@ class CertificateController extends Controller
 
             'indoor_sports' => 'required|array|min:2',
             'indoor_sports.*' => 'required|string',
-            'town_planning_doc' => (
+              'town_planning_doc' => (
                 empty($flagdata) || empty($flagdata->town_planning_doc)
             ) ? 'required|mimes:pdf,doc,docx|max:20480' : 'nullable|mimes:pdf,doc,docx|max:20480',
 
@@ -143,13 +143,13 @@ class CertificateController extends Controller
                     // Save images
                     $image_urls = [];
                     if ($request->hasFile('sports_facility_images')) {
-                        $year = date("Y/m") . 'SCIMG1STAR';
+                        $year = date("Y/m").'SCIMG1STAR';
                         foreach ($request->file('sports_facility_images') as $file) {
                             $path = $file->store($year, ['disk' => 'uploads']);
                             $image_urls[] = url('wp-content/uploads/' . $path);
                         }
                     }
-                    $year1 = date("Y/m") . 'SCDOCS1STAR';
+                    $year1 = date("Y/m").'SCDOCS1STAR';
 
                     // Save request
                     $certreq = new CertRequest();
@@ -190,7 +190,6 @@ class CertificateController extends Controller
     public function threestar(Request $request)
     {
         $threedata = CertRequest::where('user_id', $request->user_id)->where('cat_id', 1622)->first();
-
         $rules = [
             // Section 01: Active Participation in Daily Physical Activity
             'no_of_schools'        => 'required|numeric|min:1',
@@ -270,89 +269,103 @@ class CertificateController extends Controller
             throw new ValidationException($validator);
         }
 
-        try {
-            // Using updateOrCreate for CertStatus to update if the record exists, otherwise create new
-            $certstatus = CertStatus::updateOrCreate(
-                ['user_id' => $request->user_id, 'cat_id' => $request->ratingreqid],
-                [
-                    'cur_status' => 'awarded',
-                    'status' => 'downloadcerficate',
-                    'created' => date('Y-m-d H:i:s'),
-                    'updated' => date('Y-m-d H:i:s')
-                ]
-            );
+        $flag = 0;
+        $cflag = 0;
 
-            // Check if CertStatus was saved successfully
-            if ($certstatus) {
-                try {
-                    // Initialize the image URLs array
-                    $image_urls = [];
+        $csts = CertStatus::where('user_id', $request->user_id)->first();
 
-                    if ($request->hasFile('geo_tagged_images')) {
-                        $year = date("Y/m") . "SC3STAR";
+        if (!empty($csts)) {
+            $flag = 1;
+        } else {
+            $flag = 0;
+        }
 
-                        foreach ($request->file('geo_tagged_images') as $file) {
-                            $path = $file->store($year, ['disk' => 'uploads']);
-                            $image_urls[] = url('wp-content/uploads/' . $path);
-                        }
-                    } elseif (!empty($threedata) && !empty($threedata->geo_tagged_images)) {
-                        $image_urls = @unserialize($threedata->geo_tagged_images) ?: [];
-                    }
+        if ($flag == 1) {
 
-                    $year1 = date("Y/m") . 'SCDOCS3STAR';
-                    /* Files and images upload logic */
-                    $timetable_doc = $request->hasFile('timetable_doc') ? $request->file('timetable_doc')->store($year1, ['disk' => 'uploads']) : ($threedata->timetable_doc ?? null);
-                    $teacher_certification = $request->hasFile('teacher_certification') ? $request->file('teacher_certification')->store($year1, ['disk' => 'uploads']) : ($threedata->teacher_certification ?? null);
-                    $town_country_plan_doc = $request->hasFile('town_country_plan_doc') ? $request->file('town_country_plan_doc')->store($year1, ['disk' => 'uploads']) : ($threedata->town_country_plan_doc ?? null);
+            $crsts = CertRequest::where('user_id', $request->user_id)->first();
 
-
-
-                    // Using updateOrCreate for CertRequest to handle the same update/create behavior
-                    $certreq = CertRequest::updateOrCreate(
-                        ['user_id' => $request->user_id, 'cat_id' => $request->ratingreqid],
-                        [
-                            'totnoteachers' => $request->totnoteachers,
-                            'no_of_schools' => $request->no_of_schools,
-                            'grade1_5_students' => $request->grade1_5_students,
-                            'grade6_12_students' => $request->grade6_12_students,
-                            'peteacherno' => $request->peteacherno,
-                            'outdoorsports' => serialize($request->outdoor_sports),
-                            'indoorsports' => serialize($request->indoor_sports),
-                            'timetable_doc' => $timetable_doc,
-                            'teacher_certification' => $teacher_certification,
-                            'town_country_plan_doc' => $town_country_plan_doc,
-                            'geo_tagged_images' => serialize($image_urls),
-
-                            'created' => date('Y-m-d H:i:s'),
-                            'updated' => date('Y-m-d H:i:s')
-                        ]
-                    );
-                    // Update or create in Userkey table as well
-                    Userkey::updateOrCreate(
-                        ['user_id' => $request->user_id, 'key' => 'ratingreqid'],
-                        ['value' => $request->ratingreqid]
-                    );
-
-                    if ($certreq) {
-                        Userkey::updateOrCreate(
-                            ['user_id' => $request->user_id, 'key' => 'ratingreqid'],
-                            ['value' => $request->ratingreqid]
-                        );
-                        return back()->with('success', 'Congratulations, you have been awarded 3-STAR certification.');
-                    } else {
-                        return back()->with('error', 'Request not added successsfully');
-                    }
-                } catch (\Exception $e) {
-                    // Return with error message if any exception occurs during CertRequest processing
-                    return back()->with('error', 'Error in processing your request: ' . $e->getMessage());
-                }
+            if (!empty($crsts)) {
+                $cflag = 1;
             } else {
-                // Return with error message if CertStatus failed to save
-                return back()->with('error', 'Request not added successfully.');
+                $cflag = 0;
             }
-        } catch (\Exception $e) {
-            // Return with error message if any exception occurs during CertStatus processing
-            return back()->with('error', 'Error in processing CertStatus: ' . $e->getMessage());
+        }
+
+        if ($flag == 1 && $cflag == 0) {
+            try {
+                CertStatus::where('user_id', $request->user_id)->delete();
+                return back()->with('error', 'Please try again.');
+            } catch (\Exception $e) {
+                return back()->with('error', $e->getMessage());
+            }
+        } else if (($flag == 0) || ($flag == 1 && $cflag == 1)) {
+
+            try {
+
+                $certstatus = new CertStatus();
+                $certstatus->user_id = $request->user_id;
+                $certstatus->cat_id  = $request->ratingreqid;
+                $certstatus->cur_status = 'applied';
+                $certstatus->status = 'applied';
+                $certstatus->created  = date('Y-m-d H:i:s');
+                $certstatus->updated  = date('Y-m-d H:i:s');
+
+                //$certreq = new CertRequest();
+
+                if ($certstatus->save()) {
+
+
+                    try {
+                        $image_urls = [];
+                        if ($request->hasFile('geo_tagged_images')) {
+                            $year = date("Y/m")."SC3STAR";
+                            foreach ($request->file('geo_tagged_images') as $file) {
+                                $path = $file->store($year, ['disk' => 'uploads']);
+                                $image_urls[] = url('wp-content/uploads/' . $path);
+                            }
+                        }
+                        $year1 = date("Y/m").'SCDOCS3STAR';
+                        $certreq = new CertRequest();
+
+                        $certreq->user_id = $request->user_id;
+                        $certreq->cat_id  = $request->ratingreqid;
+                        $certreq->totnoteachers = $request->totnoteachers;
+                        $certreq->no_of_schools         = $request->no_of_schools;
+                        $certreq->grade1_5_students     = $request->grade1_5_students;
+                        $certreq->grade6_12_students    = $request->grade6_12_students;
+                        $certreq->peteacherno           = $request->peteacherno;
+                        $certreq->outdoorsports = serialize($request->outdoor_sports);
+                        $certreq->indoorsports = serialize($request->indoor_sports);
+                        $certreq->timetable_doc = $request->file('timetable_doc')->store($year1, ['disk' => 'uploads']);
+                        $certreq->teacher_certification = $request->file('teacher_certification')->store($year1, ['disk' => 'uploads']);
+                        $certreq->town_country_plan_doc = $request->file('town_country_plan_doc')->store($year1, ['disk' => 'uploads']);
+                        $certreq->geo_tagged_images = serialize($image_urls);
+
+
+                        $certreq->created  = date('Y-m-d H:i:s');
+
+                        if ($certreq->save()) {
+
+                            $userkey = Userkey::where('user_id', $request->user_id)->where('key', 'ratingreqid')->first();
+                            $userkey->update(['value' => $request->ratingreqid]);
+
+
+                            return back()->with('success', 'Your request have submitted successfully.');
+                        } else {
+                            return back()->with('error', 'Your request not submitted successfully.');
+                        }
+                    } catch (\Exception $e) {
+                        return back()->with('error', $e->getMessage());
+                    }
+
+
+                    return back()->with('success', 'Request added successsfully');
+                } else {
+                    return back()->with('error', 'Request not added successsfully');
+                }
+            } catch (\Exception $e) {
+                return back()->with('error', $e->getMessage());
+            }
         }
     }
 
@@ -435,75 +448,100 @@ class CertificateController extends Controller
             throw new ValidationException($validator);
         }
 
-        try {
 
-            $certstatus = CertStatus::updateOrCreate(
-                ['user_id' => $request->user_id, 'cat_id' => $request->ratingreqid],
-                [
-                    'cur_status' => 'awarded',
-                    'status' => 'downloadcerficate',
-                    'created' => date('Y-m-d H:i:s'),
-                    'updated' => date('Y-m-d H:i:s')
-                ]
-            );
+        $flag = 0;
+        $cflag = 0;
 
-            if ($certstatus) {
-                $year = date("Y/m") . "SC5STAR";
-                try {
-                    $image_urls = [];
-                    if ($request->hasFile('geo_tagged_images_5start')) {
-                        $year = date("Y/m") . "SC5STAR";
+        $csts = CertStatus::where('user_id', $request->user_id)->first();
 
-                        foreach ($request->file('geo_tagged_images_5start') as $file) {
-                            $path = $file->store($year, ['disk' => 'uploads']);
-                            $image_urls[] = url('wp-content/uploads/' . $path);
-                        }
-                    } elseif (!empty($fivedata) && !empty($fivedata->geo_tagged_images)) {
-                        $image_urls = @unserialize($fivedata->geo_tagged_images) ?: [];
-                    }
-          
-                    $year1 = date("Y/m") . 'SCDOCS5STAR';
-                      $timetable_doc = $request->hasFile('timetable_doc_5start') ? $request->file('timetable_doc_5start')->store($year1, ['disk' => 'uploads']) : ($fivedata->timetable_doc ?? null);
-                      $town_country_plan_doc_5start = $request->hasFile('town_country_plan_doc_5start') ? $request->file('town_country_plan_doc_5start')->store($year1, ['disk' => 'uploads']) : ($fivedata->town_country_plan_doc ?? null);
-                    $certreq = CertRequest::updateOrCreate(
-                        ['user_id' => $request->user_id, 'cat_id' => $request->ratingreqid],
-                        [
-                            'noofstudents'         => $request->no_of_schools_5start,
-                            'noofstudents'         => $request->num_students_5start,
-                            'grade1_5_students'     => $request->grade1_5_students_5start,
-                            'grade6_12_students'    => $request->grade6_12_students_5start,
-                            'outdoorsports' => serialize($request->outdoor_sports_5start),
-                            'indoorsports' => serialize($request->indoor_sports_5start),
-                            'timetable_doc' => $timetable_doc,
-                            'town_country_plan_doc' => $town_country_plan_doc_5start,
-                            'geo_tagged_images' => serialize($image_urls),
-                            'fit_india_participation' => $request->has('fit_india_participation_5start') ? 1 : 0,
-                            'school_initiative' => $request->has('school_initiative') ? 1 : 0,
-                            'created' => date('Y-m-d H:i:s'),
-                            'updated' => date('Y-m-d H:i:s')
-                        ]
-                    );
+        if (!empty($csts)) {
+            $flag = 1;
+        } else {
+            $flag = 0;
+        }
 
-                    if ($certreq) {
+        if ($flag == 1) {
 
-                        Userkey::updateOrCreate(
-                            ['user_id' => $request->user_id, 'key' => 'ratingreqid'],
-                            ['value' => $request->ratingreqid]
-                        );
+            $crsts = CertRequest::where('user_id', $request->user_id)->first();
 
-
-                        return back()->with('success', 'Congratulations, you have been awarded 5-STAR certification.');
-                    } else {
-                        return back()->with('error', 'Request not added successsfully');
-                    }
-                } catch (\Exception $e) {
-                    return back()->with('error', $e->getMessage());
-                }
+            if (!empty($crsts)) {
+                $cflag = 1;
             } else {
-                return back()->with('error', 'Your request not submitted successfully.');
+                $cflag = 0;
             }
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+        }
+
+        if ($flag == 1 && $cflag == 0) {
+            try {
+                CertStatus::where('user_id', $request->user_id)->delete();
+                return back()->with('error', 'Please try again.');
+            } catch (\Exception $e) {
+                return back()->with('error', $e->getMessage());
+            }
+        } else if (($flag == 0) || ($flag == 1 && $cflag == 1)) {
+
+            try {
+
+                $certstatus = new CertStatus();
+                $certstatus->user_id = $request->user_id;
+                $certstatus->cat_id  = $request->ratingreqid;
+                $certstatus->cur_status = 'applied';
+                $certstatus->status = 'applied';
+                $certstatus->created  = date('Y-m-d H:i:s');
+                $certstatus->updated  = date('Y-m-d H:i:s');
+
+                if ($certstatus->save()) {
+                    $year = date("Y/m")."SC5STAR";
+                    try {
+                        $certreq = new CertRequest();
+                        $certreq->user_id = $request->user_id;
+                        $certreq->cat_id  = $request->ratingreqid;
+
+                        $image_urls = [];
+                        if ($request->hasFile('geo_tagged_images_5start')) {
+                            foreach ($request->file('geo_tagged_images_5start') as $file) {
+                                $path = $file->store($year, ['disk' => 'uploads']);
+                                $image_urls[] = url('wp-content/uploads/' . $path);
+                            }
+                        }
+                        $year1 = date("Y/m").'SCDOCS5STAR';
+                        $certreq->user_id = $request->user_id;
+                        $certreq->cat_id  = $request->ratingreqid;
+                        $certreq->no_of_schools         = $request->no_of_schools_5start;
+                        $certreq->noofstudents         = $request->num_students_5start;
+                        $certreq->grade1_5_students     = $request->grade1_5_students_5start;
+                        $certreq->grade6_12_students    = $request->grade6_12_students_5start;
+                        $certreq->outdoorsports = serialize($request->outdoor_sports_5start);
+                        $certreq->indoorsports = serialize($request->indoor_sports_5start);
+                        $certreq->timetable_doc = $request->file('timetable_doc_5start')->store($year1, ['disk' => 'uploads']);
+                        $certreq->town_country_plan_doc = $request->file('town_country_plan_doc_5start')->store($year1, ['disk' => 'uploads']);
+                        $certreq->geo_tagged_images = serialize($image_urls);
+                        $certreq->fit_india_participation = $request->has('fit_india_participation_5start') ? 1 : 0;
+                        $certreq->school_initiative = $request->has('school_initiative') ? 1 : 0;
+                        $certreq->created  = date('Y-m-d H:i:s');
+
+                        if ($certreq->save()) {
+
+                            $userkey = Userkey::where('user_id', $request->user_id)->where('key', 'ratingreqid')->first();
+                            $userkey->update(['value' => $request->ratingreqid]);
+
+
+                            return back()->with('success', 'Request added successsfully');
+                        } else {
+                            return back()->with('error', 'Request not added successsfully');
+                        }
+                    } catch (\Exception $e) {
+                        return back()->with('error', $e->getMessage());
+                    }
+
+
+                    return back()->with('success', 'Your request have submitted successfully.');
+                } else {
+                    return back()->with('error', 'Your request not submitted successfully.');
+                }
+            } catch (\Exception $e) {
+                return back()->with('error', $e->getMessage());
+            }
         }
     }
 
@@ -592,31 +630,33 @@ class CertificateController extends Controller
 
 
 
-    public function indexbk()
+    public function index()
     {
         try {
             $role = Auth::user()->role;
-
+            
             if ($role) {
                 $appliedfor = false;
                 $currentflag = false;
                 $appliedfor = Userkey::where('user_id', Auth::user()->id)->where('key', 'ratingreqid')->first();
-
+                
                 if ($appliedfor) {
                     if ($appliedfor->value) {
-
+                         
                         $appliedfor = $appliedfor->value;
                         $currentflag = ($appliedfor + 1);
+                    
                     }
                 } else {
                     $currentflag = 1622;
                 }
-
+                // dd($currentflag);
+                $appliedfor = 1621;
                 $flags = CertQues::where('cert_cats_id', 1621)->orderBy('priority', 'asc')->get();
                 $threestars = CertQues::where('cert_cats_id', 1622)->orderBy('priority', 'asc')->get();
                 $fivestars = CertQues::where('cert_cats_id', 1623)->orderBy('priority', 'asc')->get();
 
-
+              
                 $role = Role::where('slug', $role)->first()->name;
                 if ($appliedfor) {
 
@@ -626,110 +666,45 @@ class CertificateController extends Controller
                             $flagdata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
 
                             $flagstatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-                            $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
+                             $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
                             $threestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
                             $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
                             $fivestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
                             return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata, 'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
                             break;
                         case 1622:
-
                             $flagdata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
                             $flagstatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
                             $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
                             $threestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-                            $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
+                             $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
                             $fivestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-                            return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata, 'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
+                            return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata,'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
                             break;
                         case 1623:
-
+                            
                             $flagdata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
                             $flagstatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
                             $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
                             $threestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
                             $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
                             $fivestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-
+                    
                             return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata, 'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
                             break;
                         default:
 
-                            $flagdata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-                            $flagstatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-                            $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-                            $threestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-                            $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-                            $fivestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-                            return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata, 'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
+                            return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag]);
                     }
                 } else {
-
-                    $flagdata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-                    $flagstatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-                    $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-                    $threestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-                    $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-                    $fivestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-                    return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata, 'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
+              
+                    return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag]);
                 }
             }
 
-            $flagdata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-            $flagstatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1621)->first();
-            $threedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-            $threestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1622)->first();
-            $fivedata = CertRequest::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-            $fivestatusdata = CertStatus::where('user_id', Auth::user()->id)->where('cat_id', 1623)->first();
-            return view('event.cert', ['role' => $role, 'flags' => $flags, 'threestars' => $threestars, 'fivestars' => $fivestars, 'appliedfor' => $appliedfor, 'currentflag' => $currentflag, 'flagdata' => $flagdata, 'flagstatusdata' => $flagstatusdata, 'threedata' => $threedata, 'threestatusdata' => $threestatusdata, 'fivedata' => $fivedata, 'fivestatusdata' => $fivestatusdata]);
+            return view('event.cert');
         } catch (Exception $e) {
 
-            return abort(404);
-        }
-    }
-    public function index()
-    {
-        try {
-            $userId = Auth::id();
-            $roleSlug = Auth::user()->role;
-
-            if (!$roleSlug) {
-                return abort(404);
-            }
-
-            // Get applied rating
-            $appliedfor = Userkey::where('user_id', $userId)->where('key', 'ratingreqid')->value('value');
-            $currentflag = $appliedfor ? ($appliedfor + 1) : 1622;
-
-            // Load questions
-            $flags = CertQues::where('cert_cats_id', 1621)->orderBy('priority', 'asc')->get();
-            $threestars = CertQues::where('cert_cats_id', 1622)->orderBy('priority', 'asc')->get();
-            $fivestars = CertQues::where('cert_cats_id', 1623)->orderBy('priority', 'asc')->get();
-
-            // Get role name
-            $role = Role::where('slug', $roleSlug)->value('name');
-
-            // Prepare cert request and status data for all categories
-            $categories = [
-                1621 => 'flag',
-                1622 => 'three',
-                1623 => 'five'
-            ];
-
-            $certData = [];
-            foreach ($categories as $catId => $prefix) {
-                $certData["{$prefix}data"] = CertRequest::where('user_id', $userId)->where('cat_id', $catId)->first();
-                $certData["{$prefix}statusdata"] = CertStatus::where('user_id', $userId)->where('cat_id', $catId)->first();
-            }
-            return view('event.cert', array_merge([
-                'role' => $role,
-                'flags' => $flags,
-                'threestars' => $threestars,
-                'fivestars' => $fivestars,
-                'appliedfor' => $appliedfor,
-                'currentflag' => $currentflag,
-            ], $certData));
-        } catch (Exception $e) {
             return abort(404);
         }
     }

@@ -44,39 +44,13 @@
         padding-left: 22px;
         padding-right: 22px;
     }
-
     .fit-india-section .custom-wid {
-        width: 18%;
-        margin-left: 8px;
-    }
-
-    .mul-sel {
-        min-height: 180px;
-    }
-
-    .green-button {
-        background-color: #28a745;
-        /* Green color */
-        color: white;
-        /* White text */
-        padding: 10px 20px;
-        /* Padding for button */
-        text-decoration: none;
-        /* Remove underline */
-        border-radius: 5px;
-        /* Rounded corners */
-        font-weight: bold;
-        /* Bold text */
-        display: inline-block;
-        /* Allow button to be inline with others */
-        transition: background-color 0.3s ease;
-        /* Smooth transition for hover effect */
-    }
-
-    .green-button:hover {
-        background-color: #218838;
-        /* Darker green on hover */
-    }
+    width: 18%;
+    margin-left: 8px;
+}
+.mul-sel{
+    min-height: 180px;
+}
 </style>
 @php
 $indoorsports = array('Badminton', 'Basketball', 'Boxing', 'Fencing', 'Gymnastics', 'Judo', 'Kabaddi', 'Karate', 'Lawn Tennis', 'Shooting', 'Swimming', 'Table Tennis', 'Taekwondo', 'Volleyball', 'Carom', 'Chess', 'Weightlifting', 'Wrestling',);
@@ -93,14 +67,11 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                 @include('event.sidebar')
                 <div class="col-sm-12 col-md-9 ">
                     @if(strtolower($role) == 'school')
-
-
-                    <!-- Second Section -->
+                    <!-- first section -->
                     <div class="fit-india-section py-4">
-                        <div class="container-fluid mt-4">
-
+                        <div class="container-fluid ">
                             <div class="border p-4 rounded">
-                                <form name="threestarrequest" method="post" action="{{ route('threestar') }}" enctype="multipart/form-data">
+                                <form name="flagrequest" method="post" action="{{ route('flagstore') }}" enctype="multipart/form-data">
                                     @csrf
                                     @if (session('success'))
                                     <div class="alert alert-success">
@@ -115,6 +86,241 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                     @endif
                                     <div class="row mb-4">
                                         <div class="col">
+                                            <h2 class="">Request for Fit India School</h2>
+                                        </div>
+                                        <h2 for="event_name"> </h2>
+                                        <input type="hidden" name="questions" value="4" />
+                                        <input type="hidden" name="ratingreqid" value="1621" />
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}" />
+
+                                        <div class="col-auto">
+                                            @if(!empty($flagstatusdata->cur_status))
+                                            @if(strtolower($flagstatusdata->cur_status) == 'awarded')
+                                            <img class="me-2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAQCAYAAAD0xERiAAAABHNCSVQICAgIfAhkiAAAAPxJREFUOE/NlMsNwjAQRGchd+gAUQF0QDhy4FMCdEAHhE5CBSAQZ0IH0AElQAOYsUUsyzHhe8BRZMdav+zObCK4D7VBwuUsf351lj4kjxVCYlRwxhWjT2E5Q8MUrz352Rcww/hj2E8NcGAx17tXXTRxChcZoG7ddA+rNV0V1N4ALtga4zDs3V6L0JQeTkGYyXyDA6fW0+wUJiwxdeNs91rtltSgyiDBMAikTtyf+iAdW4B5hmg9tDEN3kdGp3zRyi2tNDM/G+eb7VLsrKz8YplruiMmk3zozGK2gS7dis29vQ8PwTIe6jw1AJgTlpQbsEWbfxDbiA+hEU6+djeLq19IEheHogAAAABJRU5ErkJggg==" alt="">
+                                            @else
+                                            <i class="fa fa-star-half-o me-2" aria-hidden="true"></i>
+                                            @endif
+                                            {{ ucwords($flagstatusdata->cur_status) }}
+                                            @else
+                                            <i class="fa fa-ban me-2" aria-hidden="true"></i> Not Applied
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                    <!-- 1 -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h3>01. Designated PE Teacher</h3>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mb-1">Schools must have at least one designated teacher who is responsible for:</p>
+                                            <p>Conducting physical activities and promoting an active and healthy lifestyle among student</p>
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex align-items-center">
+                                            <p class="mb-0 ">No. of teachers</p>
+                                            <input type="number" name="num_teachers" value="{{ optional($flagdata)->peteacherno }}" class="form-control custom-wid @error('num_teachers') is-invalid @enderror" value="{{ old('num_teachers') }}">
+                                            @error('num_teachers')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-2"><b>Documentation required – Teacher Certification: Name and details of the nominated teacher for PE. (attach max 20 MB relevant doc/pdf)</b></p>
+                                            <input type="file" name="teacher_cert_doc" class="form-control @error('teacher_cert_doc') is-invalid @enderror">
+                                            @error('teacher_cert_doc')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            @if (!empty($flagdata->teacher_cert_doc))
+                                            <a href="{{ asset('wp-content/uploads/' . $flagdata->teacher_cert_doc) }}" target="_blank">
+                                                View Uploaded Document
+                                            </a>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- 2 -->
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <h3>02. Accessible Playground or Play Area</h3>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mb-1">Schools must have a safe, well-maintained playground or open space to conduct regular physical activities.</p>
+                                            <p>This space should be actively used for student engagement and should meet safety and usability standards.</p>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-2"><b>Keep CTRL key press while selecting multiple sports</b></p>
+                                            <p class="mb-2">Outdoor Sports ( minimum 2 )</p>
+                                            <div class="w-100 my-2">
+                                                @php
+                                                $selecteddoorsports = !empty($flagdata) ? unserialize($flagdata->outdoorsports) : [];
+                                                @endphp
+                                                <select multiple class="form-control w-50 mul-sel" name="outdoor_sports[]">
+                                                    @foreach ($outdoorsports as $sport)
+                                                    <option value="{{ $sport }}"
+                                                        @if (in_array($sport, $selecteddoorsports)) selected @endif>
+                                                        {{ $sport }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('outdoor_sports')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                                @error('outdoor_sports.*')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <p class="mb-2">Indoor Sports ( minimum 2 )</p>
+                                            <div class="w-100 my-2">
+                                                @php
+                                                $selectedindoorsports = !empty($flagdata) ? unserialize($flagdata->indoorsports) : [];
+                                                @endphp
+                                                <select multiple class="form-control w-50 mul-sel" name="indoor_sports[]">
+                                                    @foreach ($indoorsports as $sport)
+                                                    <option value="{{ $sport }}"
+                                                        @if (in_array($sport, $selectedindoorsports)) selected @endif>
+                                                        {{ $sport }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('indoor_sports')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                                @error('indoor_sports.*')
+                                                <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-2"><b>Documentation required – Must submit the approved town and country planning structured plan.(attach max 20 MB relevant doc/pdf)</b></p>
+                                            <input type="file" name="town_planning_doc" class="form-control @error('town_planning_doc') is-invalid @enderror">
+                                            @error('town_planning_doc')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            @if (!empty($flagdata->teacher_cert_doc))
+                                            <a href="{{ asset('wp-content/uploads/' . $flagdata->town_planning_doc) }}" target="_blank">
+                                                View Uploaded Document
+                                            </a>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- 3 -->
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <h3>03. Active Participation in Daily Physical Activity</h3>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="mb-1">Every student must engage in a minimum of 30 minutes of physical activity on each school day</p>
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex align-items-center">
+                                            <p class="mb-0 ">No. of Student</p>
+                                            <input type="number" name="num_students" class="form-control custom-wid @error('num_students') is-invalid @enderror" value="{{ optional($flagdata)->noofstudents }}">
+                                            @error('num_students')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-1">Activities can include:</p>
+                                            <p class="mb-1">Sports (e.g., football, volleyball, basketball)</p>
+                                            <p class="mb-1">Exercise routines (e.g., warm-ups, drills)</p>
+                                            <p class="mb-1">Fun fitness activities (e.g., shuttle runs, obstacle courses, fitness games)</p>
+                                            <p class="mb-1">The objective is to ensure that daily physical movement becomes an integral part of school culture.</p>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-2"><b>No. of students of spending at least 30 minutes/ day for physical activities in school</b></p>
+                                            <input type="text" name="students_active_30min" class="form-control @error('students_active_30min') is-invalid @enderror" value="{{ optional($flagdata)->students_active_30min }}">
+                                            @error('students_active_30min')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-2"><b>Documentation required – Timetable or any other proof inclusive of playing duration needs to be uploaded. (attach max 20 MB relevant doc/pdf)</b></p>
+                                            <input type="file" name="activity_timetable_doc" class="form-control @error('activity_timetable_doc') is-invalid @enderror">
+                                            @error('activity_timetable_doc')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            @if (!empty($flagdata->activity_timetable_doc))
+                                            <a href="{{ asset('wp-content/uploads/' . $flagdata->activity_timetable_doc) }}" target="_blank">
+                                                View Uploaded Document
+                                            </a>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- 4 -->
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <h3>04. Sports Facilities</h3>
+                                        </div>
+
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-1">The school must provide facilities for at least four sports, including:</p>
+                                            <p class="mb-1">A minimum of two outdoor sports.</p>
+                                            <p class="mb-1">These facilities should be functional and accessible for regular student use.</p>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            @php
+                                            // Deserialize the stored image URLs (if any)
+                                            $uploadedImages = !empty($flagdata->sports_facility_images) ? unserialize($flagdata->sports_facility_images) : [];
+                                            @endphp
+                                            <p class="mb-2"><b>Documentation required – 4-5 pictures must be uploaded with geo-tagging co-ordinates.. (attach max 20 MB relevant jpeg/jpg/png)</b></p>
+                                            <input type="file" name="sports_facility_images[]" class="form-control @error('sports_facility_images.*') is-invalid @enderror" accept=".jpeg,.jpg,.png" multiple>
+                                            @error('sports_facility_images')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                            @error('sports_facility_images.*')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                            {{-- Show already uploaded images --}}
+                                            @if (!empty($uploadedImages))
+                                            <div class="row mt-3">
+                                                @foreach ($uploadedImages as $img)
+                                                <div class="col-md-3 mb-2">
+                                                    <img src="{{ $img }}" class="img-thumbnail" style="width: 100%; height: auto;" alt="Uploaded Image">
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- 5 -->
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <h3>05. Participation in Fit India Activities</h3>
+                                        </div>
+
+                                        <div class="col-12 mt-2">
+                                            <p class="mb-1">The school must provide facilities for at least four sports, including:</p>
+                                            <p class="mb-3">Schools must be committed to participating in Fit India Movement initiatives, conducted under the guidance of:</p>
+                                            <p class="mb-1">SAI (Sports Authority of India) and</p>
+                                            <p class="mb-1">MYAS (Ministry of Youth Affairs and Sports)</p>
+                                        </div>
+                                        <div class="col-12 mt-2 d-flex">
+                                            <div class="me-2"><input type="checkbox"
+                                                    name="fit_india_participation"
+                                                    value="1"
+                                                    {{ optional($flagdata)->fit_india_participation == 1 ? 'checked' : '' }}>
+                                            </div>
+                                            <div class="ms-2">
+                                                @error('fit_india_participation')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                                <p class="mb-2"><b>This participation should be regular and aimed at reinforcing fitness habits among students and staff alike.</b></p>
+                                            </div>
+
+                                        </div>
+                                        @if($currentflag == 1621)
+                                        <div class="col-auto mt-3">
+                                            <button class="btn submit-btn">Submit</button>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- first section End -->
+
+                    <!-- Second Section -->
+                    <div class="fit-india-section py-4">
+                        <div class="container-fluid mt-4">
+
+                            <div class="border p-4 rounded">
+                                <form name="threestarrequest" method="post" action="{{ route('threestar') }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row mb-4">
+                                        <div class="col">
                                             <h2 class="">Request for 3 Star</h2>
                                             <input type="hidden" name="questions" value="5" />
                                             <input type="hidden" name="ratingreqid" value="1622" />
@@ -122,15 +328,17 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                         </div>
                                         <div class="col-auto default-i @if(!empty($threestatusdata->cur_status)) {{ $threestatusdata->cur_status }} @endif">
                                             @if(!empty($threestatusdata->cur_status))
-                                            @if($threestatusdata->cur_status == 'awarded')
-                                            <i class="fa fa-trophy" aria-hidden="true"></i> Awarded
+                                            @if($threestatusdata->cur_status == 'applied')
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            @elseif($threestatusdata->cur_status == 'rejected')
+                                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                                             @else
-                                            <i class="fa fa-ban" aria-hidden="true"></i> Not Awarded
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                                             @endif
+                                            {{ ucwords($threestatusdata->cur_status) }}
                                             @else
-                                            <i class="fa fa-ban" aria-hidden="true"></i> Not Awarded
+                                            <i class="fa fa-ban" aria-hidden="true"></i> Not Applied
                                             @endif
-
                                         </div>
 
                                     </div>
@@ -367,24 +575,11 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                             </div>
                                             @endif
                                         </div>
-
-                                        @unless(
-                                        (!is_null($threestatusdata) && $threestatusdata->cur_status == 'awarded') ||
-                                        (!is_null($fivestatusdata) && $fivestatusdata->cur_status == 'awarded')
-                                        )
+                                         @if($currentflag == 1622)
                                         <div class="col-auto mt-3">
                                             <button class="btn submit-btn">Submit</button>
                                         </div>
-                                        @endunless
-
-                                        @if(isset($threestatusdata) && $threestatusdata->status == 'downloadcerficate')
-                                        <div class="col-auto mt-3">
-                                            <a href="{{ asset('wp-content/uploads/2025/certificates/Certificate3start.png') }}" target="_blank" class="green-button">
-                                                Download your Certificate
-                                            </a>
-                                        </div>
                                         @endif
-
 
                                     </div>
                                 </form>
@@ -410,15 +605,17 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                         </div>
                                         <div class="col-auto default-i @if(!empty($fivestatusdata->cur_status)) {{ $fivestatusdata->cur_status }} @endif">
                                             @if(!empty($fivestatusdata->cur_status))
-                                            @if($fivestatusdata->cur_status == 'awarded')
-                                            <i class="fa fa-trophy" aria-hidden="true"></i> Awarded
+                                            @if($fivestatusdata->cur_status == 'applied')
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            @elseif($fivestatusdata->cur_status == 'rejected')
+                                            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                                             @else
-                                            <i class="fa fa-ban" aria-hidden="true"></i> Not Awarded
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                                             @endif
+                                            {{ ucwords($fivestatusdata->cur_status) }}
                                             @else
-                                            <i class="fa fa-ban" aria-hidden="true"></i> Not Awarded
+                                            <i class="fa fa-ban" aria-hidden="true"></i> Not Applied
                                             @endif
-
                                         </div>
                                     </div>
                                     <!-- 1 -->
@@ -431,7 +628,7 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                         </div>
                                         <div class="col-12 mt-2 d-flex align-items-center">
                                             <p class="mb-0 ">No. of students in school</p>
-                                            <input type="number" name="num_students_5start" class="form-control custom-wid @error('num_students') is-invalid @enderror" value="{{ old('num_students_5start', optional($fivedata)->noofstudents) }}">
+                                            <input type="number" name="num_students_5start" class="form-control custom-wid @error('num_students') is-invalid @enderror" value="{{ old('noofstudents', optional($fivedata)->noofstudents) }}">
                                             @error('num_students_5start')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                         </div>
                                         <div class="col-12 mt-2">
@@ -681,21 +878,11 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                                     <p class="mb-2"><b>Schools should actively encourage healthy eating habits among students by offering nutritious options in their canteens and promoting awareness of balanced diets.</b></p>
                                                 </div>
                                             </div>
-                                            @if(is_null($fivestatusdata) || $fivestatusdata->cur_status != 'awarded')
+                                             @if($currentflag == 1623)
                                             <div class="col-auto mt-3">
                                                 <button class="btn submit-btn">Submit</button>
                                             </div>
-                                            @endif
-
-
-                                            @if(isset($fivestatusdata) && $fivestatusdata->status == 'downloadcerficate')
-                                            <div class="col-auto mt-3">
-                                                <a href="{{ asset('wp-content/uploads/2025/certificates/Certificate5start.png') }}" target="_blank" class="green-button">
-                                                    Download your Certificate
-                                                </a>
-                                            </div>
-                                            @endif
-
+                                             @endif
 
                                         </div>
                                 </form>
