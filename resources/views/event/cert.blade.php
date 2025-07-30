@@ -77,6 +77,26 @@
         background-color: #218838;
         /* Darker green on hover */
     }
+
+    .flag-dwn {
+        background-color: #4caf50;
+        box-shadow: 0 5px 10px rgb(76 175 80 / 30%);
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+        border-radius: 100px;
+        border: 0px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 10px;
+        display: table;
+        margin-bottom: 10px;
+    }
+
+    .success-msg {
+        color: green;
+    }
 </style>
 @php
 $indoorsports = array('Badminton', 'Basketball', 'Boxing', 'Fencing', 'Gymnastics', 'Judo', 'Kabaddi', 'Karate', 'Lawn Tennis', 'Shooting', 'Swimming', 'Table Tennis', 'Taekwondo', 'Volleyball', 'Carom', 'Chess', 'Weightlifting', 'Wrestling',);
@@ -379,9 +399,11 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
 
                                         @if(isset($threestatusdata) && $threestatusdata->status == 'downloadcerficate')
                                         <div class="col-auto mt-3">
-                                            <a href="{{ asset('wp-content/uploads/2025/certificates/Certificate3start.png') }}" target="_blank" class="green-button">
-                                                Download your Certificate
-                                            </a>
+
+                                        </div>
+                                        <div class="col-auto mt-3">
+                                            <a class="flag-dwn" href="download-certificate/1622">Download Certificate</a>
+                                            <div class="success-msg"> <i class="fa fa-star-o" aria-hidden="true"></i> Congratulations, you have been awarded 3-STAR certification. </div>
                                         </div>
                                         @endif
 
@@ -690,9 +712,8 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
 
                                             @if(isset($fivestatusdata) && $fivestatusdata->status == 'downloadcerficate')
                                             <div class="col-auto mt-3">
-                                                <a href="{{ asset('wp-content/uploads/2025/certificates/Certificate5start.png') }}" target="_blank" class="green-button">
-                                                    Download your Certificate
-                                                </a>
+                                                <a class="flag-dwn" href="download-certificate/1623">Download Certificate</a>
+                                                <div class="success-msg"> <i class="fa fa-star-o" aria-hidden="true"></i> Congratulations, you have been awarded 5-STAR certification. </div>
                                             </div>
                                             @endif
 

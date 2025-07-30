@@ -736,7 +736,7 @@ class CertificateController extends Controller
     }
 
 
-    public function schoolCertificate(Request $request)
+    public function schoolCertificatebk20072025(Request $request)
     {
 
         $name = Auth::user()->name;
@@ -751,6 +751,17 @@ class CertificateController extends Controller
         $flat_rating_status = DB::table('wp_star_rating_status')->where('user_id', Auth::user()->id)->where('cat_id', '1621')->first(['created']);
 
         $pdf = PDF::loadView('certificate', ['name' => $name, 'cities' => $cities, 'flat_rating_status' => $flat_rating_status]);
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create(['ssl' => ['allow_self_signed' => TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE,]])
+        );
+        return $pdf->stream($name . ".pdf");
+    }
+    public function schoolCertificate(Request $request,$cat_id)
+    {
+       
+        $name = Auth::user()->name;
+        // return view('certificate', ['name' => $name,'cat_id' => $cat_id]);
+        $pdf = PDF::loadView('certificate', ['name' => $name, 'cat_id' => $cat_id]);
         $pdf->getDomPDF()->setHttpContext(
             stream_context_create(['ssl' => ['allow_self_signed' => TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE,]])
         );

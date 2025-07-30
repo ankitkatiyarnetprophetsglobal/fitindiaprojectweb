@@ -556,7 +556,7 @@ Route::post('/fivestar', [App\Http\Controllers\Auth\CertificateController::class
 
 Route::get('reloadcaptcha',[App\Http\Controllers\CaptchaController::class, 'reloadCaptcha'])->name('reloadCaptcha');
 Route::post('getroles',[App\Http\Controllers\RoleController::class, 'index'])->name('getroles');
-Route::get('download-certificate', [App\Http\Controllers\Auth\CertificateController::class, 'schoolCertificate']);
+Route::get('download-certificate/{id}', [App\Http\Controllers\Auth\CertificateController::class, 'schoolCertificate']);
 Route::get('mobile-flag-certificate', [App\Http\Controllers\Auth\GramPanchayatController::class, 'mobileSchoolCertificate']);
 Route::get('download-ambassador-certificate', [App\Http\Controllers\Auth\CertificateController::class, 'myAmbassadorCertificate']);
 Route::get('download-champion-certificate', [App\Http\Controllers\Auth\CertificateController::class, 'myChampionCertificate']);

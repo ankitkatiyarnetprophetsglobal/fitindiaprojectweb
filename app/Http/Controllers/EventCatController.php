@@ -40,6 +40,7 @@ class EventCatController extends Controller
                 if (Auth::check()){
 
                     $categories = EventCat::where('status', '=', 2)->orderBy('id', 'DESC')->get();
+                
                     // dd($categories);
                     $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
                     $userdata = user::with('usermeta')->find($a_id);
@@ -1430,7 +1431,7 @@ class EventCatController extends Controller
     }
 
     public function freedomrunInfo(){
-		try{
+        try{
             $freedom_partner_detail = Freedomrunpartners::where('status','1')->get();
 
             return view('freedomrun.freedom-run-info',compact('freedom_partner_detail'));
@@ -1440,7 +1441,7 @@ class EventCatController extends Controller
 
         }
     }
-	public function myEventsByYear($id){
+    public function myEventsByYear($id){
         try{
             if (isset(auth()->user()->role)){
 
@@ -1467,7 +1468,7 @@ class EventCatController extends Controller
         }
     }
 
-	public function mobileFreedomrunEvents(){
+    public function mobileFreedomrunEvents(){
         try{
 
             $id = @$_REQUEST['auth_id'];
@@ -1702,7 +1703,7 @@ class EventCatController extends Controller
     //         // echo  $user_id .'+++++++++++++++'.$event_id;
     //         // dd("the end");
     //         $active_all_user = User::
-    //                                 join('event_organizations','event_organizations.user_id', '=',	'users.id')
+    //                                 join('event_organizations','event_organizations.user_id', '=',   'users.id')
     //                                 ->where(
     //                                 [
     //                                     ['users.rolewise', '=', 'cyclothon-2024'],
