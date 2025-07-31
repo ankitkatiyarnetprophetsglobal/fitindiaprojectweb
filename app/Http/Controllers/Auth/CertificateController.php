@@ -387,7 +387,10 @@ class CertificateController extends Controller
 
             'geo_tagged_images_5start.*' => (
                 empty($fivedata) || empty($fivedata->geo_tagged_images)
-            ) ? 'required|image|mimes:jpeg,jpg,png|max:20480' : 'nullable|image|mimes:jpeg,jpg,png|max:20480',
+            ) ? 'required|file|mimetypes:image/jpeg,image/png,video/mp4,video/avi,video/quicktime,video/x-matroska|max:20480'
+                : 'nullable|file|mimetypes:image/jpeg,image/png,video/mp4,video/avi,video/quicktime,video/x-matroska|max:20480',
+
+
             'school_initiative' => 'required|accepted',
             'fit_india_participation_5start' => 'required|accepted',
         ];
@@ -462,10 +465,10 @@ class CertificateController extends Controller
                     } elseif (!empty($fivedata) && !empty($fivedata->geo_tagged_images)) {
                         $image_urls = @unserialize($fivedata->geo_tagged_images) ?: [];
                     }
-          
+
                     $year1 = date("Y/m") . 'SCDOCS5STAR';
-                      $timetable_doc = $request->hasFile('timetable_doc_5start') ? $request->file('timetable_doc_5start')->store($year1, ['disk' => 'uploads']) : ($fivedata->timetable_doc ?? null);
-                      $town_country_plan_doc_5start = $request->hasFile('town_country_plan_doc_5start') ? $request->file('town_country_plan_doc_5start')->store($year1, ['disk' => 'uploads']) : ($fivedata->town_country_plan_doc ?? null);
+                    $timetable_doc = $request->hasFile('timetable_doc_5start') ? $request->file('timetable_doc_5start')->store($year1, ['disk' => 'uploads']) : ($fivedata->timetable_doc ?? null);
+                    $town_country_plan_doc_5start = $request->hasFile('town_country_plan_doc_5start') ? $request->file('town_country_plan_doc_5start')->store($year1, ['disk' => 'uploads']) : ($fivedata->town_country_plan_doc ?? null);
                     $certreq = CertRequest::updateOrCreate(
                         ['user_id' => $request->user_id, 'cat_id' => $request->ratingreqid],
                         [
@@ -756,9 +759,9 @@ class CertificateController extends Controller
         );
         return $pdf->stream($name . ".pdf");
     }
-    public function schoolCertificate(Request $request,$cat_id)
+    public function schoolCertificate(Request $request, $cat_id)
     {
-       
+
         $name = Auth::user()->name;
         // return view('certificate', ['name' => $name,'cat_id' => $cat_id]);
         $pdf = PDF::loadView('certificate', ['name' => $name, 'cat_id' => $cat_id]);

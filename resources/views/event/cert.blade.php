@@ -650,7 +650,7 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                                     type="file"
                                                     name="geo_tagged_images_5start[]"
                                                     class="form-control @error('geo_tagged_images_5start') is-invalid @enderror @error('geo_tagged_images_5start.*') is-invalid @enderror"
-                                                    accept=".jpeg,.jpg,.png"
+                                                    accept=".jpeg, .jpg, .png, .mp4, .avi, .mov, .mkv"
                                                     multiple>
                                                 {{-- Show validation errors --}}
                                                 @error('geo_tagged_images_5start')
