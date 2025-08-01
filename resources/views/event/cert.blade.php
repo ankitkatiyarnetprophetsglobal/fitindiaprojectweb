@@ -402,7 +402,7 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
 
                                         </div>
                                         <div class="col-auto mt-3">
-                                            <a class="flag-dwn" href="download-certificate/1622">Download Certificate</a>
+                                            <a class="flag-dwn" href="download-certificate/1622" target="_blank">Download Certificate</a>
                                             <div class="success-msg"> <i class="fa fa-star-o" aria-hidden="true"></i> Congratulations, you have been awarded 3-STAR certification. </div>
                                         </div>
                                         @endif
@@ -738,7 +738,7 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
 
                                             @if(isset($fivestatusdata) && $fivestatusdata->status == 'downloadcerficate')
                                             <div class="col-auto mt-3">
-                                                <a class="flag-dwn" href="download-certificate/1623">Download Certificate</a>
+                                                <a class="flag-dwn" href="download-certificate/1623" target="_blank">Download Certificate</a>
                                                 <div class="success-msg"> <i class="fa fa-star-o" aria-hidden="true"></i> Congratulations, you have been awarded 5-STAR certification. </div>
                                             </div>
                                             @endif
