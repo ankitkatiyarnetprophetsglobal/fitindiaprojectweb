@@ -30,11 +30,19 @@
             @endif
 
             <ul class="nav nav-treeview">
-                @if(!in_array($admins_role, array(4,6,7,8,9)))
+                @if(!in_array($admins_role, array(4,6,7,8,9,10)))
                     <li class="nav-item">
                         <a href="{{ route('admin.users.index') }}" class="nav-link @if($routename =='admin.users.index') {{ 'active' }} @endif">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Users</p>
+                        </a>
+                    </li>
+                @endif
+                @if(!in_array($admins_role, array(4,6,7,8,9)))
+                    <li class="nav-item">
+                        <a href="{{ route('admin.users.index') }}" class="nav-link @if($routename =='admin.users.index') {{ 'active' }} @endif">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>NaMO Cycling Cub data</p>
                         </a>
                     </li>
                 @endif
@@ -348,9 +356,17 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin.soc-events.index') }}" class="nav-link @if($routename =='admin.soc-events.index' || $routename =='admin.soc-events.create' ||$routename =='admin.socevent.upload' || $routename =='admin.soc-events.edit') {{ 'active' }} @endif">
+                                <a href="{{ route('admin.socevents.index') }}" class="nav-link @if($routename =='admin.socevents.index') {{ 'active' }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
                                     <p>Upload SOC venue data</p>
+                                </a>
+                            </li>
+                        </ul>
+                         <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.socadminwrite') }}" class="nav-link @if($routename =='admin.socadminwrite') {{ 'active'  }} @endif">
+                                    <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
+                                    <p>SOC Admin(Mobile) Permission</p>
                                 </a>
                             </li>
                         </ul>
@@ -372,19 +388,19 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul class="nav nav-treeview">
+                        {{-- <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.socadminwrite') }}" class="nav-link @if($routename =='admin.socadminwrite') {{ 'active'  }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
                                     <p>SOC Admin(Mobile) Permission</p>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin.dashboard-tiles.index') }}" class="nav-link @if($routename =='admin.dashboard-tiles.index') {{ 'active'  }} @endif">
+                                <a href="{{ route('admin.dashboard-tiles.index') }}" class="nav-link @if($routename =='admin.socadminwrite') {{ 'active'  }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
-                                    <p>Manage Dashboard Card</p>
+                                    <p>Manage Dashboard Cards</p>
                                 </a>
                             </li>
                         </ul>

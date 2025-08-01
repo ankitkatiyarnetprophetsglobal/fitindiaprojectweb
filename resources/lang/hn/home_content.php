@@ -217,6 +217,7 @@ return [
 	'fit-india-cycling-drive' => 'फिट इंडिया संडे ऑन साइकिल',
 	'fit-india-cycling-drive' => 'फिट इंडिया संडे ऑन साइकिल',
     'national-sports-day-2025' => 'राष्ट्रीय खेल दिवस',
+    'register_school_certification' => 'स्कूल प्रमाणन',
 	'womens-week-bicycle-day' => 'विश्व साइकिल दिवस',
     'home-news-letter' => "समाचार पत्रिका",
 

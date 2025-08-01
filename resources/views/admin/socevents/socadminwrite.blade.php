@@ -75,7 +75,7 @@
               <thead >
                   <tr class="thead-dark">
                     <th scope="col" width="5%">#</th>
-                    <th scope="col" width="15%">Fit india id</th>
+                    <th scope="col" width="15%">Fit India ID</th>
                     <th scope="col" width="15%">Name</th>
                     <th scope="col" width="15%">Email</th>
                     <th scope="col" width="15%">Phone</th>
