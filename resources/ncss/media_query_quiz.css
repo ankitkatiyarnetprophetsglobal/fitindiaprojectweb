@@ -1,0 +1,99 @@
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 767px) {
+	.user_area_q {
+		display: block;
+	}
+	.bg_c_r{padding:0rem .5rem 3.2rem .5rem;}
+	.bg_w_r{padding:3.2rem .5rem 3.2rem .5rem;}
+	.main-content h3 {
+		font-size: 2.5rem;
+	}
+	.user_area_q .user_child:last-child {
+		width: 33%;
+		float: right;
+	}
+	.base_o{padding:0 15px;}
+	.user_area_q .user_child:last-child{ margin: 10px 0px;}
+	.head_khelo h1 {
+	
+		font-size: 2.8rem;
+		padding: 4px 10px;
+	}
+	.main-content h3 {
+		padding: 1rem 0;
+	}
+	.main-content{padding:0 5px;}
+	.countermtr {
+		font-size: 16px !important;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	
+	.main-content h3 {
+		font-size: 2rem;
+	}
+	.head_khelo h1 {
+		font-size: 1.8rem;
+    width: 74%;
+    display: table;
+    margin: 0 0 0 20px;
+    padding: 8px 10px;
+    text-align: left;
+	}
+	.button-box_c {			
+			text-align: center;			
+			padding-right: 35px;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	
+	.main-content h3 {
+		font-size: 2rem;
+	}
+
+	.button-box_c {			
+			text-align: center;			
+			padding-right: 0;
+			padding: 0 10px;
+	}
+	.button-box_c .next {
+		width: 100%;
+		margin-top:0px !important;
+	}
+
+	.user_area_q {	
+		flex-direction: column;		
+	}
+	.user_area_q .user_child:last-child {
+		width: 50%;
+		/*float: left;*/
+	}
+	.user_child.last-t {
+		width:50% !important;
+		float: left;
+	}
+	.user_area_q .user_child {
+		width: 100%;
+		margin: 10px 0px;
+	}
+	.user_area_q .user_child:nth-last-child(3), .user_child.last-t {
+		width: 100% !important;
+	}
+	.user_child.last-t {
+		float: none;
+	}
+	.fixed_c {
+		position: relative;		
+	}
+
+	.bg_c_r {
+		padding: 0rem .5rem 3.2rem .5rem;
+	}
+	.no-padding{overflow: hidden;}
+	/* .page-content-inner {
+		padding: 0;
+	} */
+}

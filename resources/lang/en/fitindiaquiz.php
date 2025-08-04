@@ -1,0 +1,20 @@
+<?php
+return [
+	'part1' => 'Fit India Quiz 2022 is India’s biggest quiz on sports and fitness with the cash prize of ₹ 3.25 crore to school and students. It gives a unique platform to students from each and every nook and corner of the country to showcase their knowledge in sports and fitness and providing opportunity to feature on National Television. In its first edition, Fit India Quiz 2021, a total of 36,299 students from 13,502 schools participated in the Fit India Quiz. In the national finals, state/UT champions from 36 state/UTs competed in the national rounds. 40% of the schools featured in the National Rounds were government schools.',
+	'part2' => 'In the second edition, Fit India Quiz 2022, 61,981 students from 16,702 schools participated in the preliminary rounds held on 8th & 9th December 2022. These 16,702 schools were located in 702 districts of India. The state/UT rounds for Fit India Quiz 2022 will be held in the month of April 2023 followed by national finals in the month of June 2023',
+	'part3' => 'The 3rd edition of the Fit India Quiz was officially launched by the Hon’ble Minister of Youth Affairs and Sports, Shri Anurag Singh Thakur, on August 29th, 2023, in celebration of National Sports Day. The Fit India Quiz 2023 follows the resounding success of its predecessors, Fit India Quiz 2021 and Fit India Quiz 2022, and is designed to raise awareness about health, fitness, and our rich sporting culture, including indigenous games, among school-going children.',
+	'registrations' => 'Registrations for schools are now open. ',
+	'registervisit' => 'To register, visit-',
+	'register' => 'Register',
+	'guidelines' => 'Guidelines',
+	'queries' => 'For Any Queries',
+	'contact' => 'Please Contact',
+	'nta' => 'NTA Helpline at',
+	'sia' => 'SAI Call Center Number',
+	'write' => 'Write to NTA at',
+	'timing' => 'Timing',
+	'alldays' => 'All Days',
+	'quiztitle' => 'Fit India Quiz',
+	'quizpdf' => 'GuidelinesforFitIndiaQuiz2023_english',
+	'htr' => 'How To Register',
+];

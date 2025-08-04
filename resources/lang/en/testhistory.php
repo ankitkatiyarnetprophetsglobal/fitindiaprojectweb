@@ -1,0 +1,28 @@
+<?php
+return [
+    'label1'=>"Fitness History" ,
+'label10'=>"I'm a Parent" ,
+'label11'=>"Assess. Monitor School Performance" ,
+'label12'=>"Download Assessor App for taking fitness assessment in the School. Track overall Health and Fitness Indicators of the school. Identify Top Performers and Consistent Performers." ,
+'label13'=>"Improve overall Fitness. Identify Sporting  Talent." ,
+'label14'=>"Go to School Dashboard" ,
+'label15'=>"ii) By clicking on “I’m a parent, I hereby warrant and affirm the truthfulness and accuracy of the information and I accept all responsibility and liability for any breach or non-compliance of the same." ,
+'label16'=>"Go back" ,
+'label17'=>"Sorry, something went wrong." ,
+'label18'=>"Go back to Khelo India" ,
+'label19'=>"Login" ,
+'label2'=>"Age" ,
+'label20'=>"or go to previous screen" ,
+'label21'=>"click here" ,
+'label22'=>"Criteria" ,
+'label23'=>"Test Name" ,
+'label24'=>"Unit" ,
+'label3'=>"BMI" ,
+'label4'=>"BMI Rating" ,
+'label5'=>"Rating" ,
+'label6'=>"More is Better" ,
+'label7'=>"Less is Better" ,
+'label8'=>"KHELO INDIA Fitness Assessment" ,
+'label9'=>"i) By clicking on “I’m a parent”, I accept the terms and conditions and privacy policy of the Khelo India Website / Mobile App." ,
+]
+?>

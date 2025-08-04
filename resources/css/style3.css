@@ -1,0 +1,298 @@
+#khelo-india-centers{
+    padding: 50px 0;
+    background-color: #F6F6F7;
+}
+#khelo-india-centers .heading{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.vl{
+    width: 100px;
+    height: 5px;
+    color: #f69359;
+    background-color: #f69359;
+    border: 1px solid #f69359;
+}
+
+#khelo-india-centers .tiles .num .num-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    min-width: 80px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+#khelo-india-centers .tiles {
+    border: 1px solid #F6F6F7;
+    padding: 30px 30px;
+    border-radius: 10px;
+   background-color: white;
+   margin: 20px 0;
+   min-height: 150px;
+}
+#khelo-india-centers .tile-1{
+border: 1px solid #CB4700 !important;
+color: #CB4700 !important;
+}
+#khelo-india-centers .tile-2{
+    border: 1px solid #B476E2 !important;
+    color: #B476E2 !important;
+    }
+    #khelo-india-centers .tile-3{
+        border: 1px solid #FFC60A !important;
+        color: #FFC60A !important;
+        }
+
+        #khelo-india-centers .tile-5{
+            border: 1px solid #2AB280 !important;
+            color: #2AB280 !important;
+            }
+            #khelo-india-centers .tile-6{
+                border: 1px solid #E1E1E1 !important;
+                color: #E1E1E1 !important;
+                }
+
+                #khelo-india-centers .tile-4{
+                    border: 1px solid #007ACB !important;
+                    color: #007ACB !important;
+                    }
+
+
+
+#khelo-india-centers .tiles .num .num-text{
+    line-height: 1.2;
+}
+#khelo-india-centers .tiles .num .num-text .text-box{
+    /* padding: 0px 35px 0px 0px; */
+    /* width: 170px; */
+    font-weight: 700;
+}
+
+.tiles-btn{
+    width: 50px;
+    height: 50px;
+}
+
+#khelo-india-centers .tiles .num .num-text .vl{
+    margin-top: 5px;
+ color: #C5C5C5;
+ border: 1px solid #C5C5C5;
+ background-color: #C5C5C5;
+ width: 45px;
+ height: 2px;
+}
+
+.champion-athlete .box-ryt h6{
+font-size: 22px !important;
+/* color: blue !important; */
+}
+.champion-athlete .box-ryt h3{
+    font-weight: 900;
+    /* font-size: 22px !important; */
+    /* color: blue !important; */
+    }
+
+   .state-wise-count .backward-arrow {
+    height: 30px;
+   } 
+
+.state-level-details-table .table {
+    vertical-align: middle;
+    align-items: center;
+    text-align: center;
+}   
+.state-level-details-table .table .table-tile{
+    /* width: 50px; */
+    border-radius: 3px;
+    text-align: center;
+    background-color: #CB4700 !important;
+    color: white;
+}
+.state-level-details-table .table  .green{
+    background-color: #3BA554 !important;
+}
+.state-level-details-table .table  .yellow{
+    background-color: #ECB037 !important;
+}
+.state-level-detail  .nav-pills .nav-link{
+    background-color: transparent;
+    /* border-bottom: 2px solid #F37022; */
+    color: #CECECE;
+    font-weight: 700;
+    /* border-radius: 0%; */
+}
+.state-level-detail  .nav-pills .nav-link.active{
+    background-color: transparent;
+    border-bottom: 2px solid #F37022;
+    color: black;
+    font-weight: 700;
+    border-radius: 0%;
+}
+.state-level-detail .manpower-hiring-status h5{
+    line-height: 1.5;
+    color: black;
+    border-bottom: 2px solid #CECECE;
+    display: inline-block;
+}
+.manpower-hiring-table .table{
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+}
+.manpower-hiring-table .pending{
+    background-color: #EC3750;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+}
+.manpower-hiring-table .success{
+    background-color: #3BA554;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+}
+.state-level-detail-athlete .athlete-tile-img img{
+    height: 60px;
+}
+.chart-showbox{
+    background-color: #F2F6FF;
+    border-radius: 10px;
+    padding: 20px 0;
+}
+
+
+.fit-india-dashboard .top-tile{
+        min-height: 150px;
+        display: flex;
+        /* margin: auto; */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #DEDEDE;
+        border-radius: 10px;
+}
+
+.fit-india-dashboard .top-tile h3{
+    color: #F37022;
+    font-weight: 700;
+}
+.fit-india-dashboard .top-tile h6{
+    color: #000000;
+    font-weight: 900;
+}
+.fit-india-dashboard .tile-detail-section{
+    margin: 60px 0;
+}
+.fit-india-dashboard .tile-detail-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 1px solid #DEDEDE;
+    background-color: white;
+    z-index: 5;
+    position: absolute;
+    top: -22%;
+}
+.fit-india-dashboard .tile-detail-box{
+    /* margin-top: 10px; */
+    margin: 60px 0;
+    padding: 0 35px;
+    position: relative;
+    min-height: 230px;
+    display: flex;
+        /* margin: auto; */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border: 1px solid #DEDEDE;
+        border-radius: 10px;
+        color: white;
+       
+}
+.fit-india-dashboard .tile-detail-box h3{
+    font-weight: 700;
+    margin-top: 50px;
+    line-height: 1.2;
+}
+.fit-india-dashboard .tile-detail-box p{
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.fit-india-dashboard  .box-1{
+    background-color: #FFAE7B !important;
+}
+.fit-india-dashboard  .box-2{
+    background-color: #209DBC !important;
+}
+.fit-india-dashboard  .box-3{
+    background-color: #526FAF !important;
+}
+.fit-india-dashboard  .box-4{
+    background-color: #DE9B00 !important;
+}
+.fit-india-dashboard  .box-5{
+    background-color: #508A63 !important;
+}
+.fit-india-dashboard  .box-6{
+    background-color: #FFC0CB !important;
+}
+.fit-india-dashboard  .box-7{
+    background-color: #506c8a !important;
+}
+
+.leading-state table{
+    vertical-align: middle;
+    text-align: left;
+}
+.leading-state table .progress{
+    height: 30px;
+    border-radius: 0px;
+}
+.leading-state table .progress .progress-bar{ 
+    border-radius: 0px !important;
+}
+.leading-state table .green{
+    padding: 5px 3px;
+    background-color: #4FA05C;
+    color: white;
+    border-radius: 5px;
+    text-align: center !important;
+}
+.leading-state table .blue{
+    padding: 5px 3px;
+    background-color: #016087;
+    color: white;
+    border-radius: 5px;
+    text-align: center !important;
+}
+.leading-state table .orange{
+    padding: 5px 3px;
+    background-color: #F37022;
+    color: white;
+    border-radius: 5px;
+    text-align: center !important;
+}
+.fit-india-dashboard .table-accordian table{
+vertical-align: middle;
+text-align: center;
+}
+
+.highcharts-credits{
+    display: none !important;
+}
+.img-fluid1{
+      max-width: 68%;
+    height: auto;
+}

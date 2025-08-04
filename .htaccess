@@ -1,0 +1,36 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# .htaccess adds:Security Point 04-08-2025
+php_value session.cookie_secure 1
+php_value session.cookie_httponly 1
+php_value session.cookie_samesite "Strict"
+Header always set X-Frame-Options "DENY"
+
+# Block dangerous HTTP methods including OPTIONS
+<LimitExcept GET POST HEAD>
+    Require all denied
+</LimitExcept>
+
+# Alternative method with RewriteRule
+RewriteCond %{REQUEST_METHOD} ^(OPTIONS)$ [NC]
+RewriteRule .* - [R=405,L]

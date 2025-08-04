@@ -1,0 +1,889 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.reportCard {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.report-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.report-label {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    display: block;
+}
+
+.report-label2 {
+    margin-top: 0;
+    text-transform: uppercase;
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 5px 8px 6px 8px;
+    position:relative;
+}
+
+.report-label4 {
+    margin-top: 0;
+    text-transform: uppercase;
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 5px 8px 6px 8px;
+    position: relative;
+}
+
+.report-label2::before {
+    content: "";
+    /* display: block; */
+    position: absolute;
+    left: 100%;
+    top: 18px;
+    margin-top: -10px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #333;
+    z-index: 10;
+}
+
+.report-label3 {
+    text-transform: capitalize;
+    background: #fff;
+    color: #333;
+    padding: 4px 8px 5px 10px;
+    border: 1px solid #333;
+}
+
+
+
+
+
+.card-bg-white {
+    background: #fff;
+}
+
+.reportHeader {
+    float: left;
+    width: inherit;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 15px 5px 0px;
+    /*margin-top: 15px;*/
+}
+
+    .reportHeader h2, .reportHeader h4 {
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+
+    .reportHeader h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .reportHeader h4 {
+        margin-bottom: 0px;
+        font-size: 16px;
+        display: inline-block;
+        text-align: left;
+        margin-top: 0;
+        font-weight: 600;
+    }
+
+.report-summery h4 {
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.border-none {
+    border: none !important;
+}
+
+.report-user_info {
+    /*margin-bottom: 40px;*/
+    overflow: hidden;
+}
+
+    .report-user_info .list-group-item {
+        font-size: 16px;
+        position: relative;
+        display: block;
+        padding: 10px 0px;
+        margin-bottom: -1px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+.list-group-item:last-child {
+    margin-bottom: 0;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.report-user_info .list-group-item label {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+}
+
+.report-user_info .user-first-row {
+    float: left;
+    width: 100%;
+}
+
+    .report-user_info .user-first-row .name {
+        width: 75%;
+    }
+
+    .report-user_info .user-first-row .class {
+        width: 25%;
+    }
+
+.col-3 {
+    width: 33.33%;
+    float: left;
+}
+
+.report-user_info .user-first-row .list-group-item {
+    float: left;
+}
+
+.report-summery {
+    width: 90%;
+    float: right;
+}
+
+    .report-summery .bmi-data {
+        float: left;
+        width: 100%;
+    }
+
+.all-date {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+    .all-date .score-date {
+        float: right;
+        font-weight: 600;
+    }
+
+        .all-date .score-date > span {
+            float: right;
+            text-align: left;
+            margin-left: 5px;
+            font-weight: 400;
+        }
+
+.report-summery .bmi-data > label {
+    float: left;
+    width: 30%;
+}
+
+.report-summery .bmi-data header > .label, .report-summery .bmi-data section .label {
+    float: left;
+    width: 25%;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #e5e5e5;
+    border-radius: 0;
+    padding: 8px 0;
+    text-align: left;
+}
+
+    .report-summery .bmi-data header > .label:first-child {
+        /*margin-top: 14px;*/
+        display: inline-block;
+        font-weight: 600;
+    }
+
+.report-summery .bmi-data header > .label {
+    font-weight: 600;
+}
+
+.report-summery .bmi-data section .label {
+    font-weight: 400;
+    padding: 8px 0;
+}
+
+    .report-summery .bmi-data section .label:first-child {
+        margin-top: 0px;
+        display: inline;
+        font-weight: 600;
+    }
+
+.bmi-data section .rw {
+    float: left;
+    width: 100%;
+}
+
+.fit-score {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.summery-graph {
+    background: #fff;
+    border-left: 1px solid #3CBBE6;
+    border-bottom: 2px solid #df591e;
+    float: left;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.graph-area {
+    position: relative;
+    padding: 0 0 10px 0;
+}
+
+    .graph-area > span {
+        color: #3CBBE6;
+        display: inline-block;
+        padding: 0px 10px;
+    }
+
+    .graph-area .graph-bar > span {
+        display: table;
+        background: #3CBBE6;
+        width: 20%;
+    }
+
+    .graph-area ul.graph-label {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: -24px;
+        left: 0;
+        right: 0;
+        list-style-type: none;
+    }
+
+        .graph-area ul.graph-label li {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            display: inline-block;
+        }
+
+            .graph-area ul.graph-label li.twnty {
+                width: 17%;
+            }
+
+            .graph-area ul.graph-label li.ten {
+                width: 9.5%;
+            }
+
+            .graph-area ul.graph-label li span {
+                text-transform: uppercase;
+                font-size: 12px;
+            }
+
+.all-test-data {
+    text-align: left;
+}
+
+    .all-test-data header > .label, .all-test-data section .label {
+        float: left;
+        font-size: 14px;
+        color: #333;
+        border-top: 1px solid #e5e5e5;
+        border-radius: 0;
+        padding: 8px 0;
+        text-align: left;
+    }
+
+    .all-test-data header > .label {
+        background: #f9f9f9;
+        height: 31px;
+    }
+
+    .all-test-data section .label {
+        background: #fff;
+    }
+
+.all-test-col-1 header > .label:nth-child(1), .all-test-col-1 section .label:nth-child(1) {
+    width: 20%;
+}
+
+.all-test-col-1 header > .label:nth-child(2), .all-test-col-1 section .label:nth-child(2) {
+    width: 80%;
+}
+
+.all-test-col-2 header > .label:nth-child(1), .all-test-col-2 section .label:nth-child(1) {
+    width: 30%;
+}
+
+.all-test-col-2 header > .label:nth-child(2), .all-test-col-2 section .label:nth-child(2) {
+    width: 50%;
+}
+
+.all-test-col-2 header > .label:nth-child(3), .all-test-col-2 section .label:nth-child(3) {
+    width: 50%;
+}
+
+.all-test-col-2 header > .label:nth-child(1), .all-test-col-2 section .label:nth-child(1) {
+    display: none !important;
+}
+
+.all-test-data header > .label span.twnty {
+    width: 18%;
+}
+
+.all-test-data header > .label span.ten {
+    width: 10%;
+}
+
+.all-test-col-1, .all-test-col-2 {
+    float: left;
+}
+
+.all-test-col-1 {
+    width: 60%;
+}
+
+.all-test-col-2 {
+    padding-left: 0px;
+    width: 40%;
+}
+
+.all-test-col header, .all-test-col section {
+    width: 100%;
+    float: left;
+}
+
+.all-test-data header {
+    background: #eee;
+}
+
+    .all-test-data header > .label:first-child {
+        display: inline-block;
+        font-weight: 600;
+    }
+
+.all-test-data section .label {
+    font-weight: 400;
+    padding: 8px 0;
+}
+
+.all-test-data .label:first-child {
+    margin-top: 0px;
+    display: inline;
+    font-weight: 600;
+}
+
+.all-test-data section .rw {
+    float: left;
+    width: 100%;
+}
+
+.test-feedback span {
+    font-weight: 600;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.full-test-list h4 {
+    margin: 0 0 30px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.all-test-data header > .label span.twnty, .all-test-data header > .label span.ten {
+    display: inline-block;
+}
+
+.test-list, .mybmi-test {
+    float: left;
+    width: 100%;
+}
+
+    .test-list h5, .mybmi-test h5, .test-list h6 {
+        font-weight: 600;
+        font-size: 16px;
+        margin-top: 0;
+        text-transform: uppercase;
+        display: inline-block;
+        background: #333;
+        color: #fff;
+        padding: 5px 8px 6px 8px;
+    }
+
+    .test-list h5, .test-list h6 {
+        float: left;
+        position: relative;
+    }
+
+        .test-list h5:before {
+            content: "";
+            /*display: block;*/
+            position: absolute;
+            left: 100%;
+            top: 18px;
+            margin-top: -10px;
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 6px solid #333;
+            z-index: 10;
+        }
+
+    .test-list h6 {
+        text-transform: capitalize;
+        background: #fff;
+        color: #333;
+        padding: 4px 8px 5px 10px;
+        border: 1px solid #333;
+    }
+
+.test-feedback {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+.label .graph-bar > span {
+    display: table;
+    /*background: #3CBBE6;
+    width: 20%;*/
+}
+
+
+.reportbody {
+    float: left;
+    width: inherit;
+    min-height: 70vh;
+    border: 1px solid #ccc;
+    padding: 15px 5px;
+}
+
+.reportFooter {
+    float: left;
+    width: 100%;
+    min-height: 15vh;
+    padding: 15px 5px;
+    border: 1px solid #ccc;
+    margin-top: -16px;
+    margin-bottom: 15px;
+}
+
+.mybmi-test .all-test-col-1 {
+    width: 40%;
+}
+
+.mybmi-test .all-test-col-2 {
+    width: 60%;
+}
+
+    .mybmi-test .all-test-col-2 header > .label:nth-child(2), .mybmi-test .all-test-col-2 section .label:nth-child(2), .mybmi-test .all-test-col-2 header > .label:nth-child(3), .mybmi-test .all-test-col-2 section .label:nth-child(3), .mybmi-test .all-test-col-2 header > .label:nth-child(4), .mybmi-test .all-test-col-2 section .label:nth-child(4) {
+        width: 33.33%;
+    }
+
+.action-bar {
+    padding: 15px 0;
+    text-align: center;
+}
+
+    .action-bar .close-btn {
+        padding: 10px 20px;
+        background: transparent;
+        color: #252f44;
+        text-transform: uppercase;
+        border: 1px solid #252f44;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+.report-summery .bmi-data header > .label:nth-child(2), .report-summery .bmi-data section .label:nth-child(2) {
+    width: 25%;
+}
+
+.report-summery .bmi-data header > .label:nth-child(3), .report-summery .bmi-data section .label:nth-child(3),
+.report-summery .bmi-data header > .label:nth-child(4), .report-summery .bmi-data section .label:nth-child(4),
+.report-summery .bmi-data header > .label:nth-child(5), .report-summery .bmi-data section .label:nth-child(5) {
+    width: 16%;
+}
+
+/*=========== Sanjay 01/11/2018 ================*/
+
+.reportCard header{
+    height:0px;
+}
+
+.reportCard .test-feedback {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.reportCard .reportHeader h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.reportCard .full-test-list h4 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+}
+.reportCard .test-list h5, .reportCard .mybmi-test h5, .reportCard .test-list h6 {
+    font-weight: 500;
+    font-size: 14px;
+}
+.all-test-col-1 section .label:nth-child(2) {
+    padding-right: 50px;
+}
+.report-btn {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    padding: 20px 0px 0px;
+}
+
+.report-btn input[type="submit"], .report-btn button{
+    background: #fff;
+    border: 1px solid #ea6334;
+    color: #ea6334;
+    padding: 4px 30px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.report-btn input[type="submit"]:focus, .report-btn button:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+.report-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+    background: #f1f1f1;
+}
+
+footer {
+    padding: 5px;
+    text-align: center;
+    margin-top: 0px;
+}
+.download-txt{
+
+}
+.download-i {
+    display:none;
+}
+.list-group-item.col-3 span{
+    float:left;
+}
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+    /*.reportCard {
+        width: 90%;
+    }*/
+    .graph-area ul.graph-label {
+        bottom: -24px;
+    }
+
+        .graph-area ul.graph-label li.twnty {
+            width: 17%;
+        }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+    .reportCard {
+        width: 90%;
+    }
+
+    .graph-area ul.graph-label li.twnty {
+        width: 16%;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+    .reportCard {
+        width: 100%;
+    }
+
+    /*.report-container {
+        padding: 30px;
+    }*/
+
+    .reportHeader {
+        padding: 30px;
+        margin-top: 0px;
+    }
+
+        .reportHeader h2 {
+            font-size: 20px;
+            margin-top: 0px;
+        }
+
+        .reportHeader h2, .reportHeader h4 {
+            margin-bottom: 5px;
+        }
+
+    .report-user_info {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .report-summery {
+        width: 100%;
+        float: left;
+        margin-top: 30px;
+    }
+
+    .graph-area ul.graph-label {
+        bottom: -24px;
+    }
+
+    .report-user_info .list-group-item {
+        font-size: 16px;
+    }
+
+    .report-user_info {
+        margin-bottom: 0;
+        padding-bottom: 20px;
+    }
+
+    .all-test-col-1 {
+        width: 70%;
+    }
+
+    .all-test-col-2 {
+        width: 30%;
+    }
+
+        .all-test-col-2 header > .label:nth-child(2), .all-test-col-2 section .label:nth-child(2), .all-test-col-2 header > .label:nth-child(3), .all-test-col-2 section .label:nth-child(3) {
+            text-align: right;
+        }
+
+    .mybmi-test .all-test-col-1 {
+        width: 50%;
+    }
+
+    .mybmi-test .all-test-col-2 {
+        width: 50%;
+    }
+    /*.mybmi-test .all-test-col-2 header>.label:nth-child(2), .mybmi-test .all-test-col-2 section .label:nth-child(2), .mybmi-test .all-test-col-2 header>.label:nth-child(3), .mybmi-test .all-test-col-2 section .label:nth-child(3), .mybmi-test .all-test-col-2 header>.label:nth-child(4), .mybmi-test .all-test-col-2 section .label:nth-child(4) {
+    width: 33.33%;
+}*/
+    .mybmi-test .all-test-col-1 header > .label:nth-child(1), .mybmi-test .all-test-col-1 section .label:nth-child(1) {
+        width: 36%;
+    }
+
+    .mybmi-test .all-test-col-1 header > .label:nth-child(2), .mybmi-test .all-test-col-1 section .label:nth-child(2) {
+        width: 64%;
+    }
+
+    .mybmi-test .all-test-col-2 header > .label:nth-child(2), .mybmi-test .all-test-col-2 section .label:nth-child(2), .mybmi-test .all-test-col-2 header > .label:nth-child(3), .mybmi-test .all-test-col-2 section .label:nth-child(3) {
+        text-align: left;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 600px) {
+    .download-txt {
+        display:none;
+    }
+    .download-i{
+        display:block;
+    }
+    .report-btn button {
+        padding-top: 14px;
+        margin-bottom: 0px;
+        position: fixed;
+        bottom: 22px;
+        z-index: 999;
+        right: 15px;
+        background: #f27025;
+        border: 1px solid #f27025;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    /*.report-container {
+        padding: 15px;
+    }*/
+
+    .graph-area ul.graph-label li.ten {
+        width: 8%;
+    }
+
+    .graph-area ul.graph-label li.twnty {
+        width: 17%;
+    }
+
+    .reportHeader h2 {
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+
+    .reportHeader h4 {
+        margin-bottom: 15px;
+    }
+
+    .report-user_info .list-group-item label {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+
+    .list-group-item.col-3 {
+        width: 50%;
+    }
+
+        .list-group-item.col-3:nth-child(3) {
+            width: 100%;
+            clear: both;
+        }
+
+        .user-first-row .list-group-item.class, .list-group-item.col-3:nth-child(2) {
+            text-align: right;
+        }
+
+    .full-test-list h4 {
+        margin: 0 0 20px 0;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .report-summery .bmi-data header > .label, .report-summery .bmi-data section .label, .all-test-data header > .label, .all-test-data section .label {
+        font-size: 12px;
+    }
+
+    .all-date {
+        text-align: center;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+
+    .report-user_info .list-group-item {
+        font-size: 14px;
+    }
+
+    .reportHeader {
+        padding: 15px;
+    }
+
+    .reportbody {
+        padding: 15px 0;
+    }
+
+    .report-summery .bmi-data header > .label:nth-child(1), .report-summery .bmi-data section .label:nth-child(1) {
+        width: 25%;
+    }
+
+    .report-summery .bmi-data header > .label:nth-child(2), .report-summery .bmi-data section .label:nth-child(2) {
+        width: 25%;
+    }
+
+    .report-summery .bmi-data header > .label:nth-child(3), .report-summery .bmi-data section .label:nth-child(3) {
+        width: 15%;
+    }
+
+    .report-summery .bmi-data header > .label:nth-child(4), .report-summery .bmi-data section .label:nth-child(4) {
+        width: 16%;
+    }
+
+    .all-test-data header > .label:nth-child(1), .all-test-data section .label:nth-child(1) {
+        width: 25%;
+    }
+
+    .all-test-col-1 header > .label:nth-child(2), .all-test-col-1 section .label:nth-child(2) {
+        width: 75%;
+    }
+
+    .all-test-data header > .label.count {
+        font-size: 10px;
+    }
+
+    .all-test-data header > .label span.twnty {
+        width: 17%;
+    }
+
+    .full-test-list h5 {
+        font-size: 16px;
+    }
+
+
+    .all-test-col-1, .all-test-col-2 {
+        width: 100%;
+    }
+
+        .all-test-col-2 header > .label:nth-child(1), .all-test-col-2 section .label:nth-child(1) {
+            display: block !important;
+        }
+
+        .all-test-col-2 header > .label:nth-child(2), .all-test-col-2 section .label:nth-child(2), .all-test-col-2 header > .label:nth-child(3), .all-test-col-2 section .label:nth-child(3) {
+            text-align: left;
+            width: 37.5%;
+            font-size: 14px;
+        }
+
+    .mybmi-test .all-test-col-1, .mybmi-test .all-test-col-2 {
+        width: 100%;
+    }
+
+        .mybmi-test .all-test-col-2 header > .label:nth-child(2), .mybmi-test .all-test-col-2 section .label:nth-child(2), .mybmi-test .all-test-col-2 header > .label:nth-child(3), .mybmi-test .all-test-col-2 section .label:nth-child(3), .mybmi-test .all-test-col-2 header > .label:nth-child(4), .mybmi-test .all-test-col-2 section .label:nth-child(4) {
+            width: 25%;
+            font-size: 14px;
+        }
+
+    .report-summery {
+        margin-top: 0;
+    }
+
+    .report-user_info {
+        padding-bottom: 0px;
+        margin-top: -10px;
+    }
+
+    .reportHeader {
+        margin-bottom: 15px;
+    }
+
+    .reportFooter {
+        margin-top: 1px;
+    }
+
+    .action-bar {
+        padding: 0 0 15px 0;
+    }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
+    .graph-area ul.graph-label li.twnty {
+        width: 16%;
+    }
+}

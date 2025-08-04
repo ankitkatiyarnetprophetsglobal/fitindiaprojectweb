@@ -1,0 +1,350 @@
+@extends('admin.layouts.app')
+@section('title', 'Fit India Admin - All Users')
+@section('content')
+<style>
+  .mb-3 {
+    margin-bottom: 0 !important;
+    margin-right: 10px;
+  }
+
+  .btn-sm {
+    padding: .375rem .75rem;
+  }
+
+  .rtside {
+    float: right;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-box input {
+    margin-right: 8px;
+    /* gap between input and button */
+  }
+</style>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Kit dispatch data</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kit dispatch data</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-2">
+                  @if(($admins_role == '3'))
+                  <button class="btn btn-success btn-sm dwl" name="download" value="download"
+                    onclick="window.location.href='user_export?uname={{ request()->input('user_name')}}&st={{ $stateadmin }}&dst={{ request()->input('district')}}&blk={{ request()->input('block')}}&month={{ request()->input('month')}}&role={{ request()->input('role')}}&search=search';">
+                    <i class="fa fa-download"></i> Download</button>
+                  @elseif(($admins_role == '10'))
+                  <!-- <button class="btn btn-success btn-sm dwl" name="download" value="download" onclick="window.location.href='nemoclub/export?rolesoc=nemoclubdata&search=search';">
+                    <i class="fa fa-download"></i> Download</button> -->
+                  <button class="btn btn-success btn-sm dwl" type="button"
+                    onclick="downloadWithSearch()">
+                    <i class="fa fa-download"></i> Download
+                  </button>
+                  @endif
+                </div>
+                <div class="col-md-10">
+                  <form class="form-inline my-2 my-lg-0 rtside " type="get" action="{{ route('admin.users.index') }}">
+                    <div class="form-group rtside">
+                      <?php /*<!--<select class="custom-select custom-select mb-3" name="role"  style="width:130px" >
+                 <option value="">Select Role</option>
+                  @foreach($roles as $role)
+                   <?php
+                     if(!empty($_REQUEST['role'])&& $_REQUEST['role']==$role->slug){
+                       $stselect='selected';
+                     }else{
+                       $stselect='';
+                     }
+                    ?>
+                     <option data-name="{{ $role->id }}" <?=$stselect?> value="{{ $role->slug }}">{{ ucwords(strtolower($role->name)) }} </option>
+                    @endforeach
+                    </select>-->*/ ?>
+
+                      {{-- <select class="custom-select custom-select mb-3" name="role"  style="width:130px" > --}}
+                      <?php
+                      // $mobile='<option value="">Select Role</option>';
+                      ?>
+                      {{-- @foreach($roles as $role) --}}
+                      <?php
+                      // if(!empty($_REQUEST['role'])&& $_REQUEST['role']==$role->slug){
+                      // $stselect='selected';
+                      // }else{
+                      // $stselect='';
+                      // }
+
+                      // $mobile.='<option data-name='.$role->id.' '.$stselect.' value='.$role->slug.'>'.ucwords(strtolower($role->name)).'</option>';
+                      ?>
+                      {{-- @endforeach --}}
+                      <?php
+                      //$mobile.='<option value="-1">Web</option>';
+                      //    $mobile.='<option value="Mobile" '.((!empty($_REQUEST['role'])&& $_REQUEST['role']=='Mobile') ? 'selected="selected"' : '').'>Mobile</option>';
+                      //    echo $mobile;
+                      ?>
+                      {{-- </select> --}}
+
+
+
+                      {{-- @if($admins_role != '3')
+                    <select class="custom-select custom-select mb-3" name="state" id="youth_state" style="width:130px" >
+                        <option value="">Select State</option>
+                       @foreach($states as $state)
+                   <?php
+                    //  if(!empty($_REQUEST['state'])&& $_REQUEST['state']==$state->name){
+                    //    $stselect='selected';
+                    //  }else{
+                    //    $stselect='';
+                    //  }
+                    ?>
+                            <option data-name="{{ $state->id }}" <?= $stselect ?> value="{{ $state->name }}">{{ $state->name }}</option>
+                      @endforeach
+                      </select>
+
+
+                      @endif --}}
+
+
+                      {{-- <select class="custom-select custom-select mb-3" name="district" id="youth_district" style="width:140px" >
+                        <option value="">Select District</option>
+                        @foreach($districts as $district)
+                            <?php
+                            // if(!empty($_REQUEST['district'])&& $_REQUEST['district']==$district->name){
+                            // $dstselect='selected';
+                            // }else{
+                            // $dstselect='';
+                            // }
+                            ?>
+                        <option data-disname="{{ $district->id }}" <?= $dstselect ?> value="{{ $district->name }}">{{ $district->name }}</option>
+                      @endforeach
+                      </select> --}}
+
+                      {{-- <select class="custom-select custom-select mb-3" name="block" id="youth_block" style="width:130px" >
+                      <option value="">Select Block</option>
+                        @foreach($blocks as $block)
+                        <?php
+                        //    if(!empty($_REQUEST['block'])&& $_REQUEST['block']==$block->name){
+                        //   $blkselect='selected';
+                        //    }else{
+                        //   $blkselect='';
+                        //    }
+
+                        //   $block_name=ucwords(strtolower($block->name));
+                        ?>
+                            <option data-disname="{{ $block->id }}" <?= $blkselect ?> value="{{ $block->name }}">{{ ucwords(strtolower($block_name)) }}</option>
+                      @endforeach
+                      </select> --}}
+
+                      <!--<input type="month" id="month" name="month" class="form-control mb-3"  style="width:130px !important; margin-right:2px;">-->
+                      {{-- <input type="month" id="month" name="month" class="form-control mb-3"  style="padding:2px;width:170px !important; margin-right:2px;"> --}}
+
+                      {{-- <button type="submit" name="searchdata" value="searchdata" class="btn btn-primary btn-sm"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button> --}}
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <?php
+                  //'count','admins_role','curcount','flag'
+                  $curcount = (!empty($count) && empty($curcount) && empty($flag)) ? $curcount = $count : $curcount;
+                  ?>
+                  Total users <strong>{{ $curcount }}/{{ $count }}</strong>
+                </div>
+
+                <div class="col-md-6 rtside">
+                  <form class="form-inline my-2 my-lg-0 rtside " type="get" action="{{ route('admin.nemoclubdata') }}">
+                    <div class="form-group rtside">
+                      <?php
+                      if (!empty($_REQUEST['user_name']) && $_REQUEST['user_name'] != '') {
+
+                        $uname = $_REQUEST['user_name'];
+                      } else {
+
+                        $uname = '';
+                      }
+                      ?>
+
+                  <div class="search-box">
+                    <input type="search" id="user_name_input" name="user_name" <?= $uname ?> class="form-control" placeholder="Name/Email/Phone" value="<?= $uname ?>" width="200px">
+                  <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px;" name="search" value="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  </div>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-striped projects">
+                <thead>
+                  <tr class="thead-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Name & Role</th>
+                    <th scope="col">Email & Phone</th>
+                    <th scope="col">State</th>
+                    <th scope="col">District/Block/City</th>
+                    <th scope="col">Event Participation</th>
+                    {{-- @if(!in_array($admins_role, array(2,3))) --}}
+                    <th scope="col">Kit Status</th>
+                    {{-- @endif --}}
+                  </tr>
+                </thead>
+                <tbody>
+                  @if(count($user)>0)
+                  @foreach($user as $users)
+                  <tr>
+                    <th scope="row">{{($user->currentPage() - 1) * $user->perPage() + $loop->iteration}}</th>
+                    <td>
+                      {{ $users->id }} <br>{{ $users->name }}<br> {{ $users->role }}
+                      <br>
+                      <?php
+                      if (empty($users->rolelabel) || is_null($users->rolelabel) || $users->rolelabel === null) {
+
+                        echo "<p>
+                              <span style='color:#000000'>" . $users->gender . "</span><br>
+                              <span style='color:#28a745'><b>(Mobile)</b></span>
+                           </p>";
+                      }
+                      ?>
+                    </td>
+                    <td>{{ $users->email }} <br> {{$users->phone}}</td>
+                    <td> @if(!empty($users->state)) {{ ucwords(strtolower($users->state)) }} @endif </td>
+                    <td> @if(!empty($users->district)) {{ ucwords(strtolower($users->district)) }} @endif <br>
+                      @if(!empty($users->block)) {{ucwords(strtolower($users->block)) }} @endif <br>
+                      {{ucwords(strtolower($users->city)) }}
+                    </td>
+                    @if(!in_array($admins_role, array(2,3)))
+                    <td>{{ $users->event_participation ?? '' }}</td>
+                    {{-- <td style="width:100px;display:contents !important;">&nbsp;&nbsp;<a style="display: inline !important;" class="btn btn-info btn-xs" href="{{ url('admin/edit-user', $users->id) }}"> --}}
+                    <td style="width:100px;display:contents !important;">
+                      {{-- {{$users->kit_dispatch}} --}}
+                      <br />
+                      <br />
+                      @if($users->kit_dispatch == 1)
+                      <span class="badge badge-pill badge-success">Dispatched</span>
+                      @else
+                      <p id="amb-{{ $users->id }}"><span class="badge badge-pill badge-secondary">Pending</span></p>
+                      @endif
+                      @if($users->kit_dispatch == 0)
+                      <select class="status_change" id="{{$users->id}}">
+                        <option value="">Please select</option>
+                        <option value="0">Pending</option>
+                        <option value="1">Dispatched</option>
+                      </select>​
+                      @endif
+                      {{-- &nbsp;&nbsp;<a style="display: inline !important;" class="btn btn-info btn-xs" href="{{ url('admin/edit-user', $users->id) }}"> --}}
+                      {{-- <i class="fas fa-pencil-alt"></i>&nbsp;</a>&nbsp;
+                    <button  style="display: inline !important;"class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Do you want to delete ?')">
+                    <a style="display: inline !important;" class="btn btn-danger btn-xs"  href="{{ url('admin/user-destroy',[ 'id' => $users->id ]) }}" >
+                      <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;</a></button> --}}
+                    </td>
+                    @endif
+                  </tr>
+                  @endforeach
+                  @endif
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      {{ $user->appends(request()->input())->links() }}
+    </div>
+
+  </section>
+  <!-- /.content -->
+</div>
+
+
+@endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('.status_change').change(function() {
+      var status = jQuery(this).val();
+      var amb_id = jQuery(this).attr('id');
+      //   let result = confirm("Are you sure you want to dispatch the kit for this user?");
+      let result = confirm("Are you sure?");
+      if (result) {
+        // alert("You clicked OK");
+        var rejection_value = '';
+        if (status == '1') {
+          jQuery.ajax({
+            type: "POST",
+            url: "{{ url('/admin/nemoclub-dispatch-status/') }}",
+            data: {
+              'amb_id': amb_id,
+              'status': status,
+              'rejection_value': rejection_value,
+              '_token': '{{ csrf_token() }}'
+            },
+            beforeSend: function() {
+              jQuery('#amb-' + amb_id).html('<img width="35" with="35" src="{{url("/wp-content/uploads/2021/01/loader.gif")}}">');
+            },
+            success: function(res) {
+              // console.log("res",res.success.msg);
+              // return false;
+              // var response_obj = JSON.parse(res);
+              if (res.success.msg == 'Approved') {
+                jQuery('#' + amb_id).remove();
+                jQuery('#amb-' + amb_id).html('<span class="badge badge-pill badge-success">Dispatched</span>');
+              }
+              location.reload();
+              // else if(response_obj.status=='2'){
+              //     jQuery('#'+amb_id).remove();
+              //     jQuery('#amb-'+amb_id).html('<span class="badge badge-pill badge-danger">Rejected</span>');
+              // }else{
+              //     jQuery('#amb-'+amb_id).html('<span class="badge badge-pill badge-secondary">Pending</span>');
+              // }
+            }
+          });
+        }
+        // proceed with delete or other action
+      } else {
+        location.reload();
+        // alert("You clicked Cancel");
+        // abort the action
+      }
+      // return false;
+      //   $('input[name=amb_ids]').val(amb_id);
+
+      // else{
+      //   if(status == '2'){
+      //       $('#myModal').modal('show');
+      //     }
+      //   }
+    });
+  });
+
+  function downloadWithSearch() {
+    const search = document.getElementById('user_name_input').value;
+    const rolesoc = 'nemoclubdata';
+    const url = `{{ url('admin/nemoclub/export') }}?rolesoc=${rolesoc}&user_name=${encodeURIComponent(search)}`;
+    window.location.href = url;
+  }
+</script>

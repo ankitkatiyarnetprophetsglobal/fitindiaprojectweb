@@ -1,0 +1,633 @@
+﻿/*-----------------------------------------------------------------------------------style/commoan.css---------------------------------------------------------------------------------------*/
+.pagerNav {
+    float: left;
+    width: 100%;
+}
+
+.formCol1 {
+    width: 15.6%;
+    float: left;
+    margin-left: 10px;
+}
+
+    .formCol1:first-child {
+        margin-left: 0px;
+    }
+
+
+.LatestStudentformCol1 {
+    width: 16.01%;
+    float: left;
+    margin-left: 9px;
+    box-sizing: border-box;
+}
+
+.LatestStudentformCol1formCol1:nth-child(1) {
+    margin-left: 0px !important;
+}
+
+.left-margin {
+    margin-left: 0px;
+}
+
+.btn-go {
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.pagerNav .pager {
+    text-align: right !important;
+}
+
+    .pagerNav .pager li > a {
+        border-radius: 0px;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+.submit-btn {
+    float: left;
+    width: 9%;
+    margin-left: .7%;
+    margin-top: 11px;
+}
+
+.pagerNav {
+    float: left;
+    width: 100%;
+}
+
+    .pagerNav .pager {
+        text-align: right !important;
+    }
+
+        .pagerNav .pager li > a {
+            border-radius: 0px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+.topSpace {
+    margin-top: 20px;
+}
+
+@media (max-width:768px) {
+
+    /*.form-wrapper{
+    width:100%;
+    margin:0 -15px;
+}*/
+
+    .formCol1 {
+        width: 49%;
+        margin-left: 0;
+        margin-top: 0px;
+        /*padding: 0 15px;*/
+        /* margin: 0 -15px; */
+    }
+
+        .formCol1:first-child {
+            margin-left: 0px;
+        }
+
+    .col-space {
+        margin-left: 2%;
+    }
+
+
+
+    .submit-btn, .submit-btn input[type=submit], .submit-btn input[type=button] {
+        width: 100%;
+        /*margin-left:1.5%;*/
+        margin-top: 2px;
+    }
+
+    .heading .form-inline {
+        float: left;
+        margin-left: 15px;
+        margin-top: 18px;
+    }
+}
+/*end media query*/
+
+
+
+@media(max-width:640px) {
+    .formCol1, .LatestStudentformCol1 {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0px;
+        padding: 0px;
+    }
+
+    .text-01 {
+        font-size: 18px !important;
+    }
+
+    .submit-btn, .submit-btn input[type=submit], .submit-btn input[type=button] {
+        width: 100%;
+        margin: 0px;
+    }
+
+    .heading .form-inline {
+        width: 100%;
+        margin: 0px;
+    }
+}
+
+/*-----------------------------------------------------------------------------------style/partner-school.css---------------------------------------------------------------------------------------*/
+
+.reportBaseSchoolDashboard {
+    width: 100%;
+    float: left;
+    margin: 0px;
+    border: 1px solid #d6d6d6;
+    margin-top: 30px;
+}
+
+
+.graphBase {
+    background: #cacaca;
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+    .graphBase > h3 {
+        padding: 8px;
+        color: #000;
+        font-size: 16px;
+        margin: 0;
+    }
+
+.client-logo-area {
+    float: left;
+    width: 100%;
+    /*min-height:100px;*/
+    /*padding:20px 0;*/
+    text-align: center;
+}
+
+
+    .client-logo-area img {
+        width: 100px;
+        /*height:100px;*/
+        max-width: 100%;
+    }
+
+.client-logo img {
+    max-width: 100%;
+    margin: 0;
+    width: 100px;
+    /*border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -o-border-radius: 100%;*/
+}
+
+
+.client-logo-area p {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 0 0 0;
+}
+
+
+.bmiSection, .fitnessLevel {
+    float: left;
+    width: 100%;
+    padding: 0 10px;
+}
+
+    .bmiSection h3, .fitnessLevel h3 {
+        font-size: 18px;
+        margin: 0px;
+    }
+
+    .bmiSection > div, .fitnessLevel > div {
+        float: left;
+    }
+
+        .bmiSection > div > p, .fitnessLevel > div > p {
+            text-align: center;
+            padding: 0 2px;
+        }
+
+.bg-01, .bg-02, .bg-03, .bg-04, .bg-05 {
+    float: left;
+    width: 40px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 2px;
+    margin-right: 2px;
+}
+
+.levelDetails-01, .levelDetails-02, .levelDetails-03, .levelDetails-04, .levelDetails-05, .levelDetails-06, .levelDetails-07 {
+    float: left;
+    width: 40px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 2px;
+    margin-right: 2px;
+}
+
+.levelDetails-01 {
+    background: #DF591E;
+}
+
+.levelDetails-02 {
+    background: #FFC73C;
+}
+
+.levelDetails-03 {
+    background: #3CBBE6;
+}
+
+.levelDetails-04 {
+    background: #058FC2;
+}
+
+.levelDetails-05 {
+    background: #66BE00;
+}
+
+.levelDetails-06 {
+    background: #B3C40E;
+}
+
+.levelDetails-07 {
+    background: #527206;
+}
+
+
+.bg-01 {
+    background: #FFC73C;
+}
+
+.bg-02 {
+    background: #66BE00;
+}
+
+.bg-03 {
+    background: #3CBBE6;
+}
+
+.bg-04 {
+    background: #058FC2;
+}
+
+.bg-05 {
+    background: #FFC73C;
+}
+
+.bg-06 {
+    background: #FFC73C;
+}
+
+
+
+
+
+/*-----------------------------------------------------------------------------------style/login-pop.css---------------------------------------------------------------------------------------*/
+
+
+
+/*===========================Popup section in user profile ====================================*/
+
+textarea {
+    vertical-align: text-top;
+    padding: 0 0 0 0px !important;
+    font-size: 14px;
+    background: #fff;
+    color: #000;
+}
+
+.user-information-view {
+    float: left;
+    width: 100%;
+    background: #fff;
+}
+
+    .user-information-view::after {
+        clear: both;
+    }
+
+/*.modal {
+    top: 20%;
+}*/
+
+.modal-header, .modal-footer {
+    border-bottom: none !important;
+    border-top: none !important;
+}
+
+.modal-dialog {
+    margin: 60px auto;
+}
+
+.img-upload {
+    position: relative;
+    float: left;
+    width: 135px;
+}
+
+    .img-upload img {
+        margin-top: -70px;
+        border-radius: 100%;
+        border: 10px solid #fff;
+        float: left;
+        width: 135px;
+        height: 135px;
+    }
+
+
+.file-uploder {
+    /* float: left; */
+    height: 42px;
+    width: 42px;
+    position: absolute;
+    left: 99px;
+    /* top: 108px; */
+    bottom: 21px;
+}
+
+    .file-uploder img {
+        border-radius: 0px;
+        border: 0px;
+        margin-top: 3px;
+        float: left;
+        height: 42px;
+        width: 42px !important;
+    }
+
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+}
+
+    .fileinput-button input {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        margin: 0;
+        opacity: 0;
+        -ms-filter: 'alpha(opacity=0)';
+        font-size: 200px !important;
+        direction: ltr;
+        cursor: pointer;
+        width: 42px;
+        height: 42px;
+        clear: both;
+        overflow: hidden;
+    }
+
+        .fileinput-button input[type=file] {
+            display: block;
+        }
+
+.change-password {
+    float: left;
+    width: 100%;
+}
+
+    .change-password span {
+        color: #0981ba;
+        font-size: 18px;
+        font-weight: 300;
+        cursor: pointer;
+    }
+
+.user-login-details {
+    float: left;
+    width: 100%;
+}
+
+    .user-login-details label {
+        font-size: 16px;
+        color: #8b8b8b;
+        font-weight: 300;
+    }
+
+    .user-login-details .form-control {
+        border-radius: 0px;
+        border: none;
+        box-shadow: none;
+        padding: 24px 1px;
+        font-size: 14px;
+        font-weight: 300;
+        color: #000;
+        background: #fff;
+    }
+
+    .user-login-details input:-moz-read-only {
+        background-color: white;
+    }
+
+    .user-login-details input:read-only {
+        background-color: white;
+        font-size: 14px;
+    }
+
+
+    /*===========================placeholder color=============================*/
+
+
+
+    .user-login-details input[type="text"]::-webkit-input-placeholder, textarea-01::-webkit-placeholder {
+        color: #000;
+    }
+
+
+
+    .user-login-details input[type="text"] :-moz-placeholder { /* Firefox 18- */
+        color: #000;
+    }
+
+    .user-login-details input[type="text"] ::-moz-placeholder { /* Firefox 19+ */
+        color: #000;
+    }
+
+    .user-login-details input[type="text"] :-ms-input-placeholder {
+        color: #000;
+    }
+
+
+
+
+.modal-footer {
+    padding: 0px;
+}
+
+    .modal-footer .cancel, .modal-footer .logout {
+        float: left;
+        width: 50%;
+    }
+
+        .modal-footer .cancel button, .modal-footer .logout button {
+            padding: 15px 20px;
+            font-size: 20px;
+            float: left;
+            width: 100%;
+            outline: none;
+            border: none;
+        }
+
+
+        .modal-footer .cancel button {
+            background: #d8d8d9;
+            color: #000;
+        }
+
+        .modal-footer .logout button {
+            background: #0981ba;
+            color: #fff;
+        }
+
+    .modal-footer .cancel {
+        background: #e6e6e6;
+    }
+
+    .modal-footer .save {
+        background: #286090;
+        color: #fff;
+    }
+
+    .modal-footer .cancel, .modal-footer .save {
+        width: 48%;
+        padding: 9px 0px;
+        text-align: center;
+        border: 0px;
+        border-radius: 0px;
+        float: left;
+        text-shadow: none;
+        font-size: 21px;
+        text-transform: uppercase;
+        border: 0px;
+    }
+
+
+/*=================Password Change======================*/
+
+.password-change {
+    position: absolute;
+    right: 0px;
+    width: 100%;
+    z-index: 10;
+    background: #fff;
+    height: 500px;
+    display: none;
+}
+
+
+/** Style for the button & div **/
+.myButton {
+    padding: .2em 1em;
+    font-size: 1em;
+}
+
+.mySelect {
+    padding: .2em 0;
+    font-size: 1em;
+}
+
+#myDiv {
+    background-color: #eee;
+    display: none;
+    text-align: justify;
+}
+
+    #myDiv p {
+        margin: 15px;
+        font-size: 0.917em;
+    }
+
+.myButton .password-change {
+    display: block;
+}
+
+
+
+
+
+.modal-content .checklist input {
+    margin-right: 5px !important;
+}
+
+.modal-content .checklist span {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+
+
+
+
+
+
+
+
+/** Style for the button & div **/
+.myButton {
+    padding: .2em 1em;
+    font-size: 1em;
+}
+
+.mySelect {
+    padding: .2em 0;
+    font-size: 1em;
+}
+
+#myDiv {
+    color: Green;
+    background-color: #eee;
+    border: 2px solid #333;
+    display: none;
+    text-align: justify;
+}
+
+    #myDiv p {
+        margin: 15px;
+        font-size: 0.917em;
+    }
+/** Style for the cointainer **/
+#body {
+    clear: both;
+    margin: 0 auto;
+    max-width: 534px;
+}
+
+
+.student-info, .parent-info {
+    float: left;
+    width: 100%;
+}
+
+    .student-info h2, .parent-info h2 {
+        margin: 0;
+    }
+
+.input-group {
+    width: 100%;
+}
+
+#id_dob {
+    background: #fff;
+    /*border:1px solid #ccc;*/
+    width: 100%;
+    padding-left: 10px;
+    color: #000;
+}
+
+#dob {
+    display: none;
+}
+
