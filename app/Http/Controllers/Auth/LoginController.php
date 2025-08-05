@@ -11,7 +11,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 class LoginController extends Controller
 {
     /*
@@ -189,20 +191,33 @@ class LoginController extends Controller
         );
     }
 
+    // protected function sendLoginResponse(Request $request)
+    // {
+    //     $request->session()->regenerate();
+
+    //     $this->clearLoginAttempts($request);
+
+    //     if ($response = $this->authenticated($request, $this->guard()->user())) {
+    //         return $response;
+    //     }
+
+    //     return $request->wantsJson()
+    //         ? new JsonResponse([], 204)
+    //         : redirect()->intended($this->redirectPath());
+    // }
     protected function sendLoginResponse(Request $request)
-    {
-        $request->session()->regenerate();
-
-        $this->clearLoginAttempts($request);
-
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect()->intended($this->redirectPath());
-    }
+{
+    $request->session()->regenerate();
+    
+    // Update session ID after regeneration
+    $user = Auth::user();
+    $user->update(['session_id' => Session::getId()]);
+    
+    $this->clearLoginAttempts($request);
+    
+    return $this->authenticated($request, $this->guard()->user())
+            ?: redirect()->intended($this->redirectPath());
+}
 
     protected function attemptLogin(Request $request)
     {

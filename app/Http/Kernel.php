@@ -43,6 +43,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\Localization::class,
+             \App\Http\Middleware\SingleSessionMiddleware::class,
         ],
 
         /* 'api' => [
@@ -77,6 +78,7 @@ class Kernel extends HttpKernel
         'limit.ip' => \App\Http\Middleware\LimitRequestsByIp::class,
           // ⭐ SECURITY: Add security middleware aliases
         'restrict.methods' => \App\Http\Middleware\RestrictHttpMethods::class,
-        'security.headers' => \App\Http\Middleware\SecurityHeaders::class
+        'security.headers' => \App\Http\Middleware\SecurityHeaders::class,
+        'single.session' => \App\Http\Middleware\SingleSessionMiddleware::class,
     ];
 }
