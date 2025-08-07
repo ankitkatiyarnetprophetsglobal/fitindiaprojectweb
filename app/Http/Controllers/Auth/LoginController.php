@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
 class LoginController extends Controller
 {
     /*
@@ -92,30 +93,32 @@ class LoginController extends Controller
         $data = openssl_decrypt($ct, 'aes-256-cbc', $key, true, $iv);
         return json_decode($data, true);
     }
-   public function login(Request $request)
-    {    
+    public function login(Request $request)
+    {
         // Enhanced rate limiting
         $key = 'login-attempts:' . $request->ip();
-    
-        if (RateLimiter::tooManyAttempts($key, 5)) {
+
+        if (RateLimiter::tooManyAttempts($key, 3)) {
             $seconds = RateLimiter::availableIn($key);
             throw ValidationException::withMessages([
                 'email' => ["Too many login attempts. Please try again in {$seconds} seconds."],
             ]);
         }
-        
+
         $this->validateLogin($request);
-        
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+
+        if (
+            method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)
+        ) {
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-        
+
         try {
             // Decrypt password with proper error handling
             $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
-            
+
             // Additional password validation
             if (empty($password_encrypted) || strlen($password_encrypted) > 255) {
                 RateLimiter::hit($key, 900); // 15 minutes
@@ -123,30 +126,29 @@ class LoginController extends Controller
                     'password' => ['Invalid password format.'],
                 ]);
             }
-            
+
             $request->merge([
                 'password' => $password_encrypted,
             ]);
-            
         } catch (\InvalidArgumentException $e) {
             RateLimiter::hit($key, 900);
-            
+
             // Log security incident
             Log::warning('Login attempt with invalid encryption', [
                 'ip' => $request->ip(),
                 'user_agent' => $request->userAgent(),
                 'email' => $request->email
             ]);
-            
+
             throw ValidationException::withMessages([
                 'password' => ['Invalid login credentials.'],
             ]);
         }
-        
+
         if ($this->attemptLogin($request)) {
             // Clear rate limit on successful login
             RateLimiter::clear($key);
-            
+
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
@@ -155,7 +157,7 @@ class LoginController extends Controller
         }
         // Increment rate limiter on failed attempt
         RateLimiter::hit($key, 900);
-        $this->incrementLoginAttempts($request);      
+        $this->incrementLoginAttempts($request);
         return $this->sendFailedLoginResponse($request);
     }
 
@@ -191,33 +193,20 @@ class LoginController extends Controller
         );
     }
 
-    // protected function sendLoginResponse(Request $request)
-    // {
-    //     $request->session()->regenerate();
 
-    //     $this->clearLoginAttempts($request);
-
-    //     if ($response = $this->authenticated($request, $this->guard()->user())) {
-    //         return $response;
-    //     }
-
-    //     return $request->wantsJson()
-    //         ? new JsonResponse([], 204)
-    //         : redirect()->intended($this->redirectPath());
-    // }
     protected function sendLoginResponse(Request $request)
-{
-    $request->session()->regenerate();
-    
-    // Update session ID after regeneration
-    $user = Auth::user();
-    $user->update(['session_id' => Session::getId()]);
-    
-    $this->clearLoginAttempts($request);
-    
-    return $this->authenticated($request, $this->guard()->user())
+    {
+        $request->session()->regenerate();
+
+        // Update session ID after regeneration
+        $user = Auth::user();
+        $user->update(['session_id' => Session::getId()]);
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->intended($this->redirectPath());
-}
+    }
 
     protected function attemptLogin(Request $request)
     {

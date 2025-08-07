@@ -25,22 +25,22 @@ class SecurityHeaders
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         
         // Content Security Policy
-        $csp = "default-src 'self'; " .
-               "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; " .
-               "style-src 'self' 'unsafe-inline'; " .
-               "img-src 'self' data: https:; " .
-               "font-src 'self' https:; " .
-               "connect-src 'self'; " .
-               "media-src 'self'; " .
-               "object-src 'none'; " .
-               "child-src 'none'; " .
-               "worker-src 'none'; " .
-               "frame-ancestors 'none'; " .
-               "form-action 'self'; " .
-               "base-uri 'self'; " .
-               "manifest-src 'self'";
+        // $csp = "default-src 'self'; " .
+        //        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; " .
+        //        "style-src 'self' 'unsafe-inline'; " .
+        //        "img-src 'self' data: https:; " .
+        //        "font-src 'self' https:; " .
+        //        "connect-src 'self'; " .
+        //        "media-src 'self'; " .
+        //        "object-src 'none'; " .
+        //        "child-src 'none'; " .
+        //        "worker-src 'none'; " .
+        //        "frame-ancestors 'none'; " .
+        //        "form-action 'self'; " .
+        //        "base-uri 'self'; " .
+        //        "manifest-src 'self'";
         
-        $response->headers->set('Content-Security-Policy', $csp);
+        // $response->headers->set('Content-Security-Policy', $csp);
         
         // HTTP Strict Transport Security (HSTS)
         if ($request->secure()) {
