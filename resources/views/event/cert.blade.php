@@ -402,7 +402,7 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
 
                                         </div>
                                         <div class="col-auto mt-3">
-                                            <a class="flag-dwn" href="download-certificate/1622">Download Certificate</a>
+                                            <a class="flag-dwn" href="download-certificate/1622" target="_blank">Download Certificate</a>
                                             <div class="success-msg"> <i class="fa fa-star-o" aria-hidden="true"></i> Congratulations, you have been awarded 3-STAR certification. </div>
                                         </div>
                                         @endif
@@ -660,19 +660,45 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
                                                 @error('geo_tagged_images_5start.*')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
-                                                @php
-                                                // Deserialize the stored image URLs (if any)
-                                                $uploadedImagesFive = !empty($fivedata->geo_tagged_images) ? unserialize($fivedata->geo_tagged_images) : [];
-                                                @endphp
-                                                @if (!empty($uploadedImagesFive))
-                                                <div class="row mt-3">
-                                                    @foreach ($uploadedImagesFive as $img)
-                                                    <div class="col-md-3 mb-2">
-                                                        <img src="{{ $img }}" class="img-thumbnail" style="width: 100%; height: auto;" alt="Uploaded Image">
-                                                    </div>
-                                                    @endforeach
-                                                </div>
-                                                @endif
+                                              @php
+    // Deserialize the stored media URLs
+    $uploadedMediaFive = !empty($fivedata->geo_tagged_images) ? unserialize($fivedata->geo_tagged_images) : [];
+
+    // Map extensions to MIME types
+    function getMimeType($file) {
+        $mimeMap = [
+            'mp4' => 'video/mp4',
+            'avi' => 'video/avi',
+            'mov' => 'video/quicktime',
+            'mkv' => 'video/x-matroska',
+        ];
+        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        return $mimeMap[$ext] ?? null;
+    }
+
+    function isVideoFile($file) {
+        return getMimeType($file) !== null;
+    }
+@endphp
+
+@if (!empty($uploadedMediaFive))
+    <div class="row mt-3">
+        @foreach ($uploadedMediaFive as $file)
+            <div class="col-md-3 mb-3">
+                @if (isVideoFile($file))
+                    <video controls style="width: 100%; height: auto; object-fit: cover;">
+                        <source src="http://localhost/fitindiawebgit/wp-content/uploads/2025/07SC5STAR/DrTCRJbY6f9CNN88g7wTEJOpvzoiygXUgHeVLMLM.mp4
+" type="{{ getMimeType($file) }}" >
+                        Your browser does not support the video tag.
+                    </video>
+                @else
+                    <img src="{{ $file }}" class="img-thumbnail" style="width: 100%; height: auto;" alt="Uploaded Image">
+                @endif
+            </div>
+        @endforeach
+    </div>
+@endif
+
                                             </div>
 
 
@@ -712,7 +738,7 @@ $outdoorsports = array( 'Archery', 'Athletics', 'Badminton', 'Basketball', 'Cano
 
                                             @if(isset($fivestatusdata) && $fivestatusdata->status == 'downloadcerficate')
                                             <div class="col-auto mt-3">
-                                                <a class="flag-dwn" href="download-certificate/1623">Download Certificate</a>
+                                                <a class="flag-dwn" href="download-certificate/1623" target="_blank">Download Certificate</a>
                                                 <div class="success-msg"> <i class="fa fa-star-o" aria-hidden="true"></i> Congratulations, you have been awarded 5-STAR certification. </div>
                                             </div>
                                             @endif

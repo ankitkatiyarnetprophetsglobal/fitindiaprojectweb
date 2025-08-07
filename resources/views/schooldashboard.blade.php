@@ -25,6 +25,9 @@
  .fit-india-dashboard .boxcolor .box-6{
   background-color: #7c4293 !important;
  }
+ .fit-india-dashboard .boxwomencolor .box-6{
+  background-color: #e58394 !important;
+ }
 </style>
 
   <body>
@@ -58,13 +61,13 @@
             </button>
           </div>
           <div class="col-lg-11 col-md-10 col-9">
-            <h2 class="text-center">Events at a Glance</h2>
+            <h2 class="text-center mb-0">Events at a Glance</h2>
           </div>
         </div>
 
 
         <div class="fit-india-dashboard">
-          <div class="row justify-content-center mb-5">
+          {{-- <div class="row justify-content-center mb-5"> --}}
             {{-- <div class="col-md-6 col-12">
               <div class="top-tile mt-3">
                 <h3>118972968</h4>
@@ -77,7 +80,7 @@
                 <h6>TOTAL SCHOOLS REGISTERED</h6>
               </div>
             </div> --}}
-          </div>
+          {{-- </div> --}}
           <div class="row justify-content-center tile-detail-section">
             <div class="col-lg-4 col-md-6 col-12 boxcolor">
               <div class="tile-detail-box box-5 fit-india-dashboard box-6" >
@@ -136,7 +139,7 @@
               </div>
             </div>
 
-              <div class="col-lg-4 col-md-6 col-12">
+              <div class="col-lg-4 col-md-6 col-12 boxwomencolor">
               <div class="tile-detail-box box-6">
                 <div class="tile-detail-img">
                   <img src="{{ asset('resources/images/dashbord/women.svg') }}" class="img-fluid1 "/>
@@ -325,9 +328,9 @@
                                           <tr>
                                             <td>Fit India Sundays on Cycle</td>
                                             <td>Ongoing</td>
-                                            <td><center>29,356</center></td>
+                                            <td><center>41,356</center></td>
                                             <td><center>3.04 Bn</center></td>
-                                            <td><center>6.54 Lakhs</center></td>
+                                            <td><center>7.54 Lakhs</center></td>
                                           </tr>
                                           <tr>
                                             <td>National Sports Day 2024</td>

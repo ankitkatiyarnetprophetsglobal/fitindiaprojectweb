@@ -212,6 +212,7 @@ return [
 	'international-women' => "Fit India Women's Week",
 	'fit-india-cycling-drive' => 'Fit India Sundays on Cycle',
 	'national-sports-day-2025' => 'National sports day',
+	'register_school_certification' => 'School Certification',
 	'womens-week-bicycle-day' => "World Bicycle Day",
 	'home-news-letter' => "Newsletter",
 ];

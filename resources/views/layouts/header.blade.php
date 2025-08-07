@@ -65,11 +65,13 @@
 				{{-- <li class="nav-item {{ (request()->is('home')) ? 'active' : 'active' }}">
 					<a class="nav-link  home-menu {{ (request()->is('home')) ? 'active' : '' }}" href="{{ route('home') }}"><i class="fa fa-home home_nav" aria-hidden="true" ></i><span class="menu-txt">{{ __('home_content.home')}} <!--Home--></span></span></a>
 				</li> --}}
-                <li class="nav-item {{ (request()->is('national-sports-day-2025')) ? 'active' : 'active' }}">
-				  <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2025')) ? 'active' : '' }}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}}</span></a>
-				</li>
+
 				<li class="nav-item {{ (request()->is('fit-india-cycling-drive')) ? 'active' : 'active' }}">
 				  <a class="nav-link  home-menu {{ (request()->is('fit-india-cycling-drive')) ? 'active' : '' }}" href="{{url('fit-india-cycling-drive')}}">{{ __('home_content.fit-india-cycling-drive')}}</span></a>
+				</li>
+
+                <li class="nav-item {{ (request()->is('national-sports-day-2025')) ? 'active' : 'active' }}">
+				  <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2025')) ? 'active' : '' }}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}}</span></a>
 				</li>
 
 				{{-- <li class="nav-item {{ (request()->is('womens-week-bicycle-day')) ? 'active' : 'active' }}">
@@ -150,14 +152,18 @@
 					{{-- <li class="nav-item {{ (request()->is('fit-india-quiz')) ? 'active' : '' }}"><a class="nav-link {{ (request()->is('fit-india-quiz')) ? 'active' : '' }}" href="{{ url('fit-india-quiz') }}">{{ __('home_content.fit_india_Quiz')}} <!--Fit India Quiz--></a></li> --}}
 
 				<li class="nav-item {{ (request()->is('fit-india-school') || request()->is('fit-india-youth-club-certification')) ? 'active' : '' }}">
-				 <a class="nav-link  {{ (request()->is('fit-india-school') || request()->is('fit-india-youth-club-certification')) ? 'active' : '' }}" href="fit-india-school"><span class="menu-txt">{{ __('home_content.fit_india_certification')}} <!--Fit India Certification--></span><span class="m-arrow"><svg
+				 {{-- <a class="nav-link  {{ (request()->is('fit-india-school') || request()->is('fit-india-youth-club-certification')) ? 'active' : '' }}" href="fit-india-school"><span class="menu-txt">{{ __('home_content.fit_india_certification')}} <!--Fit India Certification--></span><span class="m-arrow"><svg --}}
+				 <a class="nav-link  {{ (request()->is('fit-india-school') || request()->is('fit-india-youth-club-certification')) ? 'active' : '' }}" href="fit-india-school"><span class="menu-txt">{{ __('home_content.fit_india_school')}} <!--Fit India Certification--></span><span class="m-arrow"><svg
 					xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
 					<path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" /></svg></span></a>
 					  <ul class="sub-menu">
 		               <li class="nav-item {{ (request()->is('fit-india-school')) ? 'active' : 'active' }}">
-					  	 <a class="nav-link {{ (request()->is('fit-india-school')) ? 'active' : '' }}" href="{{ url('fit-india-school') }}">{{ __('home_content.fit_india_school')}} <!--Fit India School--></a></li>
-		              <li class="nav-item {{ (request()->is('fit-india-youth-club-certification')) ? 'active' : 'active' }}">
-					  	<a class="nav-link {{ (request()->is('fit-india-youth-club-certification')) ? 'active' : '' }}" href="{{ url('fit-india-youth-club-certification') }}">{{ __('home_content.fit-india-youth-club-certification')}} <!--Fit India Youth Club--></a></li>
+					  	 <a class="nav-link {{ (request()->is('fit-india-school')) ? 'active' : '' }}" href="{{ url('fit-india-school') }}">{{ __('home_content.register_school_certification')}} <!--Fit India School--></a></li>
+		                {{-- <li class="nav-item {{ (request()->is('fit-india-youth-club-certification')) ? 'active' : 'active' }}"> --}}
+                            {{-- <a class="nav-link {{ (request()->is('fit-india-youth-club-certification')) ? 'active' : '' }}" href="{{ url('fit-india-youth-club-certification') }}">{{ __('home_content.fit-india-youth-club-certification')}}  --}}
+                                <!--Fit India Youth Club-->
+                            {{-- </a> --}}
+                        {{-- </li> --}}
 		              </ul>
 				</li>
 
