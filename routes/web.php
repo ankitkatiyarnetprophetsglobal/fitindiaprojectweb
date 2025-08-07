@@ -798,6 +798,7 @@ Route::get('one-year-users', [\App\Http\Controllers\CsveventController::class, '
 Route::get('soc-event-report', [\App\Http\Controllers\CsveventController::class, 'socEventReport13072025']);
 Route::get('soc-event-report-data', [\App\Http\Controllers\CsveventController::class, 'socEventReportdata13072025']);
 Route::get('soc-report-both-table-data', [\App\Http\Controllers\CsveventController::class, 'soc_report_both_data']);
+Route::get('soc-report-cycle-return-data', [\App\Http\Controllers\CsveventController::class, 'soc_report_cycle_return_data']);
 // Route::get('all_data_registration', [\App\Http\Controllers\CsveventController::class, 'all_data_registration']);
 
 Route::get('delete-user-details', [\App\Http\Controllers\CsveventController::class, 'delete_user_detail']);
