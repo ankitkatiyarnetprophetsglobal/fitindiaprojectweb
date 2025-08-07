@@ -301,22 +301,16 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
 });
 
 Route::namespace("socadmin")->prefix('socadmin')->group(function(){
-
     Route::get('/dashboard', [App\Http\Controllers\Socadmin\HomeController::class, 'dashboard'])->name('socadmin.dashboard');
     Route::get('/kicform', [App\Http\Controllers\Socadmin\HomeController::class, 'kicformindex'])->name('kicadmin.kicform');
     Route::get('/kiccreateform', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_create_form'])->name('kicadmin.kiccreateform');
     Route::POST('/kicformstore', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_store_form'])->name('kicadmin.kicstoreform');
     Route::get('/kicformedit/{id}', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_edit_form'])->name('kicadmin.socstoreedit');
     Route::POST('/kicformupdate', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_update_form'])->name('kicadmin.kicupdateform');
-    // Route::resource('kicform', [App\Http\Controllers\Kicadmin\HomeController::class, 'index'])->name('index');
-    // Route::namespace('Auth')->group(function(){
-    //  Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
-    //  Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.dashboard');
-    //  Route::get('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
-    //  Route::post('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.postlogin');
-    //  Route::post('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
+    Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
+    Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
+    Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
 
-    // });
 });
 
 //Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
