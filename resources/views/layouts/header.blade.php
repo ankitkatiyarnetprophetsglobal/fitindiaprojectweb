@@ -65,11 +65,13 @@
 				{{-- <li class="nav-item {{ (request()->is('home')) ? 'active' : 'active' }}">
 					<a class="nav-link  home-menu {{ (request()->is('home')) ? 'active' : '' }}" href="{{ route('home') }}"><i class="fa fa-home home_nav" aria-hidden="true" ></i><span class="menu-txt">{{ __('home_content.home')}} <!--Home--></span></span></a>
 				</li> --}}
-                {{-- <li class="nav-item {{ (request()->is('national-sports-day-2025')) ? 'active' : 'active' }}">
-				  <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2025')) ? 'active' : '' }}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}}</span></a>
-				</li> --}}
+
 				<li class="nav-item {{ (request()->is('fit-india-cycling-drive')) ? 'active' : 'active' }}">
 				  <a class="nav-link  home-menu {{ (request()->is('fit-india-cycling-drive')) ? 'active' : '' }}" href="{{url('fit-india-cycling-drive')}}">{{ __('home_content.fit-india-cycling-drive')}}</span></a>
+				</li>
+
+                <li class="nav-item {{ (request()->is('national-sports-day-2025')) ? 'active' : 'active' }}">
+				  <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2025')) ? 'active' : '' }}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}}</span></a>
 				</li>
 
 				{{-- <li class="nav-item {{ (request()->is('womens-week-bicycle-day')) ? 'active' : 'active' }}">

@@ -328,9 +328,9 @@
                                           <tr>
                                             <td>Fit India Sundays on Cycle</td>
                                             <td>Ongoing</td>
-                                            <td><center>29,356</center></td>
+                                            <td><center>41,356</center></td>
                                             <td><center>3.04 Bn</center></td>
-                                            <td><center>6.54 Lakhs</center></td>
+                                            <td><center>7.54 Lakhs</center></td>
                                           </tr>
                                           <tr>
                                             <td>National Sports Day 2024</td>
