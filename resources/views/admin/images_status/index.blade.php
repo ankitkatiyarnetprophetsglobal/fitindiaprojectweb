@@ -15,10 +15,22 @@
     .rtside {
         float: right;
     }
-    .badge-warning { background-color: #ffc107; }
-.badge-success { background-color: #28a745; }
-.badge-danger { background-color: #dc3545; }
-.status-dropdown { width: 120px; }
+
+    .badge-warning {
+        background-color: #ffc107;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+    }
+
+    .badge-danger {
+        background-color: #dc3545;
+    }
+
+    .status-dropdown {
+        width: 120px;
+    }
 </style>
 <div class="content-wrapper">
 
@@ -93,6 +105,7 @@
                                         <th>ID</th>
                                         <th>Full Name</th>
                                         <th>Email</th>
+                                        <th>Image</th>
                                         <th>Mobile</th>
                                         <th>State</th>
                                         <th>Designation</th>
@@ -110,6 +123,19 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->fullname }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>
+                                        @if($user->image)
+                                        <a href="{{ asset($user->image) }}" target="_blank">
+                                            <img src="{{ asset($user->image) }}"
+                                                alt="{{ $user->fullname }}"
+                                                style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
+                                        </a>
+                                        @else
+                                        <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </div>
+                                        @endif
+                                        </td>
                                         <td>{{ $user->mobile }}</td>
                                         <td>{{ $user->state }}</td>
                                         <td>{{ $user->designation }}</td>
@@ -167,87 +193,134 @@
 @endsection
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // CSRF token setup
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    document.addEventListener('DOMContentLoaded', function() {
+        // CSRF token setup
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Helper function for AJAX requests
-    function makeRequest(url, method = 'POST', data = null) {
-        const options = {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
+        // Helper function for AJAX requests
+        function makeRequest(url, method = 'POST', data = null) {
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+
+            if (data) {
+                options.body = JSON.stringify(data);
             }
-        };
 
-        if (data) {
-            options.body = JSON.stringify(data);
+            return fetch(url, options);
         }
 
-        return fetch(url, options);
-    }
+        // Select all checkbox - using event delegation
+        document.addEventListener('change', function(e) {
+            if (e.target.id === 'select-all') {
+                console.log('Select all clicked');
+                const userCheckboxes = document.querySelectorAll('.user-checkbox');
+                userCheckboxes.forEach(checkbox => {
+                    checkbox.checked = e.target.checked;
+                });
+                updateBulkButtons();
+            }
+        });
 
-    // Select all checkbox - using event delegation
-    document.addEventListener('change', function(e) {
-        if (e.target.id === 'select-all') {
-            console.log('Select all clicked');
-            const userCheckboxes = document.querySelectorAll('.user-checkbox');
-            userCheckboxes.forEach(checkbox => {
-                checkbox.checked = e.target.checked;
-            });
-            updateBulkButtons();
-        }
-    });
+        // Individual checkbox
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('user-checkbox')) {
+                console.log('Individual checkbox clicked');
+                updateBulkButtons();
 
-    // Individual checkbox
-    document.addEventListener('change', function(e) {
-        if (e.target.classList.contains('user-checkbox')) {
-            console.log('Individual checkbox clicked');
-            updateBulkButtons();
-            
-            // Update select-all checkbox state
-            const totalCheckboxes = document.querySelectorAll('.user-checkbox').length;
-            const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked').length;
-            const selectAllCheckbox = document.getElementById('select-all');
-            
-            if (selectAllCheckbox) {
-                if (checkedCheckboxes === totalCheckboxes) {
-                    selectAllCheckbox.checked = true;
-                } else {
-                    selectAllCheckbox.checked = false;
+                // Update select-all checkbox state
+                const totalCheckboxes = document.querySelectorAll('.user-checkbox').length;
+                const checkedCheckboxes = document.querySelectorAll('.user-checkbox:checked').length;
+                const selectAllCheckbox = document.getElementById('select-all');
+
+                if (selectAllCheckbox) {
+                    if (checkedCheckboxes === totalCheckboxes) {
+                        selectAllCheckbox.checked = true;
+                    } else {
+                        selectAllCheckbox.checked = false;
+                    }
                 }
             }
-        }
-    });
+        });
 
-    // Update bulk buttons state
-    function updateBulkButtons() {
-        const selectedCount = document.querySelectorAll('.user-checkbox:checked').length;
-        
-        const selectedCountElement = document.getElementById('selected-count');
-        if (selectedCountElement) {
-            selectedCountElement.textContent = selectedCount + ' selected';
-        }
-        
-        const bulkApproveBtn = document.getElementById('bulk-approve-btn');
-        const bulkRejectBtn = document.getElementById('bulk-reject-btn');
-        
-        if (selectedCount > 0) {
-            if (bulkApproveBtn) bulkApproveBtn.disabled = false;
-            if (bulkRejectBtn) bulkRejectBtn.disabled = false;
-        } else {
-            if (bulkApproveBtn) bulkApproveBtn.disabled = true;
-            if (bulkRejectBtn) bulkRejectBtn.disabled = true;
-        }
-    }
+        // Update bulk buttons state
+        function updateBulkButtons() {
+            const selectedCount = document.querySelectorAll('.user-checkbox:checked').length;
 
-    // Individual approve
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('approve-btn')) {
-            const userId = e.target.getAttribute('data-id');
-            if (confirm('Are you sure you want to approve this user?')) {
-                makeRequest(`image_approve/${userId}`)
+            const selectedCountElement = document.getElementById('selected-count');
+            if (selectedCountElement) {
+                selectedCountElement.textContent = selectedCount + ' selected';
+            }
+
+            const bulkApproveBtn = document.getElementById('bulk-approve-btn');
+            const bulkRejectBtn = document.getElementById('bulk-reject-btn');
+
+            if (selectedCount > 0) {
+                if (bulkApproveBtn) bulkApproveBtn.disabled = false;
+                if (bulkRejectBtn) bulkRejectBtn.disabled = false;
+            } else {
+                if (bulkApproveBtn) bulkApproveBtn.disabled = true;
+                if (bulkRejectBtn) bulkRejectBtn.disabled = true;
+            }
+        }
+
+        // Individual approve
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('approve-btn')) {
+                const userId = e.target.getAttribute('data-id');
+                if (confirm('Are you sure you want to approve this user?')) {
+                    makeRequest(`image_approve/${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                location.reload();
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error approving user');
+                        });
+                }
+            }
+        });
+
+        // Individual reject
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('reject-btn')) {
+                const userId = e.target.getAttribute('data-id');
+                if (confirm('Are you sure you want to reject this user?')) {
+                    makeRequest(`image_reject/${userId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                location.reload();
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error rejecting user');
+                        });
+                }
+            }
+        });
+
+        // Status dropdown change
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('status-dropdown')) {
+                const userId = e.target.getAttribute('data-id');
+                const status = e.target.value;
+
+                makeRequest(`image_status/${userId}`, 'POST', {
+                        status: status
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -258,119 +331,76 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Error approving user');
+                        alert('Error updating status');
                     });
             }
-        }
-    });
+        });
 
-    // Individual reject
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('reject-btn')) {
-            const userId = e.target.getAttribute('data-id');
-            if (confirm('Are you sure you want to reject this user?')) {
-                makeRequest(`image_reject/${userId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            location.reload();
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error rejecting user');
-                    });
+        // Bulk approve
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'bulk-approve-btn') {
+                const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+                const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+
+                if (selectedIds.length === 0) {
+                    alert('Please select at least one user');
+                    return;
+                }
+
+                if (confirm(`Are you sure you want to approve ${selectedIds.length} users?`)) {
+                    makeRequest('image_bulk_approve', 'POST', {
+                            user_ids: selectedIds
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                location.reload();
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error approving users');
+                        });
+                }
             }
-        }
-    });
+        });
 
-    // Status dropdown change
-    document.addEventListener('change', function(e) {
-        if (e.target.classList.contains('status-dropdown')) {
-            const userId = e.target.getAttribute('data-id');
-            const status = e.target.value;
-            
-            makeRequest(`image_status/${userId}`, 'POST', {status: status})
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error updating status');
-                });
-        }
-    });
+        // Bulk reject
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'bulk-reject-btn') {
+                const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
+                const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
 
-    // Bulk approve
-    document.addEventListener('click', function(e) {
-        if (e.target.id === 'bulk-approve-btn') {
-            const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
-            const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
+                if (selectedIds.length === 0) {
+                    alert('Please select at least one user');
+                    return;
+                }
 
-            if (selectedIds.length === 0) {
-                alert('Please select at least one user');
-                return;
+                if (confirm(`Are you sure you want to reject ${selectedIds.length} users?`)) {
+                    makeRequest('image_bulk_reject', 'POST', {
+                            user_ids: selectedIds
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                location.reload();
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error rejecting users');
+                        });
+                }
             }
+        });
 
-            if (confirm(`Are you sure you want to approve ${selectedIds.length} users?`)) {
-                makeRequest('image_bulk_approve', 'POST', {user_ids: selectedIds})
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert(data.message);
-                            location.reload();
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error approving users');
-                    });
-            }
-        }
+        // Initialize bulk buttons state on page load
+        updateBulkButtons();
     });
-
-    // Bulk reject
-    document.addEventListener('click', function(e) {
-        if (e.target.id === 'bulk-reject-btn') {
-            const selectedCheckboxes = document.querySelectorAll('.user-checkbox:checked');
-            const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
-      
-            if (selectedIds.length === 0) {
-                alert('Please select at least one user');
-                return;
-            }
-
-            if (confirm(`Are you sure you want to reject ${selectedIds.length} users?`)) {
-                makeRequest('image_bulk_reject', 'POST', {user_ids: selectedIds})
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert(data.message);
-                            location.reload();
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error rejecting users');
-                    });
-            }
-        }
-    });
-
-    // Initialize bulk buttons state on page load
-    updateBulkButtons();
-});
 </script>
-
-
