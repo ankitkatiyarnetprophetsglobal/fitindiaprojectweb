@@ -552,7 +552,8 @@ $active_section_id = trim($active_section);
                                                 <li>
                                                     <div class="" style="font-size:14px;">
                                                         <img src="resources/imgs/icon/newsletterbulletpoint.png" class="img-fluid mini_pic"/>
-                                                        <a href="{{ url($value['anchor_link']) ?? '' }}" target="_blank" download>{{ $value['newsletter_title'] ?? '' }}</a>
+                                                        {{-- <a href="{{ url($value['anchor_link']) ?? '' }}" target="_blank" download>{{ $value['newsletter_title'] ?? '' }}</a> --}}
+                                                        <a href="{{ url($value['anchor_link']) ?? '' }}" target="_blank">{{ $value['newsletter_title'] ?? '' }}</a>
                                                     </div>
                                                 </li>
                                             @endforeach
