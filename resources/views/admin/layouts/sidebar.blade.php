@@ -370,6 +370,14 @@
                                 </a>
                             </li>
                         </ul>
+                                <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.socadminwrite') }}" class="nav-link @if($routename =='admin.socadminwrite') {{ 'active'  }} @endif">
+                                    <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
+                                    <p>Manage Images Status </p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 @endif
                 @if(!in_array($admins_role, array(2,3,4,6,7,8,9)))

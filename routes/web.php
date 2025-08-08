@@ -310,6 +310,7 @@ Route::namespace("socadmin")->prefix('socadmin')->group(function(){
     Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
     Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
     Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
+    Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
 
 });
 

@@ -117,9 +117,14 @@ $sixth_count = DB::table('soc_event_participation_receives as sopr')
               ->where('socemid', 5);
     })
     ->count();
-
+$seventh_count = DB::table('soc_event_participation_receives as sopr')
+    ->join('users', 'users.id', '=', 'sopr.user_id')
+    ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
+    ->where('sopr.socemid', 7)
+    ->whereNotNull('sopr.user_id')
+    ->count();
     
-    return view('admin.home', compact('curcount', 'school_star_count', 'total_count_cyclothon', 'total_individual', 'clubcountNamoSOC','fourth_count','fifth_count','sixth_count'));
+    return view('admin.home', compact('curcount', 'school_star_count', 'total_count_cyclothon', 'total_individual', 'clubcountNamoSOC','fourth_count','fifth_count','sixth_count','seventh_count'));
     // dd($curcount);
     // return view('admin.home');
   }

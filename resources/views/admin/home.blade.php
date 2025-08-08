@@ -102,7 +102,7 @@
                             <p>Total Count</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <a href="{{ url('admin/users') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -116,7 +116,7 @@
                             <p>Individual count</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <a href="{{ url('admin/users') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -129,7 +129,7 @@
                             <p>Namo club count</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="fas fa-users-cog"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -139,13 +139,13 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-light">
                         <div class="inner">
                             <h3>{{ $fourth_count ?? '' }}</h3>
-                            <p>Another Count</p>
+                            <p>Booking SOC</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="fas fa-ticket-alt"></i>
                         </div>
                         <a href="{{ route('socadmin.soc_download_event_report') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
                     </div>
@@ -156,10 +156,10 @@
                     <div class="small-box bg-primary">
                         <div class="inner">
                             <h3>{{ $fifth_count ?? '' }}</h3>
-                            <p>Fifth Count</p>
+                            <p>Not Booking</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-android-contacts"></i>
+                            <i class="fas fa-user-times"></i>
                         </div>
                         <a href="{{ route('socadmin.soc_download_event_report_data') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
                     </div>
@@ -169,10 +169,10 @@
                     <div class="small-box bg-secondary">
                         <div class="inner">
                             <h3>{{ $sixth_count ?? '' }}</h3>
-                            <p>Sixth Count</p>
+                            <p>Recieving</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-android-apps"></i>
+                            <i class="fas fa-file-import"></i>
                         </div>
                         <a href="{{ route('socadmin.soc_download_report_both_data') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
                     </div>
@@ -184,12 +184,12 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $seventh_count ?? '' }}</h3>
-                            <p>Another Count</p>
+                            <p>Return Cycle </p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="fas fa-bicycle"></i>
                         </div>
-                        <a href="{{ route('socadmin.soc_download_event_report') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
+                        <a href="{{ route('socadmin.soc_download_report_cycle_return_data') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
                     </div>
                 </div>
             </div>
