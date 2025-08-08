@@ -372,7 +372,7 @@
                         </ul>
                                 <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin.socadminwrite') }}" class="nav-link @if($routename =='admin.socadminwrite') {{ 'active'  }} @endif">
+                                <a href="{{ route('admin.image_index') }}" class="nav-link @if($routename =='admin.image_index') {{ 'active'  }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
                                     <p>Manage Images Status </p>
                                 </a>
