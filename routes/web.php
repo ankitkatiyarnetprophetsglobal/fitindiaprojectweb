@@ -609,6 +609,8 @@ Route::post('reset_password_without_token', [App\Http\Controllers\PasswordresetC
 Route::post('reset_password', [App\Http\Controllers\PasswordresetController::class, 'resetPassword'])->name('reset_password');
 Route::get('your-story', [App\Http\Controllers\GeneralController::class, 'shareStory'])->name('your-story');
 Route::post('save-story', [App\Http\Controllers\GeneralController::class, 'saveStory'])->name('save-story');
+Route::get('nsd-upload-image', [App\Http\Controllers\GeneralController::class, 'nsd_upload_image'])->name('nsd-upload-image');
+Route::post('save-upload-image', [App\Http\Controllers\GeneralController::class, 'save_upload_image'])->name('save-upload-image');
 //Route::get('school-quiz', [App\Http\Controllers\GeneralController::class, 'schoolQuiz'])->name('school-quiz');
 //Route::post('save-quiz', [App\Http\Controllers\GeneralController::class, 'saveQuiz'])->name('save-quiz');
 Route::view('fitness-from-home-series','fitness-from-home-series');

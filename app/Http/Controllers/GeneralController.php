@@ -22,6 +22,7 @@ use App\Models\District;
 use App\Models\Block;
 use App\Models\WebsiteBanner;
 use App\Models\EventArchive;
+use App\Models\Storeeventuserimage;
 
 class GeneralController extends Controller
 {
@@ -1092,5 +1093,114 @@ class GeneralController extends Controller
         // dd($websitebanner);
     }
 
+
+    public function nsd_upload_image(Request $request)
+	{
+		try{
+			$states = State::all();
+            return view('nsd-upload-image',compact('states'));
+		}catch (Exception $e) {
+			return abort(404);
+		}
+	}
+
+    public function save_upload_image(Request $request)
+	{
+		try{
+
+            $request->validate([
+				// 'youare' => 'required|string|min:3|max:255',
+				'mobile' => 'required|digits:10',
+				'designation' => 'required|string|min:3|max:255',
+				'email' => 'required|string|email|max:255',
+				'fullname' => 'required|string|min:3|max:255',
+				// 'videourl' => 'required',
+				'state' => 'required',
+				// 'title' => 'required|string|min:3|max:255',
+			    'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+				// 'story' => 'required|string|min:3|max:255',
+				'captcha' => ['required', 'captcha'],
+			]);
+            // dd($request->all());
+            $year = date("Y/m");
+            if($request->file('image'))
+                {
+                    $image = $request->file('image')->store('nsdusers2025',['disk'=> 'uploads']);
+                    $image = url('wp-content/uploads/'.$image);
+                }
+
+			$yourstory = new Storeeventuserimage;
+			//$yourstory->youare = $request->youare;
+			$yourstory->fullname = $request->fullname;
+			$yourstory->mobile = $request->mobile;
+			$yourstory->state = $request->state;
+			$yourstory->designation = $request->designation;
+			$yourstory->email = $request->email;
+			$yourstory->image = $image;
+			$yourstory->status = 1;
+			$yourstory->save();
+
+            // $email = 'fitnessstories123@gmail.com';
+            // // $email = 'ankit.katiyar@netprophetsglobal.com';
+            // //$email = 'dasshaktiraj@gmail.com';
+            // $message = "Dear Fit India Team,";
+            // $message.= "<br><br>";
+
+            // $message .= "Below are request for Fit India SHARE YOUR STORY";
+            // $message.= "<br><br>";
+            // $message.=  "Name : ".$request->fullname."<br>";
+            // //$message.= $request->youare."<br>";
+            // $message.=  "Designation : ".$request->designation."<br>";
+            // $message.=  "Email id : ".$request->email."<br>";
+            // $message.=  "Contact No : ".$request->mobile."<br>";
+            // $message.= "State : ".$request->state."<br>";
+            // $message.=  "URL : ".$request->videourl."<br>";
+
+            // $message.= "Story title : ".$request->title."<br>";
+            // $message.= "Your Story : ".$request->story."<br>";
+
+
+            // $fullname = $request->fullname;
+            // $designation = $request->designation;
+            // // $email = $request->email;
+            // $mobile = $request->mobile;
+            // $state = $request->state;
+            // $videourl= $request->videourl;
+            // $title = $request->title;
+            // $story = $request->story;
+            // dd("http://10.246.120.18/test/mail/useremailsend.php?email=$email&fullname=$fullname&designation=$designation&mobile=$mobile&state=$state&videourl=$videourl&title=$title&story=$story");
+                // $curl = curl_init();
+                // curl_setopt_array($curl, array(
+                //     CURLOPT_URL => "http://10.246.120.18/test/mail/useremailsend.php?email=$email&fullname=$fullname&designation=$designation&mobile=$mobile&state=$state&videourl=$videourl&title=$title&story=$story",
+                //     CURLOPT_RETURNTRANSFER => true,
+                //     CURLOPT_ENCODING => '',
+                //     CURLOPT_MAXREDIRS => 10,
+                //     CURLOPT_TIMEOUT => 0,
+                //     CURLOPT_FOLLOWLOCATION => true,
+                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                //     CURLOPT_CUSTOMREQUEST => 'GET',
+                // ));
+
+                // // dd("$curl");
+                // $response = curl_exec($curl);
+                // dd($response);
+                // curl_close($curl);
+                // $ch = curl_init();
+                // // curl_setopt($ch, CURLOPT_URL,"http://10.247.140.87/mail.php");
+                // curl_setopt($ch, CURLOPT_URL,"https://fitindia.gov.in/mail.php");
+                // curl_setopt($ch, CURLOPT_POST, 1);
+                // curl_setopt($ch, CURLOPT_POSTFIELDS,"user_email=$email&message=$message&subject='Fit India SHARE YOUR STORY Request'");
+                // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                // $server_output = curl_exec($ch);
+                // curl_close ($ch);
+
+
+				return back()->with('message',"Your photo has been successfully submitted, Fit India Team will review it, if approved, the photo will be displayed on the Fit India national sports day 2025.");
+
+		}catch (Exception $e) {
+            return $e->message();
+			return abort(404);
+		}
+	}
 
 }
