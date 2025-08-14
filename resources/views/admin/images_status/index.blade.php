@@ -7,6 +7,9 @@
         margin-bottom: 0 !important;
         margin-right: 10px;
     }
+    .bulk-button {
+    margin: 8px !important;
+}
 
     .btn-sm {
         padding: .375rem .75rem;
@@ -30,6 +33,73 @@
 
     .status-dropdown {
         width: 120px;
+    }
+
+    .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+        position: relative;
+        margin: auto;
+        display: block;
+        max-width: 55%;
+        max-height: 55%;
+        top: 35%;
+        transform: translateY(-50%);
+        border-radius: 10px;
+    }
+
+    .modal-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        object-fit: contain;
+    }
+
+    .close-button {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        color: white;
+        font-size: 32px;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-image {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .profile-image:hover {
+        transform: scale(1.05);
+    }
+
+    .user-info {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-family: Arial, sans-serif;
     }
 </style>
 <div class="content-wrapper">
@@ -84,7 +154,7 @@
                         </form>
 
                         <!-- Bulk Actions -->
-                        <div class="mb-3">
+                        <div class="bulk-button">
                             <button type="button" class="btn btn-success" id="bulk-approve-btn" disabled>
                                 <i class="fas fa-check"></i> Bulk Approve
                             </button>
@@ -92,6 +162,7 @@
                                 <i class="fas fa-times"></i> Bulk Reject
                             </button>
                             <span id="selected-count" class="ml-2 text-muted">0 selected</span>
+                            
                         </div>
 
                         <!-- Users Table -->
@@ -124,17 +195,17 @@
                                         <td>{{ $user->fullname }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                        @if($user->image)
-                                        <a href="{{ asset($user->image) }}" target="_blank">
-                                            <img src="{{ asset($user->image) }}"
-                                                alt="{{ $user->fullname }}"
-                                                style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
-                                        </a>
-                                        @else
-                                        <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
-                                            <i class="fas fa-user text-muted"></i>
-                                        </div>
-                                        @endif
+                                            @if($user->image)
+                                            <a href="javascript:void(0);" onclick="openImageModal('{{ asset($user->image) }}', '{{ $user->fullname }}')" class="profile-image">
+                                                <img src="{{ asset($user->image) }}"
+                                                    alt="{{ $user->fullname }}"
+                                                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd;">
+                                            </a>
+                                            @else
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd;">
+                                                <i class="fas fa-user text-muted"></i>
+                                            </div>
+                                            @endif
                                         </td>
                                         <td>{{ $user->mobile }}</td>
                                         <td>{{ $user->state }}</td>
@@ -170,7 +241,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="10" class="text-center">No users found</td>
+                                        <td colspan="11" class="text-center">No users found</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
@@ -187,12 +258,38 @@
         </div>
     </div>
 
-
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-button" onclick="closeImageModal()">&times;</span>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <div id="modalUserInfo" class="user-info"></div>
+        </div>
+    </div>
 
 </div>
 @endsection
 
 <script>
+    // Image modal functions
+    function openImageModal(imageSrc, userName) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalUserInfo = document.getElementById('modalUserInfo');
+
+        modalImage.src = imageSrc;
+        modalImage.alt = userName;
+        modalUserInfo.textContent = userName;
+
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+        document.getElementById('imageModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         // CSRF token setup
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -272,6 +369,7 @@
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('approve-btn')) {
                 const userId = e.target.getAttribute('data-id');
+
                 if (confirm('Are you sure you want to approve this user?')) {
                     makeRequest(`image_approve/${userId}`)
                         .then(response => response.json())
@@ -402,5 +500,12 @@
 
         // Initialize bulk buttons state on page load
         updateBulkButtons();
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+            }
+        });
     });
 </script>

@@ -370,7 +370,9 @@
                                 </a>
                             </li>
                         </ul>
+
                         <ul class="nav nav-treeview">
+
                             <li class="nav-item">
                                 <a href="{{ route('admin.image_index') }}" class="nav-link @if($routename =='admin.image_index') {{ 'active'  }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>
@@ -378,6 +380,7 @@
                                 </a>
                             </li>
                         </ul>
+
                     </li>
                 @endif
                 @if(!in_array($admins_role, array(2,3,4,6,7,8,9)))
