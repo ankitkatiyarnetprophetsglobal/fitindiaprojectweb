@@ -370,7 +370,7 @@
                                 </a>
                             </li>
                         </ul>
-                                <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.image_index') }}" class="nav-link @if($routename =='admin.image_index') {{ 'active'  }} @endif">
                                     <i class="nav-icon fas fa-tasks" aria-hidden="true"></i>

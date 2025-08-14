@@ -954,7 +954,7 @@ class CsveventController extends Controller
 
         $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sop.user_id,sop.uname, sop.event_date,sop.cycle_booking,sop.cycle_waiting,sop.cycle,sop.meal_booking,sop.meal_waiting,sop.meal
                     FROM soc_event_participations as sop INNER join users on users.id = sop.user_id join usermetas on users.id = usermetas.user_id LEFT join soc_event_participation_receives as sopr on sop.user_id = sopr.user_id and sop.socemid = sopr.socemid
-                    where sop.socemid = 7;";
+                    where sop.socemid = 8;";
 
 
         $data = DB::select(DB::raw($query));
@@ -1006,7 +1006,7 @@ class CsveventController extends Controller
             }
 
             fclose($handle);
-            return Response::download($filename, "soceventdata.csv", $headers);
+            return Response::download($filename, "Cycle-Booking.csv", $headers);
     }
 
 
@@ -1014,7 +1014,7 @@ class CsveventController extends Controller
 
 
         // $query = "SELECT sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr where sopr.socemid = 3 and sopr.user_id not in (select user_id from soc_event_participations where socemid = 3);";
-        $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr INNER join users on users.id = sopr.user_id join usermetas on users.id = usermetas.user_id where sopr.socemid = 7 and sopr.user_id in (select user_id from soc_event_participations where socemid = 7);";
+        $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr INNER join users on users.id = sopr.user_id join usermetas on users.id = usermetas.user_id where sopr.socemid = 8 and sopr.user_id in (select user_id from soc_event_participations where socemid = 8);";
 
         $data = DB::select(DB::raw($query));
 
@@ -1065,14 +1065,14 @@ class CsveventController extends Controller
             }
 
             fclose($handle);
-            return Response::download($filename, "soceventdatadata.csv", $headers);
+            return Response::download($filename, "Cycle-Allotted.csv", $headers);
     }
 
     function socEventReportdata13072025(){
 
 
         // $query = "SELECT sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr where sopr.socemid = 3 and sopr.user_id not in (select user_id from soc_event_participations where socemid = 3);";
-        $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr INNER join users on users.id = sopr.user_id join usermetas on users.id = usermetas.user_id where sopr.socemid = 7 and sopr.user_id not in (select user_id from soc_event_participations where socemid = 7);";
+        $query = "SELECT users.email,users.phone,usermetas.address_line_one,usermetas.address_line_two,sopr.user_id,sopr.uname,sopr.event_date,sopr.cycle,sopr.meal FROM soc_event_participation_receives as sopr INNER join users on users.id = sopr.user_id join usermetas on users.id = usermetas.user_id where sopr.socemid = 8 and sopr.user_id not in (select user_id from soc_event_participations where socemid = 8);";
 
         $data = DB::select(DB::raw($query));
 
@@ -1144,7 +1144,7 @@ class CsveventController extends Controller
                     FROM soc_event_participation_receives as sopr
                     INNER join users on users.id = sopr.user_id
                     join usermetas on users.id = usermetas.user_id
-                    where sopr.socemid = 7 and sopr.user_id;";
+                    where sopr.socemid = 8 and sopr.user_id;";
 
         $data = DB::select(DB::raw($query));
 
@@ -1195,7 +1195,7 @@ class CsveventController extends Controller
             }
 
             fclose($handle);
-            return Response::download($filename, "soc_report_cycle_return_data.csv", $headers);
+            return Response::download($filename, "Cycle-Returned.csv", $headers);
     }
 
 }

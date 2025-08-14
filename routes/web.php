@@ -227,7 +227,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::post('/image_status/{id}', [MaganageImageStatusController::class, 'image_updateStatus'])->name('image-status');
     Route::post('/image_bulk_approve', [MaganageImageStatusController::class, 'image_bulkApprove'])->name('image-bulk-approve');
     Route::post('/image_bulk_reject', [MaganageImageStatusController::class, 'image_bulkReject'])->name('image-bulk-reject');
-    // End Images Status 
+    // End Images Status
 
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
@@ -306,7 +306,12 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
         Route::get('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
         Route::post('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.postlogin');
         Route::post('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
-
+        // start soc admin download data
+        Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
+        Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
+        Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
+        Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
+        // end soc admin download data
     });
 });
 
@@ -317,11 +322,6 @@ Route::namespace("socadmin")->prefix('socadmin')->group(function(){
     Route::POST('/kicformstore', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_store_form'])->name('kicadmin.kicstoreform');
     Route::get('/kicformedit/{id}', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_edit_form'])->name('kicadmin.socstoreedit');
     Route::POST('/kicformupdate', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_update_form'])->name('kicadmin.kicupdateform');
-    Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
-    Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
-    Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
-    Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
-
 });
 
 //Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);

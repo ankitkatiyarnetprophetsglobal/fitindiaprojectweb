@@ -19,7 +19,7 @@
 </style>
 
 <div>
-        <img src="{{ asset('resources/imgs/national-sports-day-2025.jpeg') }}" alt="nsd-upload-image"
+        <img src="{{ asset('resources/imgs/national-sports-day-2025.png') }}" alt="nsd-upload-image"
             title="NSD 2025 Upload Image" class="img-fluid expand_img" />
     </div>
   <section id="{{ $active_section_id }}">
