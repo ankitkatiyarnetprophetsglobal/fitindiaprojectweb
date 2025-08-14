@@ -2,109 +2,35 @@
 @section('title', 'Login | Fit India')
 @section('content')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/secuirty-audit
 <section class="log_sec">
   <div class="container">
     <div class="row">
-      
+
       <div class="col-12 signup_frm frm-details-login">
          <div class="frontlogin ">
-<<<<<<< HEAD
-            <form action="{{ route('login') }}" method="POST" id="frontadmin" novalidate="novalidate">	
-				    @csrf
-                @if (Session::has('succ'))
-                  <div class="alert alert-success">
-                    <strong>Success !!</strong> {{ Session::get('succ') }}
-=======
-            <form action="{{ route('login') }}" method="POST" id="frontadmin" novalidate="novalidate">  
+            <form action="{{ route('login') }}" method="POST" id="frontadmin" novalidate="novalidate">
                     @csrf
                 @if (Session::has('succ'))
                   <div class="alert alert-success">
                     <strong>Success !!</strong> {{ Str::limit(e(Session::get('succ')), 100) }}
->>>>>>> feature/secuirty-audit
                   </div>
-                @endif 
-                <p>New to site? 
+                @endif
+                <p>New to site?
                    <a id="fi_signup" href="{{ route('register') }}">Create an Account</a>
                 </p>
-        
+
                <div class="frm-details log_div">
-                 <h1>{{ __('Login') }}</h1>               
-                 
-                 <div class="login-row" style="display:block;"> 
-<<<<<<< HEAD
-                 <label for="username">Email / Username</label>
-					<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus>
+                 <h1>{{ __('Login') }}</h1>
 
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror								
-                 </div>
-                 <div class="login-row" style="display:block;"> 
-					<label for="password">Password</label>          
-					<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="off" required>
-
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-								
-                  </div>
-				  
-                  <div class="login-row"> 
-                     <div class="um-field" id="capcha-page-cont">
-					   <label for="captcha">Please Enter the Captcha Text</label><br>
-					   <div style="float:left; width:115px;  margin: 6px 0;" id="pagecaptcha-cont">
-							<div class="captchaimg">
-								<span>{!! captcha_img() !!}</span>
-							</div>
-						</div>
-					   <div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;">
-						 <button type="button" class="btn btn-info" class="reload" id="reload"> ↻ </button>
-					   </div>
-					   
-					   <div style="float:left;" class="cap_width_login">
-						   <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
-							@error('captcha')
-								<span class="invalid-feedback" role="alert" >
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
-					   </div>
-					   <div style="clear:both;"></div>
-				   </div>
-                 </div>
-				 
-				 
-				<!--  <div class="login-row">
-                            
-                                <div class="">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            
-                </div> -->
-						
-                <div class="register-row-submit">
-                 <input class="submit_button" type="submit" value="LOGIN">
-=======
+                 <div class="login-row" style="display:block;">
                  <label for="email">Email / Username</label>
-                    <input id="email" 
-                           type="email" 
-                           class="form-control @error('email') is-invalid @enderror" 
-                           name="email" 
-                           value="{{ old('email') }}" 
-                           required 
-                           autocomplete="off" 
+                    <input id="email"
+                           type="email"
+                           class="form-control @error('email') is-invalid @enderror"
+                           name="email"
+                           value="{{ old('email') }}"
+                           required
+                           autocomplete="off"
                            autofocus
                            maxlength="255"
                            pattern="[a-zA-Z0-9@._-]+"
@@ -114,15 +40,15 @@
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ e($message) }}</strong>
                 </span>
-            @enderror                               
+            @enderror
                  </div>
-                 <div class="login-row" style="display:block;"> 
-                    <label for="password">Password</label>          
-                    <input id="password" 
-                           type="password" 
-                           class="form-control @error('password') is-invalid @enderror" 
-                           name="password" 
-                           autocomplete="off" 
+                 <div class="login-row" style="display:block;">
+                    <label for="password">Password</label>
+                    <input id="password"
+                           type="password"
+                           class="form-control @error('password') is-invalid @enderror"
+                           name="password"
+                           autocomplete="off"
                            required
                            maxlength="255"
                            minlength="6">
@@ -132,10 +58,10 @@
                     <strong>{{ e($message) }}</strong>
                 </span>
             @enderror
-                                
+
                   </div>
-                  
-                  <div class="login-row"> 
+
+                  <div class="login-row">
                      <div class="um-field" id="capcha-page-cont">
                        <label for="captcha">Please Enter the Captcha Text</label><br>
                        <div style="float:left; width:115px;  margin: 6px 0;" id="pagecaptcha-cont">
@@ -146,13 +72,13 @@
                        <div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;">
                          <button type="button" class="btn btn-info reload-captcha" id="reload"> ↻ </button>
                        </div>
-                       
+
                        <div style="float:left;" class="cap_width_login">
-                           <input type="text" 
-                                  id="captcha" 
-                                  name="captcha" 
-                                  class="form-control @error('captcha') is-invalid @enderror" 
-                                  required  
+                           <input type="text"
+                                  id="captcha"
+                                  name="captcha"
+                                  class="form-control @error('captcha') is-invalid @enderror"
+                                  required
                                   placeholder="Captcha"
                                   maxlength="10"
                                   pattern="[a-zA-Z0-9]+"
@@ -166,114 +92,28 @@
                        <div style="clear:both;"></div>
                    </div>
                  </div>
-                        
+
                 <div class="register-row-submit">
                  <input class="submit_button" type="submit" value="LOGIN" id="login-submit">
->>>>>>> feature/secuirty-audit
 </div>
 
-               </div>  
+               </div>
                </form>
-<<<<<<< HEAD
-			   <br>
-			   @if (Route::has('password_change'))
-				<p class="forgot-pass"><a href="{{ route('password_change') }}">{{ __('Lost your password?') }}</a></p>
-			   @endif
-=======
                <br>
                @if (Route::has('password_change'))
                 <p class="forgot-pass"><a href="{{ route('password_change') }}">{{ __('Lost your password?') }}</a></p>
                @endif
->>>>>>> feature/secuirty-audit
          </div>
       </div>
     </div>
 
   </div>
- 
+
 </section>
-<<<<<<< HEAD
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script> --}}
-<script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
-<script>
-    
-jQuery('#reload').click(function () {
-    jQuery.ajax({
-    type: 'GET',
-    url: 'reloadcaptcha',
-    success: function (data) {
-		jQuery(".captchaimg span").html(data.captcha);
-    }
-    });
-});
-
-///Crypto js 
-var CryptoJSAesJson = {
-    stringify: function (cipherParams) {
-        var j = {ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)};
-        if (cipherParams.iv) j.iv = cipherParams.iv.toString();
-        if (cipherParams.salt) j.s = cipherParams.salt.toString();
-        return JSON.stringify(j);
-    },
-    parse: function (jsonStr) {
-        var j = JSON.parse(jsonStr);
-        var cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Base64.parse(j.ct)});
-        if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv)
-        if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s)
-        return cipherParams;
-    }
-}
-// var encrypted = CryptoJS.AES.encrypt(JSON.stringify("Sai@1234"), "64", {format: CryptoJSAesJson}).toString();
-// document.write(encrypted);
-// var decrypted = JSON.parse(CryptoJS.AES.decrypt(encrypted, "64", {format: CryptoJSAesJson}).toString(CryptoJS.enc.Utf8));
-// document.write(decrypted);
-///Crypto js 
-
-
-
-
-
-
-$('#frontadmin').on('submit',function(e){
-    e.preventDefault;
-    let raw_password = $('#password').val();
-
-    let encrypt_pass = CryptoJS.AES.encrypt(JSON.stringify(raw_password), "64", {format: CryptoJSAesJson}).toString();
-
-    console.log('pass',encrypt_pass);
-    $('#password').val(encrypt_pass);
-
-})
-
-$( document ).ready(function() {
-    $('password').attr('autocomplete','off');
-});
-
-
-
-// const hashValue = val =>
-//   crypto.subtle
-//     .digest('SHA-256', new TextEncoder('utf-8').encode(val))
-//     .then(h => {
-//       let hexes = [],
-//         view = new DataView(h);
-//       for (let i = 0; i < view.byteLength; i += 4)
-//         hexes.push(('00000000' + view.getUint32(i).toString(16)).slice(-8));
-//       return hexes.join('');
-//     });
-
-//     console.log(hashValue(111111));
-// hashValue(
-//   JSON.stringify(111111)).then(console.log);  
-</script>
-
-
-@endsection
-=======
 
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
 <script>
-    
+
 // Secure CAPTCHA reload with CSRF protection and rate limiting
 let captchaReloadCount = 0;
 const maxCaptchaReloads = 10;
@@ -283,9 +123,9 @@ jQuery('#reload').click(function () {
         alert('Too many captcha reload attempts. Please refresh the page.');
         return;
     }
-    
+
     captchaReloadCount++;
-    
+
     jQuery.ajax({
         type: 'GET',
         url: '{{ route("reloadCaptcha") }}', // Use named route instead of hardcoded URL
@@ -337,14 +177,14 @@ $('#frontadmin').on('submit', function(e) {
     let email = $('#email').val();
     let password = $('#password').val();
     let captcha = $('#captcha').val();
-    
+
     // Client-side input validation
     if (!email || email.length > 255) {
         alert('Please enter a valid email address.');
         e.preventDefault();
         return false;
     }
-    
+
     // Email format validation
     const emailRegex = /^[a-zA-Z0-9@._-]+$/;
     if (!emailRegex.test(email)) {
@@ -352,19 +192,19 @@ $('#frontadmin').on('submit', function(e) {
         e.preventDefault();
         return false;
     }
-    
+
     if (!password || password.length < 6 || password.length > 255) {
         alert('Password must be between 6 and 255 characters.');
         e.preventDefault();
         return false;
     }
-    
+
     if (!captcha || captcha.length > 10) {
         alert('Please enter a valid captcha.');
         e.preventDefault();
         return false;
     }
-    
+
     // Captcha validation
     const captchaRegex = /^[a-zA-Z0-9]+$/;
     if (!captchaRegex.test(captcha)) {
@@ -372,28 +212,28 @@ $('#frontadmin').on('submit', function(e) {
         e.preventDefault();
         return false;
     }
-    
+
     try {
         // Encrypt password securely
         let encrypt_pass = CryptoJS.AES.encrypt(JSON.stringify(password), "64", {format: CryptoJSAesJson}).toString();
-        
+
         // Validate encrypted length
         if (encrypt_pass.length > 2000) {
             alert('Password encryption failed. Please try again.');
             e.preventDefault();
             return false;
         }
-        
+
         $('#password').val(encrypt_pass);
-        
+
         // Disable submit button to prevent double submission
         $('#login-submit').prop('disabled', true).val('Logging in...');
-        
+
         // Re-enable after timeout
         setTimeout(function() {
             $('#login-submit').prop('disabled', false).val('LOGIN');
         }, 10000);
-        
+
     } catch (error) {
         console.error('Encryption error:', error);
         alert('Password encryption failed. Please try again.');
@@ -437,23 +277,23 @@ $(document).ready(function() {
     // Security headers and settings
     $('form').attr('autocomplete', 'off');
     $('#password').attr('autocomplete', 'new-password');
-    
+
     // Prevent right-click on sensitive fields
     $('#password, #captcha').on('contextmenu', function(e) {
         return false;
     });
-    
+
     // Clear sensitive data on page unload
     $(window).on('beforeunload', function() {
         $('#password').val('');
         $('#captcha').val('');
     });
-    
+
     // Add CSRF token to meta if not present
     if (!$('meta[name="csrf-token"]').length) {
         $('head').append('<meta name="csrf-token" content="{{ csrf_token() }}">');
     }
-    
+
     // Session timeout warning
     let sessionTimeout = {{ config('session.lifetime') * 60000 - 300000 }}; // 5 minutes before expiry
     setTimeout(function() {
@@ -469,4 +309,3 @@ window.addEventListener('securitypolicyviolation', function(e) {
 </script>
 
 @endsection
->>>>>>> feature/secuirty-audit
