@@ -22,7 +22,10 @@ use App\Models\District;
 use App\Models\Block;
 use App\Models\WebsiteBanner;
 use App\Models\EventArchive;
+<<<<<<< HEAD
 use App\Models\Storeeventuserimage;
+=======
+>>>>>>> feature/secuirty-audit
 
 class GeneralController extends Controller
 {
@@ -1094,6 +1097,7 @@ class GeneralController extends Controller
     }
 
 
+<<<<<<< HEAD
     public function nsd_upload_image(Request $request)
 	{
 		try{
@@ -1203,4 +1207,6 @@ class GeneralController extends Controller
 		}
 	}
 
+=======
+>>>>>>> feature/secuirty-audit
 }

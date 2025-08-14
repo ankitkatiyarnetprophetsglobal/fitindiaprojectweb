@@ -23,6 +23,12 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\CacheControl::class,
+<<<<<<< HEAD
+=======
+        // ⭐ SECURITY FIX: Add Security Headers Middleware
+          \App\Http\Middleware\RestrictHttpMethods::class,
+        \App\Http\Middleware\SecurityHeaders::class,
+>>>>>>> feature/secuirty-audit
     ];
 
     /**
@@ -40,11 +46,20 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\Localization::class,
+<<<<<<< HEAD
         ],
 
 		/* 'api' => [
 			'throttle:600000,1',
 		], */
+=======
+             \App\Http\Middleware\SingleSessionMiddleware::class,
+        ],
+
+        /* 'api' => [
+            'throttle:600000,1',
+        ], */
+>>>>>>> feature/secuirty-audit
 
         'api' => [
             //'throttle:api',
@@ -69,8 +84,18 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+<<<<<<< HEAD
 		'xssprotect'  => \App\Http\Middleware\XSSprotect::class,
         'schoolquiz' => \App\Http\Middleware\QuizMiddleware::class,
         'limit.ip' => \App\Http\Middleware\LimitRequestsByIp::class
+=======
+        'xssprotect'  => \App\Http\Middleware\XSSprotect::class,
+        'schoolquiz' => \App\Http\Middleware\QuizMiddleware::class,
+        'limit.ip' => \App\Http\Middleware\LimitRequestsByIp::class,
+          // ⭐ SECURITY: Add security middleware aliases
+        'restrict.methods' => \App\Http\Middleware\RestrictHttpMethods::class,
+        'security.headers' => \App\Http\Middleware\SecurityHeaders::class,
+        'single.session' => \App\Http\Middleware\SingleSessionMiddleware::class,
+>>>>>>> feature/secuirty-audit
     ];
 }

@@ -22,10 +22,17 @@ $active_section_id = trim($active_section);
         <div class="col-sm-12">
           <h1 class="headingh1">FIT INDIA PLEDGE</h1>
           <p>
+<<<<<<< HEAD
             <img src="{{ asset('resources/imgs/pledge/2025/nsd2025english.jpeg') }}" class="d-block w-100" alt="Fit-india-week-2023" title="Fit-india-week-2023">
           </p>
           <p>
             <img src="{{ asset('resources/imgs/pledge/2025/nsd2025hindi.jpeg') }}" class="d-block w-100" alt="Fit-india-week-2023" title="Fit-india-week-2023">
+=======
+            <img src="{{ asset('resources/imgs/pledge/2024/english.jpeg') }}" class="d-block w-100" alt="Fit-india-week-2023" title="Fit-india-week-2023">
+          </p>
+          <p>
+            <img src="{{ asset('resources/imgs/pledge/2024/hindi.jpeg') }}" class="d-block w-100" alt="Fit-india-week-2023" title="Fit-india-week-2023">
+>>>>>>> feature/secuirty-audit
           </p>
 		        {{-- <p>
               <b>I take the pledge: </b>
