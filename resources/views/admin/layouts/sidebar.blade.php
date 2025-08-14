@@ -380,7 +380,6 @@
                                 </a>
                             </li>
                         </ul>
-
                     </li>
                 @endif
                 @if(!in_array($admins_role, array(2,3,4,6,7,8,9)))

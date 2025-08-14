@@ -26,6 +26,10 @@ use App\Http\Controllers\Admin\Auth\ChampController;
 use App\Http\Controllers\Admin\Auth\PostController;
 use App\Http\Controllers\Admin\Auth\SoceventController;
 use App\Http\Controllers\Admin\Auth\MaganageDashboardController ;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\Admin\Auth\MaganageImageStatusController ;
+>>>>>>> master
 use App\Http\Controllers\Admin\Auth\PostCatController;
 use App\Http\Controllers\Admin\Auth\FoodnameController;
 use App\Http\Controllers\Admin\Auth\FoodquantityController;
@@ -219,6 +223,18 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
     Route::resource('dashboard-tiles', MaganageDashboardController::class);
+<<<<<<< HEAD
+=======
+    //Images Status Approve
+    Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
+    Route::post('/image_approve/{id}', [MaganageImageStatusController::class, 'image_approve'])->name('image-approve');
+    Route::post('/image_reject/{id}', [MaganageImageStatusController::class, 'image_reject'])->name('image-reject');
+    Route::post('/image_status/{id}', [MaganageImageStatusController::class, 'image_updateStatus'])->name('image-status');
+    Route::post('/image_bulk_approve', [MaganageImageStatusController::class, 'image_bulkApprove'])->name('image-bulk-approve');
+    Route::post('/image_bulk_reject', [MaganageImageStatusController::class, 'image_bulkReject'])->name('image-bulk-reject');
+    // End Images Status 
+
+>>>>>>> master
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
     Route::get('destroy-soc-admin-id/{id}', [SoceventController::class, 'destroy_soc_admin_id'])->name('destroysocadminid');
@@ -312,6 +328,7 @@ Route::namespace("socadmin")->prefix('socadmin')->group(function(){
     Route::POST('/kicformstore', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_store_form'])->name('kicadmin.kicstoreform');
     Route::get('/kicformedit/{id}', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_edit_form'])->name('kicadmin.socstoreedit');
     Route::POST('/kicformupdate', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_update_form'])->name('kicadmin.kicupdateform');
+<<<<<<< HEAD
 
 
     // Route::resource('kicform', [App\Http\Controllers\Kicadmin\HomeController::class, 'index'])->name('index');
@@ -324,6 +341,13 @@ Route::namespace("socadmin")->prefix('socadmin')->group(function(){
 
     // });
 
+=======
+    Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
+    Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
+    Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
+    Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
+
+>>>>>>> master
 });
 
 //Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
