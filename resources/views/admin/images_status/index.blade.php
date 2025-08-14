@@ -7,6 +7,9 @@
         margin-bottom: 0 !important;
         margin-right: 10px;
     }
+    .bulk-button {
+    margin: 8px !important;
+}
 
     .btn-sm {
         padding: .375rem .75rem;
@@ -151,7 +154,7 @@
                         </form>
 
                         <!-- Bulk Actions -->
-                        <div class="mb-3">
+                        <div class="bulk-button">
                             <button type="button" class="btn btn-success" id="bulk-approve-btn" disabled>
                                 <i class="fas fa-check"></i> Bulk Approve
                             </button>
@@ -159,6 +162,7 @@
                                 <i class="fas fa-times"></i> Bulk Reject
                             </button>
                             <span id="selected-count" class="ml-2 text-muted">0 selected</span>
+                            
                         </div>
 
                         <!-- Users Table -->
@@ -365,6 +369,7 @@
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('approve-btn')) {
                 const userId = e.target.getAttribute('data-id');
+
                 if (confirm('Are you sure you want to approve this user?')) {
                     makeRequest(`image_approve/${userId}`)
                         .then(response => response.json())
