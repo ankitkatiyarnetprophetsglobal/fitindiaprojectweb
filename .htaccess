@@ -19,8 +19,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
-<<<<<<< HEAD
-=======
 
 # .htaccess adds:Security Point 04-08-2025
 php_value session.cookie_secure 1
@@ -36,4 +34,3 @@ Header always set X-Frame-Options "DENY"
 # Alternative method with RewriteRule
 RewriteCond %{REQUEST_METHOD} ^(OPTIONS)$ [NC]
 RewriteRule .* - [R=405,L]
->>>>>>> feature/secuirty-audit

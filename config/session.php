@@ -168,11 +168,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'secure' => env('SESSION_SECURE_COOKIE'),
-=======
     'secure' => env('SESSION_SECURE_COOKIE',true),
->>>>>>> feature/secuirty-audit
 
     /*
     |--------------------------------------------------------------------------

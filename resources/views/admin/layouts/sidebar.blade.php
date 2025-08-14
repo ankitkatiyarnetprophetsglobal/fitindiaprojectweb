@@ -370,7 +370,6 @@
                                 </a>
                             </li>
                         </ul>
-<<<<<<< HEAD
                                 <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.image_index') }}" class="nav-link @if($routename =='admin.image_index') {{ 'active'  }} @endif">
@@ -379,8 +378,6 @@
                                 </a>
                             </li>
                         </ul>
-=======
->>>>>>> feature/secuirty-audit
                     </li>
                 @endif
                 @if(!in_array($admins_role, array(2,3,4,6,7,8,9)))
