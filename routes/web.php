@@ -26,10 +26,6 @@ use App\Http\Controllers\Admin\Auth\ChampController;
 use App\Http\Controllers\Admin\Auth\PostController;
 use App\Http\Controllers\Admin\Auth\SoceventController;
 use App\Http\Controllers\Admin\Auth\MaganageDashboardController ;
-<<<<<<< HEAD
-use App\Http\Controllers\Admin\Auth\MaganageImageStatusController ;
-=======
->>>>>>> feature/secuirty-audit
 use App\Http\Controllers\Admin\Auth\PostCatController;
 use App\Http\Controllers\Admin\Auth\FoodnameController;
 use App\Http\Controllers\Admin\Auth\FoodquantityController;
@@ -223,18 +219,6 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
     Route::resource('dashboard-tiles', MaganageDashboardController::class);
-<<<<<<< HEAD
-    //Images Status Approve
-    Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
-    Route::post('/image_approve/{id}', [MaganageImageStatusController::class, 'image_approve'])->name('image-approve');
-    Route::post('/image_reject/{id}', [MaganageImageStatusController::class, 'image_reject'])->name('image-reject');
-    Route::post('/image_status/{id}', [MaganageImageStatusController::class, 'image_updateStatus'])->name('image-status');
-    Route::post('/image_bulk_approve', [MaganageImageStatusController::class, 'image_bulkApprove'])->name('image-bulk-approve');
-    Route::post('/image_bulk_reject', [MaganageImageStatusController::class, 'image_bulkReject'])->name('image-bulk-reject');
-    // End Images Status
-
-=======
->>>>>>> feature/secuirty-audit
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
     Route::get('destroy-soc-admin-id/{id}', [SoceventController::class, 'destroy_soc_admin_id'])->name('destroysocadminid');
@@ -322,25 +306,14 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
 });
 
 Route::namespace("socadmin")->prefix('socadmin')->group(function(){
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/secuirty-audit
     Route::get('/dashboard', [App\Http\Controllers\Socadmin\HomeController::class, 'dashboard'])->name('socadmin.dashboard');
     Route::get('/kicform', [App\Http\Controllers\Socadmin\HomeController::class, 'kicformindex'])->name('kicadmin.kicform');
     Route::get('/kiccreateform', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_create_form'])->name('kicadmin.kiccreateform');
     Route::POST('/kicformstore', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_store_form'])->name('kicadmin.kicstoreform');
     Route::get('/kicformedit/{id}', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_edit_form'])->name('kicadmin.socstoreedit');
     Route::POST('/kicformupdate', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_update_form'])->name('kicadmin.kicupdateform');
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-    Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
-    Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
-    Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
-    Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
 
-=======
+
     // Route::resource('kicform', [App\Http\Controllers\Kicadmin\HomeController::class, 'index'])->name('index');
     // Route::namespace('Auth')->group(function(){
     //  Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
@@ -350,8 +323,7 @@ Route::namespace("socadmin")->prefix('socadmin')->group(function(){
     //  Route::post('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
 
     // });
->>>>>>> feature/secuirty-audit
->>>>>>> b0087c0e714b44eec06745a61923daf6e0300b38
+
 });
 
 //Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
@@ -644,11 +616,8 @@ Route::post('reset_password_without_token', [App\Http\Controllers\PasswordresetC
 Route::post('reset_password', [App\Http\Controllers\PasswordresetController::class, 'resetPassword'])->name('reset_password');
 Route::get('your-story', [App\Http\Controllers\GeneralController::class, 'shareStory'])->name('your-story');
 Route::post('save-story', [App\Http\Controllers\GeneralController::class, 'saveStory'])->name('save-story');
-<<<<<<< HEAD
 Route::get('nsd-upload-image', [App\Http\Controllers\GeneralController::class, 'nsd_upload_image'])->name('nsd-upload-image');
 Route::post('save-upload-image', [App\Http\Controllers\GeneralController::class, 'save_upload_image'])->name('save-upload-image');
-=======
->>>>>>> feature/secuirty-audit
 //Route::get('school-quiz', [App\Http\Controllers\GeneralController::class, 'schoolQuiz'])->name('school-quiz');
 //Route::post('save-quiz', [App\Http\Controllers\GeneralController::class, 'saveQuiz'])->name('save-quiz');
 Route::view('fitness-from-home-series','fitness-from-home-series');
@@ -837,11 +806,8 @@ Route::get('demandreport2023', [\App\Http\Controllers\CsveventController::class,
 Route::get('one-year-users', [\App\Http\Controllers\CsveventController::class, 'one_year_users']);
 Route::get('soc-event-report', [\App\Http\Controllers\CsveventController::class, 'socEventReport13072025']);
 Route::get('soc-event-report-data', [\App\Http\Controllers\CsveventController::class, 'socEventReportdata13072025']);
-<<<<<<< HEAD
 Route::get('soc-report-both-table-data', [\App\Http\Controllers\CsveventController::class, 'soc_report_both_data']);
 Route::get('soc-report-cycle-return-data', [\App\Http\Controllers\CsveventController::class, 'soc_report_cycle_return_data']);
-=======
->>>>>>> feature/secuirty-audit
 // Route::get('all_data_registration', [\App\Http\Controllers\CsveventController::class, 'all_data_registration']);
 
 Route::get('delete-user-details', [\App\Http\Controllers\CsveventController::class, 'delete_user_detail']);
