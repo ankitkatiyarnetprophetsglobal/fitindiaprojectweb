@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\DistrictController;
 use App\Http\Controllers\Admin\Auth\BlockController;
 //use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\EventController;*/
+
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\StateController;
@@ -25,8 +26,8 @@ use App\Http\Controllers\Admin\Auth\AmbsController;
 use App\Http\Controllers\Admin\Auth\ChampController;
 use App\Http\Controllers\Admin\Auth\PostController;
 use App\Http\Controllers\Admin\Auth\SoceventController;
-use App\Http\Controllers\Admin\Auth\MaganageDashboardController ;
-use App\Http\Controllers\Admin\Auth\MaganageImageStatusController ;
+use App\Http\Controllers\Admin\Auth\MaganageDashboardController;
+use App\Http\Controllers\Admin\Auth\MaganageImageStatusController;
 use App\Http\Controllers\Admin\Auth\PostCatController;
 use App\Http\Controllers\Admin\Auth\FoodnameController;
 use App\Http\Controllers\Admin\Auth\FoodquantityController;
@@ -38,8 +39,11 @@ use App\Http\Controllers\Api\YourStoriesController;
 use App\Http\Controllers\PasswordresetController;
 use App\Http\Controllers\FitnessquizController;
 use App\Http\Controllers\fitindiaquizresultdata;
+
 /******************nagendra ********************************/
+
 use App\Http\Controllers\LocalizationController;
+
 /******************nagendra ********************************/
 
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -85,29 +89,30 @@ use App\Http\Controllers\Admin\Auth\QuizMaster\QueryExportController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('testing',[App\Http\Controllers\HomeController::class,'testing']);
+
+Route::get('testing', [App\Http\Controllers\HomeController::class, 'testing']);
 //Route::get('/', function () {    return view('welcome'); });
 
 Route::group(['middleware' => ['xssprotect']], function () {
     Auth::routes();
 });
-Route::get('/clear-cache-all', function() {
+Route::get('/clear-cache-all', function () {
     Artisan::call('config:clear');
     // Artisan::call('cache:clear');
     dd("Cache Clear All");
 });
 
-Route::get('/clear-view-cache', function() {
+Route::get('/clear-view-cache', function () {
     $exitCode = Artisan::call('view:clear');
     $exitCode = Artisan::call('cache:clear');
     return 'View cache has jut been removed';
 });
 
-Route::get('/fitindia-site-down-site-sal-46mkeB8yaQZ7Lego7nRo', function() {
+Route::get('/fitindia-site-down-site-sal-46mkeB8yaQZ7Lego7nRo', function () {
     $exitCode = Artisan::call('down');
     return 'down';
 });
-Route::get('/fitindia-site-up-site-sal-Pk9tpVWSYUsJTqUhDTN7', function() {
+Route::get('/fitindia-site-up-site-sal-Pk9tpVWSYUsJTqUhDTN7', function () {
     Artisan::call('up');
     return 'up';
 });
@@ -125,100 +130,104 @@ Route::get('/fitindia-site-up-site-sal-Pk9tpVWSYUsJTqUhDTN7', function() {
 
 //Route::get('update-password/{token?}', [ResetPasswordController::class,'showResetForm'])->name('password.reset');
 
-Route::get('update-password/{token?}', [ResetPasswordController::class,'showResetForm'])->name('showResetForm');
+Route::get('update-password/{token?}', [ResetPasswordController::class, 'showResetForm'])->name('showResetForm');
 
 //Route::get('update-password/{token?}', 'Auth\ForgotPasswordController@showLinkRequestForm');
-Route::post('/update_password', [App\Http\Controllers\Api\ChanagePasswordController::class,'updatePassword'])->name('updatePassword');
+Route::post('/update_password', [App\Http\Controllers\Api\ChanagePasswordController::class, 'updatePassword'])->name('updatePassword');
 
-Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], function(){
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin'], function () {
     //freedomrun start
-    Route::resource('webreward',WebrewardController::class);
-    Route::get('freedomrun_partners',[FreedomrunbackendController::class,'pexport']);
-    Route::get('freedomrun_export',[FreedomrunbackendController::class,'export']);
+    Route::resource('webreward', WebrewardController::class);
+    Route::get('freedomrun_partners', [FreedomrunbackendController::class, 'pexport']);
+    Route::get('freedomrun_export', [FreedomrunbackendController::class, 'export']);
     Route::resource('freedomrun-individual', FreedomrunbackendController::class);
     Route::get('freedomrun-partner', [FreedomrunbackendController::class, 'partner'])->name('partner');
     Route::get('freedomrun-organizer', [FreedomrunbackendController::class, 'organizer'])->name('organizer');
-    Route::get('partner-activation/{ambs}/{aid}',[FreedomrunbackendController::class,'partnerActive']);
-    Route::post('partner-activation',[FreedomrunbackendController::class,'partnerActive']);
-    Route::get('freedomrun-partner/{id}/pedit',[FreedomrunbackendController::class,'partnerEstatus'])->name('freedomrun-partner.pedit');
-    Route::delete('freedomrun-partner/{id}/pdestroy',[FreedomrunbackendController::class,'partnerDelete'])->name('freedomrun-partner.pdestroy');
-    Route::delete('freedomrun-organizer/{id}/odestroy',[FreedomrunbackendController::class,'organizerDelete'])->name('freedomrun-organizer.odestroy');
-    Route::patch('freedomrun-partner/{id}/pupdate',[FreedomrunbackendController::class,'partnerUpstatus'])->name('freedomrun-partner.pupdate');
-    Route::get('freedomrun-organizer/{id}/orgedit',[FreedomrunbackendController::class,'organizerEstatus'])->name('freedomrun-organizer.orgedit');
-    Route::patch('freedomrun-organizer/{id}/pupdate',[FreedomrunbackendController::class,'organizerUpstatus'])->name('freedomrun-organizer.pupdate');
+    Route::get('partner-activation/{ambs}/{aid}', [FreedomrunbackendController::class, 'partnerActive']);
+    Route::post('partner-activation', [FreedomrunbackendController::class, 'partnerActive']);
+    Route::get('freedomrun-partner/{id}/pedit', [FreedomrunbackendController::class, 'partnerEstatus'])->name('freedomrun-partner.pedit');
+    Route::delete('freedomrun-partner/{id}/pdestroy', [FreedomrunbackendController::class, 'partnerDelete'])->name('freedomrun-partner.pdestroy');
+    Route::delete('freedomrun-organizer/{id}/odestroy', [FreedomrunbackendController::class, 'organizerDelete'])->name('freedomrun-organizer.odestroy');
+    Route::patch('freedomrun-partner/{id}/pupdate', [FreedomrunbackendController::class, 'partnerUpstatus'])->name('freedomrun-partner.pupdate');
+    Route::get('freedomrun-organizer/{id}/orgedit', [FreedomrunbackendController::class, 'organizerEstatus'])->name('freedomrun-organizer.orgedit');
+    Route::patch('freedomrun-organizer/{id}/pupdate', [FreedomrunbackendController::class, 'organizerUpstatus'])->name('freedomrun-organizer.pupdate');
 
-    Route::delete('partnerDeleteAll',[FreedomrunbackendController::class,'partnerdeleteAll']);
+    Route::delete('partnerDeleteAll', [FreedomrunbackendController::class, 'partnerdeleteAll']);
 
 
     //End freedom run
 
-    Route::post('prerak-activation',[PrkController::class,'active']);
-    Route::get('preraklist', [PrkController::class,'index']);
-    Route::get('prerakdetails/{pid}', [PrkController::class,'show']);
-    Route::get('prerak_export',[PrkController::class,'exportPrerak']);
-    Route::post('influencer-upgrade',[PrkController::class,'influencerUpgrade']);
+    Route::post('prerak-activation', [PrkController::class, 'active']);
+    Route::get('preraklist', [PrkController::class, 'index']);
+    Route::get('prerakdetails/{pid}', [PrkController::class, 'show']);
+    Route::get('prerak_export', [PrkController::class, 'exportPrerak']);
+    Route::post('influencer-upgrade', [PrkController::class, 'influencerUpgrade']);
 
-    Route::post('enthusiast-activation',[FitEnthController::class,'active']);
-    Route::get('enthusiastlist', [FitEnthController::class,'index']);
-    Route::get('enthusiastdetails/{pid}', [FitEnthController::class,'show']);
-    Route::get('enthusiast_export',[FitEnthController::class,'exportEnthusiast']);
-    Route::post('fitevent-specialist-upgrade',[FitEnthController::class,'fitnessEventUpgrade']);
+    Route::post('enthusiast-activation', [FitEnthController::class, 'active']);
+    Route::get('enthusiastlist', [FitEnthController::class, 'index']);
+    Route::get('enthusiastdetails/{pid}', [FitEnthController::class, 'show']);
+    Route::get('enthusiast_export', [FitEnthController::class, 'exportEnthusiast']);
+    Route::post('fitevent-specialist-upgrade', [FitEnthController::class, 'fitnessEventUpgrade']);
 
     Route::resource('quizs', QuizController::class);
-    Route::get('quiz_export',[QuizController::class,'quizExport']);
+    Route::get('quiz_export', [QuizController::class, 'quizExport']);
 
     Route::resource('quizwinners', QuizWinnerController::class);
-    Route::get('quiz_winner_export',[QuizWinnerController::class,'quizwinnerexport']);
+    Route::get('quiz_winner_export', [QuizWinnerController::class, 'quizwinnerexport']);
 
     Route::get('quiz-organizers', [QuizOrgController::class, 'index'])->name('quizorganizer');
     Route::get('quiz-organizers-export', [QuizOrgController::class, 'quizorgexport'])->name('quizorganizerexport');
 
-    Route::get('deletequizorg/{id}',[QuizOrgController::class, 'deletequizorg'])->name('deletequizorg');
+    Route::get('deletequizorg/{id}', [QuizOrgController::class, 'deletequizorg'])->name('deletequizorg');
     Route::resource('eventarchive', EventArchiveController::class);
     Route::resource('bulletin', BulletinController::class);
 
-    Route::get('localbodylist/{id?}',[AmbsController::class, 'localbodyAmbDetail'])->name('localbodyAmbDetail');
+    Route::get('localbodylist/{id?}', [AmbsController::class, 'localbodyAmbDetail'])->name('localbodyAmbDetail');
 
     Route::resource('states', StateController::class);
     Route::resource('districts', DistrictController::class);
     Route::resource('blocks', BlockController::class);
     Route::resource('users', UserController::class);
-    Route::get('user_export',[UserController::class,'userExport']);
+    Route::get('user_export', [UserController::class, 'userExport']);
     //Route::get('user_pdf',[UserController::class,'createPDF']);
-    Route::get('edit-user/{id}',[UserController::class,'editUser']);
-    Route::get('user-destroy/{id}',[UserController::class,'destroyUser']);
+    Route::get('edit-user/{id}', [UserController::class, 'editUser']);
+    Route::get('user-destroy/{id}', [UserController::class, 'destroyUser']);
 
-    Route::post('user-profile-dis',[UserController::class,'userprofileDis'])->name('user-profile-dis');
-    Route::post('user-profile-blk',[UserController::class,'userprofileBlk'])->name('user-profile-blk');
+    Route::post('user-profile-dis', [UserController::class, 'userprofileDis'])->name('user-profile-dis');
+    Route::post('user-profile-blk', [UserController::class, 'userprofileBlk'])->name('user-profile-blk');
     Route::resource('events', EventController::class);
-    Route::get('edit-event/{id}',[EventController::class,'editEvent']);
-    Route::get('events-show/{id}',[EventController::class,'eventShow']);
-    Route::get('event-destroy/{id}',[EventController::class,'destroyEvent']);
+    Route::get('edit-event/{id}', [EventController::class, 'editEvent']);
+    Route::get('events-show/{id}', [EventController::class, 'eventShow']);
+    Route::get('event-destroy/{id}', [EventController::class, 'destroyEvent']);
     //Route::get('search',[UserController::class,'searchData']);
-    Route::get('event_export',[EventController::class,'export']);
+    Route::get('event_export', [EventController::class, 'export']);
     Route::resource('foodcharts', FoodChartController::class);
     Route::resource('sleepcharts', SleepChartController::class);
     Route::resource('eventcats', EventCatController::class);
-    Route::get('status/{type}/{id}',[EventCatController::class,'status']);
+    Route::get('status/{type}/{id}', [EventCatController::class, 'status']);
 
-    Route::resource('ambassadors',AmbsController::class);
-    Route::get('ambassador-activation/{ambs}/{aid}',[AmbsController::class,'ambsActive']);
-    Route::post('ambassador-activation',[AmbsController::class,'ambsActive']);
-    Route::get('ambassador_export',[AmbsController::class,'exportAmbassador']);
-    Route::get('panchayatlist',[AmbsController::class,'gramPanchayatAmbassadorList']);
-    Route::get('panchayatdetail',[AmbsController::class,'gramPanchayatAmbDetail']);
+    Route::resource('ambassadors', AmbsController::class);
+    Route::get('ambassador-activation/{ambs}/{aid}', [AmbsController::class, 'ambsActive']);
+    Route::post('ambassador-activation', [AmbsController::class, 'ambsActive']);
+    Route::get('ambassador_export', [AmbsController::class, 'exportAmbassador']);
+    Route::get('panchayatlist', [AmbsController::class, 'gramPanchayatAmbassadorList']);
+    Route::get('panchayatdetail', [AmbsController::class, 'gramPanchayatAmbDetail']);
     /*  Route::post('panchayat-ambassador-list',[AmbsController::class,'gramPanchayatAmbassadorList']);*/
 
 
     Route::resource('champions', ChampController::class);
-    Route::get('champion_export',[ChampController::class,'exportChamp']);
-    Route::get('champ-status/{champ}/{cid}',[ChampController::class,'champStatus']);
-    Route::post('champ-status',[ChampController::class,'champStatus']);
+    Route::get('champion_export', [ChampController::class, 'exportChamp']);
+    Route::get('champ-status/{champ}/{cid}', [ChampController::class, 'champStatus']);
+    Route::post('champ-status', [ChampController::class, 'champStatus']);
     Route::resource('posts', PostController::class);
     Route::resource('socevents', SoceventController::class);
     Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
+    // 18-08-2025 Index page
+    Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
+    Route::get('soc-report-download', [\App\Http\Controllers\SocReportController::class, 'download'])->name('soc-reports.download');
+
     Route::resource('dashboard-tiles', MaganageDashboardController::class);
     //Images Status Approve
     Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
@@ -232,47 +241,47 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
     Route::get('destroy-soc-admin-id/{id}', [SoceventController::class, 'destroy_soc_admin_id'])->name('destroysocadminid');
-    Route::post('nemoclub-dispatch-status',[SoceventController::class,'nemoclub_dispatch_status']);
-    Route::get('send-to-approval/{id}',[PostController::class,'SendToApproval'])->name('SendToApproval');
-    Route::get('ready-to-publish/{id}',[PostController::class,'ReadyToPublish'])->name('ReadyToPublish');
-    Route::get('post-comment-status/{id}/{commitstatus?}/{postid?}',[PostController::class,'PostCommentStatus'])->name('PostCommentStatus');
-    Route::get('rejected/{id}',[PostController::class,'Rejected'])->name('Rejected');
+    Route::post('nemoclub-dispatch-status', [SoceventController::class, 'nemoclub_dispatch_status']);
+    Route::get('send-to-approval/{id}', [PostController::class, 'SendToApproval'])->name('SendToApproval');
+    Route::get('ready-to-publish/{id}', [PostController::class, 'ReadyToPublish'])->name('ReadyToPublish');
+    Route::get('post-comment-status/{id}/{commitstatus?}/{postid?}', [PostController::class, 'PostCommentStatus'])->name('PostCommentStatus');
+    Route::get('rejected/{id}', [PostController::class, 'Rejected'])->name('Rejected');
     Route::resource('category', PostCatController::class);
     Route::resource('foodnames', FoodnameController::class);
     Route::resource('servingquantities', FoodquantityController::class);
-    Route::get('post_status/{post_status}/{id}',[PostCatController::class,'post_status']);
+    Route::get('post_status/{post_status}/{id}', [PostCatController::class, 'post_status']);
     Route::resource('starratings', StarratingstatusController::class);
 
-    Route::get('schoolcert_export',[StarratingstatusController::class,'export']);
+    Route::get('schoolcert_export', [StarratingstatusController::class, 'export']);
 
-    Route::get('starrating-certificate/{cat_id}/{user_id}',[StarratingstatusController::class,'starRatingCertificate']);
-    Route::get('schoolflag/{cat_id}/{user_id}',[StarratingstatusController::class,'FlagRequest']);
+    Route::get('starrating-certificate/{cat_id}/{user_id}', [StarratingstatusController::class, 'starRatingCertificate']);
+    Route::get('schoolflag/{cat_id}/{user_id}', [StarratingstatusController::class, 'FlagRequest']);
     Route::resource('announcement', AnnouncementsController::class);
-    Route::get('announcement/{id}/edit',[AnnouncementsController::class], 'edit');
-    Route::get('announcement/{id}/status',[AnnouncementsController::class,'announStatus'])->name('announcement.status');
+    Route::get('announcement/{id}/edit', [AnnouncementsController::class], 'edit');
+    Route::get('announcement/{id}/status', [AnnouncementsController::class, 'announStatus'])->name('announcement.status');
 
     Route::resource('userimages', UserimagesController::class);
-    Route::get('userimagedeactive/{id}',[UserimagesController::class,'userimagedeactive'])->name('userimagedeactive');
-    Route::get('userimageactive/{id}',[UserimagesController::class,'userimageactive'])->name('userimageactive');
+    Route::get('userimagedeactive/{id}', [UserimagesController::class, 'userimagedeactive'])->name('userimagedeactive');
+    Route::get('userimageactive/{id}', [UserimagesController::class, 'userimageactive'])->name('userimageactive');
 
     /*******************nagendra********************************/
 
     Route::resource('youths', YouthController::class);
-    Route::get('youths_export',[YouthController::class,'export']);
+    Route::get('youths_export', [YouthController::class, 'export']);
 
-        Route::post('/getquizpartner', [App\Http\Controllers\Admin\Auth\QuizController::class, 'getquizpartner'])->name('getquizpartner');
+    Route::post('/getquizpartner', [App\Http\Controllers\Admin\Auth\QuizController::class, 'getquizpartner'])->name('getquizpartner');
 
-    Route::get('/youths/{uid}/{catid}',[App\Http\Controllers\Admin\Auth\YouthController::class,'show'])->name('youths.show');
+    Route::get('/youths/{uid}/{catid}', [App\Http\Controllers\Admin\Auth\YouthController::class, 'show'])->name('youths.show');
 
     Route::get('changepassword', [App\Http\Controllers\Admin\Auth\UserController::class, 'resetpassForm'])->name('changepassword');
     Route::post('resetpassword', [App\Http\Controllers\Admin\Auth\UserController::class, 'resetPassword'])->name('resetpassword');
 
     Route::resource('corporate', CorporatebackendController::class);
-    Route::get('corporatedetail/{cid}',[CorporatebackendController::class,'corporatedetail']);
-    Route::get('corporate_export',[CorporatebackendController::class,'export']);
-    Route::get('gujarat-events',[EventController::class,'gujaratEvent']);
+    Route::get('corporatedetail/{cid}', [CorporatebackendController::class, 'corporatedetail']);
+    Route::get('corporate_export', [CorporatebackendController::class, 'export']);
+    Route::get('gujarat-events', [EventController::class, 'gujaratEvent']);
     Route::resource('pushnotification', PushNotificationController::class);
-    Route::get('pushnotefication',[App\Http\Controllers\Admin\Auth\WebNotificationController::class,'pushnotefication']);
+    Route::get('pushnotefication', [App\Http\Controllers\Admin\Auth\WebNotificationController::class, 'pushnotefication']);
     Route::post('sendingwebnotification', [App\Http\Controllers\Admin\Auth\WebNotificationController::class, 'sendingwebnotification'])->name('sendingwebnotification');
 
 
@@ -290,7 +299,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::resource('app_versions', AppVersionController::class);
     Route::resource('app_banners', AppBannerController::class);
     Route::resource('soc-events', SocEventMasterController::class);
-    Route::post('soc-events-upload', [SocEventMasterController::class,'upload'])->name('socevent.upload');
+    Route::post('soc-events-upload', [SocEventMasterController::class, 'upload'])->name('socevent.upload');
     Route::get('/query-export', [QueryExportController::class, 'index'])->name('query.form');
     Route::post('/query-export', [QueryExportController::class, 'export'])->name('query.export');
     /* 16-07-2025  End Routes for daily Dashboard  */
@@ -298,9 +307,9 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
 
 Route::get('wp-admin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
 
-Route::namespace("Admin")->prefix('admin')->group(function(){
+Route::namespace("Admin")->prefix('admin')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin');
-    Route::namespace('Auth')->group(function(){
+    Route::namespace('Auth')->group(function () {
         Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
         Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.dashboard');
         Route::get('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
@@ -315,7 +324,7 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
     });
 });
 
-Route::namespace("socadmin")->prefix('socadmin')->group(function(){
+Route::namespace("socadmin")->prefix('socadmin')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Socadmin\HomeController::class, 'dashboard'])->name('socadmin.dashboard');
     Route::get('/kicform', [App\Http\Controllers\Socadmin\HomeController::class, 'kicformindex'])->name('kicadmin.kicform');
     Route::get('/kiccreateform', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_create_form'])->name('kicadmin.kiccreateform');
@@ -326,7 +335,6 @@ Route::namespace("socadmin")->prefix('socadmin')->group(function(){
     Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
     Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
     Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
-
 });
 
 //Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
@@ -335,8 +343,8 @@ Route::put('update-profile/{id}', [App\Http\Controllers\Auth\UserController::cla
 //Route::get('school-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
 Route::get('school-profile', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
 Route::put('update-school/{id}', [App\Http\Controllers\Auth\UserController::class, 'updateSchool']);
-Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class,'profileDis'])->name('profile-dis');
-Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class,'profileBlk'])->name('profile-blk');
+Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class, 'profileDis'])->name('profile-dis');
+Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class, 'profileBlk'])->name('profile-blk');
 //UserRegistrationOperation
 
 /*******************nagendra********************************/
@@ -344,8 +352,8 @@ Route::post('/getyouthsdistrict', [App\Http\Controllers\Admin\Auth\YouthControll
 Route::post('/getyouthsblock', [App\Http\Controllers\Admin\Auth\YouthController::class, 'getyouthsblock'])->name('getyouthsblock');
 /**********************************************/
 
-Route::post('get-district', [RegisterController::class,'getDistrict'])->name('getdistrict');
-Route::post('get-block', [RegisterController::class,'getBlock'])->name('getblock');
+Route::post('get-district', [RegisterController::class, 'getDistrict'])->name('getdistrict');
+Route::post('get-block', [RegisterController::class, 'getBlock'])->name('getblock');
 
 //User Account
 // Route::get('/dashboard', [App\Http\Controllers\Auth\UserController::class, 'index'])->name('dashboard');
@@ -355,29 +363,29 @@ Route::get('/create-event', [App\Http\Controllers\Auth\EventController::class, '
 Route::get('/my-events', [App\Http\Controllers\Auth\EventController::class, 'myevents'])->name('my-events');
 Route::get('/my-events/{id}', [App\Http\Controllers\Auth\EventController::class, 'myEventsByYear']);
 Route::post('/create-event', [App\Http\Controllers\Auth\EventController::class, 'storeevent'])->name('store-event');
-Route::get('/eventedit/{id}',[App\Http\Controllers\Auth\EventController::class, 'edit'])->name('eventedit');
-Route::post('/updateevent',[App\Http\Controllers\Auth\EventController::class, 'updateevent'])->name('updateevent');
+Route::get('/eventedit/{id}', [App\Http\Controllers\Auth\EventController::class, 'edit'])->name('eventedit');
+Route::post('/updateevent', [App\Http\Controllers\Auth\EventController::class, 'updateevent'])->name('updateevent');
 Route::get('school-quiz', [App\Http\Controllers\Auth\EventController::class, 'schoolQuiz'])->name('school-quiz');
 Route::post('save-quiz', [App\Http\Controllers\Auth\EventController::class, 'saveQuiz'])->name('save-quiz');
 
-Route::delete('eventdestroy/{id}',[App\Http\Controllers\Auth\EventController::class, 'eventdestroy'])->name('eventdestroy');
-Route::get('/eventspic',[App\Http\Controllers\Auth\EventController::class, 'eventspic'])->name('eventspic');
-Route::get('/eventspic/{id}',[App\Http\Controllers\Auth\EventController::class, 'eventsPicByYear']);
-Route::get('/my-status',[App\Http\Controllers\Auth\EventController::class, 'myApplicationStatus'])->name('my-status');
+Route::delete('eventdestroy/{id}', [App\Http\Controllers\Auth\EventController::class, 'eventdestroy'])->name('eventdestroy');
+Route::get('/eventspic', [App\Http\Controllers\Auth\EventController::class, 'eventspic'])->name('eventspic');
+Route::get('/eventspic/{id}', [App\Http\Controllers\Auth\EventController::class, 'eventsPicByYear']);
+Route::get('/my-status', [App\Http\Controllers\Auth\EventController::class, 'myApplicationStatus'])->name('my-status');
 
 // cms
 Route::get('/cms-listview', [App\Http\Controllers\Auth\CmsController::class, 'cmslistview'])->name('cms-listview');
 
 
 //brij
-Route::post('get_reward_userdetail',[WebrewardController::class,'getuserdetail'])->name('get_reward_userdetail');
-Route::post('update_reward_status',[WebrewardController::class,'update_status'])->name('update_reward_status');
+Route::post('get_reward_userdetail', [WebrewardController::class, 'getuserdetail'])->name('get_reward_userdetail');
+Route::post('update_reward_status', [WebrewardController::class, 'update_status'])->name('update_reward_status');
 
 // Shakti
-Route::get('/event-e-cert/{id}',[App\Http\Controllers\Auth\EventController::class, 'eventEcert'])->name('event-e-cert');
-Route::post('/download-e-cert',[App\Http\Controllers\Auth\EventController::class, 'dwldEcert'])->name('download-e-cert');
-Route::get('/add-participant/{id}',[App\Http\Controllers\Auth\EventController::class, 'addParticipant'])->name('add-participant');
-Route::post('/updatparticipant',[App\Http\Controllers\Auth\EventController::class, 'updateParticipant'])->name('updatparticipant');
+Route::get('/event-e-cert/{id}', [App\Http\Controllers\Auth\EventController::class, 'eventEcert'])->name('event-e-cert');
+Route::post('/download-e-cert', [App\Http\Controllers\Auth\EventController::class, 'dwldEcert'])->name('download-e-cert');
+Route::get('/add-participant/{id}', [App\Http\Controllers\Auth\EventController::class, 'addParticipant'])->name('add-participant');
+Route::post('/updatparticipant', [App\Http\Controllers\Auth\EventController::class, 'updateParticipant'])->name('updatparticipant');
 
 // Shakti End
 
@@ -387,32 +395,32 @@ Route::get('/mobile-create-event', [App\Http\Controllers\Auth\MobileEventControl
 Route::get('/mobile-my-events', [App\Http\Controllers\Auth\MobileEventController::class, 'myevents'])->name('mobile-my-events');
 Route::get('/mobile-my-events/{id}', [App\Http\Controllers\Auth\MobileEventController::class, 'myEventsByYear']);
 Route::post('/mobile-create-event', [App\Http\Controllers\Auth\MobileEventController::class, 'storeevent'])->name('mobile-store-event');
-Route::get('/mobile-eventedit/{id}',[App\Http\Controllers\Auth\MobileEventController::class, 'edit'])->name('mobile-eventedit');
-Route::post('/mobile-updateevent',[App\Http\Controllers\Auth\MobileEventController::class, 'updateevent'])->name('mobile-updateevent');
+Route::get('/mobile-eventedit/{id}', [App\Http\Controllers\Auth\MobileEventController::class, 'edit'])->name('mobile-eventedit');
+Route::post('/mobile-updateevent', [App\Http\Controllers\Auth\MobileEventController::class, 'updateevent'])->name('mobile-updateevent');
 /*Route::get('school-quiz', [App\Http\Controllers\Auth\MobileEventController::class, 'schoolQuiz'])->name('school-quiz');
 Route::post('save-quiz', [App\Http\Controllers\Auth\MobileEventController::class, 'saveQuiz'])->name('save-quiz');
 */
 
-Route::delete('mobile-eventdestroy/{id}',[App\Http\Controllers\Auth\MobileEventController::class, 'eventdestroy'])->name('mobile-eventdestroy');
-Route::get('/mobile-eventspic',[App\Http\Controllers\Auth\MobileEventController::class, 'eventspic'])->name('mobile-eventspic');
-Route::get('/mobile-eventspic/{id}',[App\Http\Controllers\Auth\MobileEventController::class, 'eventsPicByYear']);
-Route::get('/mobile-my-status',[App\Http\Controllers\Auth\MobileEventController::class, 'myApplicationStatus'])->name('mobile-my-status');
+Route::delete('mobile-eventdestroy/{id}', [App\Http\Controllers\Auth\MobileEventController::class, 'eventdestroy'])->name('mobile-eventdestroy');
+Route::get('/mobile-eventspic', [App\Http\Controllers\Auth\MobileEventController::class, 'eventspic'])->name('mobile-eventspic');
+Route::get('/mobile-eventspic/{id}', [App\Http\Controllers\Auth\MobileEventController::class, 'eventsPicByYear']);
+Route::get('/mobile-my-status', [App\Http\Controllers\Auth\MobileEventController::class, 'myApplicationStatus'])->name('mobile-my-status');
 
-Route::get('/mobile-event-e-cert/{id}',[App\Http\Controllers\Auth\MobileEventController::class, 'eventEcert'])->name('mobile-event-e-cert');
-Route::post('/mobile-download-e-cert',[App\Http\Controllers\Auth\MobileEventController::class, 'dwldEcert'])->name('mobile-download-e-cert');
-Route::get('/mobile-add-participant/{id}',[App\Http\Controllers\Auth\MobileEventController::class, 'addParticipant'])->name('mobile-add-participant');
-Route::post('/mobile-updatparticipant',[App\Http\Controllers\Auth\MobileEventController::class, 'updateParticipant'])->name('mobile-updatparticipant');
+Route::get('/mobile-event-e-cert/{id}', [App\Http\Controllers\Auth\MobileEventController::class, 'eventEcert'])->name('mobile-event-e-cert');
+Route::post('/mobile-download-e-cert', [App\Http\Controllers\Auth\MobileEventController::class, 'dwldEcert'])->name('mobile-download-e-cert');
+Route::get('/mobile-add-participant/{id}', [App\Http\Controllers\Auth\MobileEventController::class, 'addParticipant'])->name('mobile-add-participant');
+Route::post('/mobile-updatparticipant', [App\Http\Controllers\Auth\MobileEventController::class, 'updateParticipant'])->name('mobile-updatparticipant');
 // End Mobile Event Controller
 
 //Ambassador
-Route::post('ambs-district', [AmbassadorController::class,'AmbsDistrict'])->name('ambsdistrict');
-Route::post('ambs-block', [AmbassadorController::class,'AmbsBlock'])->name('ambsblock');
-Route::post('ambs-store',[AmbassadorController::class,'AmbdStore'])->name('ambs-store');
+Route::post('ambs-district', [AmbassadorController::class, 'AmbsDistrict'])->name('ambsdistrict');
+Route::post('ambs-block', [AmbassadorController::class, 'AmbsBlock'])->name('ambsblock');
+Route::post('ambs-store', [AmbassadorController::class, 'AmbdStore'])->name('ambs-store');
 
 //Champion
-Route::post('champ-district', [ChampionController::class,'ChampDistrict'])->name('champdistrict');
-Route::post('champ-block', [ChampionController::class,'ChampBlock'])->name('champblock');
-Route::post('champ-store',[ChampionController::class,'ChampStore'])->name('champ-store');
+Route::post('champ-district', [ChampionController::class, 'ChampDistrict'])->name('champdistrict');
+Route::post('champ-block', [ChampionController::class, 'ChampBlock'])->name('champblock');
+Route::post('champ-store', [ChampionController::class, 'ChampStore'])->name('champ-store');
 //Ambassodar
 Route::resource('ambassador', AmbassadorController::class);
 //Champion
@@ -431,8 +439,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact-us');
 
-Route::view('/terms-conditions','terms_condition')->name('termConditions');
-Route::view('/privacypolicy','privacy_policy')->name('privacyPolicy');
+Route::view('/terms-conditions', 'terms_condition')->name('termConditions');
+Route::view('/privacypolicy', 'privacy_policy')->name('privacyPolicy');
 /*Get Active Route*/
 Route::get('/get-active', [App\Http\Controllers\HomeController::class, 'getactive'])->name('getactive');
 Route::get('/get-active/{id}', [App\Http\Controllers\HomeController::class, 'getActiveDetail'])->name('getactivedetail');
@@ -451,7 +459,7 @@ Route::get('/share-your-story', [App\Http\Controllers\Api\YourStoriesController:
 Route::post('/storeyourstory', [App\Http\Controllers\Api\YourStoriesController::class, 'storeYourstory'])->name('storeyourstory');
 
 
-Route::get('/sendemail',[SendmailController::class,'sendemail'])->name('sendemail');
+Route::get('/sendemail', [SendmailController::class, 'sendemail'])->name('sendemail');
 
 /****************************Priyanshi*********************************/
 /****************************Menu Route********************************/
@@ -461,7 +469,7 @@ Route::get('/sendemail',[SendmailController::class,'sendemail'])->name('sendemai
 // Route::view('national-sports-day-2022', 'national-sports-day');
 Route::view('national-sports-day-2023', 'nationalsportsday2023');
 Route::view('national-sports-day-2025', 'nationalsportsday2025');
-Route::view('national-sports-day-merchandise-creatives-2025','nationalsportsdaymerchandisecreatives2025');
+Route::view('national-sports-day-merchandise-creatives-2025', 'nationalsportsdaymerchandisecreatives2025');
 Route::view('past-glimpses-2025', 'pastglimpses2025');
 Route::view('fit-india-pledge-2025', 'fitindiapledgeview2025');
 Route::view('fit-india-week-2023', 'fitindiaweek2023');
@@ -488,47 +496,47 @@ Route::view('fit-india-pledge-2023', 'fitindiapledgeview2023');
 
 // open event page
 Route::view('fit-india-swacchta-freedom-run-5.0', 'fitinswacchtafreedomrun5');
-Route::view('freedom-run-5.0-merchandise','freedomrunmerchandise');
+Route::view('freedom-run-5.0-merchandise', 'freedomrunmerchandise');
 Route::view('fit-india-pledge-freedom-run-5', 'fitindiapledgeviewfreedomrun5');
 Route::view('past-glimpses-freedom-run-5', 'pastglimpsesfreedomrun5');
 // end event page
 Route::get('fit-india-school-week', [App\Http\Controllers\GeneralController::class, 'fitindschoolweek2020']);
-Route::view('fit-india-cyclothon-2021','fit-india-cyclothon-2021');
-Route::view('fit-india-cyclothon-2020','fit-india-cyclothon-2020');
-Route::view('fit-india-prabhatpheri-2020','fit-india-prabhatpheri-2020');
-Route::view('fit-india-school','fit-india-school');
-Route::view('fit-india-youth-club-certification','fit-india-youth-club-certification');
-Route::view('namo-cycling-club','fit-india-namo-club');
-Route::view('namo-fit-india-youth-club','namo-fit-india-cycling-club');
-Route::view('fit-india-school-registration','fit-india-school-registration');
-Route::view('fit-india-youthclub-registration','fit-india-youthclub-registration');
+Route::view('fit-india-cyclothon-2021', 'fit-india-cyclothon-2021');
+Route::view('fit-india-cyclothon-2020', 'fit-india-cyclothon-2020');
+Route::view('fit-india-prabhatpheri-2020', 'fit-india-prabhatpheri-2020');
+Route::view('fit-india-school', 'fit-india-school');
+Route::view('fit-india-youth-club-certification', 'fit-india-youth-club-certification');
+Route::view('namo-cycling-club', 'fit-india-namo-club');
+Route::view('namo-fit-india-youth-club', 'namo-fit-india-cycling-club');
+Route::view('fit-india-school-registration', 'fit-india-school-registration');
+Route::view('fit-india-youthclub-registration', 'fit-india-youthclub-registration');
 //Route::view('fit-india-school-certification','fit-india-school-certification');
 //Route::view('your-stories','your-stories');
-Route::get('your-stories',[App\Http\Controllers\YourStoriesController::class,'index']);
-Route::view('share-your-story','share-your-story');
-Route::view('share-your-story1','share-your-story1');
-Route::view('/fit-india-walkathon-200-km-by-itbp','fit-india-walkathon-200-km-by-itbp');
-Route::view('media','media');
-Route::view('dialogue-session-2','dialogue-session-2');
-Route::view('fitnessprotocols','fitnessprotocols');
+Route::get('your-stories', [App\Http\Controllers\YourStoriesController::class, 'index']);
+Route::view('share-your-story', 'share-your-story');
+Route::view('share-your-story1', 'share-your-story1');
+Route::view('/fit-india-walkathon-200-km-by-itbp', 'fit-india-walkathon-200-km-by-itbp');
+Route::view('media', 'media');
+Route::view('dialogue-session-2', 'dialogue-session-2');
+Route::view('fitnessprotocols', 'fitnessprotocols');
 Route::get('fit-india-champions', [App\Http\Controllers\ChampionController::class, 'championList']);
 Route::get('fit-india-ambassador', [App\Http\Controllers\AmbassadorController::class, 'ambassadorList']);
 
 /***** Gram panchyat frontend *******/
-Route::get('gram-panchayat-ambassador', [App\Http\Controllers\Auth\GramPanchayatController::class,'index'])->name('gram-panchayat-ambassador');
-Route::post('gram_panchayat_store', [App\Http\Controllers\Auth\GramPanchayatController::class,'store'])->name('gram_panchayat_store');
+Route::get('gram-panchayat-ambassador', [App\Http\Controllers\Auth\GramPanchayatController::class, 'index'])->name('gram-panchayat-ambassador');
+Route::post('gram_panchayat_store', [App\Http\Controllers\Auth\GramPanchayatController::class, 'store'])->name('gram_panchayat_store');
 Route::get('/gram-panchayat-apply-again/{id}', [App\Http\Controllers\Auth\GramPanchayatController::class, 'gramPanchayatApplyAgain']);
 Route::get('download-grampanchayat-certificates', [App\Http\Controllers\Auth\GramPanchayatController::class, 'myGramPanchayatCertificate']);
 Route::post('/update_grampanchayat_newevent', [App\Http\Controllers\Auth\GramPanchayatController::class, 'updateGramPanchayatNewEvent']);
-Route::get('grampanchayat-ambassador-mobile', [App\Http\Controllers\Auth\GramPanchayatController::class,'mobileGrampanchayat'])->name('grampanchayat-ambassador-mobile');
+Route::get('grampanchayat-ambassador-mobile', [App\Http\Controllers\Auth\GramPanchayatController::class, 'mobileGrampanchayat'])->name('grampanchayat-ambassador-mobile');
 Route::get('/gmapply-again-mobile', [App\Http\Controllers\Auth\GramPanchayatController::class, 'gmApplyAgainMobile']);
 Route::get('mobile-grampanchayat-certificates', [App\Http\Controllers\Auth\GramPanchayatController::class, 'mobileGramPanchayatCertificate']);
 /*******End panchayat frontend ********/
 
 /**** localbody frontend ******/
-Route::get('local-bodyambassador-mobile', [App\Http\Controllers\Auth\LocalbodyController::class,'mobileLocalBody'])->name('local-bodyambassador-mobile');
-Route::get('local-bodyambassador', [App\Http\Controllers\Auth\LocalbodyController::class,'index'])->name('local-bodyambassador');
-Route::post('store-local-bodyambassador', [App\Http\Controllers\Auth\LocalbodyController::class,'store'])->name('store-local-bodyambassador');
+Route::get('local-bodyambassador-mobile', [App\Http\Controllers\Auth\LocalbodyController::class, 'mobileLocalBody'])->name('local-bodyambassador-mobile');
+Route::get('local-bodyambassador', [App\Http\Controllers\Auth\LocalbodyController::class, 'index'])->name('local-bodyambassador');
+Route::post('store-local-bodyambassador', [App\Http\Controllers\Auth\LocalbodyController::class, 'store'])->name('store-local-bodyambassador');
 Route::post('update_localbody_newevent', [App\Http\Controllers\Auth\LocalbodyController::class, 'updateLocalBodyNewEvent']);
 Route::get('/lbapply-again-mobile', [App\Http\Controllers\Auth\LocalbodyController::class, 'lbApplyAgainMobile']);
 Route::get('/localbody-apply-again/{id}', [App\Http\Controllers\Auth\LocalbodyController::class, 'localbodyApplyAgain']);
@@ -538,16 +546,16 @@ Route::get('mobile-localbody-certificates', [App\Http\Controllers\Auth\Localbody
 
 /****** Gram panchyat and localbody public page *********/
 Route::get('fit-india-panchayat', [App\Http\Controllers\Auth\GramPanchayatController::class, 'gramPanchayatAmbassadorList']);
-Route::get('fit-india-localbody',[App\Http\Controllers\Auth\LocalbodyController::class, 'localbodyAmbassadorList']);
+Route::get('fit-india-localbody', [App\Http\Controllers\Auth\LocalbodyController::class, 'localbodyAmbassadorList']);
 /***** End Gram panchyat and localbody public page*****/
 
 //Route::view('all-events','all-events');
-Route::view('champion-and-ambassador','champion-and-ambassador');
-Route::view('covid-19-info','covid-19-info');
-Route::view('fit-india-school-week-2020','covid-19-info');
-Route::view('event-archives','event-archives');
+Route::view('champion-and-ambassador', 'champion-and-ambassador');
+Route::view('covid-19-info', 'covid-19-info');
+Route::view('fit-india-school-week-2020', 'covid-19-info');
+Route::view('event-archives', 'event-archives');
 Route::get('fit-india-school-week-2020', [App\Http\Controllers\GeneralController::class, 'fitindschoolweek2020']);
-Route::view('fit-india-freedom-rider-cycle-rally-2022','fit-india-freedom-rider-cycle-rally-2022');
+Route::view('fit-india-freedom-rider-cycle-rally-2022', 'fit-india-freedom-rider-cycle-rally-2022');
 
 Route::get('schooldashboard', [App\Http\Controllers\SchoolDashboardController::class, 'index'])->name('schooldashboard');
 
@@ -564,8 +572,8 @@ Route::post('/flagstore', [App\Http\Controllers\Auth\CertificateController::clas
 Route::post('/threestar', [App\Http\Controllers\Auth\CertificateController::class, 'threestar'])->name('threestar');
 Route::post('/fivestar', [App\Http\Controllers\Auth\CertificateController::class, 'fivestar'])->name('fivestar');
 
-Route::get('reloadcaptcha',[App\Http\Controllers\CaptchaController::class, 'reloadCaptcha'])->name('reloadCaptcha');
-Route::post('getroles',[App\Http\Controllers\RoleController::class, 'index'])->name('getroles');
+Route::get('reloadcaptcha', [App\Http\Controllers\CaptchaController::class, 'reloadCaptcha'])->name('reloadCaptcha');
+Route::post('getroles', [App\Http\Controllers\RoleController::class, 'index'])->name('getroles');
 Route::get('download-certificate/{id}', [App\Http\Controllers\Auth\CertificateController::class, 'schoolCertificate']);
 Route::get('mobile-flag-certificate', [App\Http\Controllers\Auth\GramPanchayatController::class, 'mobileSchoolCertificate']);
 Route::get('download-ambassador-certificate', [App\Http\Controllers\Auth\CertificateController::class, 'myAmbassadorCertificate']);
@@ -600,19 +608,19 @@ Route::get('feedback', [App\Http\Controllers\GeneralController::class, 'feedback
 
 //Route::get('update-stat', [App\Http\Controllers\GeneralController::class, 'updatestat']);
 
-Route::view('become-a-partner','become-a-partner');
-Route::view('screen-reader-access','screen-reader-access');
-Route::view('fit-india-icons','fit-india-icons');
+Route::view('become-a-partner', 'become-a-partner');
+Route::view('screen-reader-access', 'screen-reader-access');
+Route::view('fit-india-icons', 'fit-india-icons');
 
-Route::view('indigenousgames','indigenoussports');
+Route::view('indigenousgames', 'indigenoussports');
 
 //Route::view('indigenoussports','indigenoussports');
-Route::view('help','help');
-Route:: view('site-map','site-map');
+Route::view('help', 'help');
+Route::view('site-map', 'site-map');
 
-Route::view('wim','wim');
+Route::view('wim', 'wim');
 
-Route::view('cert-notification','event.uncomplete-cert');
+Route::view('cert-notification', 'event.uncomplete-cert');
 Route::get('update-stat', [App\Http\Controllers\SchoolDashboardController::class, 'updatestat']);
 Route::get('password_change', [App\Http\Controllers\PasswordresetController::class, 'changePassword'])->name('password_change');
 Route::post('reset_password_without_token', [App\Http\Controllers\PasswordresetController::class, 'validatePasswordRequest']);
@@ -623,12 +631,12 @@ Route::get('nsd-upload-image', [App\Http\Controllers\GeneralController::class, '
 Route::post('save-upload-image', [App\Http\Controllers\GeneralController::class, 'save_upload_image'])->name('save-upload-image');
 //Route::get('school-quiz', [App\Http\Controllers\GeneralController::class, 'schoolQuiz'])->name('school-quiz');
 //Route::post('save-quiz', [App\Http\Controllers\GeneralController::class, 'saveQuiz'])->name('save-quiz');
-Route::view('fitness-from-home-series','fitness-from-home-series');
+Route::view('fitness-from-home-series', 'fitness-from-home-series');
 Route::get('fit-india-yoga-center-info/{id}', [App\Http\Controllers\YogaCenterController::class, 'index']);
 URL::forceScheme('https');
 
 //8-6-2021
-Route::view('fit-india-quiz','fit-india-quiz');
+Route::view('fit-india-quiz', 'fit-india-quiz');
 
 
 
@@ -663,8 +671,8 @@ Route::post('quiz-logout', [App\Http\Controllers\Quiz::class, 'logout'])->name('
 Route::get('update-quiz-winners', [App\Http\Controllers\Quiz::class, 'winnersupdate'])->name('quiz.winners.update');
 Route::post('getquizques', [App\Http\Controllers\Quiz::class, 'getquizques'])->name('getques');
 Route::get('tokyoquizcert/{name}', [App\Http\Controllers\Quiz::class, 'tokyoquizcert'])->name('tokyoquizcert');
-Route::view('pevents','partcipant-events');
-Route::view('fit-india-yoga-centres','fit-india-yoga-centres');
+Route::view('pevents', 'partcipant-events');
+Route::view('fit-india-yoga-centres', 'fit-india-yoga-centres');
 
 Route::get('lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'lang']);
 Route::get('fitness-quiz', [App\Http\Controllers\FitnessquizController::class, 'fitnessquiz']);
@@ -672,12 +680,12 @@ Route::post('fitness-quiz', [App\Http\Controllers\FitnessquizController::class, 
 Route::post('getfitnessques', [App\Http\Controllers\FitnessquizController::class, 'getfitnessques']);
 
 /***** 26-7-2021 routes *****/
-Route::view('influencer','influencer');
-Route::view('influencer-mobile','influencer-mobile');
+Route::view('influencer', 'influencer');
+Route::view('influencer-mobile', 'influencer-mobile');
 
 //prerak
 Route::get('fit-india-prerak', [App\Http\Controllers\PrerakController::class, 'prerakList']);
-Route::post('check-refer-code',[App\Http\Controllers\PrerakController::class,'check_refer_code'])->name('check-refer-code'); // on live
+Route::post('check-refer-code', [App\Http\Controllers\PrerakController::class, 'check_refer_code'])->name('check-refer-code'); // on live
 Route::get('/prerak', [App\Http\Controllers\PrerakController::class, 'index']); // on live
 Route::get('/prerak-apply-again/{type}/{id}', [App\Http\Controllers\PrerakController::class, 'prerakApplyAgain']); // on live
 Route::post('/prerak_ft_test', [App\Http\Controllers\PrerakController::class, 'checkFitnessTest'])->name('prerak_ft_test'); // on live
@@ -710,38 +718,38 @@ Route::post('freedom-update-value', [App\Http\Controllers\Auth\FreedomrunControl
 Route::get('Fit-India-Swachhata-Freedom-Run-4.0', [App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunInfo'])->name('freedom-run-4.0');
 Route::get('Fit-India-Swachhata-Freedom-Run-4.0', [App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunInfo'])->name('freedom-run-4.0');
 /*Route::view('freedom-run-dashboard','freedomrun.freedom-run-dashboard'); */
-Route::view('partner-organization','freedomrun.partner-organization');
+Route::view('partner-organization', 'freedomrun.partner-organization');
 Route::post('check-individual-existance', [App\Http\Controllers\Auth\FreedomrunController::class, 'checkIndividualExistance'])->name('check-individual-existance');
 Route::post('freedomrun-add-partners', [App\Http\Controllers\Auth\FreedomrunController::class, 'addFreedomRunPartners'])->name('freedomrun-add-partners');
 Route::get('show-freedom-updatedetail/{id}', [App\Http\Controllers\Auth\FreedomrunController::class, 'showEventUpdateDetails']);
 // Route::get('freedom-certificate-process/{id}', [App\Http\Controllers\Auth\FreedomrunController::class, 'freedomCertificateProcess']);
-Route::post('download-freedomrun-certificate',[App\Http\Controllers\Auth\FreedomrunController::class, 'downloadFreedomCertificate'])->name('download-freedomrun-certificate');
-Route::get('freedomrun-events',[App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunEvents'])->name('freedomrun-events');
+Route::post('download-freedomrun-certificate', [App\Http\Controllers\Auth\FreedomrunController::class, 'downloadFreedomCertificate'])->name('download-freedomrun-certificate');
+Route::get('freedomrun-events', [App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunEvents'])->name('freedomrun-events');
 Route::get('freedomrun-events-mobile', [App\Http\Controllers\Auth\FreedomrunController::class, 'mobileFreedomrunEvents'])->name('freedomrun-events-mobile');
-Route::delete('freedomrun-event-destroy/{id}',[App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunEventDestroy'])->name('freedomrun-event-destroy');
+Route::delete('freedomrun-event-destroy/{id}', [App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunEventDestroy'])->name('freedomrun-event-destroy');
 Route::get('check-individual-existance-second/{id}', [App\Http\Controllers\Auth\FreedomrunController::class, 'checkIndividualExistanceSecond']);
 // Route::get('download-mobile-event-certificate/{name}/{eventname}/{type}',[App\Http\Controllers\Auth\FreedomrunController::class, 'mobiledownloadFreedomCertificate'])->name('download-event-certificate');
-Route::get('download-mobile-event-certificate/{user_id}/{event_id}',[App\Http\Controllers\Auth\FreedomrunController::class, 'mobiledownloadFreedomCertificate'])->name('download-mobile-event-certificate');
-Route::get('soc-download-mobile-event-certificate/{user_id}/{os_type}/{event_id}/{usermeta_datadistrict}/{usermeta_data_state}',[App\Http\Controllers\Auth\FreedomrunController::class, 'socmobiledownloadFreedomCertificate'])->name('download-mobile-event-certificate');
+Route::get('download-mobile-event-certificate/{user_id}/{event_id}', [App\Http\Controllers\Auth\FreedomrunController::class, 'mobiledownloadFreedomCertificate'])->name('download-mobile-event-certificate');
+Route::get('soc-download-mobile-event-certificate/{user_id}/{os_type}/{event_id}/{usermeta_datadistrict}/{usermeta_data_state}', [App\Http\Controllers\Auth\FreedomrunController::class, 'socmobiledownloadFreedomCertificate'])->name('download-mobile-event-certificate');
 // Route::get('view-mobile-event-certificate/{name}',[App\Http\Controllers\Auth\FreedomrunController::class, 'mobileviewFreedomCertificate'])->name('view-event-certificate');
-Route::view('freedomrun-events-creatives','freedomrun-events-creatives');
+Route::view('freedomrun-events-creatives', 'freedomrun-events-creatives');
 
 
 Route::get('freedomrun-events-pics', [App\Http\Controllers\Auth\FreedomrunController::class, 'freedomrunEventsPics'])->name('freedomrun-events-pics');
 
-Route::view('mobile-update','mobile-update');
-Route::view('redirect-mobile-updator','redirect-mobile-updator');
+Route::view('mobile-update', 'mobile-update');
+Route::view('redirect-mobile-updator', 'redirect-mobile-updator');
 
-Route::view('schoolweek-info','schoolweek-info');
-Route::view('school-week-merchandise','school-week-merchandise');
+Route::view('schoolweek-info', 'schoolweek-info');
+Route::view('school-week-merchandise', 'school-week-merchandise');
 // Route::view('schoolweekmerchandise2023','schoolweekmerchandise2023');
 // Route::view('nationalsportsdaymerchandise2023','national-sports-day-merchandise2023');
-Route::view('fitindiaindiaweekmerchandise2023','fit-india-week-merchandise2023');
-Route::view('fitindiaindiaweekmerchandise2024','fit-india-week-merchandise2024');
-Route::view('fit-india-women-week-merchandise','international_women_merchandise');
-Route::view('national-sports-day-merchandise-creatives-2024','nationalsportsdaymerchandisecreatives2024');
-Route::post('download-school-banner',[App\Http\Controllers\GeneralController::class,'downloadSchoolBanner'])->name('download-school-banner');
-Route::view('app-store-redirect','app-store-redirect');
+Route::view('fitindiaindiaweekmerchandise2023', 'fit-india-week-merchandise2023');
+Route::view('fitindiaindiaweekmerchandise2024', 'fit-india-week-merchandise2024');
+Route::view('fit-india-women-week-merchandise', 'international_women_merchandise');
+Route::view('national-sports-day-merchandise-creatives-2024', 'nationalsportsdaymerchandisecreatives2024');
+Route::post('download-school-banner', [App\Http\Controllers\GeneralController::class, 'downloadSchoolBanner'])->name('download-school-banner');
+Route::view('app-store-redirect', 'app-store-redirect');
 
 Route::get('create-corporate', [App\Http\Controllers\Auth\CorporateController::class, 'create'])->name('create-corporate');
 Route::post('store-corporate', [App\Http\Controllers\Auth\CorporateController::class, 'store'])->name('store-corporate');
@@ -751,36 +759,36 @@ Route::get('mobile-corporate-detail', [App\Http\Controllers\Auth\CorporateContro
 Route::get('/mobile-corporate-cert', [App\Http\Controllers\Auth\CorporateController::class, 'mobileCertCorporate'])->name('mobile-corporate-cert');
 Route::post('check-multiple-fitscore', [App\Http\Controllers\Auth\CorporateController::class, 'check_fitness_test'])->name('check-multiple-fitscore');
 Route::post('check-multiple-fitscore-new', [App\Http\Controllers\Auth\CorporateController::class, 'check_fitness_test_new'])->name('check-multiple-fitscore-new');
-Route::view('coming-soon','coming-soon');
-Route::view('awards','awards');
+Route::view('coming-soon', 'coming-soon');
+Route::view('awards', 'awards');
 Route::get('external-event-registration', [App\Http\Controllers\ExternaleventController::class, 'index'])->name('external-event-registration');
 Route::post('external-event-add', [App\Http\Controllers\ExternaleventController::class, 'external_event_register'])->name('external-event-add');
-Route::get('external-event-activity',[App\Http\Controllers\ExternaleventController::class, 'create'])->name('external-event-activity');
-Route::post('external-activity-store',[App\Http\Controllers\ExternaleventController::class, 'store'])->name('external-activity-store');
-Route::view('external-event-info','external_event/external-event-info');
-Route::view('organization-rewards','organization-rewards');
-Route::get('episode-quiz',[App\Http\Controllers\EpisodeController::class, 'index'])->name('episode-quiz');
-Route::post('episode-quiz-post',[App\Http\Controllers\EpisodeController::class, 'store'])->name('episode-quiz-post');
-Route::view('term-and-condition','episode_quiz/term-and-condition');
+Route::get('external-event-activity', [App\Http\Controllers\ExternaleventController::class, 'create'])->name('external-event-activity');
+Route::post('external-activity-store', [App\Http\Controllers\ExternaleventController::class, 'store'])->name('external-activity-store');
+Route::view('external-event-info', 'external_event/external-event-info');
+Route::view('organization-rewards', 'organization-rewards');
+Route::get('episode-quiz', [App\Http\Controllers\EpisodeController::class, 'index'])->name('episode-quiz');
+Route::post('episode-quiz-post', [App\Http\Controllers\EpisodeController::class, 'store'])->name('episode-quiz-post');
+Route::view('term-and-condition', 'episode_quiz/term-and-condition');
 
 
 
 
 ////School-week-2022
 
-Route::get('event-uploadexcel/{id}',[App\Http\Controllers\Auth\SchoolController::class, 'Uploadexcel'])->name('Uploadexcel');
-Route::post('event-uploadexcel',[App\Http\Controllers\Auth\SchoolController::class, 'updateBulkUploadExcel'])->name('updateBulkUploadExcel');
+Route::get('event-uploadexcel/{id}', [App\Http\Controllers\Auth\SchoolController::class, 'Uploadexcel'])->name('Uploadexcel');
+Route::post('event-uploadexcel', [App\Http\Controllers\Auth\SchoolController::class, 'updateBulkUploadExcel'])->name('updateBulkUploadExcel');
 Route::get('create-school-event', [App\Http\Controllers\Auth\SchoolController::class, 'createFreedomrunEvent'])->name('create-school-event');
 Route::post('create-school-event', [App\Http\Controllers\Auth\SchoolController::class, 'store'])->name('create-school-event-post');
-Route::get('school-events',[App\Http\Controllers\Auth\SchoolController::class, 'freedomrunEvents'])->name('school-events');
+Route::get('school-events', [App\Http\Controllers\Auth\SchoolController::class, 'freedomrunEvents'])->name('school-events');
 Route::get('school-run-update/{id}', [App\Http\Controllers\Auth\SchoolController::class, 'update'])->name('school-run-update');
 Route::post('school-update-value', [App\Http\Controllers\Auth\SchoolController::class, 'edit'])->name('school-update-value');
 Route::get('school-updatedetail/{id}', [App\Http\Controllers\Auth\SchoolController::class, 'showEventUpdateDetails']);
-Route::delete('school-event-destroy/{id}',[App\Http\Controllers\Auth\SchoolController::class, 'freedomrunEventDestroy'])->name('school-event-destroy');
+Route::delete('school-event-destroy/{id}', [App\Http\Controllers\Auth\SchoolController::class, 'freedomrunEventDestroy'])->name('school-event-destroy');
 Route::get('school-add-partcipant/{id}', [App\Http\Controllers\Auth\SchoolController::class, 'addFreedomRunPartcipant'])->name('school-add-partcipant');
 Route::post('school-update-partcipant', [App\Http\Controllers\Auth\SchoolController::class, 'updateFreedomRunParticipant'])->name('school-update-partcipant');
 Route::get('school-certificate-process/{id}', [App\Http\Controllers\Auth\SchoolController::class, 'freedomCertificateProcess']);
-Route::post('download-school-certificate',[App\Http\Controllers\Auth\SchoolController::class, 'downloadFreedomCertificate'])->name('download-school-certificate');
+Route::post('download-school-certificate', [App\Http\Controllers\Auth\SchoolController::class, 'downloadFreedomCertificate'])->name('download-school-certificate');
 Route::get('fit-india-school-week-2022', [App\Http\Controllers\GeneralController::class, 'fitindschoolweek2022']);
 // Route::get('fitindiaschoolweek2022viewpage', [App\Http\Controllers\Auth\SchoolController::class, 'fitindiaschoolweek2022viewpage']);
 Route::get('fit-india-school-week-2022-viewpage/{name?}', [App\Http\Controllers\Auth\SchoolController::class, 'fitindiaschoolweek2022viewpage']);
@@ -811,6 +819,8 @@ Route::get('soc-event-report', [\App\Http\Controllers\CsveventController::class,
 Route::get('soc-event-report-data', [\App\Http\Controllers\CsveventController::class, 'socEventReportdata13072025']);
 Route::get('soc-report-both-table-data', [\App\Http\Controllers\CsveventController::class, 'soc_report_both_data']);
 Route::get('soc-report-cycle-return-data', [\App\Http\Controllers\CsveventController::class, 'soc_report_cycle_return_data']);
+
+
 // Route::get('all_data_registration', [\App\Http\Controllers\CsveventController::class, 'all_data_registration']);
 
 Route::get('delete-user-details', [\App\Http\Controllers\CsveventController::class, 'delete_user_detail']);
@@ -824,19 +834,19 @@ Route::get('events-pics', [App\Http\Controllers\Auth\EventCatController::class, 
 Route::get('myeventsearchimages/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'EventSearchImages'])->name('myevent-search-images');
 Route::get('eventdatesearch/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'eventdatesearch'])->name('event-date-search');
 Route::post('create-event', [App\Http\Controllers\Auth\EventCatController::class, 'store'])->name('create-event-post');
-Route::get('list-events',[App\Http\Controllers\Auth\EventCatController::class, 'listofEvents'])->name('list-events');
-Route::get('myeventsearch/{id?}',[App\Http\Controllers\Auth\EventCatController::class, 'myeventsearching'])->name('myevent-search');
+Route::get('list-events', [App\Http\Controllers\Auth\EventCatController::class, 'listofEvents'])->name('list-events');
+Route::get('myeventsearch/{id?}', [App\Http\Controllers\Auth\EventCatController::class, 'myeventsearching'])->name('myevent-search');
 Route::get('event-run-update/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'update'])->name('event-run-update');
 Route::post('event-update-value', [App\Http\Controllers\Auth\EventCatController::class, 'edit'])->name('event-update-value');
 Route::get('event-updatedetail/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'showEventUpdateDetails']);
-Route::delete('event-event-destroy/{id}',[App\Http\Controllers\Auth\EventCatController::class, 'freedomrunEventDestroy'])->name('event-event-destroy');
-Route::get('event-event-uploadexcel/{id}',[App\Http\Controllers\Auth\EventCatController::class, 'Uploadexcel'])->name('event-Uploadexcel');
-Route::post('event-event-uploadexcel',[App\Http\Controllers\Auth\EventCatController::class, 'updateBulkUploadExcel'])->name('eventupdateBulkUploadExcel');
+Route::delete('event-event-destroy/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'freedomrunEventDestroy'])->name('event-event-destroy');
+Route::get('event-event-uploadexcel/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'Uploadexcel'])->name('event-Uploadexcel');
+Route::post('event-event-uploadexcel', [App\Http\Controllers\Auth\EventCatController::class, 'updateBulkUploadExcel'])->name('eventupdateBulkUploadExcel');
 Route::get('event-certificate-process/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'freedomCertificateProcess']);
 Route::get('event-add-partcipant/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'eventaddPartcipant'])->name('event-add-partcipant');
 Route::post('event-update-partcipant', [App\Http\Controllers\Auth\EventCatController::class, 'updateFreedomRunParticipant'])->name('event-update-partcipant');
-Route::post('download-event-certificate',[App\Http\Controllers\Auth\EventCatController::class, 'downloadFreedomCertificate'])->name('download-event-certificate');
-Route::get('user-certificate-event-sunday/{user_id}/{event_id}',[App\Http\Controllers\Auth\EventCatController::class, 'user_certificate_event_sunday'])->name('usercertificateeventsunday');
+Route::post('download-event-certificate', [App\Http\Controllers\Auth\EventCatController::class, 'downloadFreedomCertificate'])->name('download-event-certificate');
+Route::get('user-certificate-event-sunday/{user_id}/{event_id}', [App\Http\Controllers\Auth\EventCatController::class, 'user_certificate_event_sunday'])->name('usercertificateeventsunday');
 Route::get('download_registration_certificate', [App\Http\Controllers\Auth\EventCatController::class, 'DownloadRegistrationCertificate'])->name('download-registration-certificate');
 // Event Report
 Route::get('get-all-event', [\App\Http\Controllers\ReporteventController::class, 'getallevent']);
@@ -901,7 +911,7 @@ Route::get('iym-quiz', [App\Http\Controllers\IymController::class, 'encrypt']);
 Route::Post('iym-quiz-submit', [App\Http\Controllers\IymController::class, 'iym_quizSubmit']);
 Route::get('iym-thankyou', [App\Http\Controllers\IymController::class, 'iym_thankYou']);
 Route::get('downloadIymWinner/{date?}', [App\Http\Controllers\IymController::class, 'downloadImyWinner'])->name('downloadImyWinner');
-Route::get('total_iym_participant/{date?}',[App\Http\Controllers\IymController::class,'getTotalParticipant']);
+Route::get('total_iym_participant/{date?}', [App\Http\Controllers\IymController::class, 'getTotalParticipant']);
 Route::get('downloadIytimeswisemWinner/00:00:00/{date?}', [App\Http\Controllers\IymController::class, 'downloadIytimeswisemWinner'])->name('downloadIytimeswisemWinner');
 Route::get('downloadIytimeswisetwomWinner/12:00:00/{date?}', [App\Http\Controllers\IymController::class, 'downloadIytimeswisetwomWinner'])->name('downloadIytimeswisetwomWinner');
 Route::get('downloadtotalWinner', [App\Http\Controllers\IymController::class, 'downloadtotalWinner'])->name('downloadtotalWinner');
@@ -909,57 +919,59 @@ Route::get('downloadtotalWinner', [App\Http\Controllers\IymController::class, 'd
 
 //quiz result - ashish
 
-Route::get('getuserresultvalue',[fitindiaquizresultdata::class,'index']);
-Route::post('get-user-result-value',[fitindiaquizresultdata::class,'getresult']);
-Route::get('resultshow',[fitindiaquizresultdata::class,'resultshow']);
+Route::get('getuserresultvalue', [fitindiaquizresultdata::class, 'index']);
+Route::post('get-user-result-value', [fitindiaquizresultdata::class, 'getresult']);
+Route::get('resultshow', [fitindiaquizresultdata::class, 'resultshow']);
 
 
-Route::get('/testlist',[App\Http\Controllers\FitindiaDotNetController::class,'testlistview']);
-Route::get('/InitializeCulture/{data?}',[FitindiaDotNetController::class,'initializeculture'])->name('initializeculture');
-Route::get('/homeaddusers/{id?}',[FitindiaDotNetController::class,'homelistview'])->name('homelistview');
-Route::post('/storedata',[FitindiaDotNetController::class,'storedata'])->name('storedata');
-Route::get('/getdata/{id?}',[FitindiaDotNetController::class,'getdata'])->name('getdata');
-Route::get('/deactivate_member/{id?}',[FitindiaDotNetController::class,'deactivatemember'])->name('deactivatemember');
-Route::get('/activate_member/{id?}',[FitindiaDotNetController::class,'activatemember'])->name('activatemember');
-Route::get('/getalldata/{ParentId?}',[FitindiaDotNetController::class,'getalldata'])->name('getalldata');
-Route::get('/memberdashboard/{Name?}/{F365Id?}/{Age?}/{AgeGroupId?}/{AgeGroupName?}/{GenderId?}',
-            [FitindiaDotNetController::class,'memberdashboard'])
-            ->name('memberdashboard');
-Route::get('/member_view_report/{userF365Id?}/{UserDisplayDate?}',[FitindiaDotNetController::class,'memberviewreport'])->name('memberviewreport');
-Route::get('/member_fitness_history/{userF365Id?}',[FitindiaDotNetController::class,'memberfitnesshistory'])->name('memberfitnesshistory');
-Route::match(['GET','POST'],'/datewisedate',[FitindiaDotNetController::class,'datewisedashboard'])->name('datewisedashboard');
-Route::post('TestListaspx/GetInstructiontPopup',[App\Http\Controllers\FitindiaDotNetController::class,'GetInstructiontPopup']);
-Route::get('/taketest/{Name?}/{F365Id?}/{Age?}/{AgeGroupId?}/{AgeGroupName?}/{GenderId?}',[App\Http\Controllers\FitindiaDotNetController::class,'taketestview']);
-Route::get('/benchmark/{age?}/{GenderId?}',[App\Http\Controllers\FitindiaDotNetController::class,'benchmarkview']);
-Route::post('savetaketestdata',[App\Http\Controllers\FitindiaDotNetController::class,'taktestsave']);
-Route::post('savetaketestsitrich',[App\Http\Controllers\FitindiaDotNetController::class,'taktestsitrichsave']);
-Route::post('save50mtdash',[App\Http\Controllers\FitindiaDotNetController::class,'taksave50mtdashsave']);
-Route::post('savepartialcurl',[App\Http\Controllers\FitindiaDotNetController::class,'takpartialcurlsave']);
-Route::post('savepushup',[App\Http\Controllers\FitindiaDotNetController::class,'takpsavepushupsave']);
-Route::post('save600runwalk',[App\Http\Controllers\FitindiaDotNetController::class,'takpsave600mtupsave']);
-Route::post('/usersdatadashboard',[FitindiaDotNetController::class,'usersdashboard']);
-Route::get('/testresulthistory/{F365Id?}/{Testtypeid?}/{Age?}',[FitindiaDotNetController::class,'testresulthistory']);
-Route::post('/TestResultHistory/BindData',[FitindiaDotNetController::class,'BindData']);
-Route::post('/TestResultHistory/classwisetestdetails',[FitindiaDotNetController::class,'classwisetestdetails']);
-Route::get('/suggestionvideos/{Testtypeid?}/{AgeGroupId?}',[FitindiaDotNetController::class,'SuggestionVideos']);
-Route::post('/SuggestionVideos/GetSuggestionVideoPopup',[FitindiaDotNetController::class,'Suggestedvideo']);
+Route::get('/testlist', [App\Http\Controllers\FitindiaDotNetController::class, 'testlistview']);
+Route::get('/InitializeCulture/{data?}', [FitindiaDotNetController::class, 'initializeculture'])->name('initializeculture');
+Route::get('/homeaddusers/{id?}', [FitindiaDotNetController::class, 'homelistview'])->name('homelistview');
+Route::post('/storedata', [FitindiaDotNetController::class, 'storedata'])->name('storedata');
+Route::get('/getdata/{id?}', [FitindiaDotNetController::class, 'getdata'])->name('getdata');
+Route::get('/deactivate_member/{id?}', [FitindiaDotNetController::class, 'deactivatemember'])->name('deactivatemember');
+Route::get('/activate_member/{id?}', [FitindiaDotNetController::class, 'activatemember'])->name('activatemember');
+Route::get('/getalldata/{ParentId?}', [FitindiaDotNetController::class, 'getalldata'])->name('getalldata');
+Route::get(
+    '/memberdashboard/{Name?}/{F365Id?}/{Age?}/{AgeGroupId?}/{AgeGroupName?}/{GenderId?}',
+    [FitindiaDotNetController::class, 'memberdashboard']
+)
+    ->name('memberdashboard');
+Route::get('/member_view_report/{userF365Id?}/{UserDisplayDate?}', [FitindiaDotNetController::class, 'memberviewreport'])->name('memberviewreport');
+Route::get('/member_fitness_history/{userF365Id?}', [FitindiaDotNetController::class, 'memberfitnesshistory'])->name('memberfitnesshistory');
+Route::match(['GET', 'POST'], '/datewisedate', [FitindiaDotNetController::class, 'datewisedashboard'])->name('datewisedashboard');
+Route::post('TestListaspx/GetInstructiontPopup', [App\Http\Controllers\FitindiaDotNetController::class, 'GetInstructiontPopup']);
+Route::get('/taketest/{Name?}/{F365Id?}/{Age?}/{AgeGroupId?}/{AgeGroupName?}/{GenderId?}', [App\Http\Controllers\FitindiaDotNetController::class, 'taketestview']);
+Route::get('/benchmark/{age?}/{GenderId?}', [App\Http\Controllers\FitindiaDotNetController::class, 'benchmarkview']);
+Route::post('savetaketestdata', [App\Http\Controllers\FitindiaDotNetController::class, 'taktestsave']);
+Route::post('savetaketestsitrich', [App\Http\Controllers\FitindiaDotNetController::class, 'taktestsitrichsave']);
+Route::post('save50mtdash', [App\Http\Controllers\FitindiaDotNetController::class, 'taksave50mtdashsave']);
+Route::post('savepartialcurl', [App\Http\Controllers\FitindiaDotNetController::class, 'takpartialcurlsave']);
+Route::post('savepushup', [App\Http\Controllers\FitindiaDotNetController::class, 'takpsavepushupsave']);
+Route::post('save600runwalk', [App\Http\Controllers\FitindiaDotNetController::class, 'takpsave600mtupsave']);
+Route::post('/usersdatadashboard', [FitindiaDotNetController::class, 'usersdashboard']);
+Route::get('/testresulthistory/{F365Id?}/{Testtypeid?}/{Age?}', [FitindiaDotNetController::class, 'testresulthistory']);
+Route::post('/TestResultHistory/BindData', [FitindiaDotNetController::class, 'BindData']);
+Route::post('/TestResultHistory/classwisetestdetails', [FitindiaDotNetController::class, 'classwisetestdetails']);
+Route::get('/suggestionvideos/{Testtypeid?}/{AgeGroupId?}', [FitindiaDotNetController::class, 'SuggestionVideos']);
+Route::post('/SuggestionVideos/GetSuggestionVideoPopup', [FitindiaDotNetController::class, 'Suggestedvideo']);
 
 
-Route::get('/fitindiareportview',[FitindiaDotNetreportController::class,'fitindiareport']);
+Route::get('/fitindiareportview', [FitindiaDotNetreportController::class, 'fitindiareport']);
 
-Route::view('termsandconditions','termsandconditions');
-Route::view('socbookingterms','socbookingterms');
-Route::view('revisedpolicy','revisedpolicys');
+Route::view('termsandconditions', 'termsandconditions');
+Route::view('socbookingterms', 'socbookingterms');
+Route::view('revisedpolicy', 'revisedpolicys');
 
-Route::view('/data-deletion','data_deletion')->name('data_deletion');
+Route::view('/data-deletion', 'data_deletion')->name('data_deletion');
 
 // Route::get('fitindiaweekregister',[App\Http\Controllers\Auth\FitindiaweekregisterController::class,'showRegistrationForm'])->middleware('limit.ip:registration')->name('showRegistrationForm');
 
-Route::get('cyclothonregistrationform',[App\Http\Controllers\Auth\RegisterController::class,'cyclothonshowRegistrationForm'])->middleware('limit.ip:registration')->name('cyclothonshowRegistrationForm');
-Route::get('coiregistration',[App\Http\Controllers\Auth\RegisterController::class,'coiregistration'])->middleware('limit.ip:registration')->name('coiregistration');
-Route::get('register',[App\Http\Controllers\Auth\RegisterController::class,'showRegistrationForm'])->middleware('limit.ip:registration')->name('register');
-Route::get('coiregistrationdrive',[App\Http\Controllers\Auth\RegistereventbaisController::class,'coiregistrationdrive'])->middleware('limit.ip:registration')->name('coiregistrationdrive');
-Route::post('saveregisterdrive',[App\Http\Controllers\Auth\RegistereventbaisController::class,'saveregisterdrive'])->middleware('limit.ip:registration')->name('saveregisterdrive');
+Route::get('cyclothonregistrationform', [App\Http\Controllers\Auth\RegisterController::class, 'cyclothonshowRegistrationForm'])->middleware('limit.ip:registration')->name('cyclothonshowRegistrationForm');
+Route::get('coiregistration', [App\Http\Controllers\Auth\RegisterController::class, 'coiregistration'])->middleware('limit.ip:registration')->name('coiregistration');
+Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->middleware('limit.ip:registration')->name('register');
+Route::get('coiregistrationdrive', [App\Http\Controllers\Auth\RegistereventbaisController::class, 'coiregistrationdrive'])->middleware('limit.ip:registration')->name('coiregistrationdrive');
+Route::post('saveregisterdrive', [App\Http\Controllers\Auth\RegistereventbaisController::class, 'saveregisterdrive'])->middleware('limit.ip:registration')->name('saveregisterdrive');
 
 
 
@@ -981,13 +993,13 @@ Route::get('useremailw', [App\Http\Controllers\GeneralController::class, 'userem
 Route::get('fit-india-cycling-drive', [App\Http\Controllers\GeneralController::class, 'fit_india_cycling_drive'])->name('fit_india_cycling_drive');
 Route::get('fit-india-cycling-drive-update-banner', [App\Http\Controllers\GeneralController::class, 'fit_india_cycling_drive_update_banner'])->name('fit_india_cycling_drive_update_banner');
 Route::get('fit-india-cycling-drive-app-update-banner', [App\Http\Controllers\GeneralController::class, 'fit_india_cycling_drive_app_update_banner'])->name('fit_india_cycling_drive_app_update_banner');
-Route::get('ankit',function(){
+Route::get('ankit', function () {
     $response = Http::post('http://localhost/fit_india_api_git/api/v2/generateotpvtwo', [
         // $response = Http::post('https://service.fitindia.gov.in/api/v2/generateotpvtwo', [
-            'reqtime' => "9yh5lwmBrPe2aL6EeDJTYQ==",
-            'email' => "HKKCfpboFPoBYQrKX61e2w==",
-            'mobile' => "CPGgOvOGtQe7gMnLaeqwGg==",
-        ]);
+        'reqtime' => "9yh5lwmBrPe2aL6EeDJTYQ==",
+        'email' => "HKKCfpboFPoBYQrKX61e2w==",
+        'mobile' => "CPGgOvOGtQe7gMnLaeqwGg==",
+    ]);
     dd($response->collect());
     dd($response->body());
 });
