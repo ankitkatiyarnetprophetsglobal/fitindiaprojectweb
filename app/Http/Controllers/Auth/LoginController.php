@@ -100,8 +100,10 @@ class LoginController extends Controller
 
         if (RateLimiter::tooManyAttempts($key, 3)) {
             $seconds = RateLimiter::availableIn($key);
+            $minutes = floor($seconds / 60);
+            $remainingSeconds = $seconds % 60;
             throw ValidationException::withMessages([
-                'email' => ["Too many login attempts. Please try again in {$seconds} seconds."],
+                'email' => ["Too many login attempts. Please try again in {$minutes} minutes : {$remainingSeconds} seconds."],
             ]);
         }
 
