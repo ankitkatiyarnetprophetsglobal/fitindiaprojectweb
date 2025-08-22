@@ -78,6 +78,7 @@ use App\Http\Controllers\Admin\Auth\QuizMaster\AppVersionController;
 use App\Http\Controllers\Admin\Auth\QuizMaster\AppBannerController;
 use App\Http\Controllers\Admin\Auth\QuizMaster\SocEventMasterController;
 use App\Http\Controllers\Admin\Auth\QuizMaster\QueryExportController;
+use Illuminate\Auth\Events\Validated;
 
 /*
 |--------------------------------------------------------------------------
@@ -320,6 +321,7 @@ Route::namespace("Admin")->prefix('admin')->group(function () {
         Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
         Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
         Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
+        Route::get('/soc-download-national-sport-day-2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_national_sport_day_2025'])->name('socadmin.soc_download_national_sport_day_2025');
         // end soc admin download data
     });
 });
@@ -1024,6 +1026,10 @@ Route::post('import-excel', [App\Http\Controllers\SocadminImportController::clas
 Route::get('/admin/banner-update', [App\Http\Controllers\Admin\WebsiteQuickChangeController::class, 'edit'])->name('banner.edit');
 Route::post('/admin/banner-update', [App\Http\Controllers\Admin\WebsiteQuickChangeController::class, 'update'])->name('banner.update');
 
-
+// New Validated Domain
+Route::get('/redirect', function (\Illuminate\Http\Request $request) {
+    $url = $request->query('url');
+    return redirect()->away($url);
+})->name('redirect');
 
 URL::forceScheme('https');

@@ -58,7 +58,7 @@ class HomeController extends Controller
         return view('about');
     }
 
-	public function fidialogue()
+    public function fidialogue()
     {
         return view('fidialogue');
     }
