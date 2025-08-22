@@ -220,5 +220,6 @@ return [
     'register_school_certification' => 'स्कूल प्रमाणन',
 	'womens-week-bicycle-day' => 'विश्व साइकिल दिवस',
     'home-news-letter' => "समाचार पत्रिका",
+    'expression-of-interest-fit-india' => "रुचि की अभिव्यक्ति-फिट इंडिया",
 
 ];

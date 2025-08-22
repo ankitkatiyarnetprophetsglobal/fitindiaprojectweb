@@ -227,7 +227,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::post('/image_status/{id}', [MaganageImageStatusController::class, 'image_updateStatus'])->name('image-status');
     Route::post('/image_bulk_approve', [MaganageImageStatusController::class, 'image_bulkApprove'])->name('image-bulk-approve');
     Route::post('/image_bulk_reject', [MaganageImageStatusController::class, 'image_bulkReject'])->name('image-bulk-reject');
-    // End Images Status 
+    // End Images Status
 
     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
@@ -460,7 +460,7 @@ Route::get('/sendemail',[SendmailController::class,'sendemail'])->name('sendemai
 // National Sports day
 // Route::view('national-sports-day-2022', 'national-sports-day');
 Route::view('national-sports-day-2023', 'nationalsportsday2023');
-Route::view('national-sports-day-2025', 'nationalsportsday2025');
+// Route::view('national-sports-day-2025', 'nationalsportsday2025');
 Route::view('national-sports-day-merchandise-creatives-2025','nationalsportsdaymerchandisecreatives2025');
 Route::view('past-glimpses-2025', 'pastglimpses2025');
 Route::view('fit-india-pledge-2025', 'fitindiapledgeview2025');
@@ -619,6 +619,7 @@ Route::post('reset_password_without_token', [App\Http\Controllers\PasswordresetC
 Route::post('reset_password', [App\Http\Controllers\PasswordresetController::class, 'resetPassword'])->name('reset_password');
 Route::get('your-story', [App\Http\Controllers\GeneralController::class, 'shareStory'])->name('your-story');
 Route::post('save-story', [App\Http\Controllers\GeneralController::class, 'saveStory'])->name('save-story');
+Route::get('national-sports-day-2025', [App\Http\Controllers\GeneralController::class, 'nsd_show_static_page'])->name('nsd-show-static-page');
 Route::get('nsd-upload-image', [App\Http\Controllers\GeneralController::class, 'nsd_upload_image'])->name('nsd-upload-image');
 Route::post('save-upload-image', [App\Http\Controllers\GeneralController::class, 'save_upload_image'])->name('save-upload-image');
 //Route::get('school-quiz', [App\Http\Controllers\GeneralController::class, 'schoolQuiz'])->name('school-quiz');

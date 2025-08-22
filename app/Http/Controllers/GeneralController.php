@@ -1094,11 +1094,44 @@ class GeneralController extends Controller
     }
 
 
+    public function nsd_show_static_page(Request $request)
+	{
+		try{
+
+            $user_data_count = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')
+                    ->select(
+                        'users.id',
+                        'users.name',
+                        'users.email',
+                        'users.phone',
+                        'users.rolelabel',
+                        'users.rolewise',
+                        'usermetas.state',
+                        'usermetas.district',
+                        'usermetas.block',
+                        'usermetas.city'
+                    )
+                    ->where('users.rolewise', 'national-sports-day-2025')
+                    ->count();
+            return view('nationalsportsday2025',compact('user_data_count'));
+
+		}catch (Exception $e) {
+
+			return abort(404);
+
+		}
+	}
+
     public function nsd_upload_image(Request $request)
 	{
 		try{
 			$states = State::all();
-            return view('nsd-upload-image',compact('states'));
+            $roles = Role::where('groupof', 0)
+			// ->where('slug','=','namo-fit-india-youth-club')
+			->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
+            $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+            // dd($roles);
+            return view('nsd-upload-image',compact('states','roles','districts'));
 		}catch (Exception $e) {
 			return abort(404);
 		}
@@ -1108,19 +1141,48 @@ class GeneralController extends Controller
 	{
 		try{
 
+            // $request->validate([
+			// 	// 'youare' => 'required|string|min:3|max:255',
+			// 	'roletype' => 'required|string|min:3|max:255',
+			// 	'role' => 'required|string|min:3|max:255',
+			// 	'fullname' => 'required|string|min:3|max:255',
+			// 	'mobile' => 'required|digits:10',
+			// 	'designation' => 'required|string|min:3|max:255',
+			// 	'email' => 'required|string|email|max:255',
+			// 	// 'videourl' => 'required',
+			// 	'state' => 'required',
+			// 	// 'title' => 'required|string|min:3|max:255',
+			//     'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+			// 	// 'story' => 'required|string|min:3|max:255',
+			// 	'captcha' => ['required', 'captcha'],
+			// ]);
+
             $request->validate([
-				// 'youare' => 'required|string|min:3|max:255',
-				'mobile' => 'required|digits:10',
-				'designation' => 'required|string|min:3|max:255',
-				'email' => 'required|string|email|max:255',
-				'fullname' => 'required|string|min:3|max:255',
-				// 'videourl' => 'required',
-				'state' => 'required',
-				// 'title' => 'required|string|min:3|max:255',
-			    'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-				// 'story' => 'required|string|min:3|max:255',
-				'captcha' => ['required', 'captcha'],
-			]);
+                    'roletype' => 'required',
+                    'role' => 'required|string',
+                    'fullname' => 'required|string|min:3|max:100|regex:/^[a-zA-Z\s\.\'-]+$/',
+                    'mobile' => 'required|digits:10|regex:/^[6-9]\d{9}$/',
+                    'designation' => 'required|string|min:3|max:150|regex:/^[a-zA-Z\s]+$/',
+                    'email' => 'required|string|email|max:255',
+                    'state' => 'required|string|min:2|max:50',
+                    'district' => 'required|string|min:2|max:50',
+                    'image' => [
+                        'required',
+                        'mimes:jpg,jpeg,png,mp4,avi,mov,mkv,wmv', // ✅ images & videos allowed
+                        'max:51200' // 50MB limit
+                    ],
+                    'captcha' => ['required', 'captcha'],
+                ], [
+                    'roletype.required' => 'Role type can not be blank.',
+                    'role.required' => 'Role can not be blank.',
+                    'fullname.regex' => 'Name should contain only letters, spaces, or . - \' characters.',
+                    'mobile.regex' => 'Please enter a valid Indian mobile number.',
+                    'image.mimes' => 'Only JPG, PNG images or MP4, AVI, MOV, MKV, WMV videos are allowed.',
+                    'file.max' => 'File size must not exceed 50MB.',
+                    'email.unique' => 'This email is already registered.',
+                    'captcha.captcha' => 'Invalid captcha, please try again.'
+                ]);
+
             // dd($request->all());
             $year = date("Y/m");
             if($request->file('image'))
@@ -1131,9 +1193,11 @@ class GeneralController extends Controller
 
 			$yourstory = new Storeeventuserimage;
 			//$yourstory->youare = $request->youare;
+			$yourstory->role = $request->role;
 			$yourstory->fullname = $request->fullname;
 			$yourstory->mobile = $request->mobile;
 			$yourstory->state = $request->state;
+			$yourstory->district = $request->district;
 			$yourstory->designation = $request->designation;
 			$yourstory->email = $request->email;
 			$yourstory->image = $image;

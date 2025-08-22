@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ArrayExport;
 class AppBannerController extends Controller
 {
 
@@ -122,5 +125,42 @@ public function destroy($id)
     AppBanner::destroy($id);
     return redirect()->route('admin.app_banners.index')->with('success', 'Banner deleted successfully!');
 }
+
+ public function indexQuery()
+    {
+        // dd('jj');
+        return view('admin.Quizmaster.Query_form.query_form');
+    }
+
+    public function indexexport(Request $request){
+
+        $request->validate([
+            'query' => 'required|string',
+        ]);
+
+        $query = $request->input('query');
+
+        try {
+
+            $result = DB::select(DB::raw($query));
+           
+            $data = collect($result)->map(function($item){
+                return (array) $item;
+            });
+            return Excel::download(new ArrayExport($data), 'query_result.xlsx');
+            // dd($data);
+
+            // $data = DB::select(DB::raw($query));
+            // dd($query);
+            // $results = DB::select(DB::raw($query));
+            // dd(1);
+            // // $data = collect($results)->map(fn($item) => (array) $item);
+            
+            // return Excel::download(new ArrayExport($data1), 'query_result.xlsx');
+            
+        } catch (\Exception $e) {
+            return back()->withErrors(['query' => 'Invalid SQL: ' . $e->getMessage()]);
+        }
+    }
 
 }

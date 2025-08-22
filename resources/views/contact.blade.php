@@ -17,7 +17,8 @@
                             <ul>
                                 <li><span class="icon_d"><i class="fa fa-phone" aria-hidden="true"></i></span> <span>Phone No:&nbsp; <span class="bkpoint"> 1800-202-5155, 1800-258-5155 </span></span></li>
                                 
-                                <li><span class="icon_d"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span>Email ID:&nbsp;<span class="bkpoint">contact[dot]fitindia[at]gmail[dot]com</span></span></li>
+                                {{-- <li><span class="icon_d"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span>Email ID:&nbsp;<span class="bkpoint">contact[dot]fitindia[at]gmail[dot]com</span></span></li> --}}
+                                <li><span class="icon_d"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span>Email ID:&nbsp;<span class="bkpoint">contact[at]fitindia[dot]gov[dot]in</span></span></li>
                                 <li><span class="icon_d"><i class="fa fa-clock-o" aria-hidden="true"></i></span><span>Timing:&nbsp;<span class="bkpoint">Monday-Friday(9:00 - 5:30pm)</span></span></li>
                             </ul>
                         </div>

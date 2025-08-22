@@ -215,4 +215,5 @@ return [
 	'register_school_certification' => 'School Certification',
 	'womens-week-bicycle-day' => "World Bicycle Day",
 	'home-news-letter' => "Newsletter",
+	'expression-of-interest-fit-india' => "Expression of Interest-Fit India",
 ];

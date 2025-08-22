@@ -17,7 +17,8 @@ class QueryExportController extends Controller
 
     public function export(Request $request)
     {
- $request->validate([
+
+        $request->validate([
         'query' => 'required|string',
     ]);
 
@@ -25,7 +26,9 @@ class QueryExportController extends Controller
 
     try {
         $results = DB::select(DB::raw($query));
-        $data = collect($results)->map(fn($item) => (array) $item);
+         $data = collect($results)->map(function($item){
+                return (array) $item;
+            });
 
         return Excel::download(new ArrayExport($data), 'query_result.xlsx');
     } catch (\Exception $e) {

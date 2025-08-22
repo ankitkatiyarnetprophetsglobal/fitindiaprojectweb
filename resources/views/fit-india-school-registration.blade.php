@@ -10,10 +10,10 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-        <h1 class="et_pb_text_0">FIT INDIA SCHOOL CERTIFICATION</h1>
+        <h1 class="et_pb_text_0">FIT INDIA SCHOOL CERTIFICATION</h1>  
     </div>
     </div>
- <div class="row">
+ <div class="row">              
     <div class="col-sm-12 col-md-8">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -23,7 +23,7 @@
                 Background
             </a>
           </h4>
-
+    
             </div>
             <div id="collapseOne" class="panel-collapse collapse in show" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
@@ -40,37 +40,18 @@
               Fit India School
             </a>
           </h4>
-
+    
             </div>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
-                    {{-- <p>The following parameters would apply: </p> --}}
-                    <ol style="padding-left: 15px;padding-bottom: 5px;">
-                        <li><p><b>PE Teacher</b></p></li>
-                        <p>Schools must have at least one teacher who is responsible for:</p>
-                        <p>Conducting and overseeing physical education activities and promoting a healthy lifestyle among students through regular engagement in fitness-related programs.</p>
-                        <li><p><b>Accessible Playground / Play Area</b></p></li>
-                        <p>Schools must have at least one designated teacher who is responsible for:</p>
-                        <p>Conducting physical activities and promoting an active and healthy lifestyle among students</p>
-                        <li><p><b>Celebration of Fit India School Week</b></p></li>
-                        <p>Schools must have celebrated the Fit India School Week as part of their annual activities.</p>
-                        <p>Activities during the week should encourage mass participation and create awareness of fitness culture in schools.</p>
-                        <li><p><b>Accessible Playground or Play Area</b></p></li>
-                        <p>Schools must have a safe, well-maintained playground or open space to conduct regular physical activities.</p>
-                        <p>This space should be actively used for student engagement and should meet safety and usability standards.</p>
-                        <li><p><b>Sports Facilities</b></p></li>
-                        <p>The school must provide facilities for at least four sports, including:</p>
-                        <p>A minimum of two outdoor sports.</p>
-                        <p>These facilities should be functional and accessible for regular student use.</p>
+                    <p>The following parameters would apply: </p>
+                    <ol style=" padding-left: 15px;">
+                      <li>Having one teacher trained in PE, and such teacher is physically ﬁt and active.</li>
+                      <li>Having a playground Where two or more outdoor games are played.</li>
+                      <li>Having one PE period each day for every section and physical activities (sports, dance, games, yogasan, PT) take place in the PE period.</li>
+                      <li>Having all students spending 60 minutes or more on physical activities daily.</li>
                     </ol>
 
-                    {{-- <ol  style=" padding-left: 15px;">
-                        <li><b>Accessible Playground / Play Area</b></li>
-                    </ol> --}}
-                    {{-- <ol>
-                        <li>Grades 1–5: Minimum 30 minutes</li>
-                        <li>Grades 6–12: Minimum 45 to 60 minutes</li>
-                    </ol> --}}
                 </div>
             </div>
         </div>
@@ -82,34 +63,18 @@
               Fit India 3 Star School
             </a>
           </h4>
-
+    
             </div>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
-                    <ol style="padding-left: 15px;padding-bottom: 5px;">
-                        <li><p><b>Active Participation in Daily Physical Activity</b></p></li>
-                        <p>Schools must ensure that all students participate in daily physical activities as per the following durations:</p>
-                        <p>Conducting and overseeing physical education activities and promoting a healthy lifestyle among students through regular engagement in fitness-related programs.</p>
-                        <p>Grades 1–5: Minimum 30 minutes</p>
-                        <p>Grades 6–12: Minimum 45 to 60 minutes</p>
-                        <p>Activities should include sports, exercises, and fitness games conducted during school hours.</p>
-
-                        <li><p><b> Designated PE Teacher</b></p></li>
-                        <p>Schools must have at least one designated teacher who is responsible for:</p>
-                        <p>Conducting physical activities and promoting an active and healthy lifestyle among students.</p>
-
-                        <li><p><b> Celebration of Fit India School Week</b></p></li>
-                        <p>Schools must have celebrated the Fit India School Week as part of their annual activities.</p>
-                        <p>Activities during the week should encourage mass participation and create awareness of fitness culture in schools.</p>
-
-                        <li><p><b>Accessible Playground or Play Area</b></p></li>
-                        <p>Schools must have a safe, well-maintained playground or open space to conduct regular physical activities.</p>
-                        <p>This space should be actively used for student engagement and should meet safety and usability standards.</p>
-
-                        <li><p><b>Sports Facilities</b></p></li>
-                        <p>The school must provide facilities for at least four sports, including: <br/> A minimum of two outdoor sports.</p>
-                        <p>These facilities should be functional and accessible for regular student use.</p>
-                    </ol>
+                    <p>The following additional parameters would apply for claiming a 3 Star certification:</p> 
+                   <ol style=" padding-left: 15px;">
+                    <li>All teacher to be spending 60 minutes or more every day for physical activities.</li>
+                    <li>School has at least two teachers (Including one PET), each trained or well versed with any two sports</li>
+                    <li>School has celebrated Fit India School week.</li>
+                    <li>Having Sports facilities for 4 sports including the 2 outdoor sports.</li>
+                    <li>Every student learns and plays 2 sports – one of which could be a traditional/indigenous/local game.</li>
+                  </ol>
                 </div>
             </div>
         </div>
@@ -122,45 +87,19 @@
               Fit India 5 Star School
             </a>
           </h4>
-
+    
             </div>
             <div id="collapsefive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
               <div class="panel-body">
-                    <ol style="padding-left: 15px;padding-bottom: 5px;">
-
-                        <li><p><b>Active Participation in Physical Activities</b></p></li>
-                        <p>Schools must ensure:</p>
-                        <p>Grades 1–5: Minimum 30 minutes of daily physical activity <br> Grades 6–12: Minimum 45–60 minutes of daily physical activity</p>
-                        <p>Activities must include sports, exercises, and fitness games conducted within school hours.</p>
-                        <li><p><b>Sports Coaches & Student Strength</b></p></li>
-                        <p>The school must have at least two sports coaches (can also be PE teachers)</p>
-                        <p>The school must have a minimum of 1,000 enrolled students</p>
-
-                        <li><p><b>Accessible Playground</b></p></li>
-                        <p>The school must maintain a safe and well-equipped playground or open play space suitable for regular physical activity and sports events.</p>
-
-                        <li><p><b>PE Curriculum Aligned with NEP 2.0</b></p></li>
-                        <p>Schools must follow a structured physical education curriculum based on the guidelines in NEP 2.0.</p>
-                        <p>If not already aligned, schools should plan and commit to implementing it.</p>
-
-                        <li><p><b>Fitness Assessment for All Students</b></p></li>
-                        <p>The school must conduct annual fitness assessments of all students using:</p>
-                        <p>Fit India Movement App (FIMA)</p>
-                        <p>Or any other approved assessment method following FI Assessment parameters</p>
-
-                        <li><p><b>Healthy Eating Awareness</b></p></li>
-                        <p>Schools should actively encourage healthy eating habits among students by offering nutritious options in their canteens and promoting awareness of balanced diets.</p>
-
-                    </ol>
-                {{-- <p>The following additional parameters (over and above 3 Star certification) would apply for claiming the highest certification:</p> --}}
-                 {{-- <ol style=" padding-left: 15px;">
+                <p>The following additional parameters (over and above 3 Star certification) would apply for claiming the highest certification:</p> 
+                 <ol style=" padding-left: 15px;">
                   <li>School conducts quarterly intra-school sports competitions, participates in inter-school sports competition and celebrates Annual Sports Day.</li>
                   <li>All teachers are trained in PE.</li>
                   <li>School has 2 or more sports coaches. These may be PE teachers.</li>
                   <li>School follows structured PE curriculum prescribed by NCERT/CBSE/SCERT.</li>
                   <li>School conducts annual fitness assessment of all children.</li>
                   <li>School opens its playground(s) before/after school hours for neighbouring communities/parents, and the same is actively used. Reasonable fee can be levied for maintenance and security.</li>
-                 </ol> --}}
+                 </ol>
                 </div>
             </div>
         </div>
@@ -176,63 +115,10 @@
         </div>
         <div id="collapsefour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
             <div class="panel-body">
-                <ol style="padding-left: 15px;padding-bottom: 5px;">
-
-                    <li><p><b>Already Registered? <br> Download Your Certificate in 5 Easy Steps: </b></p></li>
-                    <ul>
-                        <li>Visit <a href="https://fitindia.gov.in/">www.fitindia.gov.in</a>  and log in</li>
-                        <li>Go to the <b>FIT India School Certification</b> section</li>
-                        <li>Accept the updated Terms & Conditions</li>
-                        <li>Fill in the required details</li>
-                        <li>Submit and download your certificate instantly</li>
-                    </ul>
-                    <br/>
-                    <li><p><b>New to FIT India? <br> Get Certified in 6 Simple Steps: </b></p></li>
-                    <ul>
-                        <li>Visit <a href="https://fitindia.gov.in/">www.fitindia.gov.in</a></li>
-                        <li>Click on <b>'School Certification'</b> under the Certification tab</li>
-                        <li>Sign up and log in</li>
-                        <li>Go to <b>FIT India School Certification</b></li>
-                        <li>Accept the Terms & Conditions</li>
-                        <li>Fill in the required details, submit, and download your certificate</li>
-                    </ul>
-                    <br/>
-                    <li><p><b>Important Note:</b></p></li>
-                    <ul>
-                        <li><b>Basic FIT India School Certification</b> is self-certified and granted online upon registration. Schools can download the certificate from the portal and use the <b>FIT India logo</b> upon receipt.</li>
-                        <li><b>3-Star and 5-Star Certifications</b> are also self-certified but <b>subject to physical verification</b> by the FIT India team.</li>
-                        <li>To uphold the authenticity and sustainability of the standards claimed, Fit India reserves the right to revoke the certification or introduce any legal provisions at its sole discretion.</li>
-
-                    </ul>
-
-
-                    {{-- <p>Schools must ensure:</p>
-                    <p>Grades 1–5: Minimum 30 minutes of daily physical activity <br> Grades 6–12: Minimum 45–60 minutes of daily physical activity</p>
-                    <p>Activities must include sports, exercises, and fitness games conducted within school hours.</p>
-                    <li><p><b>Sports Coaches & Student Strength</b></p></li>
-                    <p>The school must have at least two sports coaches (can also be PE teachers)</p>
-                    <p>The school must have a minimum of 1,000 enrolled students</p>
-
-                    <li><p><b>Accessible Playground</b></p></li>
-                    <p>The school must maintain a safe and well-equipped playground or open play space suitable for regular physical activity and sports events.</p>
-
-                    <li><p><b>PE Curriculum Aligned with NEP 2.0</b></p></li>
-                    <p>Schools must follow a structured physical education curriculum based on the guidelines in NEP 2.0.</p>
-                    <p>If not already aligned, schools should plan and commit to implementing it.</p>
-
-                    <li><p><b>Fitness Assessment for All Students</b></p></li>
-                    <p>The school must conduct annual fitness assessments of all students using:</p>
-                    <p>Fit India Movement App (FIMA)</p>
-                    <p>Or any other approved assessment method following FI Assessment parameters</p>
-
-                    <li><p><b>Healthy Eating Awareness</b></p></li>
-                    <p>Schools should actively encourage healthy eating habits among students by offering nutritious options in their canteens and promoting awareness of balanced diets.</p> --}}
-
-                </ol>
-               {{-- <ol style=" padding-left: 15px;">
+               <ol style=" padding-left: 15px;">
                 <li>Basic FIT INDIA SCHOOL would be self certiﬁed and registered online at www.ﬁtindia.gov.in by the School. Upon registration, a certiﬁcate would be issued online to the School, and on receipt of such certiﬁcate the School would be entitled to use Fit India Logo and Fit India Flag.</li>
                 <li>For FIT INDIA 3 Star or 5 Star certification the school would have to ﬁle its claim online at www.ﬁtindia.gov.in. The Fit India Mission would get the claim veriﬁed and thereafter issue an online certiﬁcate and commendation letter. The same would be followed in print and dispatched through postal mail.</li>
-
+                
               </ol>
               <p>FIT INDIA is going to be included in the Prime Minister’s Award. I request you to make FIT INDIA a successful people’s movement by providing your leadership for the following:</p>
               <ol style=" padding-left: 15px;">
@@ -241,7 +127,7 @@
                 <li>Nominate a senior ofﬁcer as a State Nodal Ofﬁcer for Fit India in your department and intimate to us; and</li>
                 <li>Organise Fit India events at schools from time to time. You may encourage schools to use their creativity in designing and organising Fit India events.</li>
               </ol>
-              <p>For information, contact:</p>
+              {{-- <p>For information, contact:</p>
               <table border="0" width="100%" class="table-grid">
                 <tbody>
                 <tr>
@@ -254,12 +140,10 @@
                 </tbody>
                 </table> --}}
             </div>
-            <br>
-            <br>
-            <div>Queries may be sent to <a href="mailto:contact.fitindia@gmail.com">contact[dot]fitindia[at]gmail[dot]com</a></div>
+            <div>Queries may be sent to <a href="mailto:contact@fitindia.gov.in">contact[at]fitindia[dot]gov[dot]in</a></div>
         </div>
     </div>
-
+        
     </div>
     </div>
     <div class="col-sm-12 col-md-4">
@@ -279,7 +163,7 @@
              jQuery('#organise-event-btn').removeClass('disable');
             }
         }
-
+    
         function chkorganise(){
 			  var agree = document.getElementById('agreed');
             if (agree.checked == false){
@@ -287,7 +171,7 @@
               return false;
             }else{
 				   window.location.href = "{{ url('/fit-india-school-certification') }}"
-
+				
             }
         }
 

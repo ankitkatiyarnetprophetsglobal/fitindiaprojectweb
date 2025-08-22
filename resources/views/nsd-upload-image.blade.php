@@ -38,6 +38,27 @@
                 @endif
                 <form action="{{ route('save-upload-image') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="role-row">
+                        <input type="radio" name="roletype"  value="1" onclick="fi_rolechange(this.value)" checked=""> Ministries/Departments
+                        <input type="radio" name="roletype" value="2" onclick="fi_rolechange(this.value)"> Armed forces/CPF
+                        <input type="radio" name="roletype" value="0" onclick="fi_rolechange(this.value)"> Other
+                        {{-- <input type="radio" name="roletype" value="0" {{ (request()->is('role')) }}  onclick="fi_rolechange(this.value)"> Other    --}}
+                    </div>
+                    @error('roletype')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <br>
+                    <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" autocomplete="role">
+                        <option value="">Select</option>
+                        @foreach ($roles as $role)
+                            <?php if(in_array($role->slug, array( 'champion' , 'smambassador', 'sai_user', 'author', 'gmambassador','gram_panchayat','caadmin') )){ continue; } ?>
+                            <option <?php if(isset($_GET['role'])){ if(base64_decode($_GET['role']) ==  $role->slug){ echo "selected='selected'";}} ?> value="{{ $role->slug }}"  @if(old('role') == $role->slug) {{ 'selected' }} @endif >{{ Str::upper($role->name)}}</option>
+                        @endforeach
+                    </select>
+                    @error('role')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <br>
                     <div class="">
                          <div class="form-group">
                             <label for="userEmail">Your name *</label>
@@ -91,8 +112,28 @@
                         @enderror
 
 					</div>
+
+                    <div class="form-group">
+
+                        <label for="userEmail">District *</label>
+
+                        <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" aria-required="true">
+							<option value="">Select district</option>
+							@foreach($districts->sortBy('name') as $st)
+							    @if($st->name)
+                                <option value="{{ $st->name }}"  @if(!empty(old('district')) && old('district') == $st->name) {{ 'selected' }} @endif >
+								{{ $st->name }}
+								</option>
+								@endif
+                            @endforeach
+                        </select>
+						@error('district')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+
+                    </div>
                         <div class="form-group">
-                            <label for="userEmail">Upload Your Image *</label>
+                            <label for="userEmail">Upload Your Photos/Videos *</label>
                             <input type="file" id="image" name="image">
                             @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -104,7 +145,16 @@
                          <div class="captcha-colm">
 
                          <div class="um-field" id="capcha-page-cont">
-                           <label for="captcha">(Even if you are sharing your story via video, please type 10-15 sentences about it in the box below.)</label><br>
+                           <label for="captcha">
+                                        (Please ensure that you upload only one type of file at a time—either images or videos in a
+                                        single upload. If you wish to upload the other type, please do so in a separate round).
+                            </label>
+                            <label for="captcha">
+                                            (If you want to upload multiple types of file in one go, you can create a new event. For more details, please refer to the “How to Register” guidelines.)
+                            </label>
+                            <br>
+                            <br>
+
                            <div style="float:left; width:115px;  margin: 6px 0;" id="pagecaptcha-cont">
                                 <div class="captchaimg">
                                     <span>{!! captcha_img() !!}</span>
@@ -138,14 +188,32 @@
   </section>
   <script>
 
-jQuery('#reload').click(function () {
-    jQuery.ajax({
-    type: 'GET',
-    url: "{{ route('reloadCaptcha')}}",
-    success: function (data) {
-		jQuery(".captchaimg span").html(data.captcha);
-    }
+    jQuery('#reload').click(function () {
+        jQuery.ajax({
+        type: 'GET',
+        url: "{{ route('reloadCaptcha')}}",
+        success: function (data) {
+            jQuery(".captchaimg span").html(data.captcha);
+        }
+        });
     });
-});
+
+    function fi_rolechange(val){
+	   $.ajax({
+           url: "{{ route('getroles') }}",
+           type: "post",
+           data: { "groupid" : val, "_token": "{{ csrf_token() }}"} ,
+           success: function (response) {
+               //console.log(response);
+               var elem = '<option value="">Select</option>';
+				for(var index in response) {
+					elem += '<option value="'+response[index]['slug'] + '">' + response[index]['name'] + "</option>" ;
+				}
+				$('#role').html(elem);
+
+            },
+        });
+
+    }
 </script>
 @endsection

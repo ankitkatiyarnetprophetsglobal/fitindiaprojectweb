@@ -450,8 +450,23 @@ $active_section_id = trim($active_section);
         height: unset;
     }
     }
+  </style>
+  <style>
+        .main {
+            text-align: center;
+        }
 
+        .marq {
+            /* padding-top: 5px; */
+            /* padding-bottom: 5px; */
+        }
 
+        .geek1 {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            padding-bottom: 2px;
+        }
   </style>
     <div class="banner">
         <div class="row">
@@ -483,7 +498,16 @@ $active_section_id = trim($active_section);
             </div>
         </div>
     </div>
-
+    <div class="main">
+        <marquee class="marq" style="background-color:#ff6000;" direction="left" loop="">
+            <div class="geek1">
+                IMPORTANT: PLEASE PRE-REGISTER FOR MAXIMUM PARTICIPATION | UPLOAD YOUR PHOTOS/VIDEOS AFTER THE EVENT TO DOWNLOAD PARTICIPATION CERTIFICATES
+            </div>
+        </marquee>
+    </div>
+    <div>
+        <h5><center> Registration Count: {{ $user_data_count ?? ""}}</center></h5>
+    </div>
 
     <div class="container-fluid over-hide">
         <div class="row">
@@ -499,7 +523,7 @@ $active_section_id = trim($active_section);
                 </div>
                 <div class="col-lg-6 col-md-12 col-12 my-2">
                     <h3>Be the part of the biggest ever sporting revolution!!</h3>
-                    <h2 class="mb-4">Har Gali Har Maidaan, Khele Saara Hindustan</h2>
+                    <h2 class="mb-4">Ek ghanta khel ke maidaan mein!!</h2>
                     {{-- <button class="buttons d-block mx-auto mb-2">Register & participate</button> --}}
                     <a class="buttons d-block mx-auto mb-2 text-center" href="register?role=bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1">
                         Register & participate
@@ -526,7 +550,7 @@ $active_section_id = trim($active_section);
                 <div class="col-lg-3 col-md-4 col-10 my-3">
                     <h5>01</h5>
                     {{-- <div class="d-flex flex-column align-items-center"> --}}
-                    <a class="d-flex flex-column align-items-center" style="color:#000000;" href="{{ url('resources/pdf/NSD 2025_How_To_Register-2.pdf') }}"  target="_blank">
+                    <a class="d-flex flex-column align-items-center" style="color:#000000;" href="{{ url('resources/pdf/NSD_2025_How_To_Register-2.pdf') }}"  target="_blank">
                         <div class="btn">
                             {{-- <img src="images/Group 48005.svg" alt=""> --}}
                             <img src="{{ asset('resources/imgs/national-sports-day-2025/Group 48005.svg') }}" alt="">
@@ -548,19 +572,19 @@ $active_section_id = trim($active_section);
                 </div>
                 <div class="col-lg-3 col-md-4 col-10 my-3">
                     <h5>03</h5>
-                    <a class="d-flex flex-column align-items-center" style="color:#000000;" href="{{ url('resources/pdf/SOP-NSD-2025.pdf') }}" target="_blank">
+                    <a class="d-flex flex-column align-items-center" style="color:#000000;" href="{{ url('resources/pdf/NSD_2025_Media_Submissions_Guidelines.pdf') }}" target="_blank">
                         <div class="btn">
                             {{-- <img src="images/Group 48083.svg" alt=""> --}}
                             <img src="{{ asset('resources/imgs/national-sports-day-2025/Group 48083.svg') }}" alt="">
                         </div>
                         <h6  class="text-center">
-                            Guidelines on Image/Video
+                            Guidelines on Photos/Videos
                         </h6>
                     </a>
                 </div>
                 <div class="col-lg-3 col-md-4 col-10 my-3">
                     <h5>04</h5>
-                    <a class="d-flex flex-column align-items-center" style="color:#000000;" href="{{ url('resources/pdf/SOP-NSD-2025.pdf') }}" target="_blank">
+                    <a class="d-flex flex-column align-items-center" style="color:#000000;" href="{{ url('resources/pdf/NSDGuidelinesforCertificateEligibility.pdf') }}" target="_blank">
                         <div class="btn">
                             {{-- <img src="images/Group 48084.svg" alt=""> --}}
                             <img src="{{ asset('resources/imgs/national-sports-day-2025/Group 48084.svg') }}" alt="">
@@ -582,7 +606,7 @@ $active_section_id = trim($active_section);
                 </div>
                 <div class="col-lg-6 col-md-12 col-12 my-2">
                     <h2>National Sports Day 2025</h2>
-                    <h3>Har Gali Har Maidaan, Khele Saara Hindustan</h3>
+                    <h3>Ek ghanta khel ke maidaan mein!!</h3>
                     <p class="my-4">
                     National Sports Day is celebrated annually on August 29 to commemorate the birth anniversary of Major Dhyan Chand, India’s greatest sporting legend. Known popularly as ‘The Wizard of Hockey,’ he is remembered for his many contributions to the Indian sport. Some of his key highlights of his career:
                     </p>
@@ -649,8 +673,8 @@ $active_section_id = trim($active_section);
                 <div class="col-lg-4 col-md-12 col-12 d-flex flex-column justify-content-center bs order-lg-1 order-md-0 order-0">
                     <h3 class="m-0 pl-3">What's </h3>
                     <h3 class="m-0 pl-3"><b>New</b></h3>
-                    <p class="m-0 pl-3">Har Gali Har Maidaan,</p>
-                    <p class="m-0 pl-3">Khele Saara Hindustan</p>
+                    <p class="m-0 pl-3">Ek ghanta khel,</p>
+                    <p class="m-0 pl-3">ke maidaan mein!!</p>
                     <br>
                     <p class="pl-3" style="text-align:justify;">In 2025, NSD will be a pan-India movement encouraging every citizen to play at least one sport, embracing Olympic & Paralympic values :
                         <br>
@@ -676,7 +700,7 @@ $active_section_id = trim($active_section);
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 my-2">
                     <h3>Highlights of Previous Celebrations</h3>
-                    <h4>Har Gali Har Maidaan, Khele Saara Hindustan</h4>
+                    <h4>Ek ghanta khel ke maidaan mein!!</h4>
                 </div>
                 <div class="col-lg-6 col-md-12 col-12 my-2">
                     <nav class="bg-transparent">
@@ -691,61 +715,64 @@ $active_section_id = trim($active_section);
             <div class="row mt-5 ">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane  fade show active" id="nav-home-new" role="tabpanel" aria-labelledby="nav-home-tab-new">
+                        <p style="color:#000000;">Meet the Champion school outreach | Athlete interactions | Fitness stories from Olympians and Paralympians</p>
                     <div class="container-fluid">
                         <div class="row h-left">
                             <div class="col-lg-6 col-md-12 col-12 my-2 d-flex flex-wrap justify-content-between">
                                 {{-- <img src="images/highlights/Mask Group 207.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 207.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2022/DSC2179.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 205.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 205.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2022/DSC2229.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 208.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 208.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2022/DSC03141.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 206.png" class="mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 206.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2022/DSC03337.jpg') }}" class=" mb-3" alt="">
                             </div>
                             <div class="col-lg-6 col-md-12 col-12 my-2 h-right ">
                                 {{-- <img src="images/highlights/Mask Group 204.png" class="img-fluid" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 204.png') }}" class="img-fluid" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2022/DSC03605.jpg') }}" class="img-fluid" alt="">
                             </div>
                         </div>
                     </div>
                     </div>
                     <div class="tab-pane fade" id="nav-profile-new" role="tabpanel" aria-labelledby="nav-profile-tab-new">
+                        <p style="color:#000000;">14,294 events | 1.6 million participants | Emphasis on pan-India sports challenges</p>
                     <div class="container-fluid">
                         <div class="row h-left">
                             <div class="col-lg-6 col-md-12 col-12 my-2 d-flex flex-wrap justify-content-between">
                                 {{-- <img src="images/highlights/Mask Group 207.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 207.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2023/DSC5522.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 205.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 205.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2023/DSC5684.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 208.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 208.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2023/DSC55221.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 206.png" class="mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 206.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2023/DSC55222.jpg') }}" class=" mb-3" alt="">
                             </div>
                             <div class="col-lg-6 col-md-12 col-12 my-2 h-right ">
                                 {{-- <img src="images/highlights/Mask Group 204.png" class="img-fluid" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 204.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2023/DSC55223.jpg') }}" class=" mb-3" alt="">
                             </div>
                         </div>
                     </div>
                     </div>
                     <div class="tab-pane fade" id="nav-year-new" role="tabpanel" aria-labelledby="nav-year-tab-new">
+                        <p style="color:#000000;">8,627 events organized | 2.5 million participants | Participation from ministries, armed forces, schools, RWAs, and youth organizations</p>
                     <div class="container-fluid">
                         <div class="row h-left">
                             <div class="col-lg-6 col-md-12 col-12 my-2 d-flex flex-wrap justify-content-between">
                                 {{-- <img src="images/highlights/Mask Group 207.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 207.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2024/0S9A0706.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 205.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 205.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2024/1.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 208.png" class=" mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 208.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2024/3.jpg') }}" class=" mb-3" alt="">
                                 {{-- <img src="images/highlights/Mask Group 206.png" class="mb-3" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 206.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2024/DSC05183.jpg') }}" class=" mb-3" alt="">
                             </div>
                             <div class="col-lg-6 col-md-12 col-12 my-2 h-right ">
                                 {{-- <img src="images/highlights/Mask Group 204.png" class="img-fluid" alt=""> --}}
-                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/Mask Group 204.png') }}" class=" mb-3" alt="">
+                                <img src="{{ asset('resources/imgs/national-sports-day-2025/highlights/2024/DSC05235.jpg') }}" class=" mb-3" alt="">
                             </div>
                         </div>
                     </div>

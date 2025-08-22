@@ -499,6 +499,15 @@ $active_section_id = trim($active_section);
                                                     </div>
                                                 </div> -->
                                             </li>
+                                        <li>
+                                            <div class="n_head">{{ __('home_content.expression-of-interest-fit-india')}} <!--Android App--></div>
+                                            {{-- <div class="down_area">{{ __('home_content.mobile_app_android')}} <!--Download :Fit India mobile app android.--></div> --}}
+                                            <div class=" ">
+                                                <div class="news_date_n">{{ __('home_content.Augest')}} <!--Augest--> 18, 2025
+                                                    <a class="getlink" href="{{ url('resources/pdf/expression-of-Interest-fit-India.pdf') }}">{{ __('home_content.Read_more')}} <!--Read more-->..</a>
+                                                </div>
+                                            </div>
+                                        </li>
 
                                           <!--   <li>
                                                 <div class="n_head"> Fit India Quiz </div>

@@ -1093,10 +1093,53 @@ class ReporteventController extends Controller
 
     public function cyclothonrenningdatawise(){
         try{
+
             // dd("sadfsadfasdfasdfasdf");
             // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2;';
             // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
-            $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
+            // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
+            // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2025-08-16 00:00:01" and uh.modegroupid = 2 and u.id in (2207513,2207524,2207465,2207425,2198495,2207642,2207546,2207451,2207427,2200635,2207839,2207508,2207556,2207453,1989687,2207841,2207640,2207843,2207810,2207845,2207313,2207501,2207572,2207616,2207783,2207565,2207615,2207757,2207487,2203217,2207630,2207467,2207639,2207485,2207473,2207855,2207856,2207480,2207445,2207430,2207858,2207455,2207432,2207466,1998024,2207876,2207237,2207824,2207880,2169457,2207626,2129871,2203864,2205255,2207422,2207419,2207548,2207474,2207778,2207434,2206103) order by uh.created_by ASC;';
+            $query = 'SELECT 
+                            u.id,
+                            u.name,
+                            u.email,
+                            u.phone,
+                            COUNT(uh.trip_name) AS total_trips,
+                            SUM(uh.duration) AS duration,
+                            SUM(uh.distance) AS distance,
+                            MAX(uh.uom) AS uom,
+                            MAX(uh.max_speed) AS max_speed,
+                            AVG(uh.average_speed) AS average_speed,
+                            MAX(uh.modegroupid) AS modegroupid,
+                            MIN(uh.created_by) AS first_created_by,
+                            SUM(uh.carbonSave) AS carbonSave,
+                            MAX(um.state) AS state,
+                            MAX(um.district) AS district,
+                            MAX(um.block) AS block,
+                            MAX(um.city) AS city
+                        FROM users AS u
+                        INNER JOIN userhistorytrakings AS uh 
+                            ON u.id = uh.user_id
+                        INNER JOIN usermetas AS um 
+                            ON u.id = um.user_id
+                        WHERE uh.created_by >= "2025-08-16 00:00:01"
+                        AND uh.modegroupid = 2
+                        --   AND u.id IN (
+                        --     2207513,2207524,2207465,2207425,2198495,2207642,2207546,2207451,2207427,
+                        --     2200635,2207839,2207508,2207556,2207453,1989687,2207841,2207640,2207843,
+                        --     2207810,2207845,2207313,2207501,2207572,2207616,2207783,2207565,2207615,
+                        --     2207757,2207487,2203217,2207630,2207467,2207639,2207485,2207473,2207855,
+                        --     2207856,2207480,2207445,2207430,2207858,2207455,2207432,2207466,1998024,
+                        --     2207876,2207237,2207824,2207880,2169457,2207626,2129871,2203864,2205255,
+                        --     2207422,2207419,2207548,2207474,2207778,2207434,2206103
+                        -- )
+                        GROUP BY 
+                            u.id,
+                            u.name,
+                            u.email,
+                            u.phone
+                        ORDER BY first_created_by ASC;';
+
 
             $data = DB::select(DB::raw($query));
 
@@ -1110,6 +1153,7 @@ class ReporteventController extends Controller
             $handle = fopen($filename, 'w');
 
             fputcsv($handle, [
+                "ID",
                 "Name",
                 "Email",
                 "Phone",
@@ -1118,7 +1162,7 @@ class ReporteventController extends Controller
                 "Distance",
                 // "Max Speed",
                 "Average Speed",
-                "Commemt",
+                // "Commemt",
                 "Mode",
                 "Date",
                 "carbon Save",
@@ -1131,17 +1175,18 @@ class ReporteventController extends Controller
             foreach ($data as $each_user) {
                 // dd($each_user);
                 fputcsv($handle, [
+                    $each_user->id,
                     $each_user->name,
                     $each_user->email,
                     $each_user->phone,
-                    $each_user->trip_name,
+                    $each_user->total_trips,
                     round($each_user->duration/60,2),
                     round($each_user->distance,2).' '.$each_user->uom,
-                    // $each_user->max_speed,
+                    // // $each_user->max_speed,
                     $each_user->average_speed,
-                    $each_user->commemt,
+                    // $each_user->commemt,
                     "Cycle",
-                    $each_user->created_by,
+                    $each_user->first_created_by,
                     $each_user->carbonSave,
                     $each_user->state,
                     $each_user->district,
