@@ -19,13 +19,13 @@ class RestrictHttpMethods
     public function handle(Request $request, Closure $next)
     {
         // ⭐ SECURITY FIX: Define allowed HTTP methods only
-        $allowedMethods = ['GET', 'POST','PUT', 'HEAD'];
+        $allowedMethods = ['GET', 'POST','PUT', 'HEAD','PATCH'];
         
         // Get current request method
         $currentMethod = strtoupper($request->getMethod());
         
         // Block dangerous HTTP methods including OPTIONS
-        $blockedMethods = ['OPTIONS', 'DELETE', 'PATCH', 'TRACE', 'CONNECT'];
+        $blockedMethods = ['OPTIONS', 'DELETE', 'TRACE', 'CONNECT'];
         
         if (in_array($currentMethod, $blockedMethods)) {
             // Log security incident

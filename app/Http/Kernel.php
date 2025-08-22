@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\Localization::class,
              \App\Http\Middleware\SingleSessionMiddleware::class,
+             \App\Http\Middleware\ValidateExternalUrl::class,
         ],
 
         /* 'api' => [

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 
 use Illuminate\Http\Request;
@@ -86,62 +87,76 @@ class HomeController extends Controller
     // dd($data_total_count_namo_fit_india_cycling_club);
 
 
-        $clubcountNamoSOC = $data_total_count_namo_fit_india_cycling_club + $data_total_count_cyclothon_club;
-        $total_count_cyclothon = $data_total_count_cyclothon + $data_total_count_namo_fit_india_cycling_club;
-        $fourth_count = DB::table('soc_event_participations as sop')
-                ->join('users', 'users.id', '=', 'sop.user_id')
-                ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
-                ->leftJoin('soc_event_participation_receives as sopr', function($join) {
-                    $join->on('sop.user_id', '=', 'sopr.user_id')
-                        ->on('sop.socemid', '=', 'sopr.socemid');
-                })
-                ->where('sop.socemid', 5)
-                ->count();
-        $fifth_count = DB::table('soc_event_participation_receives as sopr')
-        ->join('users', 'users.id', '=', 'sopr.user_id')
-        ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
-        ->where('sopr.socemid', 5)
-        ->whereNotIn('sopr.user_id', function($query) {
-            $query->select('user_id')
-                ->from('soc_event_participations')
-                ->where('socemid', 5);
-        })
-        ->count();
-        $sixth_count = DB::table('soc_event_participation_receives as sopr')
-            ->join('users', 'users.id', '=', 'sopr.user_id')
-            ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
-            ->where('sopr.socemid', 5)
-            ->whereIn('sopr.user_id', function($query) {
-                $query->select('user_id')
-                    ->from('soc_event_participations')
-                    ->where('socemid', 5);
-            })
-            ->count();
-        $seventh_count = DB::table('soc_event_participation_receives as sopr')
-        ->join('users', 'users.id', '=', 'sopr.user_id')
-        ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
-        ->where('sopr.socemid', 7)
-        ->whereNotNull('sopr.user_id')
-        ->count();
+    $clubcountNamoSOC = $data_total_count_namo_fit_india_cycling_club + $data_total_count_cyclothon_club;
+    $total_count_cyclothon = $data_total_count_cyclothon + $data_total_count_namo_fit_india_cycling_club;
+    $fourth_count = DB::table('soc_event_participations as sop')
+      ->join('users', 'users.id', '=', 'sop.user_id')
+      ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
+      ->leftJoin('soc_event_participation_receives as sopr', function ($join) {
+        $join->on('sop.user_id', '=', 'sopr.user_id')
+          ->on('sop.socemid', '=', 'sopr.socemid');
+      })
+      ->where('sop.socemid', 5)
+      ->count();
+    $fifth_count = DB::table('soc_event_participation_receives as sopr')
+      ->join('users', 'users.id', '=', 'sopr.user_id')
+      ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
+      ->where('sopr.socemid', 5)
+      ->whereNotIn('sopr.user_id', function ($query) {
+        $query->select('user_id')
+          ->from('soc_event_participations')
+          ->where('socemid', 5);
+      })
+      ->count();
+    $sixth_count = DB::table('soc_event_participation_receives as sopr')
+      ->join('users', 'users.id', '=', 'sopr.user_id')
+      ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
+      ->where('sopr.socemid', 5)
+      ->whereIn('sopr.user_id', function ($query) {
+        $query->select('user_id')
+          ->from('soc_event_participations')
+          ->where('socemid', 5);
+      })
+      ->count();
+    $seventh_count = DB::table('soc_event_participation_receives as sopr')
+      ->join('users', 'users.id', '=', 'sopr.user_id')
+      ->join('usermetas', 'users.id', '=', 'usermetas.user_id')
+      ->where('sopr.socemid', 7)
+      ->whereNotNull('sopr.user_id')
+      ->count();
 
-        $eventdate = DB::table('soc_event_masters')
-                    ->where('status', 0)
-                    ->orderBy('id', 'DESC')
-                    ->select('event_date')
-                    ->first();
-        // dd($eventdate->event_date);
-        if(isset($eventdate)){
-            $date_format = $eventdate->event_date;
-            $event_date = date('d-m-Y', strtotime($date_format));
-            // dd($event_date);
-            // date('d-m-Y', strtotime($event_date));
-        }else{
-            $event_date = "11-08-2025";
-        }
+    $eventdate = DB::table('soc_event_masters')
+      ->where('status', 0)
+      ->orderBy('id', 'DESC')
+      ->select('event_date')
+      ->first();
+    // dd($eventdate->event_date);
+    if (isset($eventdate)) {
+      $date_format = $eventdate->event_date;
+      $event_date = date('d-m-Y', strtotime($date_format));
+      // dd($event_date);
+      // date('d-m-Y', strtotime($event_date));
+    } else {
+      $event_date = "11-08-2025";
+    }
+
+    $national_sport_day_2025_count = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')
+      ->select(
+        'users.id',
+        'users.name',
+        'users.email',
+        'users.phone',
+        'users.rolelabel',
+        'users.rolewise',
+        'usermetas.state',
+        'usermetas.district',
+        'usermetas.block',
+        'usermetas.city'
+      )
+      ->where('users.rolewise', 'national-sports-day-2025')
+      ->count();
 
 
-    return view('admin.home', compact('curcount', 'school_star_count', 'total_count_cyclothon', 'total_individual', 'clubcountNamoSOC','fourth_count','fifth_count','sixth_count','seventh_count','event_date'));
-    // dd($curcount);
-    // return view('admin.home');
+    return view('admin.home', compact('curcount', 'school_star_count', 'total_count_cyclothon', 'total_individual', 'clubcountNamoSOC', 'fourth_count', 'fifth_count', 'sixth_count', 'seventh_count', 'event_date','national_sport_day_2025_count'));
   }
 }

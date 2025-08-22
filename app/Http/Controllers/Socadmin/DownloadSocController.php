@@ -249,5 +249,54 @@ class DownloadSocController extends Controller
             fclose($handle);
             return Response()->download($filename, "soc_report_cycle_return_data.csv", $headers);
     }
+    function soc_download_national_sport_day_2025(){
+        $query = "SELECT users.id as user_id,users.name as uname ,users.email as uemail,users.phone as uphone,users.rolelabel as urolelabel,users.rolewise as urolewise,usermetas.state as ustate,usermetas.district as udistrict,usermetas.block as ubloack,usermetas.city as ucity,users.created_at as ucreated_at  FROM users inner join usermetas on users.id = usermetas.user_id WHERE users.rolewise = 'national-sports-day-2025'";
+
+        $data = DB::select(DB::raw($query));
+
+            $headers = array(
+                'Content-Type' => 'text/csv'
+            );
+            $filename =  public_path("event.csv");
+            $handle = fopen($filename, 'w');
+
+
+            fputcsv($handle, [
+                    "User ID",
+                    "Name",
+                    "email",
+                    "Phone",
+                    "Role label",
+                    "Role wise",
+                    "State",
+                    "District",
+                    "Block",
+                    "City",
+                    "Created_at",
+
+            ]);
+
+            foreach ($data as $each_user) {
+
+                fputcsv($handle, [
+                        $each_user->user_id,
+                        $each_user->uname,
+                        $each_user->uemail,
+                        $each_user->uphone,
+                        $each_user->urolelabel,
+                        $each_user->urolewise,
+                        $each_user->ustate,
+                        $each_user->udistrict,
+                        $each_user->ubloack,
+                        $each_user->ucity,
+                        $each_user->ucreated_at,
+                      
+                ]);
+
+            }
+
+            fclose($handle);
+            return Response()->download($filename, "soc_report_national_sport_day_2025.csv", $headers);
+    }
 
 }
