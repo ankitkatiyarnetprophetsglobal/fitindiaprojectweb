@@ -31,8 +31,8 @@ public function index()
             'cycle' => 'required|integer',
             't_shirt' => 'required|integer',
             'meal' => 'nullable|integer',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'event_date' => 'required|date_format:Y-m-d',
             'status' => 'required|boolean',
         ]);
