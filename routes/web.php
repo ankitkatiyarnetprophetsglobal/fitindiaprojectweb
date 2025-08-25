@@ -219,9 +219,6 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
-     Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
-    Route::get('soc-report-download', [\App\Http\Controllers\SocReportController::class, 'download'])->name('soc-reports.download');
-
     Route::resource('dashboard-tiles', MaganageDashboardController::class);
     //Images Status Approve
     Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');

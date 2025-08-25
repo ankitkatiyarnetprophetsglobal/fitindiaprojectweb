@@ -77,6 +77,23 @@
 
                             </div>
 
+
+                            <!-- <div class="login-row">
+                                <div class="um-field" id="captcha-page-cont">
+                                    <label for="g-recaptcha-response">Please verify you are human</label><br>
+
+                                    {{-- Google reCAPTCHA --}}
+                                    {!! NoCaptcha::renderJs() !!}
+                                    {!! NoCaptcha::display() !!}
+
+                                    @error('g-recaptcha-response')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ e($message) }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div> -->
+
                             <div class="login-row">
                                 <div class="um-field" id="captcha-page-cont">
                                     <label for="g-recaptcha-response">Please verify you are human</label><br>
@@ -88,7 +105,7 @@
                                     {{-- Error Display --}}
                                     @error('g-recaptcha-response')
                                     <span class="invalid-feedback d-block" role="alert" style="font-size: 11px; margin-top: 5px;">
-                                        <strong>{{ e($message) }}</strong>
+                                        <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
 
@@ -116,35 +133,35 @@
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
 <script>
     // Secure CAPTCHA reload with CSRF protection and rate limiting
-    let captchaReloadCount = 0;
-    const maxCaptchaReloads = 10;
+    // let captchaReloadCount = 0;
+    // const maxCaptchaReloads = 10;
 
-    jQuery('#reload').click(function() {
-        if (captchaReloadCount >= maxCaptchaReloads) {
-            alert('Too many captcha reload attempts. Please refresh the page.');
-            return;
-        }
+    // jQuery('#reload').click(function() {
+    //     if (captchaReloadCount >= maxCaptchaReloads) {
+    //         alert('Too many captcha reload attempts. Please refresh the page.');
+    //         return;
+    //     }
 
-        captchaReloadCount++;
+    //     captchaReloadCount++;
 
-        jQuery.ajax({
-            type: 'GET',
-            url: '{{ route("reloadCaptcha") }}', // Use named route instead of hardcoded URL
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            timeout: 10000, // 10 second timeout
-            success: function(data) {
-                if (data && data.captcha) {
-                    jQuery(".captchaimg span").html(data.captcha);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Captcha reload failed:', error);
-                alert('Failed to reload captcha. Please try again.');
-            }
-        });
-    });
+    //     jQuery.ajax({
+    //         type: 'GET',
+    //         url: '{{ route("reloadCaptcha") }}', // Use named route instead of hardcoded URL
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         timeout: 10000, // 10 second timeout
+    //         success: function(data) {
+    //             if (data && data.captcha) {
+    //                 jQuery(".captchaimg span").html(data.captcha);
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error('Captcha reload failed:', error);
+    //             alert('Failed to reload captcha. Please try again.');
+    //         }
+    //     });
+    // });
 
     // Enhanced Crypto JS with input validation
     var CryptoJSAesJson = {
@@ -286,14 +303,14 @@
         $('#password').attr('autocomplete', 'new-password');
 
         // Prevent right-click on sensitive fields
-        $('#password, #captcha').on('contextmenu', function(e) {
+        $('#password').on('contextmenu', function(e) {
             return false;
         });
 
         // Clear sensitive data on page unload
         $(window).on('beforeunload', function() {
             $('#password').val('');
-            $('#captcha').val('');
+            // $('#captcha').val('');
         });
 
         // Add CSRF token to meta if not present
@@ -302,7 +319,12 @@
         }
 
         // Session timeout warning
-        let sessionTimeout = {{config('session.lifetime') * 60000 - 300000}}; // 5 minutes before expiry
+        let sessionTimeout = {
+            {
+                config('session.lifetime') * 60000 - 300000
+            }
+        }; // 5 minutes before expiry
+
         setTimeout(function() {
             alert('Your session will expire soon. Please save your work and login again if needed.');
         }, sessionTimeout);

@@ -187,14 +187,15 @@ return [
         App\Providers\RouteServiceProvider::class,
         MikeMcLin\WpPassword\WpPasswordProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-		Maatwebsite\Excel\ExcelServiceProvider::class,
-		Barryvdh\DomPDF\ServiceProvider::class,
-		Mews\Captcha\CaptchaServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        // Mews\Captcha\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
         //\SendinBlue\Client\Model\CreateModel
-		//App\Providers\SmsServiceProvider::class,		
-		//Juanparati\Sendinblue\ServiceProvider::class,
+        //App\Providers\SmsServiceProvider::class,      
+        //Juanparati\Sendinblue\ServiceProvider::class,
     ],
 
     /*
@@ -207,9 +208,9 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-	
-	/*'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,
-		'SMS' => Juanparati\Sendinblue\Facades\SMS::class,*/
+    
+    /*'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,
+        'SMS' => Juanparati\Sendinblue\Facades\SMS::class,*/
 
     'aliases' => [
 
@@ -251,11 +252,12 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-		'PDF' => Barryvdh\DomPDF\Facade::class,
-		'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => 'Intervention\Image\Facades\Image',
-		//'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,
-		//'SMS' => Juanparati\Sendinblue\Facades\SMS::class,        		
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        //'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,
+        //'SMS' => Juanparati\Sendinblue\Facades\SMS::class,                
     ], 
 ];

@@ -19,7 +19,7 @@
   <div>
         <img src="{{ asset('resources/images/share-your-story.jpg') }}" alt="share-your-story"
             title="Share your Fitness Story" class="img-fluid expand_img" />
-			<h1 style="font-size:1px; color:#fff;">Share Your Story</h1>
+            <h1 style="font-size:1px; color:#fff;">Share Your Story</h1>
     </div>
 <section id="{{ $active_section_id }}">
 
@@ -36,88 +36,88 @@
 
 @foreach ($shared as $share)
 
-	<div class="col-sm-12 col-md-6 col-lg-3">       
+    <div class="col-sm-12 col-md-6 col-lg-3">       
       <div class="shar_div shar_card shadow" >
-    		  <div class="ytb-video">
-        		  <div class="play-card" id="play-video" ref="{{$share->id}}">
-        		      <span class="play-icon"><i class="fa fa-play" aria-hidden="true"></i></span>  
-        		      <img src="@if(!empty($share->image)) {{ $share->image }} @endif" class="img-fluid" alt="Dr Seema Rao" title="Dr Seema Rao, Women Commando Trainer" />
-        		  </div>
-    		      <iframe id="video-{{$share->id}}" src="{{ $share->videourl }}" rel="0" enablejsapi="1" modestbranding="0"  controls="0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
-    		  </div> 
+              <div class="ytb-video">
+                  <div class="play-card" id="play-video" ref="{{$share->id}}">
+                      <span class="play-icon"><i class="fa fa-play" aria-hidden="true"></i></span>  
+                      <img src="@if(!empty($share->image)) {{ $share->image }} @endif" class="img-fluid" alt="Dr Seema Rao" title="Dr Seema Rao, Women Commando Trainer" />
+                  </div>
+                  <iframe id="video-{{$share->id}}" src="{{ $share->videourl }}" rel="0" enablejsapi="1" modestbranding="0"  controls="0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+              </div> 
           <div class="shar_inr_card">
-      				<div class="my-nm"><strong>{{ $share->fullname }}</strong></div>
-          		<div class="sty-deg"><div class="sty-spn">{{ $share->designation }}</div>
+                    <div class="my-nm"><strong>{{ $share->fullname }}</strong></div>
+                <div class="sty-deg"><div class="sty-spn">{{ $share->designation }}</div>
                   <span class="sty-cty">{{ $share->state }}</span><span>&nbsp;|&nbsp;</span>
                   <span class="sty-date"> {{ date('M Y', strtotime($share->created_at)) }} </span>
               </div>
-          		<div class="my-story">
-          				<div class="story-head"><strong>{{ $share->title }}</strong><span class="mid-line"></span></div>    
+                <div class="my-story">
+                        <div class="story-head"><strong>{{ $share->title }}</strong><span class="mid-line"></span></div>    
                   <div class="story-dtls"><p class="story-p">{{ $share->story }}</p><span class="more-story">More ></span></div>
-          		</div>
+                </div>
           </div> 
-		  </div>
-	</div>
-	
+          </div>
+    </div>
+    
 @endforeach
 
 <!--
     <div class="col-sm-12 col-md-6 col-lg-3">       
           <div class="shar_div shar_card shadow" >
-		  	
-		  <div class="ytb-video">
-		  <div class="play-card" id="play-video">
-		  <span class="play-icon"><i class="fa fa-play" aria-hidden="true"></i></span>  
-		  <img src="resources/imgs/dr-seema-rao.jpg" class="img-fluid" alt="Dr Seema Rao" title="Dr Seema Rao, Women Commando Trainer" />
-		  </div>
-		  <iframe id="video" src="https://www.youtube.com/embed/X2SOt0O3F4w?controls=0" rel="0" enablejsapi="1" modestbranding="0"  controls="0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
-		
-		 </div> 
+            
+          <div class="ytb-video">
+          <div class="play-card" id="play-video">
+          <span class="play-icon"><i class="fa fa-play" aria-hidden="true"></i></span>  
+          <img src="resources/imgs/dr-seema-rao.jpg" class="img-fluid" alt="Dr Seema Rao" title="Dr Seema Rao, Women Commando Trainer" />
+          </div>
+          <iframe id="video" src="https://www.youtube.com/embed/X2SOt0O3F4w?controls=0" rel="0" enablejsapi="1" modestbranding="0"  controls="0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+        
+         </div> 
               <div class="shar_inr_card">
-				
-				<div class="my-nm"><strong>Dr Seema Rao</strong></div>
-				<div class="sty-deg"><div class="sty-spn">Women Commando Trainer</div><div class="sty-cty">Maharashtra</div><div class="sty-date">Apr 2021</div></div>
-				<div class="my-story">
-				<div class="story-head"><strong>Story of India's First Woman Commando Trainer</strong><span class="mid-line"></span></div>                         
+                
+                <div class="my-nm"><strong>Dr Seema Rao</strong></div>
+                <div class="sty-deg"><div class="sty-spn">Women Commando Trainer</div><div class="sty-cty">Maharashtra</div><div class="sty-date">Apr 2021</div></div>
+                <div class="my-story">
+                <div class="story-head"><strong>Story of India's First Woman Commando Trainer</strong><span class="mid-line"></span></div>                         
                 <div class="story-dtls"><p class="story-p">A short documentary on India's first woman commando trainer "Dr. Seema Rao." A woman's quest for standing shoulder to shoulder with men of war.</p><span class="more-story">More ></span></div>
-				</div>
+                </div>
               
          </div> 
     </div>
-	</div>
-	
-	
-	
-	
-	<div class="col-sm-12 col-md-6 col-lg-3">
+    </div>
+    
+    
+    
+    
+    <div class="col-sm-12 col-md-6 col-lg-3">
           <div class="shar_div shar_card shadow" >
-		  
-		  <div class="ytb-video">
-		  <div class="play-card" id="play-video">
-		  <span class="play-icon"><i class="fa fa-play" aria-hidden="true"></i></span>
-		  <img src="resources/imgs/shreya-sharma.jpg" class="img-fluid" alt="Shreya Sharma" title="Shreya Sharma, Student" />
-		  </div>
-		  <iframe id="video1" src="https://www.youtube.com/embed/bPr8K2wq4XQ?controls=0" rel="0" enablejsapi="1" modestbranding="0"  controls="0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		  </div>
+          
+          <div class="ytb-video">
+          <div class="play-card" id="play-video">
+          <span class="play-icon"><i class="fa fa-play" aria-hidden="true"></i></span>
+          <img src="resources/imgs/shreya-sharma.jpg" class="img-fluid" alt="Shreya Sharma" title="Shreya Sharma, Student" />
+          </div>
+          <iframe id="video1" src="https://www.youtube.com/embed/bPr8K2wq4XQ?controls=0" rel="0" enablejsapi="1" modestbranding="0"  controls="0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
               <div class="shar_inr_card">
-				
-				<div class="my-nm"><strong>Shreya Sharma</strong></div>				
-				<div class="sty-deg"><div class="sty-spn">Student</div><div class="sty-cty">Punjab</div><div class="sty-date">Apr 2021</div></div>
-				<div class="my-story">
-				<div class="story-head"><strong>My health my responsibility</strong><span class="mid-line"></span></div>                           
+                
+                <div class="my-nm"><strong>Shreya Sharma</strong></div>             
+                <div class="sty-deg"><div class="sty-spn">Student</div><div class="sty-cty">Punjab</div><div class="sty-date">Apr 2021</div></div>
+                <div class="my-story">
+                <div class="story-head"><strong>My health my responsibility</strong><span class="mid-line"></span></div>                           
                 <div class="story-dtls"><p class="story-p">All the wealth before which we all are running is only illusionary, the real wealth is our health. If our health is good we can enjoy our life which is full of adventures, But for it we need to work out and meditate on a daily basis.</p><span class="more-story">More ></span></div>
-				</div>
+                </div>
               
          </div> 
     </div>
-	
-	
-	--> 
-	
-	
-	
-	<!--
-	<div class="col-sm-12 col-md-6 col-lg-3">       
+    
+    
+    --> 
+    
+    
+    
+    <!--
+    <div class="col-sm-12 col-md-6 col-lg-3">       
           <a href="javascript:void(0)">
               <div class="shar_div shadow ">
               <img src="resources/imgs/home/Sardar-Gurbachan-Singh_Hockey-Olympian-400x250.jpg" class="img-fluid" alt="Sardar Gurbachan Singh, Hockey Olympian (1964,1968) & had been Coach of 1976 Indian Olympics"/>
@@ -129,7 +129,7 @@
             </div>
          
     </div>
-	
+    
      <div class="col-sm-12 col-md-6 col-lg-3">
           <a href="javascript:void(0)">
           <div  class="shar_div shadow"> 
@@ -210,8 +210,8 @@
           </div>
 </div>
       
-	  -->
-	  
+      -->
+      
     </div>
  
 </div>
@@ -224,11 +224,11 @@
   $(document).ready(function() {
   
   $('.play-card').click(function(ev){
-	  $(this).hide();
+      $(this).hide();
     var v_id = $(this).attr('ref');
     $("#video-"+v_id)[0].src += "&autoplay=1";
      ev.preventDefault(); 
-	  $("#video-"+v_id)[0].src += "&autoplay=1";
+      $("#video-"+v_id)[0].src += "&autoplay=1";
      ev.preventDefault();
   });
   
@@ -259,9 +259,9 @@ $(document).ready(function(){
 </script>
 <style>
 .story-ext {
-	-webkit-line-clamp: unset !important;
+    -webkit-line-clamp: unset !important;
     overflow: visible !important;
-	padding-bottom: 20px !important;
+    padding-bottom: 20px !important;
 }
 </style>
 <!-- <script src="resources/js/modernizr.custom.js"></script>

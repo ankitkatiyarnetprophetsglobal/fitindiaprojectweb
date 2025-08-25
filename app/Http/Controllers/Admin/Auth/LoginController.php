@@ -22,8 +22,8 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-	
-	
+    
+    
     /**
      * Where to redirect users after login.
      *
@@ -38,12 +38,13 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-       	$this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
     }
 
 
     public function showLoginForm(){
+
        return view('admin.login');
     }
 
@@ -63,15 +64,15 @@ class LoginController extends Controller
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6',
-			'captcha' => ['required','captcha'],
+            'captcha' => ['required','captcha'],
         ],[
             'email.required' => 'The Email field is required.',
             'email.email' => 'Please enter the valid Email ID',
             'password.required' => 'The Password field is required.',
             'captcha.required' => 'The captcha field is required.',
             'captcha.captcha' => 'Invalid Captcha',
-         ]	
-		);
+         ]  
+        );
 
         if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1], $request->get('remember'))) {
 
@@ -80,12 +81,12 @@ class LoginController extends Controller
 
         return back()->with(['status' => 'success' , 'msg' => 'Invalid Credentials']);
     }
-	
-	 protected function guard()
+    
+     protected function guard()
     {
         return Auth::guard('admin');
     }
-	
-	
-	
+    
+    
+    
 }
