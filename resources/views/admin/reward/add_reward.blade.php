@@ -39,12 +39,12 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form name="webreward" id="webreward" method="POST" action="{{ route('admin.webreward.store') }}" enctype="multipart/form-data">
-			    @csrf
+                @csrf
                 <div class="card-body">
                 @if (session('success'))
-					<div class="alert alert-success">
-						{{ session('success') }}
-					</div>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
                 @endif
                 @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -61,7 +61,7 @@
 
 
                  
-				        <div class="form-group">
+                        <div class="form-group">
                     <label for="exampleInputEmail1">Award Group Type</label>
                     <select name="a_group_type" class="form-control">
                     <option value="">Select Group Type</option>
@@ -119,7 +119,7 @@
                     <input type="file" name="image" class="form-control" id="image">
                 </div>
                 
-				        </div>
+                        </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
@@ -136,7 +136,7 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-	
+    
     <!-- /.content -->
   </div>
 
@@ -144,9 +144,6 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 <!--  <script src="https://jqwidgets.com/public/jqwidgets/jqx-all.js"></script>  -->
 
-<!-- <script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script> -->
-<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
- -->
  <script>
  /* $(document).ready(function(){
     $('#webreward').on('submit', function() {

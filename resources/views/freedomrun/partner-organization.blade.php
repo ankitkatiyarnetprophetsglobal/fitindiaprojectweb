@@ -185,8 +185,8 @@ $active_section_id = trim($active_section);
 </div>
 </section>
 
-<script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
+<script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
 <script>
 $(document).ready(function(){
    // $( "#from_date" ).datepicker({ minDate: -20, maxDate: "+1M +10D" });

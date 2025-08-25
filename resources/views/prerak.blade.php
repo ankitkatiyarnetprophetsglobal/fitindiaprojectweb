@@ -11,8 +11,8 @@
       <div class="alert alert-danger"><center><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{session('failed')}}</center></div>
       @endif 
         <div class="row ambass_area">
-		    
-		  <h2>Be a Fit India Prerak</h2>		   
+            
+          <h2>Be a Fit India Prerak</h2>           
           <form name="prerakform" method="post" action="add-prerak" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -301,9 +301,8 @@
       </div>
       </div>
   </section>
-<script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
-
+<script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
   <script type="text/javascript">
     $('#state').change(function(){
     state_id = $('#state').val();

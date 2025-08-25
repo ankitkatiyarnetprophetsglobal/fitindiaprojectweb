@@ -118,30 +118,30 @@ if (in_array($role_value, $validation_role_arr)){
                                                     <input type="number" name="contact" class="form-control" id="contact" placeholder="Contact" value="{{$events->phone}}" maxlength="10" readonly>
                                                     {!!$errors->first("contact","<span class='text-danger'>:message</span>")!!}
                                                 </div>
-                                        </div>										
-										
-										<?php 
+                                        </div>                                      
+                                        
+                                        <?php 
                                         if ($role_value=='school'){ 
                                         ?>
-										<div class="um-field">
-												<div class="um-field-label">
-													<label for="eventname">School Chain *</label>
-													<div class="um-clear"></div>
-												</div> 
-												<div class="um-field-area">												
-												 <select name="school_chain" id="school_chain" class="fit-pe-inputs" disabled>
-												  <option value="">Select</option>
-												  <option value="KVS" <?=(!empty($events->school_chain)&&($events->school_chain=='KVS'))? 'selected=selected' : ''?>>KVS</option>
-												  <option value="CBSE"<?=(!empty($events->school_chain)&&($events->school_chain=='CBSE'))? 'selected=selected' : ''?>>CBSE</option>
-												  <option value="CISCE"<?=(!empty($events->school_chain)&&($events->school_chain=='CISCE'))? 'selected=selected' : ''?>>CISCE</option>
-												  <option value="NV"<?=(!empty($events->school_chain)&&($events->school_chain=='NV'))? 'selected=selected' : ''?>>JNV(Jawahar Navodaya Vidyalaya)</option>
-												  <option value="State Education Board"<?=(!empty($events->school_chain)&&($events->school_chain=='State Education Board'))? 'selected=selected' : ''?>>State Education Board</option>
-												 </select>
-												 {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
-												</div>
-											  </div>
+                                        <div class="um-field">
+                                                <div class="um-field-label">
+                                                    <label for="eventname">School Chain *</label>
+                                                    <div class="um-clear"></div>
+                                                </div> 
+                                                <div class="um-field-area">                                             
+                                                 <select name="school_chain" id="school_chain" class="fit-pe-inputs" disabled>
+                                                  <option value="">Select</option>
+                                                  <option value="KVS" <?=(!empty($events->school_chain)&&($events->school_chain=='KVS'))? 'selected=selected' : ''?>>KVS</option>
+                                                  <option value="CBSE"<?=(!empty($events->school_chain)&&($events->school_chain=='CBSE'))? 'selected=selected' : ''?>>CBSE</option>
+                                                  <option value="CISCE"<?=(!empty($events->school_chain)&&($events->school_chain=='CISCE'))? 'selected=selected' : ''?>>CISCE</option>
+                                                  <option value="NV"<?=(!empty($events->school_chain)&&($events->school_chain=='NV'))? 'selected=selected' : ''?>>JNV(Jawahar Navodaya Vidyalaya)</option>
+                                                  <option value="State Education Board"<?=(!empty($events->school_chain)&&($events->school_chain=='State Education Board'))? 'selected=selected' : ''?>>State Education Board</option>
+                                                 </select>
+                                                 {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
+                                                </div>
+                                              </div>
                                         <?php } ?>
-										
+                                        
                                         &nbsp;
                                         <div class="multiple_image_section">
                                                 <div class="um-field">
@@ -274,8 +274,8 @@ if (in_array($role_value, $validation_role_arr)){
 </div>
     
     
-<script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
+<script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
 <script>
   $(function() {
     jQuery.validator.addMethod("validate_email", function(value, element) {

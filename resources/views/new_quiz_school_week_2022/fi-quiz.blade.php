@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('resources/ncss/create.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/ncss/style.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/ncss/media_query_quiz.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="{{ asset('resources/css/newcss/select2.min.css') }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <script>
@@ -461,12 +461,12 @@
 
         </div>
     </form>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
-          <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="{{ asset('resources/js/newjs/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{ asset('resources/js/newjs/popper.min.js')}}"></script>
+    <script src="{{ asset('resources/js/newjs/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('resources/js/newjs/jquery-ui.js')}}"></script>
+     <script src="{{ asset('resources/js/newjs/select2.min.js')}}"></script>
    
     <script src="{{ asset('resources/js/jquery.fullscreen.js') }}"></script>
     <script>

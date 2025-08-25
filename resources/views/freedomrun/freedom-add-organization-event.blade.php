@@ -123,7 +123,6 @@ if (in_array($role_value, $validation_role_arr)){*/
                                                       <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Event Name" value="Fit India Swachhata Freedom Run 4.0" readonly>
                                                    </div>
                                             </div>
-
                                             <div class="um-field"></div>
                                             <div class="um-field">
                                                     <div class="um-field-label">

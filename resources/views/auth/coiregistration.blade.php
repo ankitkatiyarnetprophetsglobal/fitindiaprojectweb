@@ -2,7 +2,7 @@
 @extends('layouts.app')
 @section('title', 'Register | Fit India')
 @section('content')
-{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
 <link href="{{ asset('resources/css/select2/select2.min.css') }}" rel="stylesheet" media="all">
 <style>
     .register-row-lft{
@@ -100,7 +100,7 @@
 
          <div class="">
             <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate="novalidate">
-			    @csrf
+                @csrf
                 <p>Already have an account?
                   <a id="fi_signin" href="login">Login</a>
                 </p>
@@ -157,16 +157,16 @@
                           <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required autocomplete="role" autofocus>
                             @if (isset($_GET['role']))
                                 @if ($_GET['role'] != 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi')
-							        {{-- <option value="">{{'Select'}}</option> --}}
+                                    {{-- <option value="">{{'Select'}}</option> --}}
                                 @endif
                             @endif
-							@foreach ($roles as $role)
-							<?php if(in_array($role->slug, array( 'champion' , 'smambassador', 'sai_user', 'author', 'gmambassador','gram_panchayat','caadmin') )){ continue; } ?>
+                            @foreach ($roles as $role)
+                            <?php if(in_array($role->slug, array( 'champion' , 'smambassador', 'sai_user', 'author', 'gmambassador','gram_panchayat','caadmin') )){ continue; } ?>
 
                             <option <?php if(isset($_GET['role'])){ if(base64_decode($_GET['role']) ==  $role->slug){ echo "selected='selected'";}} ?> value="{{ $role->slug }}"  @if(old('role') == $role->slug) {{ 'selected' }} @endif >{{ Str::upper($role->name)}}</option>
 
                             @endforeach
-						  </select>
+                          </select>
                                 @error('role')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -229,12 +229,12 @@
 
                 <div id="udisenumrow" class="register-row">
                     <div class="register-row-lft">
-					 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="{{ $club_name ?? 'Name' }}">
-						@error('name')
-							<span class="invalid-feedback" role="alert">
-								<strong>{{ $message }}</strong>
-							</span>
-						@enderror
+                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="{{ $club_name ?? 'Name' }}">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <span id="blankname" style="display:none; color:red; font-size:12px;">
                             Name is required
                         </span>
@@ -277,7 +277,7 @@
                 <div class="register-row e-mob-fx" >
                     <div class="register-row-lft">
 
-						<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -304,12 +304,12 @@
                         {{-- cursor: pointer; --}}
                         {{-- <div><a href="url">link text</a></div> --}}
                         {{-- <button type="button">Click Me!</button> --}}
-						{{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
-							@error('phone')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror --}}
+                        {{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror --}}
                     </div>
                 </div>
                 <div style="clear:both"></div>
@@ -318,11 +318,11 @@
                 <div class="register-row e-mob-fx" >
                     <div class="register-row-lft">
                         <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') ?? "" }}" required autocomplete="phone" min="0" max="9999999999" placeholder="Mobile">
-							@error('phone')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <span id="phone_error" style="display:none; color:red; font-size:12px;">
                                 Please enter a valid mobile number
                             </span>
@@ -387,11 +387,11 @@
                 <div class="register-row e-mob-fx" >
                     <div class="register-row-lft">
                         <input id="pincode" type="number" class="form-control @error('pincode') is-invalid @enderror pincode_value" name="pincode" value="{{ old('phone') ?? "" }}" required autocomplete="pincode" min="0" max="999999" placeholder="Pin Code">
-							@error('pincode')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
+                            @error('pincode')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <span id="pincode_error" style="display:none; color:red; font-size:12px;">
                                 Please enter a valid pin code number
                             </span>
@@ -442,24 +442,24 @@
                                 @endif
                             @endforeach
                         </select>
-						@error('state')
-							<span class="invalid-feedback" role="alert">
-								<strong>{{ $message }}</strong>
-							</span>
+                        @error('state')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                         <span id="blankstate" style="display: none; color: red; margin-top:15px; font-size:12px;">
                             State is required
                         </span>
-						<?php
-						/* <select id="state" name="state" class="form-control @error('state') is-invalid @enderror" aria-required="true">
+                        <?php
+                        /* <select id="state" name="state" class="form-control @error('state') is-invalid @enderror" aria-required="true">
                             <option value="">Select State</option>
                             @foreach($state as $st)
                                 <option value="{{ $st->id }}"  @if(!empty(old('state')) && old('state') == $st->id) {{ 'selected' }} @endif >
-								{{ $st->name }}
-								</option>
+                                {{ $st->name }}
+                                </option>
                             @endforeach
                         </select>
-						@error('state')
+                        @error('state')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -469,26 +469,26 @@
                     <div style="clear:both"></div>
                     <div class="register-row-rt">
                         <select id="district" name="district" class="form-control @error('district') is-invalid @enderror" aria-required="true">
-							<option value="">Select district</option>
+                            <option value="">Select district</option>
                             <?php
                             if(!empty($districts)){
                             ?>
                                 @foreach($districts->sortBy('name') as $st)
-							    @if($st->name)
+                                @if($st->name)
                                 <option value="{{ $st->id }}"  @if(!empty(old('district')) && old('district') == $st->id) {{ 'selected' }} @endif >
-								{{ $st->name }}
-								</option>
-								@endif
+                                {{ $st->name }}
+                                </option>
+                                @endif
                             @endforeach
                             <?php
                             }
                             ?>
 
                         </select>
-						@error('district')
-						<span class="invalid-feedback" role="alert">
-							<strong>{{ $message }}</strong>
-						</span>
+                        @error('district')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                         <span id="blankdistrict" style="display:none; color:red; font-size:12px;">
                             District is required
@@ -499,7 +499,7 @@
                 <div class="register-row">
                     <div class="register-row-lft">
                         <select id="block" name="block" class="form-control @error('block') is-invalid @enderror" aria-required="true">
-							<option value="">Select block</option>
+                            <option value="">Select block</option>
                             <?php
                                 if(!empty($districts)){
                             ?>
@@ -514,10 +514,10 @@
                             }
                             ?>
                         </select>
-						@error('block')
-						<span class="invalid-feedback" role="alert">
-							<strong>{{ $message }}</strong>
-						</span>
+                        @error('block')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                         <span id="blankblock" style="display:none; color:red; font-size:12px;">
                             Block is required
@@ -540,15 +540,15 @@
                                         City/Town/Village is required
                                     </span>
                         </div>
-					</div>
+                    </div>
                 </div>
                 <div style="clear:both"></div>
 
                 <div class="register-row">
                     <div class="register-row-lft r_parent">
-						<input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-						name="password" value="{{ old('password') }}" required autocomplete="new-password" placeholder="Password">
-								@error('password')
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                        name="password" value="{{ old('password') }}" required autocomplete="new-password" placeholder="Password">
+                                @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -567,8 +567,8 @@
                     </div>
                     <div class="register-row-rt r_parent">
 
-						<input id="password-confirm" type="password" class="form-control  @error('password') is-invalid @enderror" value="{{ old('password_confirmation') }}" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
-								@error('password_confirmation')
+                        <input id="password-confirm" type="password" class="form-control  @error('password') is-invalid @enderror" value="{{ old('password_confirmation') }}" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
+                                @error('password_confirmation')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -616,35 +616,35 @@
                 <div style="clear:both"></div>
 
 
-				<div class="register-row">
+                <div class="register-row">
                     <div class="register-row-lft">
-					<div class="um-field" id="rcapcha-main-cont">
-						<label for="captcha">Please enter the captcha text</label><br>
-						<div style="float:left; width:115px; margin: 6px 0;" id="rcaptcha-cont">
-							<div class="captchaimg">
-								<span>{!! captcha_img() !!}</span>
-							</div>
-						</div>
-						<div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;" >
-						  <button type="button" class="btn btn-info" class="reload" id="reload">
-							↻
-							</button>
-						</div>
+                    <div class="um-field" id="rcapcha-main-cont">
+                        <label for="captcha">Please enter the captcha text</label><br>
+                        <div style="float:left; width:115px; margin: 6px 0;" id="rcaptcha-cont">
+                            <div class="captchaimg">
+                                <span>{!! captcha_img() !!}</span>
+                            </div>
+                        </div>
+                        <div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;" >
+                          <button type="button" class="btn btn-info" class="reload" id="reload">
+                            ↻
+                            </button>
+                        </div>
 
-						<div style="left" class="cap_width_login">
-							<input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
-							@error('captcha')
-								<span class="invalid-feedback" role="alert" >
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
+                        <div style="left" class="cap_width_login">
+                            <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
+                            @error('captcha')
+                                <span class="invalid-feedback" role="alert" >
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <span id="blankcaptcha" style="display:none; color:red; font-size:12px;">
                                 Captcha is required
                             </span>
-						</div>
+                        </div>
 
-						<div style="clear:both;"></div>
-					</div>
+                        <div style="clear:both;"></div>
+                    </div>
                     </div>
                 </div>
 
@@ -1145,24 +1145,24 @@
 
        $('#udise_row').hide();
 
-	   var elem = $('#role').val();
-		if(elem == 'school'){
-			$('#udise_row').show();
-			//$('#fi_udise').show();
-		}else{
-			$('#udise_row').hide();
-			//$('#fi_udise').hide();
-		}
+       var elem = $('#role').val();
+        if(elem == 'school'){
+            $('#udise_row').show();
+            //$('#fi_udise').show();
+        }else{
+            $('#udise_row').hide();
+            //$('#fi_udise').hide();
+        }
 
-	$('#role').change(function(){
-		var elem = $('#role').val();
-		if(elem == 'school'){
-			$('#udise_row').show();
-			//$('#fi_udise').show();
-		}else{
-			$('#udise_row').hide();
-			//$('#fi_udise').hide();
-		}
+    $('#role').change(function(){
+        var elem = $('#role').val();
+        if(elem == 'school'){
+            $('#udise_row').show();
+            //$('#fi_udise').show();
+        }else{
+            $('#udise_row').hide();
+            //$('#fi_udise').hide();
+        }
     });
 
 
@@ -1194,17 +1194,17 @@
     });
 
     function fi_rolechange(val){
-	   $.ajax({
+       $.ajax({
            url: "{{ route('getroles') }}",
            type: "post",
            data: { "groupid" : val, "_token": "{{ csrf_token() }}"} ,
            success: function (response) {
                //console.log(response);
                var elem = '<option value="">Select</option>';
-				for(var index in response) {
-					elem += '<option value="'+response[index]['slug'] + '">' + response[index]['name'] + "</option>" ;
-				}
-				$('#role').html(elem);
+                for(var index in response) {
+                    elem += '<option value="'+response[index]['slug'] + '">' + response[index]['name'] + "</option>" ;
+                }
+                $('#role').html(elem);
 
             },
         });
@@ -1740,7 +1740,7 @@
     type: 'GET',
     url: "{{ route('reloadCaptcha')}}",
     success: function (data) {
-		jQuery(".captchaimg span").html(data.captcha);
+        jQuery(".captchaimg span").html(data.captcha);
     }
     });
 });

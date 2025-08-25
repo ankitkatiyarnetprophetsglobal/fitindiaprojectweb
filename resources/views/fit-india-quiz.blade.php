@@ -3,8 +3,9 @@
 @extends('layouts.app')
 @section('title', 'Fit-india-quiz | Fit India')
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+<link rel="stylesheet" href="{{ asset('resources/css/newcss/select2.min.css') }}">
+ <link rel="stylesheet" href="{{ asset('resources/css/newcss/jquery-ui.css') }}">
     @php
         $active_section = request()->segment(count(request()->segments()));
         $active_section_id = trim($active_section);
@@ -218,8 +219,9 @@
     </div>
     
     
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="{{ asset('resources/js/newjs/select2.min.js')}}"></script>
+    <script src="{{ asset('resources/js/newjs/jquery-ui.js')}}"></script>
     <script>
         $('.excel_state').select2();
         $(document).on('change','.excel_state',function(){

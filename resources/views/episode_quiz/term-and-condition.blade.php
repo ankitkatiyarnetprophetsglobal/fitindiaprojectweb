@@ -3,7 +3,7 @@
   <head>   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
 
     <title>External-Event-Activity</title>
     <style>
@@ -17,10 +17,10 @@
 
             }
             .list-num-count{padding-right:5px;}
-			.btn-primary {
-				background-color: #13418c;
-				border-color: #13418c;
-			}
+            .btn-primary {
+                background-color: #13418c;
+                border-color: #13418c;
+            }
 
             @media only screen and (max-width: 500px) {
                 .bg_head h1{font-size: 26px;}

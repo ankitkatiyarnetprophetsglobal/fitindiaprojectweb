@@ -1,8 +1,9 @@
 <!-- Add in your layout's <head> -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
+<script src="{{ asset('resources/js/newjs/bootstrap.bundle.min.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap-icons.css') }}">
 
 <div class="container mt-5">
     <div class="card shadow rounded">

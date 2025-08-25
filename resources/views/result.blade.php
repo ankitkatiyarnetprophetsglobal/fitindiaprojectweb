@@ -8,10 +8,8 @@
     <meta name="csrf_token" content="{{ csrf_token() }}" />
 
     <title>Fit-India</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <!-- <link rel="stylesheet" href="{{asset('style.css')}}"> -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
+        <script src="{{ asset('resources/js/newjs/jquery.min.js')}}"></script>
 </head>
 <style>
     .tick_result_img{
@@ -219,7 +217,7 @@ var output =`<div class='quiz-result'>
                     <div class="result-box  d-block mx-auto ">
                         
                        <div class="inner-result-box">
-					   <img src="{{asset('resources/imgs/quiz_result/Right.svg')}}" class="d-block mx-auto tick_result_img" alt="">
+                       <img src="{{asset('resources/imgs/quiz_result/Right.svg')}}" class="d-block mx-auto tick_result_img" alt="">
                         <h3 class="text-center">
                             Congratulations! You have been shortlisted for the next round.
                         </h3>
@@ -297,7 +295,7 @@ var output=` <div class="quiz-result">
            </div>
     </div>`;
     document.getElementById("show_champion_result").innerHTML=output;
-	$("#show_champion_result").show();
+    $("#show_champion_result").show();
 
        }
                           

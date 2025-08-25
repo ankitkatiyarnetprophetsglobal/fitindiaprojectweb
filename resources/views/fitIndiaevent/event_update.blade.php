@@ -136,28 +136,28 @@ if (in_array($role_value, $validation_role_arr)){*/
                                                     {!!$errors->first("addparticipants","<span class='text-danger'>:message</span>")!!}
                                                 </div>
                                               </div>
-  											<?php 
+                                            <?php 
                         if ($role_value=='school'){ 
                         ?>
-											  <div class="um-field">
-												<div class="um-field-label">
-													<label for="eventname">School Chain *</label>
-													<div class="um-clear"></div>
-												</div> 
-												<div class="um-field-area">												
-												 <select name="school_chain"  id="school_chain" class="fit-pe-inputs" required>
-												  {{-- <option selected disabled>Select</option> --}}
-												  <option value="KVS" <?=(!empty($events->school_chain)&&($events->school_chain=='KVS'))? 'selected=selected' : ''?>>KVS</option>
-												  <option value="CBSE"<?=(!empty($events->school_chain)&&($events->school_chain=='CBSE'))? 'selected=selected' : ''?>>CBSE</option>
-												  <option value="CISCE"<?=(!empty($events->school_chain)&&($events->school_chain=='CISCE'))? 'selected=selected' : ''?>>CISCE</option>
-												  <option value="NV"<?=(!empty($events->school_chain)&&($events->school_chain=='NV'))? 'selected=selected' : ''?>>JNV(Jawahar Navodaya Vidyalaya)</option>
-												  <option value="State Education Board"<?=(!empty($events->school_chain)&&($events->school_chain=='State Education Board'))? 'selected=selected' : ''?>>State Education Board</option>
-												 </select>
-												 {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
-												</div>
-											  </div>	
-                        <?php }else{ ?>	
-  											
+                                              <div class="um-field">
+                                                <div class="um-field-label">
+                                                    <label for="eventname">School Chain *</label>
+                                                    <div class="um-clear"></div>
+                                                </div> 
+                                                <div class="um-field-area">                                             
+                                                 <select name="school_chain"  id="school_chain" class="fit-pe-inputs" required>
+                                                  {{-- <option selected disabled>Select</option> --}}
+                                                  <option value="KVS" <?=(!empty($events->school_chain)&&($events->school_chain=='KVS'))? 'selected=selected' : ''?>>KVS</option>
+                                                  <option value="CBSE"<?=(!empty($events->school_chain)&&($events->school_chain=='CBSE'))? 'selected=selected' : ''?>>CBSE</option>
+                                                  <option value="CISCE"<?=(!empty($events->school_chain)&&($events->school_chain=='CISCE'))? 'selected=selected' : ''?>>CISCE</option>
+                                                  <option value="NV"<?=(!empty($events->school_chain)&&($events->school_chain=='NV'))? 'selected=selected' : ''?>>JNV(Jawahar Navodaya Vidyalaya)</option>
+                                                  <option value="State Education Board"<?=(!empty($events->school_chain)&&($events->school_chain=='State Education Board'))? 'selected=selected' : ''?>>State Education Board</option>
+                                                 </select>
+                                                 {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
+                                                </div>
+                                              </div>    
+                        <?php }else{ ?> 
+                                            
                         <?php 
                         // if ($role_value=='mexta'){ 
                           // if(strtolower($role_value) == 'mexta' 
@@ -168,65 +168,65 @@ if (in_array($role_value, $validation_role_arr)){*/
                           //   || strtolower($role_value) == 'md' 
                           //   || strtolower($role_value) == 'mfinance'){
                         ?>
-											  <div class="um-field">
-												<div class="um-field-label">
-													<label for="eventname">Organisation *</label>
-													<div class="um-clear"></div>
-												</div> 
-												<div class="um-field-area">												
-												  <select name="school_chain"  id="school_chain" class="fit-pe-inputs" required disabled>
+                                              <div class="um-field">
+                                                <div class="um-field-label">
+                                                    <label for="eventname">Organisation *</label>
+                                                    <div class="um-clear"></div>
+                                                </div> 
+                                                <div class="um-field-area">                                             
+                                                  <select name="school_chain"  id="school_chain" class="fit-pe-inputs" required disabled>
                             <option value="dept_of_st_gov" <?=(!empty($events->school_chain)&&($events->school_chain=='dept_of_st_gov'))? 'selected=selected' : ''?>>DEPARTMENT OF STATE GOVERNMENT</option>
                             <option value="mafw" <?=(!empty($events->school_chain)&&($events->school_chain=='mafw'))? 'selected=selected' : ''?>>MINISTRY OF AGRICULTURE AND FARMERS WELFARE</option>
-                            <option value="mayush" <?=(!empty($events->school_chain)&&($events->school_chain=='mayush'))? 'selected=selected' : ''?>>MINISTRY OF AYUSH</option>                        														
+                            <option value="mayush" <?=(!empty($events->school_chain)&&($events->school_chain=='mayush'))? 'selected=selected' : ''?>>MINISTRY OF AYUSH</option>                                                                             
                             <option value="mcf" <?=(!empty($events->school_chain)&&($events->school_chain=='mcf'))? 'selected=selected' : ''?>>MINISTRY OF CHEMICALS AND FERTILIZERS</option>
                             <option value="mcivila" <?=(!empty($events->school_chain)&&($events->school_chain=='mcivila'))? 'selected=selected' : ''?>>MINISTRY OF CIVIL AVIATION</option>
-                            <option value="mcoal" <?=(!empty($events->school_chain)&&($events->school_chain=='mcoal'))? 'selected=selected' : ''?>>MINISTRY OF COAL</option>            														
-                            <option value="mci" <?=(!empty($events->school_chain)&&($events->school_chain=='mci'))? 'selected=selected' : ''?>>MINISTRY OF COMMERCE AND INDUSTRY</option>		
+                            <option value="mcoal" <?=(!empty($events->school_chain)&&($events->school_chain=='mcoal'))? 'selected=selected' : ''?>>MINISTRY OF COAL</option>                                                                    
+                            <option value="mci" <?=(!empty($events->school_chain)&&($events->school_chain=='mci'))? 'selected=selected' : ''?>>MINISTRY OF COMMERCE AND INDUSTRY</option>       
                             <option value="mcomm" <?=(!empty($events->school_chain)&&($events->school_chain=='mcomm'))? 'selected=selected' : ''?>>MINISTRY OF COMMUNICATIONS</option>
-                            <option value="mconsumera" <?=(!empty($events->school_chain)&&($events->school_chain=='mconsumera'))? 'selected=selected' : ''?>>MINISTRY OF CONSUMER AFFAIRS, FOOD AND PUBLIC DISTRIBUTION</option>										
-                            <option value="mcorpa" <?=(!empty($events->school_chain)&&($events->school_chain=='mcorpa'))? 'selected=selected' : ''?>>MINISTRY OF CORPORATE AFFAIRS</option>												
-                            <option value="mculture" <?=(!empty($events->school_chain)&&($events->school_chain=='mculture'))? 'selected=selected' : ''?>>MINISTRY OF CULTURE</option>                        														
-                            <option value="md" <?=(!empty($events->school_chain)&&($events->school_chain=='md'))? 'selected=selected' : ''?>>MINISTRY OF DEFENCE</option>          														
-                            <option value="mdner" <?=(!empty($events->school_chain)&&($events->school_chain=='mdner'))? 'selected=selected' : ''?>>MINISTRY OF DEVELOPMENT OF NORTH EASTERN REGION</option>						
-                            <option value="mearths" <?=(!empty($events->school_chain)&&($events->school_chain=='mearths'))? 'selected=selected' : ''?>>MINISTRY OF EARTH SCIENCES</option>     														
-                            <option value="mhrddsel" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrddsel'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (DSEL)</option>		
+                            <option value="mconsumera" <?=(!empty($events->school_chain)&&($events->school_chain=='mconsumera'))? 'selected=selected' : ''?>>MINISTRY OF CONSUMER AFFAIRS, FOOD AND PUBLIC DISTRIBUTION</option>                                        
+                            <option value="mcorpa" <?=(!empty($events->school_chain)&&($events->school_chain=='mcorpa'))? 'selected=selected' : ''?>>MINISTRY OF CORPORATE AFFAIRS</option>                                             
+                            <option value="mculture" <?=(!empty($events->school_chain)&&($events->school_chain=='mculture'))? 'selected=selected' : ''?>>MINISTRY OF CULTURE</option>                                                                               
+                            <option value="md" <?=(!empty($events->school_chain)&&($events->school_chain=='md'))? 'selected=selected' : ''?>>MINISTRY OF DEFENCE</option>                                                               
+                            <option value="mdner" <?=(!empty($events->school_chain)&&($events->school_chain=='mdner'))? 'selected=selected' : ''?>>MINISTRY OF DEVELOPMENT OF NORTH EASTERN REGION</option>                     
+                            <option value="mearths" <?=(!empty($events->school_chain)&&($events->school_chain=='mearths'))? 'selected=selected' : ''?>>MINISTRY OF EARTH SCIENCES</option>                                                          
+                            <option value="mhrddsel" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrddsel'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (DSEL)</option>      
                             <option value="mhrdhei" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrdhei'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (HEI)</option>
-                            <option value="meit" <?=(!empty($events->school_chain)&&($events->school_chain=='meit'))? 'selected=selected' : ''?>>MINISTRY OF ELECTRONICS AND INFORMATION TECHNOLOGY</option>							
-                            <option value="mefcc" <?=(!empty($events->school_chain)&&($events->school_chain=='mefcc'))? 'selected=selected' : ''?>>MINISTRY OF ENVIRONMENT, FOREST AND CLIMATE CHANGE</option>							
-                            <option value="mexta" <?=(!empty($events->school_chain)&&($events->school_chain=='mexta'))? 'selected=selected' : ''?>>MINISTRY OF EXTERNAL AFFAIRS</option>  														
-                            <option value="mfinance" <?=(!empty($events->school_chain)&&($events->school_chain=='mfinance'))? 'selected=selected' : ''?>>MINISTRY OF FINANCE</option>                  														
-                            <option value="mfahd" <?=(!empty($events->school_chain)&&($events->school_chain=='mfahd'))? 'selected=selected' : ''?>>MINISTRY OF FISHERIES, ANIMAL HUSBANDRY AND DAIRYING</option>							
-                            <option value="mfpi" <?=(!empty($events->school_chain)&&($events->school_chain=='mfpi'))? 'selected=selected' : ''?>>MINISTRY OF FOOD PROCESSING INDUSTRIES</option>         														
+                            <option value="meit" <?=(!empty($events->school_chain)&&($events->school_chain=='meit'))? 'selected=selected' : ''?>>MINISTRY OF ELECTRONICS AND INFORMATION TECHNOLOGY</option>                            
+                            <option value="mefcc" <?=(!empty($events->school_chain)&&($events->school_chain=='mefcc'))? 'selected=selected' : ''?>>MINISTRY OF ENVIRONMENT, FOREST AND CLIMATE CHANGE</option>                          
+                            <option value="mexta" <?=(!empty($events->school_chain)&&($events->school_chain=='mexta'))? 'selected=selected' : ''?>>MINISTRY OF EXTERNAL AFFAIRS</option>                                                        
+                            <option value="mfinance" <?=(!empty($events->school_chain)&&($events->school_chain=='mfinance'))? 'selected=selected' : ''?>>MINISTRY OF FINANCE</option>                                                                       
+                            <option value="mfahd" <?=(!empty($events->school_chain)&&($events->school_chain=='mfahd'))? 'selected=selected' : ''?>>MINISTRY OF FISHERIES, ANIMAL HUSBANDRY AND DAIRYING</option>                            
+                            <option value="mfpi" <?=(!empty($events->school_chain)&&($events->school_chain=='mfpi'))? 'selected=selected' : ''?>>MINISTRY OF FOOD PROCESSING INDUSTRIES</option>                                                                
                             <option value="mhfw" <?=(!empty($events->school_chain)&&($events->school_chain=='mhfw'))? 'selected=selected' : ''?>>MINISTRY OF HEALTH AND FAMILY WELFARE</option>
-                            <option value="mhipe" <?=(!empty($events->school_chain)&&($events->school_chain=='mhipe'))? 'selected=selected' : ''?>>MINISTRY OF HEAVY INDUSTRIES AND PUBLIC ENTERPRISES</option>							
-                            <option value="mha" <?=(!empty($events->school_chain)&&($events->school_chain=='mha'))? 'selected=selected' : ''?>>MINISTRY OF HOME AFFAIRS</option> 													
-                            <option value="mhua" <?=(!empty($events->school_chain)&&($events->school_chain=='mhua'))? 'selected=selected' : ''?>>MINISTRY OF HOUSING AND URBAN AFFAIRS</option>			
-                            <option value="mib" <?=(!empty($events->school_chain)&&($events->school_chain=='mib'))? 'selected=selected' : ''?>>MINISTRY OF INFORMATION AND BROADCASTING</option>				
-                            <option value="mjs" <?=(!empty($events->school_chain)&&($events->school_chain=='mjs'))? 'selected=selected' : ''?>>MINISTRY OF JAL SHAKTI</option>      														
-                            <option value="mle" <?=(!empty($events->school_chain)&&($events->school_chain=='mle'))? 'selected=selected' : ''?>>MINISTRY OF LABOUR AND EMPLOYMENT</option>		
-                            <option value="mlj" <?=(!empty($events->school_chain)&&($events->school_chain=='mlj'))? 'selected=selected' : ''?>>MINISTRY OF LAW AND JUSTICE</option>                  														
-                            <option value="mmsme" <?=(!empty($events->school_chain)&&($events->school_chain=='mmsme'))? 'selected=selected' : ''?>>MINISTRY OF MICRO, SMALL AND MEDIUM ENTERPRISES</option>						
+                            <option value="mhipe" <?=(!empty($events->school_chain)&&($events->school_chain=='mhipe'))? 'selected=selected' : ''?>>MINISTRY OF HEAVY INDUSTRIES AND PUBLIC ENTERPRISES</option>                         
+                            <option value="mha" <?=(!empty($events->school_chain)&&($events->school_chain=='mha'))? 'selected=selected' : ''?>>MINISTRY OF HOME AFFAIRS</option>                                                    
+                            <option value="mhua" <?=(!empty($events->school_chain)&&($events->school_chain=='mhua'))? 'selected=selected' : ''?>>MINISTRY OF HOUSING AND URBAN AFFAIRS</option>         
+                            <option value="mib" <?=(!empty($events->school_chain)&&($events->school_chain=='mib'))? 'selected=selected' : ''?>>MINISTRY OF INFORMATION AND BROADCASTING</option>                
+                            <option value="mjs" <?=(!empty($events->school_chain)&&($events->school_chain=='mjs'))? 'selected=selected' : ''?>>MINISTRY OF JAL SHAKTI</option>                                                              
+                            <option value="mle" <?=(!empty($events->school_chain)&&($events->school_chain=='mle'))? 'selected=selected' : ''?>>MINISTRY OF LABOUR AND EMPLOYMENT</option>       
+                            <option value="mlj" <?=(!empty($events->school_chain)&&($events->school_chain=='mlj'))? 'selected=selected' : ''?>>MINISTRY OF LAW AND JUSTICE</option>                                                                         
+                            <option value="mmsme" <?=(!empty($events->school_chain)&&($events->school_chain=='mmsme'))? 'selected=selected' : ''?>>MINISTRY OF MICRO, SMALL AND MEDIUM ENTERPRISES</option>                     
                             <option value="mmines" <?=(!empty($events->school_chain)&&($events->school_chain=='mmines'))? 'selected=selected' : ''?>>MINISTRY OF MINES</option>
-                            <option value="mminoritya" <?=(!empty($events->school_chain)&&($events->school_chain=='mminoritya'))? 'selected=selected' : ''?>>MINISTRY OF MINORITY AFFAIRS</option>			
+                            <option value="mminoritya" <?=(!empty($events->school_chain)&&($events->school_chain=='mminoritya'))? 'selected=selected' : ''?>>MINISTRY OF MINORITY AFFAIRS</option>          
                             <option value="mmre" <?=(!empty($events->school_chain)&&($events->school_chain=='mmre'))? 'selected=selected' : ''?>>MINISTRY OF NEW AND RENEWABLE ENERGY</option>
-                            <option value="mpr" <?=(!empty($events->school_chain)&&($events->school_chain=='mpr'))? 'selected=selected' : ''?>>MINISTRY OF PANCHAYATI RAJ</option>                        														
+                            <option value="mpr" <?=(!empty($events->school_chain)&&($events->school_chain=='mpr'))? 'selected=selected' : ''?>>MINISTRY OF PANCHAYATI RAJ</option>                                                                              
                             <option value="mpa" <?=(!empty($events->school_chain)&&($events->school_chain=='mpa'))? 'selected=selected' : ''?>>MINISTRY OF PARLIAMENTARY AFFAIRS</option>
                             <option value="mppgp" <?=(!empty($events->school_chain)&&($events->school_chain=='mppgp'))? 'selected=selected' : ''?>>MINISTRY OF PERSONNEL, PUBLIC GRIEVANCES AND PENSIONS</option>
                             <option value="mpng" <?=(!empty($events->school_chain)&&($events->school_chain=='mpng'))? 'selected=selected' : ''?>>MINISTRY OF PETROLEUM AND NATURAL GAS</option>
-                            <option value="mpower" <?=(!empty($events->school_chain)&&($events->school_chain=='mpower'))? 'selected=selected' : ''?>>MINISTRY OF POWER</option>                        														
-                            <option value="mrailways" <?=(!empty($events->school_chain)&&($events->school_chain=='mrailways'))? 'selected=selected' : ''?>>MINISTRY OF RAILWAYS</option>            														
-                            <option value="mtransh" <?=(!empty($events->school_chain)&&($events->school_chain=='mtransh'))? 'selected=selected' : ''?>>MINISTRY OF ROAD TRANSPORT AND HIGHWAYS</option>					
-                            <option value="mrd" <?=(!empty($events->school_chain)&&($events->school_chain=='mrd'))? 'selected=selected' : ''?>>MINISTRY OF RURAL DEVELOPMENT</option>          														
-                            <option value="msciencetech" <?=(!empty($events->school_chain)&&($events->school_chain=='msciencetech'))? 'selected=selected' : ''?>>MINISTRY OF SCIENCE AND TECHNOLOGY</option>					
-                            <option value="mshipping" <?=(!empty($events->school_chain)&&($events->school_chain=='mshipping'))? 'selected=selected' : ''?>>MINISTRY OF SHIPPING</option>       														
-                            <option value="mskillde" <?=(!empty($events->school_chain)&&($events->school_chain=='mskillde'))? 'selected=selected' : ''?>>MINISTRY OF SKILL DEVELOPMENT AND ENTREPRENEURSHIP</option>								
+                            <option value="mpower" <?=(!empty($events->school_chain)&&($events->school_chain=='mpower'))? 'selected=selected' : ''?>>MINISTRY OF POWER</option>                                                                             
+                            <option value="mrailways" <?=(!empty($events->school_chain)&&($events->school_chain=='mrailways'))? 'selected=selected' : ''?>>MINISTRY OF RAILWAYS</option>                                                                    
+                            <option value="mtransh" <?=(!empty($events->school_chain)&&($events->school_chain=='mtransh'))? 'selected=selected' : ''?>>MINISTRY OF ROAD TRANSPORT AND HIGHWAYS</option>                 
+                            <option value="mrd" <?=(!empty($events->school_chain)&&($events->school_chain=='mrd'))? 'selected=selected' : ''?>>MINISTRY OF RURAL DEVELOPMENT</option>                                                               
+                            <option value="msciencetech" <?=(!empty($events->school_chain)&&($events->school_chain=='msciencetech'))? 'selected=selected' : ''?>>MINISTRY OF SCIENCE AND TECHNOLOGY</option>                    
+                            <option value="mshipping" <?=(!empty($events->school_chain)&&($events->school_chain=='mshipping'))? 'selected=selected' : ''?>>MINISTRY OF SHIPPING</option>                                                            
+                            <option value="mskillde" <?=(!empty($events->school_chain)&&($events->school_chain=='mskillde'))? 'selected=selected' : ''?>>MINISTRY OF SKILL DEVELOPMENT AND ENTREPRENEURSHIP</option>                                
                             <option value="msje" <?=(!empty($events->school_chain)&&($events->school_chain=='msje'))? 'selected=selected' : ''?>>MINISTRY OF SOCIAL JUSTICE AND EMPOWERMENT</option>
-                            <option value="msprog" <?=(!empty($events->school_chain)&&($events->school_chain=='msprog'))? 'selected=selected' : ''?>>MINISTRY OF STATISTICS AND PROGRAMME IMPLEMENTATION</option>							
+                            <option value="msprog" <?=(!empty($events->school_chain)&&($events->school_chain=='msprog'))? 'selected=selected' : ''?>>MINISTRY OF STATISTICS AND PROGRAMME IMPLEMENTATION</option>                           
                             <option value="msteel" <?=(!empty($events->school_chain)&&($events->school_chain=='msteel'))? 'selected=selected' : ''?>>MINISTRY OF STEEL</option>
                             <option value="mtextiles" <?=(!empty($events->school_chain)&&($events->school_chain=='mtextiles'))? 'selected=selected' : ''?>>MINISTRY OF TEXTILES</option>
                             <option value="mtourism" <?=(!empty($events->school_chain)&&($events->school_chain=='mtourism'))? 'selected=selected' : ''?>>MINISTRY OF TOURISM</option>
                             <option value="mta" <?=(!empty($events->school_chain)&&($events->school_chain=='mta'))? 'selected=selected' : ''?>>MINISTRY OF TRIBAL AFFAIRS</option>
-                            <option value="mwcd" <?=(!empty($events->school_chain)&&($events->school_chain=='mwcd'))? 'selected=selected' : ''?>>MINISTRY OF WOMEN AND CHILD DEVELOPMENT</option>				
+                            <option value="mwcd" <?=(!empty($events->school_chain)&&($events->school_chain=='mwcd'))? 'selected=selected' : ''?>>MINISTRY OF WOMEN AND CHILD DEVELOPMENT</option>               
                             <option value="myouthas" <?=(!empty($events->school_chain)&&($events->school_chain=='myouthas'))? 'selected=selected' : ''?>>MINISTRY OF YOUTH AFFAIRS AND SPORTS</option>
                             <option value="air_force" <?=(!empty($events->school_chain)&&($events->school_chain=='air_force'))? 'selected=selected' : ''?>>Air Force</option>
                             <option value="army" <?=(!empty($events->school_chain)&&($events->school_chain=='army'))? 'selected=selected' : ''?>>Army</option>
@@ -251,18 +251,18 @@ if (in_array($role_value, $validation_role_arr)){*/
                             <option value="universities" <?=(!empty($events->school_chain)&&($events->school_chain=='universities'))? 'selected=selected' : ''?>>UNIVERSITIES / INSTITUTE / COLLEGE</option>
                             <option value="youthclub" <?=(!empty($events->school_chain)&&($events->school_chain=='youthclub'))? 'selected=selected' : ''?>>YOUTH CLUB</option>
                             {{-- <option selected disabled>Select</option> --}}
-                            {{-- <option value="mexta" <?=(!empty($events->school_chain)&&($events->school_chain=='mexta'))? 'selected=selected' : ''?>>MINISTRY OF EXTERNAL AFFAIRS</option>												  
-                            <option value="mhrddsel" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrddsel'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (DSEL)</option>												  
-                            <option value="mhrdhei" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrdhei'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (HEI)</option>												  
-                            <option value="mha" <?=(!empty($events->school_chain)&&($events->school_chain=='mha'))? 'selected=selected' : ''?>>MINISTRY OF HOME AFFAIRS</option>												  
-                            <option value="mpng" <?=(!empty($events->school_chain)&&($events->school_chain=='mpng'))? 'selected=selected' : ''?>>MINISTRY OF PETROLEUM AND NATURAL GAS</option>												  
-                            <option value="md" <?=(!empty($events->school_chain)&&($events->school_chain=='md'))? 'selected=selected' : ''?>>MINISTRY OF DEFENCE</option>												  
-                            <option value="mfinance" <?=(!empty($events->school_chain)&&($events->school_chain=='mexta'))? 'selected=selected' : ''?>>MINISTRY OF FINANCE</option>												   --}}
-												 </select>
-												 {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
-												</div>
-											  </div>	
-                        <?php } ?>	
+                            {{-- <option value="mexta" <?=(!empty($events->school_chain)&&($events->school_chain=='mexta'))? 'selected=selected' : ''?>>MINISTRY OF EXTERNAL AFFAIRS</option>                                                 
+                            <option value="mhrddsel" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrddsel'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (DSEL)</option>                                                
+                            <option value="mhrdhei" <?=(!empty($events->school_chain)&&($events->school_chain=='mhrdhei'))? 'selected=selected' : ''?>>MINISTRY OF EDUCATION (HEI)</option>                                               
+                            <option value="mha" <?=(!empty($events->school_chain)&&($events->school_chain=='mha'))? 'selected=selected' : ''?>>MINISTRY OF HOME AFFAIRS</option>                                                  
+                            <option value="mpng" <?=(!empty($events->school_chain)&&($events->school_chain=='mpng'))? 'selected=selected' : ''?>>MINISTRY OF PETROLEUM AND NATURAL GAS</option>                                               
+                            <option value="md" <?=(!empty($events->school_chain)&&($events->school_chain=='md'))? 'selected=selected' : ''?>>MINISTRY OF DEFENCE</option>                                                 
+                            <option value="mfinance" <?=(!empty($events->school_chain)&&($events->school_chain=='mexta'))? 'selected=selected' : ''?>>MINISTRY OF FINANCE</option>                                                 --}}
+                                                 </select>
+                                                 {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
+                                                </div>
+                                              </div>    
+                        <?php } ?>  
                                               &nbsp;
                                               <div class="">
                                                 <div class="um-field">
@@ -386,8 +386,8 @@ if (in_array($role_value, $validation_role_arr)){*/
 </div>
     
     
-<script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
+<script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
 <script>
   $(function() {
     jQuery.validator.addMethod("validate_email", function(value, element) {
@@ -423,19 +423,19 @@ if (in_array($role_value, $validation_role_arr)){*/
             minlength:10,
             maxlength:10
         },
-		'event_bg_image': {
-		
-		extension: "png|jpg|jpeg", // work with additional-mothods.js
+        'event_bg_image': {
+        
+        extension: "png|jpg|jpeg", // work with additional-mothods.js
         filesize: 2*1024*1024,  
-		},
-		'prt_image[]': {
-		
-		extension: "png|jpg|jpeg", // work with additional-mothods.js
+        },
+        'prt_image[]': {
+        
+        extension: "png|jpg|jpeg", // work with additional-mothods.js
         filesize: 2*1024*1024,  
-		},
-		// 'video_link[]':{
-		// 	url:true
-		// },
+        },
+        // 'video_link[]':{
+        //  url:true
+        // },
         
         from_date:{
            required:true
@@ -458,16 +458,16 @@ if (in_array($role_value, $validation_role_arr)){*/
           minlength: "Your phone must be 10 number long",
           maxlength: "Your phone must be 10 number long"
         },
-		school_chain: {
+        school_chain: {
           required: "Please select",          
         },
         
         'event_bg_image': {
-		  extension: 'please Upload .png, .jpeg, .jpg',
+          extension: 'please Upload .png, .jpeg, .jpg',
           filesize:"File size must be less than 2 mb."
         },
         'prt_image[]': {
-		  extension: 'please Upload .png, .jpeg, .jpg',
+          extension: 'please Upload .png, .jpeg, .jpg',
           filesize:"File size must be less than 2 mb."
         }
     },
@@ -547,12 +547,12 @@ $(document).ready(function(){
 
     });
     $(document).on('change','#from_date',function(){
-			
+            
       from_date = $(this).val();
       to_date = $('#to_date').val();
       if(to_date < from_date && to_date != ''){
         alert("'From Date' should be less than 'To Date'.");
-					
+                    
         $('#from_date').val('');
       }
       

@@ -5,7 +5,8 @@
   <head>   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" >
+    
+     <link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
 
     <title>External-Event-Activity</title>
     <style>
@@ -64,11 +65,11 @@ height: auto;;
    <div class="row">
    <div class="col-sm-12 col-lg-8   offset-md-2 ">
     <form action="{{route('external-event-add')}}" method="POST" id="extevt_registratoin" name="extevt_registratoin" style="display:none;">
-	@csrf
+    @csrf
 
   
   <input type="hidden" name="reg_type" value="organization">
-	<input type="hidden" name="user_id" value="<?=$_REQUEST['Fit_id'];?>">
+    <input type="hidden" name="user_id" value="<?=$_REQUEST['Fit_id'];?>">
 
   <div class="form-group">
     <label for="exampleInputEmail1"> Organization Name</label>
@@ -93,10 +94,10 @@ height: auto;;
     </select>
   </div>
   <!-- Organization Name:- <input type="text" name="org_name" ><br>
-	Number of Participant:- <input type="number" min="0" name="num_of_participant" ><br>
-	State:- <br> -->
+    Number of Participant:- <input type="number" min="0" name="num_of_participant" ><br>
+    State:- <br> -->
 <div class='text-center'>
-	<input type="submit" name="submit" value="submit" class="btn btn-primary mt-2 ">
+    <input type="submit" name="submit" value="submit" class="btn btn-primary mt-2 ">
 </div>
 </form>
 </div>

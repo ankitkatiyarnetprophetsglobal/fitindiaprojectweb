@@ -129,39 +129,39 @@ if (in_array($role_value, $validation_role_arr)){*/
                                                   <label for="eventname">State *</label>
                                                   <div class="um-clear"></div>
                                                 </div> 
-                                                <div class="um-field-area">																										
+                                                <div class="um-field-area">                                                                                                     
                                                   <select name="state" id="state" class="fit-pe-inputs" required>
                                                     <option value = "">Select State</option>
-                                                    @foreach ($state as $value)														
+                                                    @foreach ($state as $value)                                                     
                                                     <option value = "{{ $value['name'] }}"<?=(!empty($value['name'])&&($value['name']==$events->state))? 'selected=selected' : ''?>>{{ $value['name'] }}</option>
-                                                    @endforeach														
+                                                    @endforeach                                                     
                                                   </select>
                                                    {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!}
                                                 </div>
                                               </div>
-  											<?php 
+                                            <?php 
                         // if ($role_value=='school'){ 
                         ?>
-											  {{-- <div class="um-field"> --}}
-												{{-- <div class="um-field-label"> --}}
-													{{-- <label for="eventname">School Chain *</label> --}}
-													{{-- <div class="um-clear"></div> --}}
-												{{-- </div>  --}}
-												{{-- <div class="um-field-area">												 --}}
-												 {{-- <select name="school_chain"  id="school_chain" class="fit-pe-inputs" required> --}}
-												  {{-- <option selected disabled>Select</option> --}}
-												  {{-- <option value="KVS" <?=(!empty($events->school_chain)&&($events->school_chain=='KVS'))? 'selected=selected' : ''?>>KVS</option> --}}
-												  {{-- <option value="CBSE"<?=(!empty($events->school_chain)&&($events->school_chain=='CBSE'))? 'selected=selected' : ''?>>CBSE</option> --}}
-												  {{-- <option value="CISCE"<?=(!empty($events->school_chain)&&($events->school_chain=='CISCE'))? 'selected=selected' : ''?>>CISCE</option> --}}
-												  {{-- <option value="NV"<?=(!empty($events->school_chain)&&($events->school_chain=='NV'))? 'selected=selected' : ''?>>JNV(Jawahar Navodaya Vidyalaya)</option> --}}
-												  {{-- <option value="State Education Board"<?=(!empty($events->school_chain)&&($events->school_chain=='State Education Board'))? 'selected=selected' : ''?>>State Education Board</option> --}}
-												 {{-- </select> --}}
-												 {{-- {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!} --}}
-												{{-- </div> --}}
-											  {{-- </div>	 --}}
+                                              {{-- <div class="um-field"> --}}
+                                                {{-- <div class="um-field-label"> --}}
+                                                    {{-- <label for="eventname">School Chain *</label> --}}
+                                                    {{-- <div class="um-clear"></div> --}}
+                                                {{-- </div>  --}}
+                                                {{-- <div class="um-field-area">                                                 --}}
+                                                 {{-- <select name="school_chain"  id="school_chain" class="fit-pe-inputs" required> --}}
+                                                  {{-- <option selected disabled>Select</option> --}}
+                                                  {{-- <option value="KVS" <?=(!empty($events->school_chain)&&($events->school_chain=='KVS'))? 'selected=selected' : ''?>>KVS</option> --}}
+                                                  {{-- <option value="CBSE"<?=(!empty($events->school_chain)&&($events->school_chain=='CBSE'))? 'selected=selected' : ''?>>CBSE</option> --}}
+                                                  {{-- <option value="CISCE"<?=(!empty($events->school_chain)&&($events->school_chain=='CISCE'))? 'selected=selected' : ''?>>CISCE</option> --}}
+                                                  {{-- <option value="NV"<?=(!empty($events->school_chain)&&($events->school_chain=='NV'))? 'selected=selected' : ''?>>JNV(Jawahar Navodaya Vidyalaya)</option> --}}
+                                                  {{-- <option value="State Education Board"<?=(!empty($events->school_chain)&&($events->school_chain=='State Education Board'))? 'selected=selected' : ''?>>State Education Board</option> --}}
+                                                 {{-- </select> --}}
+                                                 {{-- {!!$errors->first("school_chain","<span class='text-danger'>:message</span>")!!} --}}
+                                                {{-- </div> --}}
+                                              {{-- </div>    --}}
                         <?php 
                         // } 
-                        ?>	
+                        ?>  
                                               &nbsp;
                                               <div class="">
                                                 <div class="um-field">
@@ -299,8 +299,8 @@ if (in_array($role_value, $validation_role_arr)){*/
 </div>
     
     
-<script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
+<script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
 <script>
   $(function() {
     jQuery.validator.addMethod("validate_email", function(value, element) {
@@ -336,19 +336,19 @@ if (in_array($role_value, $validation_role_arr)){*/
             minlength:10,
             maxlength:10
         },
-		'event_bg_image': {
-		
-		extension: "png|jpg|jpeg", // work with additional-mothods.js
+        'event_bg_image': {
+        
+        extension: "png|jpg|jpeg", // work with additional-mothods.js
         filesize: 2*1024*1024,  
-		},
-		'prt_image[]': {
-		
-		extension: "png|jpg|jpeg", // work with additional-mothods.js
+        },
+        'prt_image[]': {
+        
+        extension: "png|jpg|jpeg", // work with additional-mothods.js
         filesize: 2*1024*1024,  
-		},
-		// 'video_link[]':{
-		// 	url:true
-		// },
+        },
+        // 'video_link[]':{
+        //  url:true
+        // },
         
         from_date:{
            required:true
@@ -371,16 +371,16 @@ if (in_array($role_value, $validation_role_arr)){*/
           minlength: "Your phone must be 10 number long",
           maxlength: "Your phone must be 10 number long"
         },
-		school_chain: {
+        school_chain: {
           required: "Please select school chain",          
         },
         
         'event_bg_image': {
-		  extension: 'please Upload .png, .jpeg, .jpg',
+          extension: 'please Upload .png, .jpeg, .jpg',
           filesize:"File size must be less than 2 mb."
         },
         'prt_image[]': {
-		  extension: 'please Upload .png, .jpeg, .jpg',
+          extension: 'please Upload .png, .jpeg, .jpg',
           filesize:"File size must be less than 2 mb."
         }
     },
@@ -460,12 +460,12 @@ $(document).ready(function(){
 
     });
     $(document).on('change','#from_date',function(){
-			
+            
       from_date = $(this).val();
       to_date = $('#to_date').val();
       if(to_date < from_date && to_date != ''){
         alert("'From Date' should be less than 'To Date'.");
-					
+                    
         $('#from_date').val('');
       }
       

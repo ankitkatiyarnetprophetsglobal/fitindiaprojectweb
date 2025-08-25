@@ -22,7 +22,7 @@
         padding:0 10px;
         border-bottom:none;
     }
-	input.larger {
+    input.larger {
         transform: scale(1.5);
         /*margin: 15px;*/
     }
@@ -47,9 +47,9 @@
             <center><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{session('failed')}}</center>
           </div>
       @endif 
-	    <div class="row ambass_area">
+        <div class="row ambass_area">
           <h2 class="page__title title" id="page-title">Submit your application to become Fit India Urban Local Body Ambassador</h2>
-	        <form name="createeventform"  method="post" action="store-local-bodyambassador" enctype="multipart/form-data">
+            <form name="createeventform"  method="post" action="store-local-bodyambassador" enctype="multipart/form-data">
               @csrf
                <input type="hidden" name="user_id" value="{{  $user_info->id }}">
                 <div class="col-sm-12 col-md-12">
@@ -68,27 +68,27 @@
                   <legend class="scheduler-border">Basic Details</legend>
                   <div class="row" >
                       <div class="col-sm-12 col-md-6">
-								<div class="form-group">
-							  	                <label for="fname">Name :</label> 
-							                    <input type="text" name="name" class="form-control " value="{{ $user_info->name}}" readonly>
+                                <div class="form-group">
+                                                <label for="fname">Name :</label> 
+                                                <input type="text" name="name" class="form-control " value="{{ $user_info->name}}" readonly>
                                   {!!$errors->first("name","<span class='text-danger'>:message</span>")!!}
                                 </div>
-							        </div>
-						          <div class="col-sm-12 col-md-6">
-								              <div class="form-group">	
+                                    </div>
+                                  <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">  
                                   <label for="fname"> Email ID : </label>
                                   <input type="email" name="email" id="email" class="form-control" value="{{ $user_info->email}}" readonly>
-									                {!!$errors->first("email","<span class='text-danger'>:message</span>")!!}
+                                                    {!!$errors->first("email","<span class='text-danger'>:message</span>")!!}
                                     </div>
-								</div>
+                                </div>
                                     <div class="col-sm-12 col-md-6">
-								              <div class="form-group">	
+                                              <div class="form-group">  
                                   <label for="fname"> Contact Number : </label>
                                   <input type="mobile" name="contact" id="contact" class="form-control" value="{{$user_info->phone}}" maxlength="10" readonly>
-									                {!!$errors->first("contact","<span class='text-danger'>:message</span>")!!}
-									            </div>
-						            </div>
-						          
+                                                    {!!$errors->first("contact","<span class='text-danger'>:message</span>")!!}
+                                                </div>
+                                    </div>
+                                  
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="designaton">Designation/Occupation : </label>
@@ -97,8 +97,8 @@
                                     </div>
 
                                    <div class="col-sm-12 col-md-6">
-								              <div class="form-group">	
-									                <label for="fname"> Gender :</label>
+                                              <div class="form-group">  
+                                                    <label for="fname"> Gender :</label>
                                   <select name="gender" id="gender" class="form-control" >
                                        <?php if(!empty($user_info->gender)){ ?>
                                             <option value="<?php echo @$user_info->gender; ?>"><?php echo @$user_info->gender; ?></option>
@@ -110,12 +110,12 @@
                                       <option value="female" @if (old('gender') == 'female') selected="selected" @endif >Female</option>
                                   </select>
                                   {!!$errors->first("gender","<span class='text-danger'>:message</span>")!!}
-						                  </div>
-								      </div> 
-    						      <div class="col-sm-12 col-md-6">
-    								          <div class="form-group">	
+                                          </div>
+                                      </div> 
+                                  <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">  
                                   <label for="fname"> State :</label>
-    							                <select name="state" id="state" class="form-control">
+                                                <select name="state" id="state" class="form-control">
                                         <?php if(!empty($get_state_id)){ ?>
                                             <option value="{{ $get_state_id->id}}">{{ $get_state_id->name }}</option>
                                         <?php }else{ ?>
@@ -128,11 +128,11 @@
                                         } ?>
                                   </select>
                                   {!!$errors->first("state","<span class='text-danger'>:message</span>")!!}
-    							            </div>
-    						      </div>
-						          <div class="col-sm-12 col-md-6">
-								              <div class="form-group">	
-							                    <label for="fname"> District :</label>
+                                            </div>
+                                  </div>
+                                  <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">  
+                                                <label for="fname"> District :</label>
                                   <select name="district" id="district" class="form-control">
                                      <?php if(!empty($get_district_id)){ ?>
                                         <option value="{{ $get_district_id->id}}">{{ $get_district_id->name }}</option>
@@ -148,11 +148,11 @@
                                   </select>
                                   {!!$errors->first("district","<span class='text-danger'>:message</span>")!!}                      
                               </div>
-						          </div>
-						          <div class="col-sm-12 col-md-6">
-								              <div class="form-group">	
-						                      <label for="fname"> Block :</label>
-						                      <select name="block" id="block" class="form-control">
+                                  </div>
+                                  <div class="col-sm-12 col-md-6">
+                                              <div class="form-group">  
+                                              <label for="fname"> Block :</label>
+                                              <select name="block" id="block" class="form-control">
                                       <?php if(!empty($get_block_id)){ ?>
                                         <option value="{{ $get_block_id->id}}">{{ $get_block_id->name }}</option>
                                     <?php }else{ ?>
@@ -165,36 +165,36 @@
                                        } ?>
                                   </select>
                                   {!!$errors->first("block","<span class='text-danger'>:message</span>")!!}
-							                </div>
-							        </div>
-							        <div class="col-sm-12 col-md-12">
-								              <div class="form-group">	
-							                    <label for="fname">Upload Your Photo : <span style="color:gray"> (Kindly upload a formal photo, This photo will be displayed against your profile on Fit India Website if approved)</span></label>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12">
+                                              <div class="form-group">  
+                                                <label for="fname">Upload Your Photo : <span style="color:gray"> (Kindly upload a formal photo, This photo will be displayed against your profile on Fit India Website if approved)</span></label>
                                   <input type="file" name="image" id="image" class="form-control" required>
                                   {!!$errors->first("image","<span class='text-danger'>:message</span>")!!}
-								              </div>
-								      </div>
-					       </div>
-					    </fieldset>
+                                              </div>
+                                      </div>
+                           </div>
+                        </fieldset>
               <hr>  
               <fieldset class="scheduler-border">
-   					      <legend class="scheduler-border">Letter / Document Details</legend>
-            			<div class="row" >
-            			    <!-- <div class="col-sm-12 col-md-12">
-                   	      <label class="cert-questions"> <b>He/she should be nominated by Sarpanch/Mukhiya/Pradhan of Gram Panchayat as Fit India coordinator 
-						              for organising community fitness events. He/ She should preferably be an elected representative.</b></label>
-                  		</div> -->
-                  	  <div class="col-sm-12 col-md-12">
-								          <div class="form-group">	
+                          <legend class="scheduler-border">Letter / Document Details</legend>
+                        <div class="row" >
+                            <!-- <div class="col-sm-12 col-md-12">
+                          <label class="cert-questions"> <b>He/she should be nominated by Sarpanch/Mukhiya/Pradhan of Gram Panchayat as Fit India coordinator 
+                                      for organising community fitness events. He/ She should preferably be an elected representative.</b></label>
+                        </div> -->
+                      <div class="col-sm-12 col-md-12">
+                                          <div class="form-group">  
                               <label for="fname"> Please share a letter/Document from Sarpanch/Mukhiya/Pradhan of Urban Local Body where you have been nominated as fit india coordinator</label>
                               <input type="file" name="document" id="document" class="form-control">
                               {!!$errors->first("document","<span class='text-danger'>:message</span>")!!}
                           </div> 
-						          </div>	
+                                  </div>    
                   </div>
               </fieldset>
-				      <hr>
-				            <fieldset class="scheduler-border">
+                      <hr>
+                            <fieldset class="scheduler-border">
                                               <legend class="scheduler-border">Social Media Information</legend>
                                               <div class="row">
                                                 <div class="col-sm-12 col-md-12">
@@ -261,60 +261,60 @@
                                                     </div>
                                                 </div>  
                                             </fieldset>
-  		        <div class="col-sm-12 col-md-12">
-					        <div class="form-group">
-						          <label class="cert-questions"> 
-						          <b>He/she should be preferably in the age group 18-50 years.</b></label>	
-						          <br><br>						
-				 		          <label for="fname"> Please upload id proof for Age Verification</label>
-								      <input type="file" name="agedocument" class="form-control">
-									    {!!$errors->first("agedocument","<span class='text-danger'>:message</span>")!!}
-								  </div> 
+                <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                  <label class="cert-questions"> 
+                                  <b>He/she should be preferably in the age group 18-50 years.</b></label>  
+                                  <br><br>                      
+                                  <label for="fname"> Please upload id proof for Age Verification</label>
+                                      <input type="file" name="agedocument" class="form-control">
+                                        {!!$errors->first("agedocument","<span class='text-danger'>:message</span>")!!}
+                                  </div> 
               </div> 
              
 
 
 
-							<fieldset class="scheduler-border">
+                            <fieldset class="scheduler-border">
                   <legend class="scheduler-border">Declaration </legend>
                   <div class="row">
-				              <div class="col-sm-12 col-md-12">
+                              <div class="col-sm-12 col-md-12">
                         
-								          <div class="form-group">	
-								             <label class="form-check-label"> 
+                                          <div class="form-group">  
+                                             <label class="form-check-label"> 
                               <input type="checkbox" name="social_media_handle" class="input_size" vlaue="1" required> 
                               <span>
                                 The Individual Must be following Fit India Movement’s Social media handles (@FitIndiaOff)  and other hashtags as decided by Fit India Mission
                               </span>
                             </label>
-								              {!!$errors->first("social_media_handle","<span class='text-danger'>:message</span>")!!}
-								          </div>
-							       
+                                              {!!$errors->first("social_media_handle","<span class='text-danger'>:message</span>")!!}
+                                          </div>
+                                   
                           <div class="form-group">
-  				                    <label class="form-check-label">  
+                                    <label class="form-check-label">  
                                 <input name="yclubeventcommits" type="checkbox" value="yes"  class="input_size" @error('yclubeventcommits') is-invalid @enderror" @if(!empty(old('yclubeventcommits'))) {{ 'checked' }} @endif onclick="eventcommit(this)" />  
                               
                               <span>  The individual should organize Fit India’s on-ground/virtual
                               events every quarter for at least 50 participants and upload the photos of the same by tagging @FitIndiaOff</span>
                               </label> 
-															@error('yclubeventcommits')
-															<span class="invalid-feedback" role="alert">
-																  <strong>{{ $message }}</strong>
-															</span>
-															@enderror
-				                  </div>
-				             
-								          <div class="form-group">
+                                                            @error('yclubeventcommits')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                  <strong>{{ $message }}</strong>
+                                                            </span>
+                                                            @enderror
+                                  </div>
+                             
+                                          <div class="form-group">
                               <label class="form-check-label"> <input type="checkbox" name="physical_fitness" value="1" id="physical_fitness" class="input_size" required><span>Individual should be aware about the importance of physical fitness and 
                               spend 30-60 minutes daily for at least 5 days every week for physical activities.
                               Physical activities could be playing any sport, traditional game, walking, cycling, dancing, running, or any other physical activity </span> 
-						                  </label>
-								              {!!$errors->first("physical_fitness","<span class='text-danger'>:message</span>")!!} 
-								          </div>
-                      </div>			
-						      </div>
-					    </fieldset>												
-				      <div class="col-sm-12 col-md-12">
+                                          </label>
+                                              {!!$errors->first("physical_fitness","<span class='text-danger'>:message</span>")!!} 
+                                          </div>
+                      </div>            
+                              </div>
+                        </fieldset>                                             
+                      <div class="col-sm-12 col-md-12">
                   <div class="form-group">
                        <a style="color:black!important" class="champ_btn" href="{{ asset('wp-content/uploads/doc/Guidlines Urban Local Body.pdf') }}" target="_blank">Guidelines of Fit India Urban Local Body Ambassador</a>
                   </div>
@@ -329,7 +329,7 @@
                       {!!$errors->first("declaration","<span class='text-danger'>:message</span>")!!}
                   </div>
               </div>
-				      <div class="col-sm-12 col-md-12">
+                      <div class="col-sm-12 col-md-12">
                   <div class="form-group">
                       <div class="see_area ">
                       <input type="submit" name="ambassador-create" value="Submit" class="seemore shadow_O sys" href="javascript:void(0);" data-toggle="modal" data-target="#actforyou">
@@ -347,8 +347,8 @@
             </div>
             <br><br><br><br>
         </div>
-<script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script>
+<script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
+<script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
 
   <script type="text/javascript">
     $('#state').change(function(){
