@@ -254,7 +254,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        // 'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => 'Intervention\Image\Facades\Image',
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         //'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,

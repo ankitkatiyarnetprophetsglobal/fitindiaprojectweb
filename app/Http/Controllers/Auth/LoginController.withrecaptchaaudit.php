@@ -95,13 +95,17 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
+
+
         // Enhanced rate limiting
         $key = 'login-attempts:' . $request->ip();
 
         if (RateLimiter::tooManyAttempts($key, 3)) {
             $seconds = RateLimiter::availableIn($key);
+            $minutes = floor($seconds / 60);
+            $remainingSeconds = $seconds % 60;
             throw ValidationException::withMessages([
-                'email' => ["Too many login attempts. Please try again in {$seconds} seconds."],
+                'email' => ["Too many login attempts. Please try again in {$minutes} minutes : {$remainingSeconds} seconds."],
             ]);
         }
 
@@ -118,7 +122,6 @@ class LoginController extends Controller
         try {
             // Decrypt password with proper error handling
             $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
-
             // Additional password validation
             if (empty($password_encrypted) || strlen($password_encrypted) > 255) {
                 RateLimiter::hit($key, 900); // 15 minutes
@@ -177,15 +180,14 @@ class LoginController extends Controller
                     'string',
                     'max:2000' // Limit encrypted password length
                 ],
-                'captcha' => [
+                'g-recaptcha-response' => [
                     'required',
-                    'captcha',
-                    'max:10' // Limit captcha length
+                    'captcha' // Google reCAPTCHA validation
                 ],
             ],
             [
-                'captcha.required' => 'Captcha field is required.',
-                'captcha.captcha' => 'Please fill correct value.',
+                'g-recaptcha-response.required' => 'Please complete the security check.',
+                'g-recaptcha-response.captcha' => 'Security verification failed. Please try again.',
                 'email.regex' => 'Invalid email format.',
                 'email.max' => 'Email too long.',
                 'password.max' => 'Password format invalid.'

@@ -77,27 +77,9 @@
 
                             </div>
 
-
-                            <!-- <div class="login-row">
-                                <div class="um-field" id="captcha-page-cont">
-                                    <label for="g-recaptcha-response">Please verify you are human</label><br>
-
-                                    {{-- Google reCAPTCHA --}}
-                                    {!! NoCaptcha::renderJs() !!}
-                                    {!! NoCaptcha::display() !!}
-
-                                    @error('g-recaptcha-response')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ e($message) }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div> -->
-
                             <div class="login-row">
                                 <div class="um-field" id="captcha-page-cont">
                                     <label for="g-recaptcha-response">Please verify you are human</label><br>
-
                                     {{-- Google reCAPTCHA --}}
                                     {!! NoCaptcha::renderJs() !!}
                                     {!! NoCaptcha::display(['data-theme' => 'light', 'data-size' => 'normal']) !!}
@@ -105,7 +87,7 @@
                                     {{-- Error Display --}}
                                     @error('g-recaptcha-response')
                                     <span class="invalid-feedback d-block" role="alert" style="font-size: 11px; margin-top: 5px;">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ e($message) }}</strong>
                                     </span>
                                     @enderror
 
@@ -303,14 +285,14 @@
         $('#password').attr('autocomplete', 'new-password');
 
         // Prevent right-click on sensitive fields
-        $('#password').on('contextmenu', function(e) {
+        $('#password, #captcha').on('contextmenu', function(e) {
             return false;
         });
 
         // Clear sensitive data on page unload
         $(window).on('beforeunload', function() {
             $('#password').val('');
-            // $('#captcha').val('');
+            $('#captcha').val('');
         });
 
         // Add CSRF token to meta if not present
@@ -319,12 +301,7 @@
         }
 
         // Session timeout warning
-        let sessionTimeout = {
-            {
-                config('session.lifetime') * 60000 - 300000
-            }
-        }; // 5 minutes before expiry
-
+        let sessionTimeout = {{config('session.lifetime') * 60000 - 300000}}; // 5 minutes before expiry
         setTimeout(function() {
             alert('Your session will expire soon. Please save your work and login again if needed.');
         }, sessionTimeout);
