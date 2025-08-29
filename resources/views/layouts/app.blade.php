@@ -242,7 +242,7 @@
                             </li>
                             <li>
                                 <a class="font_f y_c"
-                                    href="{{ route('redirect', ['url' => 'https://www.youtube.com/channel/UCQtxCmXhApXDBfV59_JNagA']) }}"
+                                    href="{{ route('redirect', ['url' => 'https://www.youtube.com111/channel/UCQtxCmXhApXDBfV59_JNagA']) }}"
                                     target="_blank"
                                     rel="noopener noreferrer">
                                     <i class="fa fa-youtube-play" aria-hidden="true"></i>

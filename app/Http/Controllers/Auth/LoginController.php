@@ -78,6 +78,7 @@ class LoginController extends Controller
     public function cryptoJsAesDecrypt($passphrase, $jsonString)
     {
         $jsondata = json_decode($jsonString, true);
+      
         $salt = hex2bin($jsondata["s"]);
         $ct = base64_decode($jsondata["ct"]);
         $iv  = hex2bin($jsondata["iv"]);
@@ -96,12 +97,12 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         // Enhanced rate limiting
-        $key = 'login-attempts:' . $request->ip();
-
+        $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
+     
         if (RateLimiter::tooManyAttempts($key, 3)) {
             $seconds = RateLimiter::availableIn($key);
             throw ValidationException::withMessages([
-                'email' => ["Too many login attempts. Please try again in {$seconds} seconds."],
+                'emailTomanyattampt' => ["Too many login attempts. Please try again in {$seconds} seconds."],
             ]);
         }
 
@@ -117,8 +118,9 @@ class LoginController extends Controller
 
         try {
             // Decrypt password with proper error handling
+           
             $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
-
+            
             // Additional password validation
             if (empty($password_encrypted) || strlen($password_encrypted) > 255) {
                 RateLimiter::hit($key, 900); // 15 minutes
@@ -132,14 +134,6 @@ class LoginController extends Controller
             ]);
         } catch (\InvalidArgumentException $e) {
             RateLimiter::hit($key, 900);
-
-            // Log security incident
-            Log::warning('Login attempt with invalid encryption', [
-                'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-                'email' => $request->email
-            ]);
-
             throw ValidationException::withMessages([
                 'password' => ['Invalid login credentials.'],
             ]);

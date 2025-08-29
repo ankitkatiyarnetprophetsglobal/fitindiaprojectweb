@@ -18,18 +18,20 @@
                         <p>New to site?
                             <a id="fi_signup" href="{{ route('register') }}">Create an Account</a>
                         </p>
-                        <br>
                          {{-- Lockout countdown timer --}}
-                         @if ($errors->has('emailTomanyattampt'))
-                            @php
-                                preg_match('/\d+/', $errors->first('emailTomanyattampt'), $matches);
-                                $lockoutSeconds = isset($matches[0]) ? (int) $matches[0] : 0;
-                            @endphp
-                        @endif
-                            <div id="lockout-message" class="alert alert-danger" style="display:none;">
-                                Too many login attempts. Please try again in
-                                <span id="countdown"></span>
-                            </div>
+                                @if ($errors->has('emailTomanyattampt'))
+                                    @php
+                                        preg_match('/\d+/', $errors->first('emailTomanyattampt'), $matches);
+                                        $lockoutSeconds = isset($matches[0]) ? (int) $matches[0] : 0;
+                                    @endphp
+
+                                    @if($lockoutSeconds > 0)
+                                        <div id="lockout-message" class="alert alert-danger">
+                                            Too many login attempts. Please try again in
+                                            <span id="countdown"></span>
+                                        </div>
+                                    @endif
+                                @endif
                         <div class="frm-details log_div">
                             <h1>{{ __('Login') }}</h1>
 
@@ -328,21 +330,14 @@
 
 {{-- ===== Countdown Script ===== --}}
 <script>
-    // let lockoutExpiry = localStorage.getItem("lockoutExpiry");
-    const currentEmail = "{{ strtolower(old('email', request()->input('email'))) }}";
-const lockoutKey = currentEmail ? `lockoutExpiry:${currentEmail}` : null;
-let lockoutExpiry = lockoutKey ? localStorage.getItem(lockoutKey) : null;
-
-    // Backend se agar naya lockoutSeconds aaya to update karo
-    // @if(isset($lockoutSeconds) && $lockoutSeconds > 0)
-    //     lockoutExpiry = Date.now() + ({{ $lockoutSeconds }} * 1000);
-    //     localStorage.setItem("lockoutExpiry", lockoutExpiry);
-    // @endif
+    let lockoutExpiry = localStorage.getItem("lockoutExpiry");
 
     @if(isset($lockoutSeconds) && $lockoutSeconds > 0)
-    if (lockoutKey) {
-        lockoutExpiry = Date.now() + ({{ $lockoutSeconds }} * 1000);
-        localStorage.setItem(lockoutKey, lockoutExpiry);
+        if (!lockoutExpiry || Date.now() > lockoutExpiry) {
+            lockoutExpiry = Date.now() + ({{ $lockoutSeconds }} * 1000);
+            localStorage.setItem("lockoutExpiry", lockoutExpiry);
+        } else {
+            lockoutExpiry = parseInt(lockoutExpiry);
         }
     @endif
 
@@ -353,19 +348,13 @@ let lockoutExpiry = lockoutKey ? localStorage.getItem(lockoutKey) : null;
     }
 
     function startCountdown() {
-        const msgBox = document.getElementById("lockout-message");
         const countdownElement = document.getElementById("countdown");
         const loginBtn = document.getElementById("login-submit");
 
-        if (!lockoutExpiry || Date.now() > lockoutExpiry) {
-            localStorage.removeItem("lockoutExpiry");
-            if (msgBox) msgBox.style.display = "none";
+        if (!lockoutExpiry) {
             if (loginBtn) loginBtn.disabled = false;
             return;
         }
-
-        if (msgBox) msgBox.style.display = "block";
-        if (loginBtn) loginBtn.disabled = false;
 
         const interval = setInterval(() => {
             const remaining = Math.floor((lockoutExpiry - Date.now()) / 1000);
@@ -374,17 +363,22 @@ let lockoutExpiry = lockoutKey ? localStorage.getItem(lockoutKey) : null;
                 clearInterval(interval);
                 localStorage.removeItem("lockoutExpiry");
 
-                if (msgBox) msgBox.innerHTML = "You can now try logging in again.";
+                if (document.getElementById("lockout-message")) {
+                    document.getElementById("lockout-message").innerHTML =
+                        "You can now try logging in again.";
+                }
+
                 if (loginBtn) loginBtn.disabled = false;
             } else {
                 if (countdownElement) {
                     countdownElement.textContent = formatTime(remaining);
                 }
+                if (loginBtn) loginBtn.disabled = false;
             }
         }, 1000);
     }
 
-    if (lockoutExpiry) startCountdown();
+    startCountdown();
 </script>
 
 @endsection

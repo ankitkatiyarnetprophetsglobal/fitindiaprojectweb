@@ -1020,4 +1020,8 @@ Route::get('/redirect', function (\Illuminate\Http\Request $request) {
     return redirect()->away($url);
 })->name('redirect');
 
+Route::fallback(function () {
+    return redirect('/');
+});
+
 URL::forceScheme('https');
