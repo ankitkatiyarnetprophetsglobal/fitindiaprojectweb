@@ -40,6 +40,7 @@
 
   <div class="container">
     <div id="divloader" class="loaderregister" style="display: none">
+    {{-- <div id="divloader" class="loaderregister" style="display: block"> --}}
         <img style="margin-top:15%; width: 15%; height: 25%;" src="{{ url('/wp-content/uploads/2021/01/loader.gif') }}" />
     </div>
     <div class="row">
@@ -491,49 +492,7 @@
         }
     }
 
-    // Function to hash password using SHA-256
-    async function hashPassword(password) {
-        // Encode the password as UTF-8
-        const encoder = new TextEncoder();
-        const data = encoder.encode(password);
-        
-        // Hash the password with SHA-256
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        
-        // Convert the hash to a hex string
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        
-        return hashHex;
-    }
 
-    // Handle form submission
-    document.getElementById('fi-register').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        // Show loader
-        $("#divloader").css("display", "block");
-        
-        try {
-            // Hash the password and confirmation
-            const password = document.getElementById('password').value;
-            const passwordConfirm = document.getElementById('password-confirm').value;
-            
-            const hashedPassword = await hashPassword(password);
-            const hashedPasswordConfirm = await hashPassword(passwordConfirm);
-            
-            // Set the hashed values to hidden fields
-            document.getElementById('password').value = hashedPassword;
-            document.getElementById('password-confirm').value = hashedPasswordConfirm;
-            
-            // Continue with form submission
-            this.submit();
-        } catch (error) {
-            console.error('Error hashing password:', error);
-            $("#divloader").css("display", "none");
-            alert('An error occurred during registration. Please try again.');
-        }
-    });
 </script>
 <script type="text/javascript">
        $('#udise_row').hide();
