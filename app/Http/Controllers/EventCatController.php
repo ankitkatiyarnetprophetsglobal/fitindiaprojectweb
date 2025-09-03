@@ -27,10 +27,10 @@ class EventCatController extends Controller
 {
 
     public function createFreedomrunEvent(){
-
+        
         try{
-            // dd(123456);
-            // dd(Auth::user());
+         
+            dd(Auth::user());
             if (isset(auth()->user()->role)){
 
                     $role = Auth::user()->role;
@@ -97,6 +97,7 @@ class EventCatController extends Controller
     }
 
     public function store(Request $request){
+      
         try {
              
             $validator = Validator::make($request->all(), [

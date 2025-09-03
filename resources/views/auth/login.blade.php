@@ -65,14 +65,20 @@
                                     autocomplete="off"
                                     required
                                     maxlength="255"
-                                    minlength="6">
+                                    minlength="6"
+                                    oncopy="return false"
+                                    onpaste="return false"
+                                    oncut="return false"
+                                    ondrag="return false"
+                                    ondrop="return false"
+                                    oncontextmenu="return false"
+                                    >
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ e($message) }}</strong>
                                 </span>
                                 @enderror
-
                             </div>
 
                             <div class="login-row">
@@ -386,5 +392,12 @@ let lockoutExpiry = lockoutKey ? localStorage.getItem(lockoutKey) : null;
 
     if (lockoutExpiry) startCountdown();
 </script>
-
+<script>
+// Extra keyboard shortcut protection (Ctrl+V, Ctrl+C etc.)
+document.getElementById("password").addEventListener("keydown", function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === "v" || e.key === "c" || e.key === "x" || e.key === "a")) {
+        e.preventDefault();
+    }
+});
+</script>
 @endsection

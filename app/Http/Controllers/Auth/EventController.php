@@ -80,6 +80,7 @@ class EventController extends Controller
 
     public function createevent()
     { 
+       dd(123);
         $role = Auth::user()->role;
         $u_id = Auth::user()->id;
         $categories = EventCat::all();
@@ -281,7 +282,7 @@ class EventController extends Controller
     }
     
    public function storeevent(Request $request){
-
+       
          if(Auth::user()->role=='school'){ 
              $request->validate([
                     'user_id' => 'required',

@@ -279,7 +279,7 @@
                 <div class="register-row">
                     <div class="register-row-lft r_parent">
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                        name="password" value="{{ old('password') }}" required autocomplete="new-password" placeholder="Password">
+                        name="password" value="{{ old('password') }}" required  autocomplete="new-password" onkeyup="checkPasswordStrength()" placeholder="Password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -474,6 +474,8 @@
   </div>
 </section>
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
+
+
 <script>
     var CryptoJSAesJson = {
         stringify: function (cipherParams) {

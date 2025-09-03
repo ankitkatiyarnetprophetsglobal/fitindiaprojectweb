@@ -146,12 +146,14 @@ class LoginController extends Controller
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
-
+            // 🔒 Prevent session fixation / replay attacks
+           $request->session()->regenerate();
             return $this->sendLoginResponse($request);
         }
         // Increment rate limiter on failed attempt
         RateLimiter::hit($key, 900);
         $this->incrementLoginAttempts($request);
+         
         return $this->sendFailedLoginResponse($request);
     }
 

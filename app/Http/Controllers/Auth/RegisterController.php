@@ -62,11 +62,14 @@ class RegisterController extends Controller
      */
 
 
-    public function register1(Request $request)
+    public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
+        $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
+        $password_confirmation_encrypted = $this->cryptoJsAesDecrypt("64", $request->password_confirmation);
+        $data = $request->all();
+        $data['password'] = $password_encrypted;
+        $data['password_confirmation'] = $password_confirmation_encrypted;
+        event(new Registered($user = $this->create($data)));
         // Session::flash('success', 'Please Login');
         $success = "Your Registration Done Successfully, please login";
         $request->session()->put('succ', $success);
@@ -81,8 +84,28 @@ class RegisterController extends Controller
             ? new JsonResponse([], 201)
             : redirect($this->redirectPath());
     }
+    
+     public function cryptoJsAesDecrypt($passphrase, $jsonString)
+    {
+        $jsondata = json_decode($jsonString, true);
+      
+        $salt = hex2bin($jsondata["s"]);
+        $ct = base64_decode($jsondata["ct"]);
+        $iv  = hex2bin($jsondata["iv"]);
+        $concatedPassphrase = $passphrase . $salt;
+        $md5 = array();
+        $md5[0] = md5($concatedPassphrase, true);
+        $result = $md5[0];
+        for ($i = 1; $i < 3; $i++) {
+            $md5[$i] = md5($md5[$i - 1] . $concatedPassphrase, true);
+            $result .= $md5[$i];
+        }
+        $key = substr($result, 0, 32);
+        $data = openssl_decrypt($ct, 'aes-256-cbc', $key, true, $iv);
+        return json_decode($data, true);
+    }
 
-    public function register(Request $request)
+    public function registernew(Request $request)
     {
       
         // Create a copy of the request data for validation
