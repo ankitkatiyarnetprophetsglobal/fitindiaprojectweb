@@ -964,6 +964,7 @@ Route::view('/data-deletion','data_deletion')->name('data_deletion');
 Route::get('cyclothonregistrationform',[App\Http\Controllers\Auth\RegisterController::class,'cyclothonshowRegistrationForm'])->middleware('limit.ip:registration')->name('cyclothonshowRegistrationForm');
 Route::get('coiregistration',[App\Http\Controllers\Auth\RegisterController::class,'coiregistration'])->middleware('limit.ip:registration')->name('coiregistration');
 Route::get('register',[App\Http\Controllers\Auth\RegisterController::class,'showRegistrationForm'])->middleware('limit.ip:registration')->name('register');
+
 Route::get('coiregistrationdrive',[App\Http\Controllers\Auth\RegistereventbaisController::class,'coiregistrationdrive'])->middleware('limit.ip:registration')->name('coiregistrationdrive');
 Route::post('saveregisterdrive',[App\Http\Controllers\Auth\RegistereventbaisController::class,'saveregisterdrive'])->middleware('limit.ip:registration')->name('saveregisterdrive');
 

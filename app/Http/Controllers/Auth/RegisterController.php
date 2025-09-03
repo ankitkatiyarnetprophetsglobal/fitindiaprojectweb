@@ -62,7 +62,7 @@ class RegisterController extends Controller
      */
 
 
-    public function registertest(Request $request)
+    public function register1(Request $request)
     {
         $this->validator($request->all())->validate();
 
@@ -71,59 +71,60 @@ class RegisterController extends Controller
         $success = "Your Registration Done Successfully, please login";
         $request->session()->put('succ', $success);
         redirect()->route('login')->withSuccess('Success message');;
-    // $this->guard()->login($user);
+        // $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
     }
 
     public function register(Request $request)
-{
-    // Create a copy of the request data for validation
-    $validationData = $request->all();
-    
-    // For validation, we need to adjust password rules since it's now hashed
-    $validator = $this->validator($validationData);
-    
-    // Add custom validation for hashed passwords
-    $validator->after(function ($validator) use ($request) {
-        // Check if passwords match (hashed comparison)
-        if ($request->password !== $request->password_confirmation) {
-            $validator->errors()->add('password', 'The passwords do not match.');
-        }
-        
-        // Check password length (hashed passwords are 64 chars)
-        if (strlen($request->password) !== 64) {
-            $validator->errors()->add('password', 'Invalid password format.');
-        }
-    });
-    
-    // Validate the request
-    $validator->validate();
-    
-    // Create the user with the hashed password
-    event(new Registered($user = $this->create($request->all())));
-    
-    $success = "Your Registration Done Successfully, please login";
-    $request->session()->put('succ', $success);
-    
-    if ($response = $this->registered($request, $user)) {
-        return $response;
-    }
+    {
+      
+        // Create a copy of the request data for validation
+        $validationData = $request->all();
 
-    return $request->wantsJson()
-                ? new JsonResponse([], 201)
-                : redirect($this->redirectPath());
-}
+        // For validation, we need to adjust password rules since it's now hashed
+        $validator = $this->validator($validationData);
+        
+        // Add custom validation for hashed passwords
+        $validator->after(function ($validator) use ($request) {
+            // Check if passwords match (hashed comparison)
+            if ($request->password !== $request->password_confirmation) {
+                $validator->errors()->add('password', 'The passwords do not match.');
+            }
+
+            // Check password length (hashed passwords are 64 chars)
+            if (strlen($request->password) !== 64) {
+                $validator->errors()->add('password', 'Invalid password format.');
+            }
+        });
+
+        // Validate the request
+        $validator->validate();
+
+        // Create the user with the hashed password
+        event(new Registered($user = $this->create($request->all())));
+
+        $success = "Your Registration Done Successfully, please login";
+        $request->session()->put('succ', $success);
+        
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
+    }
 
     public function showRegistrationForm(Request $request)
     {
-        // dd("showRegistrationForm111112");
+      
         $role_name = $request->input('role');
         // dd($role_name);
         // dd('its here you');
@@ -135,11 +136,11 @@ class RegisterController extends Controller
         // echo base64_decode($encode);
         // echo base64_decode($role_name);
         // exit;
-        if($role_name == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg=='){
+        if ($role_name == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==') {
             // dd(123);
             $roles = Role::where('groupof', 0)
-            ->where('slug','=','namo-fit-india-youth-club')
-            ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
+                ->where('slug', '=', 'namo-fit-india-youth-club')
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
             // dd($roles);
             $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
 
@@ -148,13 +149,12 @@ class RegisterController extends Controller
             $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
 
             $club_name = "Club Name";
-            return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks','club_name'));
-
-        }else if($role_name == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $role_name == 'namo-fit-india-cycling-club'){
+            return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks', 'club_name'));
+        } else if ($role_name == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $role_name == 'namo-fit-india-cycling-club') {
 
             $roles = Role::where('groupof', 0)
-            ->where('slug','=','namo-fit-india-cycling-club')
-            ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
+                ->where('slug', '=', 'namo-fit-india-cycling-club')
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
             // dd($roles);
             $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
 
@@ -170,26 +170,24 @@ class RegisterController extends Controller
 
             $listofcenter = "Kindly contact your nearest SAI Centre to be a part of FIT India’s World Bicycle Day Celebrations.";
 
-            return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks','participant','listofcenter','club_name'));
+            return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks', 'participant', 'listofcenter', 'club_name'));
             // return view('severdownpage');
 
-        }else if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
+        } else if ($role_name == 'Y3ljbG90aG9uLTIwMjQ=') {
 
             $roles = Role::where('groupof', 0)
-            ->where('slug','=','cyclothon-2024')
-            ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
+                ->where('slug', '=', 'cyclothon-2024')
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
             // dd($roles);
 
-        }else if($role_name == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1'){
+        } else if ($role_name == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1') {
 
             $roles = Role::where('groupof', 1)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
-
-        }else{
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+        } else {
 
             $roles = Role::where('groupof', 1)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
-
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
         }
         $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
 
@@ -201,16 +199,17 @@ class RegisterController extends Controller
     }
 
 
-    public function cyclothonshowRegistrationForm(Request $request){
-        try{
+    public function cyclothonshowRegistrationForm(Request $request)
+    {
+        try {
             // dd("cyclothonshowRegistrationForm");
             $role_name = "cyclothon-2024";
             // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
 
-                $roles = Role::where('groupof', 0)
-                ->where('slug','=',$role_name)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
-                // dd($roles);
+            $roles = Role::where('groupof', 0)
+                ->where('slug', '=', $role_name)
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+            // dd($roles);
 
             // }
             // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
@@ -221,28 +220,28 @@ class RegisterController extends Controller
 
             // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
             return view('auth.cyclothonregister', compact('roles', 'state'));
-
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return abort(404);
         }
     }
 
-    public function coiregistration(Request $request){
-        try{
+    public function coiregistration(Request $request)
+    {
+        try {
             // dd("cyclothonshowRegistrationForm");
             $role_name = "cyclothon-2024";
             // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
-                $club_name_with_id = DB::table('users')
-                        ->select(DB::raw('MIN(id) as id'), 'name') // One ID per name (smallest)
-                        ->whereIn('role', ['namo-fit-india-cycling-club', 'namo-fit-india-youth-club']) // Filter by roles
-                        ->groupBy('name') // Group by name to make each name unique
-                        ->orderBy('name', 'asc') // Alphabetical order
-                        ->whereNotIn('name', ['15', '25', '26', '31','9114179370'])
-                        ->get();
-                $roles = Role::where('groupof', 0)
-                ->where('slug','=',$role_name)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
-                // dd($roles);
+            $club_name_with_id = DB::table('users')
+                ->select(DB::raw('MIN(id) as id'), 'name') // One ID per name (smallest)
+                ->whereIn('role', ['namo-fit-india-cycling-club', 'namo-fit-india-youth-club']) // Filter by roles
+                ->groupBy('name') // Group by name to make each name unique
+                ->orderBy('name', 'asc') // Alphabetical order
+                ->whereNotIn('name', ['15', '25', '26', '31', '9114179370'])
+                ->get();
+            $roles = Role::where('groupof', 0)
+                ->where('slug', '=', $role_name)
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+            // dd($roles);
 
             // }
             // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
@@ -253,23 +252,23 @@ class RegisterController extends Controller
 
             // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
             $listofcenter = "Kindly contact your nearest SAI Centre to be a part of FIT India’s World Bicycle Day Celebrations.";
-            return view('auth.coiregistration', compact('roles', 'state','listofcenter','club_name_with_id','role_name'));
-
-        }catch (Exception $e) {
+            return view('auth.coiregistration', compact('roles', 'state', 'listofcenter', 'club_name_with_id', 'role_name'));
+        } catch (Exception $e) {
             return abort(404);
         }
     }
 
-    public function coiregistration09042025(Request $request){
-        try{
+    public function coiregistration09042025(Request $request)
+    {
+        try {
             // dd("cyclothonshowRegistrationForm");
             $role_name = "cyclothon-2024";
             // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
 
-                $roles = Role::where('groupof', 0)
-                ->where('slug','=',$role_name)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador','ghd','stateadmin'])->orderBy('name', 'ASC')->get();
-                // dd($roles);
+            $roles = Role::where('groupof', 0)
+                ->where('slug', '=', $role_name)
+                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+            // dd($roles);
 
             // }
             // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
@@ -280,8 +279,7 @@ class RegisterController extends Controller
 
             // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
             return view('auth.09042025coiregistration', compact('roles', 'state'));
-
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return abort(404);
         }
     }
@@ -290,43 +288,42 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
 
-        try{
+        try {
 
-            if(!empty($data)){
+            if (!empty($data)) {
 
-                if(empty($data['role']) || empty($data['phone'])){
+                if (empty($data['role']) || empty($data['phone'])) {
 
                     return abort(404);
-
                 }
                 // dd($data);
                 $role_name = $data['role'];
                 $phone = $data['phone'];
                 $records = DB::table('users')
-                        ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
-                        ->where([
-                            ['users.email', '=', $data['email']],
-                            ['users.role', '=', $role_name],
-                            ['users.phone', '=', $phone]
-                        ])
-                        ->first();
+                    ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
+                    ->where([
+                        ['users.email', '=', $data['email']],
+                        ['users.role', '=', $role_name],
+                        ['users.phone', '=', $phone]
+                    ])
+                    ->first();
 
                 if (empty($records)) {
 
                     // $role_name = base64_decode($data['role_name']);
 
-                    if($role_name == "cyclothon-2024"){
+                    if ($role_name == "cyclothon-2024") {
 
                         $cyclothonrole = $data['cyclothonrole'];
                         $records = DB::table('users')
-                        ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
-                        ->where([
-                            ['users.email', '=', $data['email']],
-                            ['users.rolewise', '=', $role_name],
-                            ['users.phone', '=', $phone],
-                            ['usermetas.cyclothonrole', '=', $cyclothonrole]
-                        ])
-                        ->first();
+                            ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
+                            ->where([
+                                ['users.email', '=', $data['email']],
+                                ['users.rolewise', '=', $role_name],
+                                ['users.phone', '=', $phone],
+                                ['usermetas.cyclothonrole', '=', $cyclothonrole]
+                            ])
+                            ->first();
 
                         if (!empty($records)) {
 
@@ -342,7 +339,6 @@ class RegisterController extends Controller
                                     'phone.unique' => 'Mobile number already exist.',
                                 ]
                             );
-
                         }
 
                         return Validator::make(
@@ -390,8 +386,7 @@ class RegisterController extends Controller
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
                         );
-
-                    }else if($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club"){
+                    } else if ($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club") {
                         // dd(222);
                         return Validator::make(
                             $data,
@@ -433,8 +428,7 @@ class RegisterController extends Controller
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
                         );
-
-                    }else if(base64_decode($data['role_name']) == 'national-sports-day-2025'){
+                    } else if (base64_decode($data['role_name']) == 'national-sports-day-2025') {
 
                         return Validator::make(
                             $data,
@@ -474,9 +468,7 @@ class RegisterController extends Controller
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
                         );
-
-                    }
-                    else if ($data['role'] == 'school') {
+                    } else if ($data['role'] == 'school') {
                         // echo "aaaa";die;
                         return Validator::make(
                             $data,
@@ -561,7 +553,7 @@ class RegisterController extends Controller
                             ]
                         );
                     }
-                }else{
+                } else {
                     return Validator::make(
                         $data,
                         [
@@ -575,10 +567,10 @@ class RegisterController extends Controller
                         ]
                     );
                 }
-            }else{
+            } else {
                 return abort(404);
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return abort(404);
         }
 
@@ -668,17 +660,17 @@ class RegisterController extends Controller
         // dd($data);
         $role_name = base64_decode($data['role_name']);
         // dd($role_name);
-        if($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club" || $role_name == "cyclothon-2024"){
+        if ($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club" || $role_name == "cyclothon-2024") {
 
             // dd($data);
             // dd($role_name);
 
 
             $records = DB::table('users')
-                        ->where([
-                            ['users.email', '=', $data['email']]
-                        ])
-                        ->first();
+                ->where([
+                    ['users.email', '=', $data['email']]
+                ])
+                ->first();
             // dd($records);
             // dd($records->id);
             $user = Namouser::create([
@@ -703,19 +695,20 @@ class RegisterController extends Controller
             ]);
 
             $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
-            $records = User::where('id',$records->id)
-                            ->update(
-                                    [
-                                        'name' => $data['name'],
-                                        'email' => $data['email'],
-                                        'phone' => $data['phone'],
-                                        'role' =>  $data['role'],
-                                        'rolelabel' => $rolearr['name'],
-                                        'role_id' => $rolearr['id'],
-                                        'password' => Hash::make($data['password']),
-                                        'created_at' => date("Y-m-d h:i:s")
-                                    ]);
-        }else{
+            $records = User::where('id', $records->id)
+                ->update(
+                    [
+                        'name' => $data['name'],
+                        'email' => $data['email'],
+                        'phone' => $data['phone'],
+                        'role' =>  $data['role'],
+                        'rolelabel' => $rolearr['name'],
+                        'role_id' => $rolearr['id'],
+                        'password' => Hash::make($data['password']),
+                        'created_at' => date("Y-m-d h:i:s")
+                    ]
+                );
+        } else {
             $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
 
             if (!empty($data['state'])) {
@@ -753,7 +746,7 @@ class RegisterController extends Controller
             }
         }
 
-            return $user;
+        return $user;
     }
 
     protected function create(array $data)
@@ -761,158 +754,159 @@ class RegisterController extends Controller
 
         $role_name = $data['role'];
 
-        if($role_name == "cyclothon-2024"){
+        if ($role_name == "cyclothon-2024") {
             // dd($data);
             $records = DB::table('users')
-                        ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
-                        ->where([
-                            ['users.email', '=', $data['email']]
-                        ])
-                        ->select(
-                            'usermetas.id as id',
-                            'name',
-                            'email',
-                            "phone",
-                            "email_verified_at",
-                            "role",
-                            "rolelabel",
-                            "role_id",
-                            "password",
-                            "verified",
-                            "remember_token",
-                            "users.created_at as created_at",
-                            "users.updated_at as updated_at",
-                            "via",
-                            "deviceid",
-                            "FCMToken",
-                            "authid",
-                            "viamedium",
-                            "rolewise",
-                            "user_id",
-                            "dob",
-                            "age",
-                            "gender",
-                            "address",
-                            "state",
-                            "district",
-                            "block",
-                            "city",
-                            "mobile",
-                            "orgname",
-                            "udise",
-                            "pincode",
-                            "tshirtsize",
-                            "height",
-                            "weight",
-                            "image",
-                            "board",
-                            "medium",
-                            "gmail",
-                            "facebook",
-                            "apple",
-                            "cycle",
-                            "cyclothonrole",
-                            "address_line_one",
-                            "address_line_two",
-                            "participant_number"
-                        )
-                        ->first();
+                ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
+                ->where([
+                    ['users.email', '=', $data['email']]
+                ])
+                ->select(
+                    'usermetas.id as id',
+                    'name',
+                    'email',
+                    "phone",
+                    "email_verified_at",
+                    "role",
+                    "rolelabel",
+                    "role_id",
+                    "password",
+                    "verified",
+                    "remember_token",
+                    "users.created_at as created_at",
+                    "users.updated_at as updated_at",
+                    "via",
+                    "deviceid",
+                    "FCMToken",
+                    "authid",
+                    "viamedium",
+                    "rolewise",
+                    "user_id",
+                    "dob",
+                    "age",
+                    "gender",
+                    "address",
+                    "state",
+                    "district",
+                    "block",
+                    "city",
+                    "mobile",
+                    "orgname",
+                    "udise",
+                    "pincode",
+                    "tshirtsize",
+                    "height",
+                    "weight",
+                    "image",
+                    "board",
+                    "medium",
+                    "gmail",
+                    "facebook",
+                    "apple",
+                    "cycle",
+                    "cyclothonrole",
+                    "address_line_one",
+                    "address_line_two",
+                    "participant_number"
+                )
+                ->first();
             // dd($records);
             if (!empty($records)) {
-                    $user = Namouser::create([
-                        'user_id' => $records->user_id,
-                        'name' => $records->name,
-                        'email' => $records->email,
-                        'phone' =>  $records->phone,
-                        'email_verified_at' => $records->email_verified_at,
-                        'role' => $records->role,
-                        'rolelabel' => $records->rolelabel,
-                        'role_id' => $records->role_id,
-                        'password' => $records->password,
-                        'verified' => $records->verified,
-                        'remember_token' => $records->remember_token,
-                        'created_at' => $records->created_at,
-                        'updated_at' => $records->updated_at,
-                        'via' => $records->via,
-                        'deviceid' => $records->deviceid,
-                        'FCMToken' => $records->FCMToken,
-                        'authid' => $records->authid,
-                        'viamedium' => $records->viamedium,
-                        'rolewise' => $records->rolewise,
-                        'cycle' => $records->cycle,
-                        'cyclothonrole' => $records->cyclothonrole,
-                        'participant_number' => $records->participant_number,
-                        'pincode' => $records->pincode,
-                        'tshirtsize' => $records->tshirtsize,
-                        'address_line_one' => $records->address_line_one,
-                        'address_line_two' => $records->address_line_two,
-                        'state' => $records->state,
-                        'district' => $records->district,
-                        'block' => $records->block,
-                        'city' => $records->city
-                    ]);
+                $user = Namouser::create([
+                    'user_id' => $records->user_id,
+                    'name' => $records->name,
+                    'email' => $records->email,
+                    'phone' =>  $records->phone,
+                    'email_verified_at' => $records->email_verified_at,
+                    'role' => $records->role,
+                    'rolelabel' => $records->rolelabel,
+                    'role_id' => $records->role_id,
+                    'password' => $records->password,
+                    'verified' => $records->verified,
+                    'remember_token' => $records->remember_token,
+                    'created_at' => $records->created_at,
+                    'updated_at' => $records->updated_at,
+                    'via' => $records->via,
+                    'deviceid' => $records->deviceid,
+                    'FCMToken' => $records->FCMToken,
+                    'authid' => $records->authid,
+                    'viamedium' => $records->viamedium,
+                    'rolewise' => $records->rolewise,
+                    'cycle' => $records->cycle,
+                    'cyclothonrole' => $records->cyclothonrole,
+                    'participant_number' => $records->participant_number,
+                    'pincode' => $records->pincode,
+                    'tshirtsize' => $records->tshirtsize,
+                    'address_line_one' => $records->address_line_one,
+                    'address_line_two' => $records->address_line_two,
+                    'state' => $records->state,
+                    'district' => $records->district,
+                    'block' => $records->block,
+                    'city' => $records->city
+                ]);
 
-                    $Usermappings = new Usermapping();
-                    $Usermappings->user_id = $records->user_id;
-                    $Usermappings->register_for = $role_name;
-                    $Usermappings->status = 1;
-                    $Usermappings->save();
-                    // dd($role_name);
-                    // dd($records->user_id);
-                    $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
-                    // $update = User::where('id',$records->id)
-                    $update = User::where('id',$records->user_id)
-                                    ->update(
-                                            [
-                                                'name' => $data['name'],
-                                                'email' => $data['email'],
-                                                'phone' => $data['phone'],
-                                                'role' =>  "subscriber",
-                                                'rolelabel' => "INDIVIDUAL",
-                                                'rolewise' =>  "cyclothon-2024",
-                                                'role_id' => $rolearr['id'],
-                                                'password' => Hash::make($data['password']),
-                                                'updated_at' => date("Y-m-d h:i:s")
-                                            ]);
+                $Usermappings = new Usermapping();
+                $Usermappings->user_id = $records->user_id;
+                $Usermappings->register_for = $role_name;
+                $Usermappings->status = 1;
+                $Usermappings->save();
+                // dd($role_name);
+                // dd($records->user_id);
+                $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+                // $update = User::where('id',$records->id)
+                $update = User::where('id', $records->user_id)
+                    ->update(
+                        [
+                            'name' => $data['name'],
+                            'email' => $data['email'],
+                            'phone' => $data['phone'],
+                            'role' =>  "subscriber",
+                            'rolelabel' => "INDIVIDUAL",
+                            'rolewise' =>  "cyclothon-2024",
+                            'role_id' => $rolearr['id'],
+                            'password' => Hash::make($data['password']),
+                            'updated_at' => date("Y-m-d h:i:s")
+                        ]
+                    );
 
-                    // $records1 = DB::table('usermetas')
-                    // ->where([
-                    //  ['user_id', '=', $records->id]
-                    // ])
-                    // ->first();
-                    // dd($records);
-                    if (!$data['participant_number']){
-                        $data['participant_number'] = null;
+                // $records1 = DB::table('usermetas')
+                // ->where([
+                //  ['user_id', '=', $records->id]
+                // ])
+                // ->first();
+                // dd($records);
+                if (!$data['participant_number']) {
+                    $data['participant_number'] = null;
+                }
+                if (!$data['user_join_club_id']) {
+                    $data['user_join_club_id'] = null;
+                }
+                if (isset($data['tshirtsize'])) {
+
+                    if ($data['cyclothonrole'] == "club") {
+                        $tshirtsize = $data['tshirtsize'];
+                    } else {
+                        $tshirtsize = NULL;
                     }
-                    if (!$data['user_join_club_id']){
-                        $data['user_join_club_id'] = null;
-                    }
-                    if (isset($data['tshirtsize'])) {
-
-                        if($data['cyclothonrole'] == "club"){
-                            $tshirtsize = $data['tshirtsize'];
-                        }else{
-                            $tshirtsize = NULL;
-                        }
-                    }
-                    $records_update = Usermeta::where('id',$records->id)
-                                    ->update(
-                                            [
-                                                'cycle' => $data['cycle'],
-                                                'cyclothonrole' => $data['cyclothonrole'],
-                                                'participant_number' => $data['participant_number'],
-                                                'pincode' => $data['pincode'],
-                                                'address_line_one' => NULL,
-                                                'address_line_two' => NULL,
-                                                'tshirtsize' => $tshirtsize,
-                                                'state' => $data['state'],
-                                                'district' => $data['district'],
-                                                'block' => $data['block'],
-                                                'city' => $data['city'],
-                                                'user_join_club_id' => $data['user_join_club_id']
-                                            ]);
-
-            }else{
+                }
+                $records_update = Usermeta::where('id', $records->id)
+                    ->update(
+                        [
+                            'cycle' => $data['cycle'],
+                            'cyclothonrole' => $data['cyclothonrole'],
+                            'participant_number' => $data['participant_number'],
+                            'pincode' => $data['pincode'],
+                            'address_line_one' => NULL,
+                            'address_line_two' => NULL,
+                            'tshirtsize' => $tshirtsize,
+                            'state' => $data['state'],
+                            'district' => $data['district'],
+                            'block' => $data['block'],
+                            'city' => $data['city'],
+                            'user_join_club_id' => $data['user_join_club_id']
+                        ]
+                    );
+            } else {
 
                 $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
 
@@ -947,13 +941,13 @@ class RegisterController extends Controller
                     // if (!empty($data['district'])) $usermeta->district = $data['district'];
                     // if (!empty($data['block'])) $usermeta->block = $data['block'];
                     // if (!empty($data['city'])) $usermeta->city = $data['city'];
-                    if(is_numeric($data['state'])){
+                    if (is_numeric($data['state'])) {
                         // echo 1;
                         if (!empty($state['name'])) $usermeta->state = $state['name'];
                         if (!empty($district['name'])) $usermeta->district = $district['name'];
                         if (!empty($block['name'])) $usermeta->block = $block['name'];
                         if (!empty($data['city'])) $usermeta->city = $data['city'];
-                    }else{
+                    } else {
                         // echo 2;
                         // dd($data['state']);
                         if (!empty($data['state'])) $usermeta->state = $data['state'];
@@ -965,9 +959,9 @@ class RegisterController extends Controller
                     if (!empty($data['pincode'])) $usermeta->pincode = $data['pincode'];
                     if (isset($data['tshirtsize'])) {
 
-                        if($data['cyclothonrole'] == "club"){
+                        if ($data['cyclothonrole'] == "club") {
                             $tshirtsize = $data['tshirtsize'];
-                        }else{
+                        } else {
                             $tshirtsize = NULL;
                         }
                     }
@@ -981,113 +975,113 @@ class RegisterController extends Controller
 
                     $usermeta->save();
                 }
-
             }
-
-        }elseif($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club"){
+        } elseif ($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club") {
 
             // dd("done");
 
             $records = DB::table('users')
-                        ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
-                        ->where([
-                            ['users.email', '=', $data['email']]
-                        ])
-                        ->first();
+                ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
+                ->where([
+                    ['users.email', '=', $data['email']]
+                ])
+                ->first();
 
             if (!empty($records)) {
-                    $user = Namouser::create([
-                        'user_id' => $records->user_id,
-                        'name' => $records->name,
-                        'email' => $records->email,
-                        'phone' =>  $records->phone,
-                        'email_verified_at' => $records->email_verified_at,
-                        'role' => $records->role,
-                        'rolelabel' => $records->rolelabel,
-                        'role_id' => $records->role_id,
-                        'password' => $records->password,
-                        'verified' => $records->verified,
-                        'remember_token' => $records->remember_token,
-                        'created_at' => $records->created_at,
-                        'updated_at' => $records->updated_at,
-                        'via' => $records->via,
-                        'deviceid' => $records->deviceid,
-                        'FCMToken' => $records->FCMToken,
-                        'authid' => $records->authid,
-                        'viamedium' => $records->viamedium,
-                        'rolewise' => $records->rolewise,
-                        'cycle' => $records->cycle,
-                        'cyclothonrole' => $records->cyclothonrole,
-                        'participant_number' => $records->participant_number,
-                        'pincode' => $records->pincode,
-                        'tshirtsize' => $records->tshirtsize,
-                        'address_line_one' => $records->address_line_one,
-                        'address_line_two' => $records->address_line_two,
-                        'state' => $records->state,
-                        'district' => $records->district,
-                        'block' => $records->block,
-                        'city' => $records->city
-                    ]);
+                $user = Namouser::create([
+                    'user_id' => $records->user_id,
+                    'name' => $records->name,
+                    'email' => $records->email,
+                    'phone' =>  $records->phone,
+                    'email_verified_at' => $records->email_verified_at,
+                    'role' => $records->role,
+                    'rolelabel' => $records->rolelabel,
+                    'role_id' => $records->role_id,
+                    'password' => $records->password,
+                    'verified' => $records->verified,
+                    'remember_token' => $records->remember_token,
+                    'created_at' => $records->created_at,
+                    'updated_at' => $records->updated_at,
+                    'via' => $records->via,
+                    'deviceid' => $records->deviceid,
+                    'FCMToken' => $records->FCMToken,
+                    'authid' => $records->authid,
+                    'viamedium' => $records->viamedium,
+                    'rolewise' => $records->rolewise,
+                    'cycle' => $records->cycle,
+                    'cyclothonrole' => $records->cyclothonrole,
+                    'participant_number' => $records->participant_number,
+                    'pincode' => $records->pincode,
+                    'tshirtsize' => $records->tshirtsize,
+                    'address_line_one' => $records->address_line_one,
+                    'address_line_two' => $records->address_line_two,
+                    'state' => $records->state,
+                    'district' => $records->district,
+                    'block' => $records->block,
+                    'city' => $records->city
+                ]);
 
-                    $Usermappings = new Usermapping();
-                    $Usermappings->user_id = $records->id;
-                    $Usermappings->register_for = $role_name;
-                    $Usermappings->status = 1;
-                    $Usermappings->save();
-                    // dd($data);
-                    $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
-                    // dd($records->id);
-                    $recordscopy = User::where('id',$records->user_id)
-                                    ->update(
-                                            [
-                                                'name' => $data['name'],
-                                                'email' => $data['email'],
-                                                'phone' => $data['phone'],
-                                                'role' =>  $data['role'],
-                                                'rolelabel' => $rolearr['name'],
-                                                'role_id' => $rolearr['id'],
-                                                'rolewise' => null,
-                                                'password' => Hash::make($data['password']),
-                                                'updated_at' => date("Y-m-d h:i:s")
-                                            ]);
+                $Usermappings = new Usermapping();
+                $Usermappings->user_id = $records->id;
+                $Usermappings->register_for = $role_name;
+                $Usermappings->status = 1;
+                $Usermappings->save();
+                // dd($data);
+                $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+                // dd($records->id);
+                $recordscopy = User::where('id', $records->user_id)
+                    ->update(
+                        [
+                            'name' => $data['name'],
+                            'email' => $data['email'],
+                            'phone' => $data['phone'],
+                            'role' =>  $data['role'],
+                            'rolelabel' => $rolearr['name'],
+                            'role_id' => $rolearr['id'],
+                            'rolewise' => null,
+                            'password' => Hash::make($data['password']),
+                            'updated_at' => date("Y-m-d h:i:s")
+                        ]
+                    );
 
-                    // $records_update = Usermeta::where('user_id',$records->user_id)
-                    // dd($records->user_id);
-                    if (isset($data['participant_number'])) {
-                        $participant_number = $data['participant_number'];
-                    }else{
-                        $participant_number = NULL;
-                    }
-                    if (isset($data['pincode'])) {
-                        $pincode = $data['pincode'];
-                    }else{
-                        $pincode = NULL;
-                    }
+                // $records_update = Usermeta::where('user_id',$records->user_id)
+                // dd($records->user_id);
+                if (isset($data['participant_number'])) {
+                    $participant_number = $data['participant_number'];
+                } else {
+                    $participant_number = NULL;
+                }
+                if (isset($data['pincode'])) {
+                    $pincode = $data['pincode'];
+                } else {
+                    $pincode = NULL;
+                }
 
-                    if (isset($data['tshirtsize'])) {
-                        if($role_name == "namo-fit-india-cycling-club"){
-                            $tshirtsize = $data['tshirtsize'];
-                        }else{
-                            $tshirtsize = NULL;
-                        }
+                if (isset($data['tshirtsize'])) {
+                    if ($role_name == "namo-fit-india-cycling-club") {
+                        $tshirtsize = $data['tshirtsize'];
+                    } else {
+                        $tshirtsize = NULL;
                     }
-                    // dd($data['user_join_club_id']);
-                    $records_update = Usermeta::where('user_id',$records->user_id)
-                                        ->update(
-                                        [
-                                            'cycle' => NULL,
-                                            'cyclothonrole' => NULL,
-                                            'participant_number' => $participant_number,
-                                            'pincode' => $pincode,
-                                            'tshirtsize'=> $tshirtsize,
-                                            'address_line_one' => $data['address_line_one'] ?? NULL,
-                                            'address_line_two' => $data['address_line_two'] ?? NULL,
-                                            'state' => $data['state'],
-                                            'district' => $data['district'],
-                                            'block' => $data['block'],
-                                            'city' => $data['city']
-                                        ]);
-            }else{
+                }
+                // dd($data['user_join_club_id']);
+                $records_update = Usermeta::where('user_id', $records->user_id)
+                    ->update(
+                        [
+                            'cycle' => NULL,
+                            'cyclothonrole' => NULL,
+                            'participant_number' => $participant_number,
+                            'pincode' => $pincode,
+                            'tshirtsize' => $tshirtsize,
+                            'address_line_one' => $data['address_line_one'] ?? NULL,
+                            'address_line_two' => $data['address_line_two'] ?? NULL,
+                            'state' => $data['state'],
+                            'district' => $data['district'],
+                            'block' => $data['block'],
+                            'city' => $data['city']
+                        ]
+                    );
+            } else {
 
                 $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
 
@@ -1114,13 +1108,13 @@ class RegisterController extends Controller
                 if ($user->id) {
                     $usermeta = new Usermeta();
                     $usermeta->user_id = $user->id;
-                    if(is_numeric($data['state'])){
+                    if (is_numeric($data['state'])) {
                         // echo 1;
                         if (!empty($state['name'])) $usermeta->state = $state['name'];
                         if (!empty($district['name'])) $usermeta->district = $district['name'];
                         if (!empty($block['name'])) $usermeta->block = $block['name'];
                         if (!empty($data['city'])) $usermeta->city = $data['city'];
-                    }else{
+                    } else {
                         // echo 2;
                         // dd($data['state']);
                         if (!empty($data['state'])) $usermeta->state = $data['state'];
@@ -1133,9 +1127,9 @@ class RegisterController extends Controller
                     if (!empty($data['phone'])) $usermeta->mobile = $data['phone'];
                     if (!empty($data['pincode'])) $usermeta->pincode = $data['pincode'];
                     if (isset($data['tshirtsize'])) {
-                        if($role_name == "namo-fit-india-cycling-club"){
+                        if ($role_name == "namo-fit-india-cycling-club") {
                             $tshirtsize = $data['tshirtsize'];
-                        }else{
+                        } else {
                             $tshirtsize = NULL;
                         }
                     }
@@ -1144,7 +1138,7 @@ class RegisterController extends Controller
 
                     if (isset($data['participant_number'])) {
                         $participant_number = $data['participant_number'];
-                    }else{
+                    } else {
                         $participant_number = NULL;
                     }
                     if (!empty($participant_number)) $usermeta->participant_number = $participant_number;
@@ -1153,10 +1147,8 @@ class RegisterController extends Controller
 
                     $usermeta->save();
                 }
-
             }
-
-        }elseif($data['role_name'] == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1'){
+        } elseif ($data['role_name'] == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1') {
 
             // dd(base64_decode($data['role_name']));
 
@@ -1198,8 +1190,7 @@ class RegisterController extends Controller
 
                 $usermeta->save();
             }
-
-        }else{
+        } else {
             $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
 
             if (!empty($data['state'])) {
