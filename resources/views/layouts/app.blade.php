@@ -132,6 +132,10 @@
                                 {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }} 
                                                                         ?>
                             </a>
+                            <a class="dropdown-item" href="{{ url('edit-school-password') }}">
+                                {{ __('home_content.change_password')}} <?php // {{ __('Edit Profile') }} 
+                                                                        ?>
+                            </a>
                             @else
                             <a class="dropdown-item" href="{{ url('edit-profile') }}">
                                 {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }} 

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -7,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Models\State;
-Use App\Models\District;
+use App\Models\District;
 use App\Models\Block;
 use App\Models\User;
 use App\Models\Usermeta;
@@ -20,6 +22,7 @@ use App\Models\Board;
 use App\Models\Chainopt;
 use App\Models\Eventactivitydropdowns;
 use Illuminate\Support\Facades\Session;
+use App\Models\Admin;
 
 
 class UserController extends Controller
@@ -29,57 +32,54 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-	public function index()
+    public function index()
     {
-		try{
+        try {
 
-			if(isset(Auth::user()->role)){
-				$role = Auth::user()->role;
-				$a_id = Auth::user()->id;
-				if (Auth::check()){
+            if (isset(Auth::user()->role)) {
+                $role = Auth::user()->role;
+                $a_id = Auth::user()->id;
+                if (Auth::check()) {
 
-					$categories = EventCat::where('status',2)->orderBy('id', 'DESC')->get();
-					$userdata = user::with('usermeta')->find($a_id);
-					$state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
-                    $Usermeta_data = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
+                    $categories = EventCat::where('status', 2)->orderBy('id', 'DESC')->get();
+                    $userdata = user::with('usermeta')->find($a_id);
+                    $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+                    $Usermeta_data = Usermeta::where('user_id', '=', Auth::user()->id)->orderBy('id', 'DESC')->first();
                     $usermeta_data_state = $Usermeta_data['state'];
                     $usermeta_datadistrict = $Usermeta_data['district'];
                     $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
                     Session::put('usermeta_role_data', $Usermeta_data['cyclothonrole']);
 
-					if(!empty($userdata)){
-						// dd("Done");
-						$eventactivitydropdowns = Eventactivitydropdowns::where('status',1)->orderBy('id', 'DESC')->get();
-						return view('event.add-organization-event', [
-                                                                        'state'=> $state,
-                                                                        'role' => $role ,
-                                                                        'userdata' => $userdata,
-                                                                        'categories'=> $categories,
-                                                                        'eventactivitydropdowns'=> $eventactivitydropdowns,
-                                                                        'usermeta_datadistrict'=> $usermeta_datadistrict,
-                                                                        'usermeta_data_state'=> $usermeta_data_state,
-                                                                        'districts'=> $districts,
-                                                                    ]);
+                    if (!empty($userdata)) {
+                        // dd("Done");
+                        $eventactivitydropdowns = Eventactivitydropdowns::where('status', 1)->orderBy('id', 'DESC')->get();
+                        return view('event.add-organization-event', [
+                            'state' => $state,
+                            'role' => $role,
+                            'userdata' => $userdata,
+                            'categories' => $categories,
+                            'eventactivitydropdowns' => $eventactivitydropdowns,
+                            'usermeta_datadistrict' => $usermeta_datadistrict,
+                            'usermeta_data_state' => $usermeta_data_state,
+                            'districts' => $districts,
+                        ]);
+                    } else {
 
-					}else{
+                        abort(404);
+                    }
+                } else {
+                    abort(404);
+                }
+            } else {
 
-						abort(404);
-					}
-				}else{
-					abort(404);
-				}
-			}else{
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-				return redirect('/login');
-
-			}
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
-		// old code
-		// $role = Auth::user()->role;
+            return abort(404);
+        }
+        // old code
+        // $role = Auth::user()->role;
         // if(!empty($role)){
         //     $role = Role::where('slug', $role)->first()->name ?? '';
         //     return view('auth.dashboard', ['role' => $role ]);
@@ -91,44 +91,41 @@ class UserController extends Controller
 
     //public function editProfile($id){
 
-     public function editProfile(Request $request){
+    public function editProfile(Request $request)
+    {
 
-		try{
-			if(isset(Auth::user()->role)){
+        try {
+            if (isset(Auth::user()->role)) {
 
-				$state = State::all();
-				$district = District::all();
-				$block = Block::all();
-				$role = Auth::user()->role;
+                $state = State::all();
+                $district = District::all();
+                $block = Block::all();
+                $role = Auth::user()->role;
 
-				$uid=Auth::user()->id;
+                $uid = Auth::user()->id;
 
-				if(!empty($role)){
-				$role = Role::where('slug', $role)->first()->name ?? '';
-				}
+                if (!empty($role)) {
+                    $role = Role::where('slug', $role)->first()->name ?? '';
+                }
 
-				$result = DB::table('users')
-					->leftJoin('usermetas','users.id', '=', 'usermetas.user_id')
-					->select(['users.id','users.email','users.name','users.role','users.rolelabel','usermetas.user_id','usermetas.orgname','users.phone','usermetas.city','usermetas.state','usermetas.district','usermetas.block','usermetas.pincode'])
-					->where('users.id',$uid)
-					->first();
+                $result = DB::table('users')
+                    ->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
+                    ->select(['users.id', 'users.email', 'users.name', 'users.role', 'users.rolelabel', 'usermetas.user_id', 'usermetas.orgname', 'users.phone', 'usermetas.city', 'usermetas.state', 'usermetas.district', 'usermetas.block', 'usermetas.pincode'])
+                    ->where('users.id', $uid)
+                    ->first();
 
-				return view('auth/edit-profile',compact('role','state','result','district','block','uid'));
+                return view('auth/edit-profile', compact('role', 'state', 'result', 'district', 'block', 'uid'));
+            } else {
 
-			}else{
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-				return redirect('/login');
-
-			}
-
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
+            return abort(404);
+        }
     }
 
-    public function update(Request $request , $id)
+    public function update(Request $request, $id)
     {
         /*$request->validate([
             'name' => 'required|string',
@@ -139,135 +136,153 @@ class UserController extends Controller
             'district' => 'required|string',
             'block' => 'required|string',
             'city' => 'required|string',
-			'captcha' => 'required|captcha',
+            'captcha' => 'required|captcha',
         ]);*/
-		/*'captcha' => ['required', 'captcha'],*/  // orgname
-		try{
-			if(isset(Auth::user()->role)){
-				$request->validate([
-					'name' => 'required|string',
-					// 'user_id' => 'required',
-					'id' => 'required',
-					// 'phone' => 'required|digits:10',
-					'pincode' => 'required|numeric',
-					'state' => 'required|string',
-					// 'state' => 'required',
-					'district' => 'required|string',
-					// 'district' => 'required',
-					'block' => 'required|string',
-					// 'block' => 'required',
-					'city' => 'required|string',
-					// 'city' => 'required',
-					'captcha' => 'required|captcha',
-				],[
-					'name.required' => 'The user name field is required.',
-					'id.required' => 'The user id field is required.',
-					// 'phone.required' =>'Mobile field is required.',
-					// 'phone.digits' =>'Mobile field must have 10 digit.',
-					'pincode.required' => 'The pincode field is required.',
-					'pincode.numeric' => 'The pincode field must have digit.',
-					'state.required' => 'The state field is required.',
-					'district.required' => 'The district field is required.',
-					'block.required' => 'The block field is required.',
-					'city.required' => 'The city field is required.',
-					'captcha.required' => 'The captcha field is required.',
-					'captcha.captcha' => 'Invalid captcha',
-				]
-				);
+        /*'captcha' => ['required', 'captcha'],*/  // orgname
+        try {
+            if (isset(Auth::user()->role)) {
+                $request->validate(
+                    [
+                        'name' => 'required|string',
+                        // 'user_id' => 'required',
+                        'id' => 'required',
+                        // 'phone' => 'required|digits:10',
+                        'pincode' => 'required|numeric',
+                        'state' => 'required|string',
+                        // 'state' => 'required',
+                        'district' => 'required|string',
+                        // 'district' => 'required',
+                        'block' => 'required|string',
+                        // 'block' => 'required',
+                        'city' => 'required|string',
+                        // 'city' => 'required',
+                        'captcha' => 'required|captcha',
+                    ],
+                    [
+                        'name.required' => 'The user name field is required.',
+                        'id.required' => 'The user id field is required.',
+                        // 'phone.required' =>'Mobile field is required.',
+                        // 'phone.digits' =>'Mobile field must have 10 digit.',
+                        'pincode.required' => 'The pincode field is required.',
+                        'pincode.numeric' => 'The pincode field must have digit.',
+                        'state.required' => 'The state field is required.',
+                        'district.required' => 'The district field is required.',
+                        'block.required' => 'The block field is required.',
+                        'city.required' => 'The city field is required.',
+                        'captcha.required' => 'The captcha field is required.',
+                        'captcha.captcha' => 'Invalid captcha',
+                    ]
+                );
 
                 $id = $request->id;
-				$states = State::where('id',$request->state)->first();
-				$districts = District::where('id',$request->district)->first();
-				$blocks = Block::where('id',$request->block)->first();
+                $states = State::where('id', $request->state)->first();
+                $districts = District::where('id', $request->district)->first();
+                $blocks = Block::where('id', $request->block)->first();
 
-				$users = User::find($id);
-				$usermetas = Usermeta::where('user_id',$id)->first();
+                $users = User::find($id);
+                $usermetas = Usermeta::where('user_id', $id)->first();
 
-				$users->name = $request->name;
-				// $users->phone = $request->phone;
-				$usermetas->pincode = $request->pincode;
-				$usermetas->state = $states->name;
-				$usermetas->district = $districts->name;
-				$usermetas->block = $blocks->name;
-				//$usermetas->orgname = $request->orgname;
-				$usermetas->city = $request->city;
-				// $usermetas->user_id = $request->user_id;
-				$usermetas->user_id = $usermetas['user_id'];
-				$users->save();
-				$usermetas->save();
-				return back()->with('success','User updated successsfully');
+                $users->name = $request->name;
+                // $users->phone = $request->phone;
+                $usermetas->pincode = $request->pincode;
+                $usermetas->state = $states->name;
+                $usermetas->district = $districts->name;
+                $usermetas->block = $blocks->name;
+                //$usermetas->orgname = $request->orgname;
+                $usermetas->city = $request->city;
+                // $usermetas->user_id = $request->user_id;
+                $usermetas->user_id = $usermetas['user_id'];
+                $users->save();
+                $usermetas->save();
+                return back()->with('success', 'User updated successsfully');
+            } else {
 
-			}else{
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-				return redirect('/login');
-
-			}
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
+            return abort(404);
+        }
     }
 
-	//public function schoolProfile(Request $request,$id){
+    //public function schoolProfile(Request $request,$id){
 
-     public function schoolProfile(Request $request){
-		try{
-			if(isset(Auth::user()->role)){
-				$uid=Auth::user()->id;
-				$states = State::orderby('name')->get();
-				$boards = Board::orderby('boardname')->get();
-				$chainopts = Chainopt::all();
-				$role = Auth::user()->role;
-				//$districts = District::all();
-				//$blocks = Block::all();
-				if(!empty($request->state)){
-					$statesid = State:: where('name', 'like', '%'.$request->state.'%')->first()->id;
-					$districts = District:: where('state_id', $statesid)->orderby('name')->get();
-					}else{
-					$districts = District::orderby('name')->get();
-					}
+    public function schoolProfile(Request $request)
+    {
+        try {
+            if (isset(Auth::user()->role)) {
+                $uid = Auth::user()->id;
+                $states = State::orderby('name')->get();
+                $boards = Board::orderby('boardname')->get();
+                $chainopts = Chainopt::all();
+                $role = Auth::user()->role;
+                //$districts = District::all();
+                //$blocks = Block::all();
+                if (!empty($request->state)) {
+                    $statesid = State::where('name', 'like', '%' . $request->state . '%')->first()->id;
+                    $districts = District::where('state_id', $statesid)->orderby('name')->get();
+                } else {
+                    $districts = District::orderby('name')->get();
+                }
 
-					if(!empty($request->state) && !empty($request->district)){
-					$disid = District:: where('name', 'like', $request->district)->first()->id;
-					$blocks = Block:: where('district_id', $disid)->orderby('name')->get();
-					} else{
-					$blocks = Block::orderby('name')->get();
-					}
-				if(!empty($role)){
-					$role = Role::where('slug', $role)->first()->name;
-				}
-				//$school = Schoolmeta::all();
-				//DB::enableQueryLog();
+                if (!empty($request->state) && !empty($request->district)) {
+                    $disid = District::where('name', 'like', $request->district)->first()->id;
+                    $blocks = Block::where('district_id', $disid)->orderby('name')->get();
+                } else {
+                    $blocks = Block::orderby('name')->get();
+                }
+                if (!empty($role)) {
+                    $role = Role::where('slug', $role)->first()->name;
+                }
+                //$school = Schoolmeta::all();
+                //DB::enableQueryLog();
 
-				$result = DB::table('users')->leftJoin('usermetas','users.id', '=','usermetas.user_id')
-								->leftJoin('schoolmetas','users.id', '=', 'schoolmetas.user_id')
-								->select(['users.id','users.email','users.name','users.role','usermetas.user_id','users.phone','usermetas.city','usermetas.state','usermetas.district','usermetas.block','usermetas.pincode'
-								,'usermetas.board','usermetas.orgname','usermetas.udise','usermetas.address','schoolmetas.affiliationnum','schoolmetas.chain','schoolmetas.region','schoolmetas.landmark','schoolmetas.students','schoolmetas.pname','schoolmetas.pmobile'])
-								->where('users.id',$uid)
-								->first();
+                $result = DB::table('users')->leftJoin('usermetas', 'users.id', '=', 'usermetas.user_id')
+                    ->leftJoin('schoolmetas', 'users.id', '=', 'schoolmetas.user_id')
+                    ->select([
+                        'users.id',
+                        'users.email',
+                        'users.name',
+                        'users.role',
+                        'usermetas.user_id',
+                        'users.phone',
+                        'usermetas.city',
+                        'usermetas.state',
+                        'usermetas.district',
+                        'usermetas.block',
+                        'usermetas.pincode',
+                        'usermetas.board',
+                        'usermetas.orgname',
+                        'usermetas.udise',
+                        'usermetas.address',
+                        'schoolmetas.affiliationnum',
+                        'schoolmetas.chain',
+                        'schoolmetas.region',
+                        'schoolmetas.landmark',
+                        'schoolmetas.students',
+                        'schoolmetas.pname',
+                        'schoolmetas.pmobile'
+                    ])
+                    ->where('users.id', $uid)
+                    ->first();
 
-					//dd(DB::getQueryLog());
+                //dd(DB::getQueryLog());
 
-				return view('auth.school-profile',compact('role','boards','chainopts','states','districts','blocks','result','uid'));
-			}else{
+                return view('auth.school-profile', compact('role', 'boards', 'chainopts', 'states', 'districts', 'blocks', 'result', 'uid'));
+            } else {
 
-				return redirect('/login');
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-			}
+            return abort(404);
+        }
+    }
 
-		}catch (Exception $e) {
+    public function updateSchool(Request $request, $id)
+    {
 
-			return abort(404);
-
-		}
-
-	}
-
-	public function updateSchool(Request $request,$id)
-	{
-
-		/* $request->validate([
+        /* $request->validate([
             'name' => 'required|string',
             'user_id' => 'required',
             'pincode' => 'required|numeric',
@@ -275,194 +290,242 @@ class UserController extends Controller
             'district' => 'required|string',
             'block' => 'required|string',
             'city' => 'required|string',
-			'students' => 'required|numeric',
-			'principalname' => 'required',
-			'principalmobile' => 'required|digits:10',
-			'affiliationnum' => 'required|string|min:4|max:10|regex:/[0-9]/',
-			'udise' => 'required|digits:11',
-			'phone' => 'required|digits:10',
-			'board' => 'required|string',
-			'landmark' => 'required|string',
-			'address' => 'required',
-			'captcha' => 'required|captcha',
+            'students' => 'required|numeric',
+            'principalname' => 'required',
+            'principalmobile' => 'required|digits:10',
+            'affiliationnum' => 'required|string|min:4|max:10|regex:/[0-9]/',
+            'udise' => 'required|digits:11',
+            'phone' => 'required|digits:10',
+            'board' => 'required|string',
+            'landmark' => 'required|string',
+            'address' => 'required',
+            'captcha' => 'required|captcha',
         ]); */
-		//students
-		try{
-			if(isset(Auth::user()->role)){
-				$this->validate($request,[
-					'name' => 'required|string',
-					'user_id' => 'required',
-					'pincode' => 'required|numeric',
-					'state' => 'required|string',
-					'district' => 'required|string',
-					'block' => 'required|string',
-					'city' => 'required|string',
-					'students' => 'required|numeric',
-					'principalname' => 'required',
-					'principalmobile' => 'required|digits:10',
-					'affiliationnum' => 'required|string|min:4|max:10|regex:/[0-9]/',
-					'udise' => 'required|digits:11',
-					'phone' => 'required|digits:10',
-					'board' => 'required|string',
-					'landmark' => 'required|string',
-					'address' => 'required',
-					'captcha' => 'required|captcha',
-					],[
-						'name.required' => ' The School Name field is required.',
-						'user_id.required' => 'User ID field is required.',
-						'pincode.required' => 'No. of Students field is required.',
-						'pincode.numeric' => 'Please enter pincode numeric value only.',
-						'state.required' => 'State field is required.',
-						'district.required' => 'District field is required.',
-						'block.required' => 'Block field is required.',
-						'city.required' => 'City field is required.',
-						'students.required' => 'No. of Students field is required.',
-						'students.numeric' => 'Please enter No. of Students numeric value only.',
-						'principalname.required' =>'Principal Name field is required.',
-						'principalmobile.required' =>'Principal Mobile field is required.',
-						'principalmobile.digits' =>'Please enter 10 digit Principal Mobile Number.',
-						'affiliationnum.required' =>'Board Affiliation Number is required.',
-						'affiliationnum.min' => 'Board Affiliation Number must be min 4 Number.',
-						'affiliationnum.max' => 'Board Affiliation Number must be max 10 Number.',
-						'udise.required' => 'Udise Number field is required.',
-						'udise.digits' => 'Udise Number must have 11 digit.',
-						'phone.required' => 'Mobile Number is required.',
-						'phone.digits' => 'Please enter 10 digit  Mobile Number.',
-						'board.required' => 'Board field is required.',
-						'landmark.required' => 'Landmark is required.',
-						'address.required' => 'Address field is required.',
-						'captcha.required' => 'Captcha field is required.',
-						'captcha.captcha' => 'Please fill captcha correct value.',
-					]);
+        //students
+        try {
+            if (isset(Auth::user()->role)) {
+                $this->validate($request, [
+                    'name' => 'required|string',
+                    'user_id' => 'required',
+                    'pincode' => 'required|numeric',
+                    'state' => 'required|string',
+                    'district' => 'required|string',
+                    'block' => 'required|string',
+                    'city' => 'required|string',
+                    'students' => 'required|numeric',
+                    'principalname' => 'required',
+                    'principalmobile' => 'required|digits:10',
+                    'affiliationnum' => 'required|string|min:4|max:10|regex:/[0-9]/',
+                    'udise' => 'required|digits:11',
+                    'phone' => 'required|digits:10',
+                    'board' => 'required|string',
+                    'landmark' => 'required|string',
+                    'address' => 'required',
+                    'captcha' => 'required|captcha',
+                ], [
+                    'name.required' => ' The School Name field is required.',
+                    'user_id.required' => 'User ID field is required.',
+                    'pincode.required' => 'No. of Students field is required.',
+                    'pincode.numeric' => 'Please enter pincode numeric value only.',
+                    'state.required' => 'State field is required.',
+                    'district.required' => 'District field is required.',
+                    'block.required' => 'Block field is required.',
+                    'city.required' => 'City field is required.',
+                    'students.required' => 'No. of Students field is required.',
+                    'students.numeric' => 'Please enter No. of Students numeric value only.',
+                    'principalname.required' => 'Principal Name field is required.',
+                    'principalmobile.required' => 'Principal Mobile field is required.',
+                    'principalmobile.digits' => 'Please enter 10 digit Principal Mobile Number.',
+                    'affiliationnum.required' => 'Board Affiliation Number is required.',
+                    'affiliationnum.min' => 'Board Affiliation Number must be min 4 Number.',
+                    'affiliationnum.max' => 'Board Affiliation Number must be max 10 Number.',
+                    'udise.required' => 'Udise Number field is required.',
+                    'udise.digits' => 'Udise Number must have 11 digit.',
+                    'phone.required' => 'Mobile Number is required.',
+                    'phone.digits' => 'Please enter 10 digit  Mobile Number.',
+                    'board.required' => 'Board field is required.',
+                    'landmark.required' => 'Landmark is required.',
+                    'address.required' => 'Address field is required.',
+                    'captcha.required' => 'Captcha field is required.',
+                    'captcha.captcha' => 'Please fill captcha correct value.',
+                ]);
 
-				$states = State::where('id',$request->state)->first();
-				$districts = District::where('id',$request->district)->first();
-				$blocks = Block::where('id',$request->block)->first();
-				$boards = Board::where('id',$request->board)->first();
-				$chains = Chainopt::where('id',$request->chain)->first();
+                $states = State::where('id', $request->state)->first();
+                $districts = District::where('id', $request->district)->first();
+                $blocks = Block::where('id', $request->block)->first();
+                $boards = Board::where('id', $request->board)->first();
+                $chains = Chainopt::where('id', $request->chain)->first();
 
-				$users  = User::find($id);
+                $users  = User::find($id);
 
-				$usermetas = Usermeta::where('user_id',$id)->first();
-				$schoolmetas = Schoolmeta::where('user_id',$id)->first();
+                $usermetas = Usermeta::where('user_id', $id)->first();
+                $schoolmetas = Schoolmeta::where('user_id', $id)->first();
 
-				if(empty($schoolmetas)){
-					$schoolmetas = new Schoolmeta();
-					$users->name = !empty($request->name) ? $request->name : '';
-					$users->phone = $request->phone;
-					$users->save();
+                if (empty($schoolmetas)) {
+                    $schoolmetas = new Schoolmeta();
+                    $users->name = !empty($request->name) ? $request->name : '';
+                    $users->phone = $request->phone;
+                    $users->save();
 
-					$usermetas->pincode = $request->pincode;
-					$usermetas->state = $states->name;
-					$usermetas->district = $districts->name;
-					$usermetas->block = $blocks->name;
-					$usermetas->udise = $request->udise;
-					$usermetas->city = $request->city;
-					$usermetas->user_id = $request->user_id;
-					$usermetas->board = !empty($boards->boardname) ? $boards->boardname : '';
-					$usermetas->address = $request->address;
-					$usermetas->save();//boardname
+                    $usermetas->pincode = $request->pincode;
+                    $usermetas->state = $states->name;
+                    $usermetas->district = $districts->name;
+                    $usermetas->block = $blocks->name;
+                    $usermetas->udise = $request->udise;
+                    $usermetas->city = $request->city;
+                    $usermetas->user_id = $request->user_id;
+                    $usermetas->board = !empty($boards->boardname) ? $boards->boardname : '';
+                    $usermetas->address = $request->address;
+                    $usermetas->save(); //boardname
 
-					$schoolmetas->students = $request->students;
-					$schoolmetas->pname = $request->principalname;
-					$schoolmetas->pmobile = $request->principalmobile;
-					$schoolmetas->landmark = $request->landmark;
-					$schoolmetas->region = !empty($request->region) ? $request->region : '';
-					$schoolmetas->chain = !empty($request->chainname) ? $request->chainname : '';
-					$schoolmetas->affiliationnum = $request->affiliationnum;
-					$schoolmetas->user_id = $request->user_id;
-					$schoolmetas->save();
+                    $schoolmetas->students = $request->students;
+                    $schoolmetas->pname = $request->principalname;
+                    $schoolmetas->pmobile = $request->principalmobile;
+                    $schoolmetas->landmark = $request->landmark;
+                    $schoolmetas->region = !empty($request->region) ? $request->region : '';
+                    $schoolmetas->chain = !empty($request->chainname) ? $request->chainname : '';
+                    $schoolmetas->affiliationnum = $request->affiliationnum;
+                    $schoolmetas->user_id = $request->user_id;
+                    $schoolmetas->save();
+                } else {
 
-				}else{
+                    $users->name = $request->name;
+                    $users->phone = $request->phone;
+                    $users->save();
 
-					$users->name = $request->name;
-					$users->phone = $request->phone;
-					$users->save();
+                    $usermetas->pincode = $request->pincode;
+                    $usermetas->state = $states->name;
+                    $usermetas->district = $districts->name;
+                    $usermetas->block = $blocks->name;
+                    $usermetas->udise = $request->udise;
+                    $usermetas->city = $request->city;
+                    $usermetas->user_id = $request->user_id;
+                    $usermetas->board = !empty($boards->boardname) ? $boards->boardname : '';
+                    $usermetas->address = $request->address;
+                    $usermetas->save();
 
-					$usermetas->pincode = $request->pincode;
-					$usermetas->state = $states->name;
-					$usermetas->district = $districts->name;
-					$usermetas->block = $blocks->name;
-					$usermetas->udise = $request->udise;
-					$usermetas->city = $request->city;
-					$usermetas->user_id = $request->user_id;
-					$usermetas->board = !empty($boards->boardname) ? $boards->boardname : '';
-					$usermetas->address = $request->address;
-					$usermetas->save();
+                    $schoolmetas->update([
+                        'students' => $request->students,
+                        'pname' => $request->principalname,
+                        'pmobile' => $request->principalmobile,
+                        'landmark' => $request->landmark,
+                        'region' => !empty($request->region) ? $request->region : '', //$request->region,
+                        'chain' => !empty($chains->chainname) ? $chains->chainname : '', //$chains->chainname,
+                        'affiliationnum' => $request->affiliationnum,
+                        'user_id' => $request->user_id,
+                    ]);
+                }
 
-					$schoolmetas->update(['students' => $request->students,'pname' => $request->principalname,
-					'pmobile' => $request->principalmobile,
-					'landmark' => $request->landmark,
-					'region' => !empty($request->region) ? $request->region : '',//$request->region,
-					'chain' => !empty($chains->chainname) ? $chains->chainname : '', //$chains->chainname,
-					'affiliationnum' => $request->affiliationnum,
-					'user_id' => $request->user_id,
-					]);
-				}
+                return back()->with('success', 'School updated successsfully');
+            } else {
 
-				return back()->with('success','School updated successsfully');
-			}else{
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-				return redirect('/login');
-
-			}
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
-
-	}
+            return abort(404);
+        }
+    }
 
     public function profileDis(Request $request)
     {
-		try{
-			if(isset(Auth::user()->role)){
-        		$state_id = $request->id;
-				$district_list = District::where('state_id', $state_id)->orderby('name', 'asc')->get();
-				$district = '<option value="">Select District</option>';
-				if(!empty($district_list)){
-					foreach ($district_list as $dist) {
-					$district .= '<option value="'.$dist['id'].'">'.$dist['name'].'</option>';
-					}
-				}
-				return $district;
-			}else{
+        try {
+            if (isset(Auth::user()->role)) {
+                $state_id = $request->id;
+                $district_list = District::where('state_id', $state_id)->orderby('name', 'asc')->get();
+                $district = '<option value="">Select District</option>';
+                if (!empty($district_list)) {
+                    foreach ($district_list as $dist) {
+                        $district .= '<option value="' . $dist['id'] . '">' . $dist['name'] . '</option>';
+                    }
+                }
+                return $district;
+            } else {
 
-				return redirect('/login');
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-			}
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
+            return abort(404);
+        }
     }
     public function profileBlk(Request $request)
     {
-		try{
+        try {
 
-			if(isset(Auth::user()->role)){
-				$block_id = $request->id;
-				$block_list = Block::where('district_id', $block_id)->get();
-				$block = '<option value="">Select Block</option>';
-				if(!empty($block_list)){
-					foreach ($block_list as $bck) {
-					$block .= '<option value="'.$bck['id'].'">'.$bck['name'].'</option>';
-					}
-				}
-				return $block;
-			}else{
-				return redirect('/login');
+            if (isset(Auth::user()->role)) {
+                $block_id = $request->id;
+                $block_list = Block::where('district_id', $block_id)->get();
+                $block = '<option value="">Select Block</option>';
+                if (!empty($block_list)) {
+                    foreach ($block_list as $bck) {
+                        $block .= '<option value="' . $bck['id'] . '">' . $bck['name'] . '</option>';
+                    }
+                }
+                return $block;
+            } else {
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
 
-			}
-
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
-
+            return abort(404);
+        }
     }
 
+    public function edit_school_password()
+    {
+
+        try {
+            if (isset(Auth::user()->role)) {
+                $uid = Auth::user()->id;
+
+                return view('auth.passwords.school-change-password', compact('uid'));
+            } else {
+
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
+
+            return abort(404);
+        }
+    }
+    public function update_school_password(Request $request)
+    {
+
+        try {
+            if (isset(Auth::user()->role)) {
+                $id = Auth::user()->id;
+
+                $request->validate([
+                    'password' => [
+                        'required',
+                        'string',
+                        'min:8',
+                        'max:255',
+                        'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/',
+                        'confirmed',
+                    ],
+                ], [
+                    'password.regex' => 'Password must be at least 8 characters, include 1 lowercase, 1 uppercase, 1 digit, and 1 special character.',
+                    'password.confirmed' => 'Passwords do not match.',
+                ]);
+
+                user::find($id)->update(['password' => Hash::make($request->password)]);
+                // Logout current user session
+                Auth::logout();
+
+                // Redirect to login with success message
+                $success = "Password updated successfully. Please login again.";
+                $request->session()->put('succ', $success);
+                return redirect()->route('login')->withSuccess('Success message');;
+               
+            } else {
+
+                return redirect('/login');
+            }
+        } catch (Exception $e) {
+
+            return abort(404);
+        }
+    }
 }

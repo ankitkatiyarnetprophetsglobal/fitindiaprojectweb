@@ -339,6 +339,8 @@ Route::get('edit-profile', [App\Http\Controllers\Auth\UserController::class, 'ed
 Route::put('update-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'update']);
 //Route::get('school-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
 Route::get('school-profile', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
+Route::get('edit-school-password', [App\Http\Controllers\Auth\UserController::class, 'edit_school_password']);
+Route::post('update-school-password', [App\Http\Controllers\Auth\UserController::class, 'update_school_password']);
 Route::put('update-school/{id}', [App\Http\Controllers\Auth\UserController::class, 'updateSchool']);
 Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class,'profileDis'])->name('profile-dis');
 Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class,'profileBlk'])->name('profile-blk');
@@ -356,14 +358,14 @@ Route::post('get-block', [RegisterController::class,'getBlock'])->name('getblock
 // Route::get('/dashboard', [App\Http\Controllers\Auth\UserController::class, 'index'])->name('dashboard');
 
 //User Event
-// Route::get('/create-event', [App\Http\Controllers\Auth\EventController::class, 'createevent'])->name('create-event');
-// Route::get('/my-events', [App\Http\Controllers\Auth\EventController::class, 'myevents'])->name('my-events');
-// Route::get('/my-events/{id}', [App\Http\Controllers\Auth\EventController::class, 'myEventsByYear']);
-// Route::post('/create-event', [App\Http\Controllers\Auth\EventController::class, 'storeevent'])->name('store-event');
-// Route::get('/eventedit/{id}',[App\Http\Controllers\Auth\EventController::class, 'edit'])->name('eventedit');
-// Route::post('/updateevent',[App\Http\Controllers\Auth\EventController::class, 'updateevent'])->name('updateevent');
+Route::get('/create-event', [App\Http\Controllers\Auth\EventController::class, 'createevent'])->name('create-event');
+Route::get('/my-events', [App\Http\Controllers\Auth\EventController::class, 'myevents'])->name('my-events');
+Route::get('/my-events/{id}', [App\Http\Controllers\Auth\EventController::class, 'myEventsByYear']);
+Route::post('/create-event', [App\Http\Controllers\Auth\EventController::class, 'storeevent'])->name('store-event');
+Route::get('/eventedit/{id}',[App\Http\Controllers\Auth\EventController::class, 'edit'])->name('eventedit');
+Route::post('/updateevent',[App\Http\Controllers\Auth\EventController::class, 'updateevent'])->name('updateevent');
 Route::get('school-quiz', [App\Http\Controllers\Auth\EventController::class, 'schoolQuiz'])->name('school-quiz');
-// Route::post('save-quiz', [App\Http\Controllers\Auth\EventController::class, 'saveQuiz'])->name('save-quiz');
+Route::post('save-quiz', [App\Http\Controllers\Auth\EventController::class, 'saveQuiz'])->name('save-quiz');
 
 Route::delete('eventdestroy/{id}',[App\Http\Controllers\Auth\EventController::class, 'eventdestroy'])->name('eventdestroy');
 Route::get('/eventspic',[App\Http\Controllers\Auth\EventController::class, 'eventspic'])->name('eventspic');
@@ -824,7 +826,7 @@ Route::get('delete-user-details', [\App\Http\Controllers\CsveventController::cla
 
 
 Route::get('/dashboard', [App\Http\Controllers\Auth\UserController::class, 'index'])->name('dashboard');
-//event route we have login from School
+//event route
 Route::get('create-event', [App\Http\Controllers\Auth\EventCatController::class, 'createFreedomrunEvent'])->name('create-event');
 Route::get('events-pics', [App\Http\Controllers\Auth\EventCatController::class, 'EventsPics'])->name('events-pics');
 Route::get('myeventsearchimages/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'EventSearchImages'])->name('myevent-search-images');
@@ -964,7 +966,6 @@ Route::view('/data-deletion','data_deletion')->name('data_deletion');
 Route::get('cyclothonregistrationform',[App\Http\Controllers\Auth\RegisterController::class,'cyclothonshowRegistrationForm'])->middleware('limit.ip:registration')->name('cyclothonshowRegistrationForm');
 Route::get('coiregistration',[App\Http\Controllers\Auth\RegisterController::class,'coiregistration'])->middleware('limit.ip:registration')->name('coiregistration');
 Route::get('register',[App\Http\Controllers\Auth\RegisterController::class,'showRegistrationForm'])->middleware('limit.ip:registration')->name('register');
-
 Route::get('coiregistrationdrive',[App\Http\Controllers\Auth\RegistereventbaisController::class,'coiregistrationdrive'])->middleware('limit.ip:registration')->name('coiregistrationdrive');
 Route::post('saveregisterdrive',[App\Http\Controllers\Auth\RegistereventbaisController::class,'saveregisterdrive'])->middleware('limit.ip:registration')->name('saveregisterdrive');
 

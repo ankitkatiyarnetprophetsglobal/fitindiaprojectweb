@@ -29,33 +29,20 @@ class EventCatController extends Controller
     public function createFreedomrunEvent(){
 
         try{
-            // dd(123456);
-            // dd(Auth::user());
             if (isset(auth()->user()->role)){
-
                     $role = Auth::user()->role;
-
                     $a_id = Auth::user()->id;
-
                 if (Auth::check()){
-
-
                     $categories = EventCat::where('status', '=', 2)->orderBy('id', 'DESC')->get();
-                    // dd($categories);
                     $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
                     $userdata = user::with('usermeta')->find($a_id);
-                    // dd($a_id);
                     $Usermeta_data = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
                     $usermeta_data_state = $Usermeta_data['state'];
                     $usermeta_datadistrict = $Usermeta_data['district'];
                     $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-                    // dd($districts);
-                    // dd($Usermeta_data);
                     Session::put('usermeta_role_data', $Usermeta_data['cyclothonrole']);
                     $eventactivitydropdowns = Eventactivitydropdowns::where('status',1)->orderBy('id', 'DESC')->get();
-                    // dd($eventactivitydropdowns);
                     if(!empty($userdata)){
-
                         return view('event.add-organization-event', [
                                     'role' => $role ,
                                     'userdata' => $userdata,
@@ -96,7 +83,7 @@ class EventCatController extends Controller
 
     public function store(Request $request){
         try {
-
+           
             $validator = Validator::make($request->all(), [
                 'category_name' => 'required',
                 'org_name' => 'required',
@@ -109,6 +96,7 @@ class EventCatController extends Controller
                 'prt_image.*' => 'nullable|file|max:2047|mimes:jpeg,jpg,png',
                 'from_date' => 'required',
                 'to_date' => 'required',
+                'addparticipants' => 'nullable|integer|min:0',
             ],[
                 'category_name.required' => 'Please Select Event Name',
                 'org_name.required' => 'Please Enter Organization / Institution / Group / School Name',
@@ -122,6 +110,7 @@ class EventCatController extends Controller
                 'prt_image.*.mimes' => 'Event Picture Must in .jpg/.jpeg/.png',
                 'from_date.required' => 'Please Select Event Start Date',
                 'to_date.required' => 'Please Select Event End Date',
+                 'addparticipants.min' => 'Please enter a value greater than or equal to 0.',
             ]);
             if ($validator->fails()) {
                 // dd(1);
@@ -626,7 +615,7 @@ class EventCatController extends Controller
     public function update($id, Request $request){
 
         try{
-            // dd("Done");
+        
             if (isset(auth()->user()->role)){
 
                 $categories = EventCat::where('status',2)->get();
@@ -639,7 +628,6 @@ class EventCatController extends Controller
                     ->where('event_organizations.id',$id)
                     ->first();
                 $eventactivitydropdowns = Eventactivitydropdowns::where('status',1)->orderBy('id', 'DESC')->get();
-                // dd($events);
                 return view('event.event_update', [
                                                     'role' => $role ,
                                                     'events' => $events,
@@ -670,6 +658,7 @@ class EventCatController extends Controller
                 'prt_image.*' => 'nullable|file|max:2047|mimes:jpeg,jpg,png',
                 'from_date' => 'required',
                 'to_date' => 'required',
+                'addparticipants' => 'nullable|integer|min:0',
             ],[
                 // 'contact.required' => 'Please Enter Contact Number',
                 'org_name.required' => 'Please Enter Organization / Institution / Group / School Name',
@@ -679,14 +668,12 @@ class EventCatController extends Controller
                 'prt_image.*.mimes' => 'Event Picture Must in .jpg/.jpeg/.png',
                 'from_date.required' => 'Please Select Event Start Date',
                 'to_date.required' => 'Please Select Event End Date',
+                'addparticipants.min' => 'Please enter a value greater than or equal to 0.',
             ]);
 
             if ($validator->fails()) {
                 Session::flash('error_message', $validator->errors()->first());
                 return back()->withInput();
-                // $this->errorOutput['status'] = 400;
-                // $this->errorOutput['message'] = $validator->errors()->first();
-                // $this->output($this->errorOutput);
             }
 
             $year = date("Y/m");
@@ -694,12 +681,6 @@ class EventCatController extends Controller
             $event_name_store = $request['event_name_store'];
             $state = $request['state'];
             if($request->hasfile('event_bg_image')) {
-                // old
-                // $name = $request->file('event_bg_image')->getClientOriginalName();
-                // $name = $request->file('event_bg_image')->store($year,['disk'=> 'uploads']);
-                // $name = url('wp-content/uploads/'.$name);
-                // $event_background_image = $name;
-                // new
                 $name = $request->file('event_bg_image')->getClientOriginalName();
                 // $name = $request->file('event_bg_image')->store($year,['disk'=> 'uploads']);
                 $image_path = $event_name_store.'/'.$state.'/'.Auth::user()->name;
@@ -710,25 +691,14 @@ class EventCatController extends Controller
             }
             if($request->hasfile('prt_image')) {
                 foreach($request->file('prt_image') as $file){
-                    // old
-                    // $name = $file->getClientOriginalName();
-                    // $name = $file->store($year,['disk'=> 'uploads']);
-                    // $name = url('wp-content/uploads/'.$name);
-                    // $imgurl[] = $name;
-                    // New
                     $name = $file->getClientOriginalName();
                     $name = $file->store($event_name_store.'/'.$state.'/'.Auth::user()->name.'/'.'event_image',['disk'=> 'uploads']);
-                    // $image_path = 'fitindiaweek2023/extra/'.$request['state'].'/'.$request['org_name'].$year;
-                    // $name = $request->file('event_bg_image')->store($image_path,['disk'=> "uploads"]);
                     $name = url('wp-content/uploads/'.$name);
                     $imgurl[] = $name;
                 }
             }
             $old_img_url = unserialize($request->old_prt_image);
             $new_imgurl = array_merge($imgurl,$old_img_url);
-
-            // $total_participant = array_sum($request->number_of_partcipant);
-            // $total_km = array_sum($request->km);
             $school_chains = $request->school_chain ? $request->school_chain : '';
 
             if($request->hasfile('event_bg_image')) {
@@ -739,9 +709,7 @@ class EventCatController extends Controller
 
 
             if($freedom_update){
-                // return redirect('school-updatedetail/'.$request->id)->with('success', 'Your event has been successfully updated.');
                 $id = encrypt($request->id);
-                // dd($id);
                 return redirect('event-updatedetail/'.$id)->with('success', 'Your event has been successfully updated.');
             }else{
                 return back()->with('failed','Something Wrong')->withInput();
@@ -1483,7 +1451,7 @@ class EventCatController extends Controller
     }
 
     public function freedomrunInfo(){
-		try{
+        try{
             $freedom_partner_detail = Freedomrunpartners::where('status','1')->get();
 
             return view('freedomrun.freedom-run-info',compact('freedom_partner_detail'));
@@ -1493,7 +1461,7 @@ class EventCatController extends Controller
 
         }
     }
-	public function myEventsByYear($id){
+    public function myEventsByYear($id){
         try{
             if (isset(auth()->user()->role)){
 
@@ -1520,7 +1488,7 @@ class EventCatController extends Controller
         }
     }
 
-	public function mobileFreedomrunEvents(){
+    public function mobileFreedomrunEvents(){
         try{
 
             $id = @$_REQUEST['auth_id'];
@@ -1755,7 +1723,7 @@ class EventCatController extends Controller
     //         // echo  $user_id .'+++++++++++++++'.$event_id;
     //         // dd("the end");
     //         $active_all_user = User::
-    //                                 join('event_organizations','event_organizations.user_id', '=',	'users.id')
+    //                                 join('event_organizations','event_organizations.user_id', '=',   'users.id')
     //                                 ->where(
     //                                 [
     //                                     ['users.rolewise', '=', 'cyclothon-2024'],
