@@ -687,8 +687,8 @@ class GeneralController extends Controller
             // dd($email_value);
             $role_value = $request['role_value'];
 
-            // if (isset($role_value) && isset($email_value) && isset($phone)) {
-            if (isset($phone)) {
+            if (isset($role_value) && isset($email_value) && isset($phone)) {
+       
                 
                 // if($role_name =="bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi"){
                 $records = DB::table('users')
