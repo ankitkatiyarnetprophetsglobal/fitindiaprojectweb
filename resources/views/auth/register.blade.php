@@ -55,6 +55,22 @@
     .mheight-modal {
         min-height: 402px;
     }
+
+    .modal-headerotp .close {
+        padding: 1rem 4rem;
+        margin: -1rem -1rem -1rem auto;
+    }
+    .otpheight-modal{
+            min-height: 230px;
+    }
+    #otpLimitLabel{
+        margin: 10px 139px;
+    }
+    #otpfooter{
+    padding: .20rem .75rem;
+    /* margin: 7px; */
+    margin: 0px 220px;
+}
 </style>
 <section class="log_sec">
 
@@ -507,36 +523,37 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- OTP Limit Exceed Modal -->
+                <div class="modal fade" id="otpLimitexceed" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content otpheight-modal">
+                             <div class="modal-headerotp bg-danger text-white">
+                                <h5 class="modal-title" id="otpLimitLabel">OTP Limit Exceeded</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="mediumBody">
+                                <div class="row mt-2 justify-content-center">
+                                    <p class="w-100 text-center">You have reached your daily OTP request limit (10).</p>
+                                    <p class="w-100 text-center">Please try again tomorrow.</p>
+                                </div>
+                            </div>
+                              <div class="modal-footer">
+                                <button type="button"  id="otpfooter" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+             
+
             </div>
         </div>
     </div>
 </section>
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
-<!-- <script>
-    var CryptoJSAesJson = {
-        stringify: function (cipherParams) {
-            var j = {ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)};
-            if (cipherParams.iv) j.iv = cipherParams.iv.toString();
-            if (cipherParams.salt) j.s = cipherParams.salt.toString();
-            return JSON.stringify(j);
-        },
-        parse: function (jsonStr) {
-            var j = JSON.parse(jsonStr);
-            var cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Base64.parse(j.ct)});
-            if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv)
-            if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s)
-            return cipherParams;
-        }
-    }
-
-
-    // var encrypted = CryptoJS.AES.encrypt(JSON.stringify("false:false:1749531924"), "passphrasepass", {format: CryptoJSAesJson}).toString();
-    // console.log("encrypted",encrypted);
-    // var decrypted = JSON.parse(CryptoJS.AES.decrypt('{"ct":"Zrhd7FvzxqK273r9dsaiOIeU+cfG5pdm7088MBYYKhI=","iv":"b52c758c9e572c7e4a9c1f96fa4b0431","s":"c138d61f8e56c053"}', "passphrasepass", {format: CryptoJSAesJson}).toString(CryptoJS.enc.Utf8));
-    // console.log("decrypted",decrypted);
-
-
-</script> -->
 <script type="text/javascript">
     $('#udise_row').hide();
 
@@ -663,7 +680,10 @@
 
                 $("#divloader").css("display", "none");
 
-                if (response.success == false) {
+                if (response.success == 'otplimitexceed') {
+                    $('#otpLimitexceed').modal('show');
+                    return false;
+                } else if (response.success == false) {
                     $("#duplicate_email_error").css("display", "block");
                     return false;
 
@@ -751,10 +771,12 @@
 
 
             success: function(response) {
-
                 $("#divloader").css("display", "none");
 
-                if (response.success == false) {
+                if (response.success == 'otplimitexceed') {
+                    $('#otpLimitexceed').modal('show');
+                    return false;
+                } else if (response.success == false) {
                     $("#duplicate_phone_error").css("display", "block");
                     return false;
 
