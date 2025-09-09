@@ -13,11 +13,11 @@ return [
     |
     */
 
-    
+
     'name' => env('APP_NAME', 'Fit India'),
-    
-    
-    
+
+
+
     'website_url' => "https://localhost/fitindiaweb_gitnew",
     'api_url' => "http://localhost/fit_india_api_git/api/v2/",
     'api_url' => "https://service.fitindia.gov.in/api/v2/",
@@ -191,10 +191,9 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         // Mews\Captcha\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
         //\SendinBlue\Client\Model\CreateModel
-        //App\Providers\SmsServiceProvider::class,      
+        //App\Providers\SmsServiceProvider::class,
         //Juanparati\Sendinblue\ServiceProvider::class,
     ],
 
@@ -208,7 +207,7 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-    
+
     /*'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,
         'SMS' => Juanparati\Sendinblue\Facades\SMS::class,*/
 
@@ -256,8 +255,8 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         // 'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => 'Intervention\Image\Facades\Image',
-        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+
         //'MailTemplate' => Juanparati\Sendinblue\Facades\Template::class,
-        //'SMS' => Juanparati\Sendinblue\Facades\SMS::class,                
-    ], 
+        //'SMS' => Juanparati\Sendinblue\Facades\SMS::class,
+    ],
 ];

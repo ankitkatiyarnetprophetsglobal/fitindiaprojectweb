@@ -18,6 +18,7 @@ $active_section_id = trim($active_section);
       <div class="container">
         <div class="row">
           <a class="freedombtn1" href="{{ url('cyclothonRegistration') }}">Total Count</a>                  
+          <a class="freedombtn3" href="{{ url('hanolcyclothonrenningdatawise') }}">Hanol cyclothon cycle</a>           
           <a class="freedombtn3" href="{{ url('cyclothonrenningdatawise') }}">cyclothon cycle</a>           
         </div>      
       </div>

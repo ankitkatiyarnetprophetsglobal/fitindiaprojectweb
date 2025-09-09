@@ -15,32 +15,32 @@ class UserController extends Controller
 	public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'create','useremail']]);
     }
-	
+
 	/* public function get_useremail_list(Request $request){
            $messsages = array(
 				'mobile.required'=>'Please enter the mobile number.',
 				'mobile.numeric'=>'Please enter numeric value.',
 		 		'mobile.digits'=>'Please enter min 10 digit number.',
-		    );	
-	    		 
-		 try { 		 
-		    			
+		    );
+
+		 try {
+
 			if(!empty($request->mobile) && is_numeric($request->mobile) && $request->mobile=='0000000000'){
-			 
+
 			  return Response::json(array(
 					'status' => 'error', 'code'  =>  500, 'data' =>'[]'
 				), 500);
-				
+
 			} else if(!empty($request->mobile) && is_numeric($request->mobile) && $request->mobile!='0000000000'){
-				
-				$validator = Validator::make( array("mobile" => $request->mobile),['mobile' => 'required|digits:10'],$messsages);			
-				
+
+				$validator = Validator::make( array("mobile" => $request->mobile),['mobile' => 'required|digits:10'],$messsages);
+
 			} else{
-				
+
 				return Response::json(array(
 					'status' => 'error', 'code'  =>  422, 'message'=>'Invalid Input'
 				), 422);
-			}		
+			}
 
 			if($validator->fails()){
 				return Response::json(array(
@@ -48,80 +48,80 @@ class UserController extends Controller
 					'code'      =>  422,
 					'message'   =>  $validator->messages()->first()
 				), 422);
-			} 			
-			
+			}
+
 			if(!empty($request->mobile)){
-				
-			  $archive = User::where('phone','=',$request->mobile)->orderBy('name','ASC')->groupBy('id')->get();	
-			} 	 			
-			
+
+			  $archive = User::where('phone','=',$request->mobile)->orderBy('name','ASC')->groupBy('id')->get();
+			}
+
 			$event_archive=array();
-		 
+
 		    if(!empty($archive)){
-				
-			   foreach($archive as $cval){	
-			   
+
+			   foreach($archive as $cval){
+
 					 $achdata=array(
-						"name" => $cval->name,												
-					    "email" => $cval->email					
-					);	              	
-					
-				  array_push($event_archive,$achdata);	
-			    }				
+						"name" => $cval->name,
+					    "email" => $cval->email
+					);
+
+				  array_push($event_archive,$achdata);
+			    }
 			}
 
 			if(!empty($event_archive)){
 				  return Response::json(array(
 					'status'    => 'success',
 					'code'      =>  200,
-					'message'   => $event_archive, 
+					'message'   => $event_archive,
 				  ), 200);
-			  
+
 			} else {
-				
+
 				  return Response::json(array(
 					'status'    => 'error',
 					'code'      =>  404,
-					'message'   => 'Data not found.', 
-				  ), 404);					
-			}			
-			
-		} catch(Exception $e){ 
-		   
+					'message'   => 'Data not found.',
+				  ), 404);
+			}
+
+		} catch(Exception $e){
+
 			return Response::json(array(
 					'status'    => 'error',
 					'code'      =>  404,
 					'message'   =>  $e->getmessage()
 				), 404);
-		}			
-	} */	
+		}
+	} */
 
-    function useremail(Request $request){ 
-     		
-		$mobile = $request->mobile;		
-		
+    function useremail(Request $request){
+
+		$mobile = $request->mobile;
+
 		$messsages = array(
 				'mobile.required'=>'Please enter the mobile number.',
 				'mobile.numeric'=>'Please enter numeric value.',
 				'mobile.digits'=>'Please enter min 10 digit number.',
 		);
-		
+
 		if(!empty($request->mobile) && is_numeric($request->mobile) && $request->mobile=='0000000000'){
-		 
+
 		  return Response::json(array(
 				'status' => 'error', 'code'  =>  500, 'data' =>'[]'
 			), 500);
-			
+
 		} else if(!empty($request->mobile) && is_numeric($request->mobile) && $request->mobile!='0000000000'){
-			
-			$validator = Validator::make( array("mobile" => $mobile),['mobile' => 'required|digits:10'],$messsages);			
-			
+
+			$validator = Validator::make( array("mobile" => $mobile),['mobile' => 'required|digits:10'],$messsages);
+
 		} else{
-			
+
 			return Response::json(array(
 				'status' => 'error', 'code'  =>  422, 'message'=>'Invalid Input'
 			), 422);
-		}		
+		}
 
 		if($validator->fails()){
             return Response::json(array(
@@ -129,50 +129,50 @@ class UserController extends Controller
                 'code'      =>  422,
                 'message'   =>  $validator->messages()->first()
             ), 422);
-        } 
-		
-		if(is_numeric($mobile)){	
+        }
+
+		if(is_numeric($mobile)){
 		    //$user = User::where('phone', $mobile)->get();
-            $user = User::where('phone','=',$request->mobile)->orderBy('name','ASC')->get();			
-		} 
-		
-		$marray=array();
-		$userdata='';
-				 
-		if(!empty($user)){			
-		  foreach($user as $val){           			
-			$userdata=array(					
-					"name" => $val->name,												
-					"email" => $val->email
-			   );
-					
-			  array_push($marray,$userdata);	
-		    }		
+            $user = User::where('phone','=',$request->mobile)->orderBy('name','ASC')->get();
 		}
 
-        if(!empty($marray)){	
-			
+		$marray=array();
+		$userdata='';
+
+		if(!empty($user)){
+		  foreach($user as $val){
+			$userdata=array(
+					"name" => $val->name,
+					"email" => $val->email
+			   );
+
+			  array_push($marray,$userdata);
+		    }
+		}
+
+        if(!empty($marray)){
+
 		  return Response::json(array(
 			'status'    => 'success',
 			'code'      =>  200,
 			'data'   => $marray,
 		  ), 200);
-		  
+
 		} else {
-			
+
 		  return Response::json(array(
 			'status'    => 'error',
 			'code'      =>  422,
 			'message'   =>  'User not found'
-		   ), 422);		
-		}		
+		   ), 422);
+		}
 	}
-	
+
 	function check(Request $request){
 		$validator = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
-		
+
 		if ($validator->fails()) {
             return Response::json(array(
                 'status'    => 'error',
@@ -181,27 +181,27 @@ class UserController extends Controller
             ), 422);
 
         }
-		
+
 		 $user = User::where('email', $request->email)->first();
 		 if($user){
-			
+
 			return Response::json(array(
                 'status'    => 'success',
                 'code'      =>  200,
                 'message'   =>  'User exist with email '.$user->email
             ), 200);
 		 }
-		
+
 		return Response::json(array(
                 'status'    => 'error',
                 'code'      =>  422,
                 'message'   =>  'User not found'
             ), 422);
 	}
-	
-	
+
+
 	function login(Request $request){
-		
+
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
@@ -215,9 +215,9 @@ class UserController extends Controller
             ), 422);
 
             //return response()->json($validator->errors(), 422);
-        }	
-		
-		
+        }
+
+
         if(!$token = auth('api')->attempt($validator->validated())) {
 
             return Response::json(array(
@@ -236,15 +236,15 @@ class UserController extends Controller
             'code'      =>  200,
             'message'   =>  array('msg'=>'You are successfully logged in')
         ), 200);
-	}	
-	
+	}
+
 	public function getAuthUser(Request $request)
     {
         return response()->json(auth('api')->user());
     }
-	
-    
-    function store(Request $request){	
+
+
+    function store(Request $request){
         $rules=array(
             'name' => ['required', 'string', 'max:255'],
             'role' => ['required', 'in:subscriber,school,group' ],
@@ -253,7 +253,7 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8'],
             //'age' => ['required', 'min:1','max:2' ],
         );
-       
+
         $validator = Validator::make($request->all(),$rules);
         if($validator->fails())
         {
@@ -264,18 +264,18 @@ class UserController extends Controller
             ), 400);
 
             //return $validator->messages()->all();
-        }       
-       
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' =>  $request->role,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-        ]);        
+        ]);
 
         if($user){
-            
+
             $usermeta = new Usermeta();
 
             $usermeta->user_id = $user->id;
@@ -293,17 +293,17 @@ class UserController extends Controller
             if($request->city) $usermeta->city = $request->city;
             if($request->udise) $usermeta->udise = $request->udise;
             if($request->orgname) $usermeta->orgname = $request->orgname;
-            $usermeta->save();		
-        }       
-		
-		
+            $usermeta->save();
+        }
+
+
         if($user->id){
-			
+
 			if ( $token = auth('api')->attempt($validator->validated())) {
 				//return $this->createNewToken($token);
                 $usertoken = $this->createNewToken($token);
 			//}
-				
+
             return Response::json(array(
                 'token' => $usertoken,
                 'status'    => 'success',
@@ -312,21 +312,21 @@ class UserController extends Controller
             ), 200);
           }
        }
-       //return $user;	
+       //return $user;
     }
-	
+
    function update(Request $request){
-	   
-        $user = auth('api')->user();		
-		
-		//dd($user->id);die();		
-		
+
+        $user = auth('api')->user();
+
+		//dd($user->id);die();
+
         if($user){
-			
+
             $json_data = json_decode($request->json_val,true);
-			
+
 			dd($json_data);die();
-			
+
             if($json_data==null){
                 $json_data = json_decode(base64_decode($request->json_val),true);
             }
@@ -350,7 +350,7 @@ class UserController extends Controller
             if(!empty($json_data['udise'])) $usermeta->udise = $json_data['udise'];
             if(!empty($json_data['orgname'])) $usermeta->orgname = $json_data['orgname'];
 
-            $year = date("Y/m"); 
+            $year = date("Y/m");
             if($request->file('profile_pic'))
             {
                 $imageName1 = $request->file('profile_pic')->store($year,['disk'=> 'uploads']);
@@ -360,14 +360,14 @@ class UserController extends Controller
 
             $usermeta->save();
             if($user->id){
-				
+
 				$data = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')->where("users.id", $user->id)->get(['users.id','users.role','users.name', 'users.email', 'users.phone', 'usermetas.*']);
 				return Response::json(array(
 					'status'    => 'success',
 					'code'      =>  200,
 					'user'   =>  $data
 					 ), 200);
-				 
+
                 return Response::json(array(
                     'status'    => 'success',
                     'code'      =>  200,
@@ -408,7 +408,7 @@ class UserController extends Controller
             if(!empty($json_data['udise'])) $usermeta->udise = $json_data['udise'];
             if(!empty($json_data['orgname'])) $usermeta->orgname = $json_data['orgname'];
 
-            $year = date("Y/m"); 
+            $year = date("Y/m");
             if($request->file('profile_pic'))
             {
                 $imageName1 = $request->file('profile_pic')->store($year,['disk'=> 'uploads']);
@@ -418,17 +418,17 @@ class UserController extends Controller
 
             $usermeta->save();
             if($user->id){
-				
+
 				$data = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')->where("users.id", $user->id)->get(['users.id','users.role','users.name', 'users.email', 'users.phone', 'usermetas.*']);
 				return Response::json(array(
 					'status'    => 'success',
 					'code'      =>  200,
 					'user'   =>  $data
-					 ), 
+					 ),
 					 200
 				 );
-				 
-               
+
+
             }
         }else{
              return Response::json(array(
@@ -438,10 +438,10 @@ class UserController extends Controller
             ), 401);
         }
     }
-    
-	
-	
-	
+
+
+
+
 	public function logout() {
        $logout = auth('api')->logout();
 
@@ -451,7 +451,7 @@ class UserController extends Controller
         'message'   =>  'User successfully signed out'
         ), 200);
 
-       
+
 
        // return response()->json(['message' => 'User successfully signed out']);
     }
@@ -473,7 +473,7 @@ class UserController extends Controller
     public function userProfile(Request $request) {
 
        // return response()->json(auth('api')->user());
-        $user = auth('api')->user();      
+        $user = auth('api')->user();
 
         if($user){
 
@@ -491,7 +491,7 @@ class UserController extends Controller
                 'code'      =>  401,
                 'message'   =>  'Unauthorized'
             ), 401);
-        }   
+        }
     }
 
     /**
@@ -502,9 +502,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     protected function createNewToken($token){
-		
+
         $user = auth('api')->user();
-        
+
 		$data = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')->where("users.id", $user->id)
 		->get(['users.id', 'users.role', 'users.name', 'users.email', 'users.phone', 'usermetas.user_id', 'usermetas.dob', 'usermetas.age', 'usermetas.gender', 'usermetas.address', 'usermetas.state', 'usermetas.district', 'usermetas.block', 'usermetas.city', 'usermetas.orgname', 'usermetas.udise', 'usermetas.pincode', 'usermetas.height', 'usermetas.weight', 'usermetas.image', 'usermetas.board',
 		'usermetas.created_at', 'usermetas.updated_at' ]);
@@ -541,13 +541,13 @@ class UserController extends Controller
 					$updated_at = date('Y-m-d H:i:s');
 					$values = array('user_id' => $user_id, 'user_email' => $user_email, 'fitness_score' => $score, 'created_at'=>$created_at, 'updated_at'=>$updated_at);
 					$scoredata = DB::table('fitness_score')->updateOrInsert(['user_id'=>$user_id], $values);
-					if(isset($scoredata)){	
+					if(isset($scoredata)){
 						return Response::json(array(
 							'status'    => 'success',
 							'code'      =>  200,
 							'msg'   => 'Score Updated'
 						), 200);
-					
+
 					}else{
 						return Response::json(array(
 							'status'    => 'error',
@@ -562,14 +562,14 @@ class UserController extends Controller
 							'data'   => 'Unauthorize User'
 						), 401);
 				}
-			
+
 		} catch (\Exception $e) {
-            
+
 			return Response::json(array(
 					'status'    => 'error',
 					'code'      =>  401,
 					'data'   => $e->getMessage()
 				), 401);
         }
-	}	
+	}
 }

@@ -5,7 +5,7 @@
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('resources/css/newcss/select2.min.css') }}">
- <link rel="stylesheet" href="{{ asset('resources/css/newcss/jquery-ui.css') }}">
+<link rel="stylesheet" href="{{ asset('resources/css/newcss/jquery-ui.css') }}">
     @php
         $active_section = request()->segment(count(request()->segments()));
         $active_section_id = trim($active_section);
@@ -44,7 +44,7 @@
         {{-- <img src="resources/imgs/fitindia_quiz_inner2_2022.jpeg" alt="Fit-india-quiz" title="Fit India Quiz 2022" --}}
         <a href="https://fitindia.nta.ac.in/">
             <img src="resources/imgs/fit_india_quiz_01_11_2023.png" alt="Fit-india-quiz" title="Fit India Quiz 2023" class="img-fluid expand_img" />
-        </a>    
+        </a>
         {{-- <a href="https://fitindia.nta.ac.in/">
             <img src="resources/imgs/FiTwebbanner_20230903_100143_0000.png" alt="Fit-india-quiz" title="Fit India Quiz 2022" class="img-fluid expand_img" />
         </a>     --}}
@@ -78,15 +78,15 @@
                             <p style="text-align:justify;">
                                 <br/>
                                 {{ __('fitindiaquiz.registrations') }}
-                                <br/>                            
+                                <br/>
                                 {{ __('fitindiaquiz.registervisit') }} <a href="https://fitindia.nta.ac.in/"> https://fitindia.nta.ac.in/</a>
                             </p>
                     </div>
                     <div class="mt-3 mb-3 ml-2 quiz_btn_fit" style="width:40%">
-                        <a class="btn btn-primary btn-sm d_button b_color" href="https://fitindia.nta.ac.in/" target="_blank">{{ __('fitindiaquiz.register') }}</a> 
-                        <a class="btn btn-primary btn-sm d_button f_color" style="width:35%" href="resources/pdf/FIQSTEPBYSTEPREGISTRATIONGUIDE.pdf" target="_blank"> 
+                        <a class="btn btn-primary btn-sm d_button b_color" href="https://fitindia.nta.ac.in/" target="_blank">{{ __('fitindiaquiz.register') }}</a>
+                        <a class="btn btn-primary btn-sm d_button f_color" style="width:35%" href="resources/pdf/FIQSTEPBYSTEPREGISTRATIONGUIDE.pdf" target="_blank">
                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            &nbsp; {{ __('fitindiaquiz.htr') }}                             
+                            &nbsp; {{ __('fitindiaquiz.htr') }}
                             {{-- How To Register  --}}
                         </a>
                         <a class="btn btn-primary btn-sm d_button " href="resources/pdf/{{__('fitindiaquiz.quizpdf')}}.pdf" target="_blank"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp; {{ __('fitindiaquiz.guidelines') }}</a>
@@ -103,18 +103,18 @@
                                 <a class="btn btn-primary btn-sm d_button border-0" style="background-color:#b3912d"
                             href="https://youtu.be/JSaNPKPnYN8" target="_blank"> <i
                                 class="fa fa-youtube" aria-hidden="true"></i>&nbsp; Tutorial Video</a> --}}
-                                {{-- <a class="btn btn-primary btn-sm d_button btn f_color" style="width:auto" href="resources/imgs/fitindiaqiuzjan2023/FIQ22_Final List of selected Candidate and Schools.pdf" target="_blank"> 
+                                {{-- <a class="btn btn-primary btn-sm d_button btn f_color" style="width:auto" href="resources/imgs/fitindiaqiuzjan2023/FIQ22_Final List of selected Candidate and Schools.pdf" target="_blank">
                                     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                     &nbsp;
                                     Download Results
                                 </a> --}}
 
                     {{-- excel download --}}
-                    
+
                         <!--<a class="btn btn-primary btn-sm d_button f_color" href="resources/pdf/FREQUENTLY_ASKED_QUESTIONS.pdf" target="_blank"><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp; FAQ</a>-->
                         <!--<a class="btn btn-info btn-sm d_button " href="resources/pdf/State-District-wise-participation.xlsx" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp; District wise participation</a>-->
-                    </div>            
-            </div>                
+                    </div>
+            </div>
         {{-- @endif --}}
     </section>
 
@@ -181,11 +181,11 @@
                             <img src="{{ asset('resources/imgs/fitindiaqiuzjan2023/ZONALTOPPERSCENTRAL.jpg') }}" class="img-fluid img-grid" alt="">
                         </div>
                     </div>
-                    
-                </div>            
+
+                </div>
             </div>
         </div>
-    </div> --}}    
+    </div> --}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 mt-3">
@@ -217,8 +217,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 
     <script src="{{ asset('resources/js/newjs/select2.min.js')}}"></script>
     <script src="{{ asset('resources/js/newjs/jquery-ui.js')}}"></script>
@@ -239,7 +239,7 @@ $('.state_excel_download_btn').click(function(){
         btn.removeClass('disabled');
     }, fewSeconds*1000);
 });
-       
+
         });
     </script>
 @endsection

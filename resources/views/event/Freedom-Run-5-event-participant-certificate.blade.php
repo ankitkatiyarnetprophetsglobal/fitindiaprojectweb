@@ -32,6 +32,12 @@
     {{-- <div class="" style="font-family:Helvetica Nune,Helvetica;font-size:14px;font-weight:bold;position:absolute;top: 48%;width:50%; left:82% !important;">{{$eventenddate ?? '' }}) </div> --}}
     <div class="centered" style="font-family:Helvetica Nune,Helvetica;font-size:18px;font-weight:bold;position:absolute;top: 49%;width:80%;">{{$districts ?? '--' }},{{ $state ?? '--' }} </div>
   @endif
+  @if($categories_event_id == 13083)
+    <div class="centered" style="font-family:Helvetica Nune,Helvetica;font-size:12px;font-weight:bold;position:absolute;top: 86.3%;width:70%;">{{$serialno_with_id ?? ""}}</div>
+    {{-- <div class="centered" style="font-family:Helvetica Nune,Helvetica;font-size:18px;font-weight:bold;position:absolute;top: 49.2%;width:52%;text-align:right;">{{$eventstartdate ?? ''}} </div> --}}
+    {{-- <div class="" style="font-family:Helvetica Nune,Helvetica;font-size:14px;font-weight:bold;position:absolute;top: 48%;width:50%; left:82% !important;">{{$eventenddate ?? '' }}) </div> --}}
+    <div class="centered" style="font-family:Helvetica Nune,Helvetica;font-size:18px;font-weight:bold;position:absolute;top: 90.3%;width:80%; left:53% !important;">{{ date('d-m-Y') ?? '--' }}</div>
+  @endif
   {{-- @endif --}}
   {{-- {{ dd() }} --}}
 

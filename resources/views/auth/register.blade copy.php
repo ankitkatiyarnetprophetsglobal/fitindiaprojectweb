@@ -180,11 +180,11 @@
                                 </span>
                     </div>
                     <div class="register-row-rt">
-                        <span id="verify_button_hide" display:block;>
+                        {{-- <span id="verify_button_hide" display:block;>
                             <button type="button" class="btn btn-info" style="min-width: 120px;">
                                 <a class="email_verify" style="color:#fff;"> Verify email </a>
                             </button>
-                        </span>
+                        </span> --}}
                         <span id="verifyed_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
                             Email verified
                             <i class="fa fa-check" style="font-size:12px"></i>
@@ -753,7 +753,8 @@
 
 
             success: function (response) {
-
+                console.log("response",response);
+                return false;
                 $("#divloader").css("display", "none");
 
                 if(response.success == false){

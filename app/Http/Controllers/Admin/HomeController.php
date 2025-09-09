@@ -156,7 +156,13 @@ class HomeController extends Controller
       ->where('users.rolewise', 'national-sports-day-2025')
       ->count();
 
+    $socwithparticipantnumdownloadnationalsportday2025 = "SELECT users.id as user_id,users.name as uname ,users.email as uemail,event_organizations.total_participant,event_organizations.event_bg_image,users.phone as uphone,users.rolelabel as urolelabel,users.rolewise as urolewise,usermetas.state as ustate,usermetas.district as udistrict,usermetas.block as ubloack,usermetas.city as ucity,users.created_at as ucreated_at,event_organizations.eventimg_meta  FROM users inner join usermetas on users.id = usermetas.user_id inner join event_organizations on event_organizations.user_id = users.id WHERE users.rolewise = 'national-sports-day-2025';";
 
-    return view('admin.home', compact('curcount', 'school_star_count', 'total_count_cyclothon', 'total_individual', 'clubcountNamoSOC', 'fourth_count', 'fifth_count', 'sixth_count', 'seventh_count', 'event_date','national_sport_day_2025_count'));
+    $socwithparticipantnumdownloadnationalsportday2025data = DB::select(DB::raw($socwithparticipantnumdownloadnationalsportday2025));
+
+    $socwithparticipantnumdownloadnationalsportday2025count = count($socwithparticipantnumdownloadnationalsportday2025data);
+
+
+    return view('admin.home', compact('curcount', 'school_star_count', 'total_count_cyclothon', 'total_individual', 'clubcountNamoSOC', 'fourth_count', 'fifth_count', 'sixth_count', 'seventh_count', 'event_date','national_sport_day_2025_count','socwithparticipantnumdownloadnationalsportday2025count'));
   }
 }

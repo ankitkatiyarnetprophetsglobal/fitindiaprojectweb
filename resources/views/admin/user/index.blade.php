@@ -178,7 +178,7 @@
                   <tr class="thead-dark">
 					<th scope="col">#</th>
 					<th scope="col">Name & Role</th>
-					<th scope="col">Email & Phone</th>
+					{{-- <th scope="col">Email & Phone</th> --}}
 					<th scope="col">State</th>
 					<th scope="col">District/Block/City</th>
 						@if(!in_array($admins_role, array(2,3)))
@@ -204,7 +204,7 @@
                       }
                     ?>
 					</td>
-					<td>{{ $users->email }} <br> {{$users->phone}}</td>
+					{{-- <td>{{ $users->email }} <br> {{$users->phone}}</td> --}}
 					<td> @if(!empty($users->state)) {{ ucwords(strtolower($users->state)) }} @endif </td>
 					<td> @if(!empty($users->district)) {{ ucwords(strtolower($users->district)) }} @endif <br>
 					 @if(!empty($users->block)) {{ucwords(strtolower($users->block)) }} @endif <br>

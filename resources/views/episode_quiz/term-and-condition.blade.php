@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
-  <head>   
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
 
     <title>External-Event-Activity</title>
     <style>
@@ -25,7 +25,7 @@
             @media only screen and (max-width: 500px) {
                 .bg_head h1{font-size: 26px;}
                 .cutList{padding-left:10px;}
-                .list-num-count_cus{padding-left:10px;} 
+                .list-num-count_cus{padding-left:10px;}
             }
     </style>
   </head>
@@ -33,7 +33,7 @@
 <div class="banner_area1">
   <img src="{{ asset('resources/imgs/episode_quiz.png') }}" alt="quiz" title="quiz" class="img-fluid expand_img" />
 </div>
-    <div class="container">    
+    <div class="container">
       <div class="row mt-4 mb-5">
         <div class="col-sm-12 col-md-12 bg_head  ">
             <div class="card ">
@@ -49,7 +49,7 @@
                     All  terms and conditions henceforth shall be governed by Indian laws and the judgements of the Indian judicial system.
                     </li>
                     <li>Organizers will not accept any responsibility for entries that are lost, are late, incomplete or have not been transmitted due to computer error or any other error beyond the organizer’s reasonable Please note proof of submission of the entry is not proof of receipt of the same.</li>
-                  
+
                     <li>
                    The organisers reserve the rights to disqualify participants, refuse entry, or discard entries, if such instances or participation is considered to be detrimental to the competition, or Additionally, any entry will be considered void if the information submitted is illegible, incomplete, false, or erroneous.
                     </li>
@@ -61,18 +61,18 @@
                     <li>
                     The winning participants will receive Fit India Merchandise<!--and 10 Lucky winners will get a chance to be guest at Fit India National Finals -->.
                     </li>
-            
-                    </ol>
-          
 
-           
-          
+                    </ol>
+
+
+
+
             </div>
             <br>
             <center><button onclick="history.back()" class="btn btn-primary">Accept & Continue</button></center>
             </div>
 
-            
+
         </div>
     </div>
   </body>

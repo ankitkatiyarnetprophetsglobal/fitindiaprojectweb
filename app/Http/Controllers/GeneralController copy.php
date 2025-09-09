@@ -750,24 +750,27 @@ class GeneralController extends Controller
 			$emailencrypt_trim = $this->encrypt($key, $iv, $emailid);
 			$phoneencrypt_trim = $this->encrypt($key, $iv, $phone);
 			$email_value = $request->email_value;
-            // dd($email_value);
-            $role_value = $request['role_value'];
+            // dd($phoneencrypt_trim);
+			// dd($phone);
+            // $role_value = $request['role_value'];
+            $role_value = $request['role_name'];
             // dd($role_value);
             // if(isset($phone)){
-            if(isset($role_value) && isset($email_value) && isset($phone)){
-                // dd("Done");
+            // if(isset($role_value) && isset($email_value) && isset($phone)){
+            if(isset($role_value) && isset($phone)){
+                // dd("Done 12");
                 // if($role_name =="bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi"){
                     $records = DB::table('users')
                             ->Join('usermetas', 'users.id', '=', 'usermetas.user_id')
                             ->where('users.role','=',$role_value)
                             ->where('phone','=',$phone)
-                            ->where('email','=',$email_value)
+                            // ->where('email','=',$email_value)
 							->get();
-                    // dd($records);
+                    
                 // }
 
                 if(count($records) == 0){
-
+					// dd(12345647897);
                     $success = 'No duplicate';
                     $apiurl = config('app.api_url').'generateotpvtwo';
                     // $response = Http::post($apiurl, [
@@ -786,9 +789,10 @@ class GeneralController extends Controller
                     $Registrationemail->verify_otp = 1;
                     $Registrationemail->save();
                     return response()->json(['success' => true]);
+                    // return response()->json(['success' => $response]);
 
                 }
-
+				dd("safdasdfsadf");
                 if(count($records)> 0){
 
                     $error = 'Duplicate Phone and email';
@@ -796,6 +800,8 @@ class GeneralController extends Controller
 
                 }
             }
+
+			// dd("Done");
 
 			// $records = DB::table('users')
 			// 				->where('phone', $phone)
@@ -1052,7 +1058,7 @@ class GeneralController extends Controller
 
     public function fit_india_cycling_drive(){
 
-        $websitebanner = WebsiteBanner::where("id","=","14")->where('status',1)->orderBy('order', 'ASC')->first();
+        $websitebanner = WebsiteBanner::where("id","=","15")->where('status',1)->orderBy('order', 'ASC')->first();
         if(!empty($websitebanner)){
 
             $websitebanner = $websitebanner['banner_url'];
@@ -1069,10 +1075,10 @@ class GeneralController extends Controller
 
         // dd('fit_india_cycling_drive_update_banner');
 
-        $websitebanner = WebsiteBanner::where("id","=","15")->where('status',1)->orderBy('order', 'ASC')->first();
+        $websitebanner = WebsiteBanner::where("id","=","14")->where('status',1)->orderBy('order', 'ASC')->first();
         // dd($eventarchive);
         if(!empty($websitebanner)){
-            WebsiteBanner::query()->where(['id' => 15])->take(1)->update(['banner_url' => "https://fitindia.gov.in/resources/imgs/soc-11052025.png"]);
+            WebsiteBanner::query()->where(['id' => 14])->take(1)->update(['banner_url' => "https://fitindia.gov.in/resources/imgs/soc-11052025.png"]);
         }else{
             $websitebanner = "https://fitindia.gov.in/resources/imgs/soc-11052025.png";
         }
@@ -1093,36 +1099,7 @@ class GeneralController extends Controller
         // dd($websitebanner);
     }
 
-
-    public function nsd_show_static_page(Request $request)
-	{
-		try{
-
-            $user_data_count = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')
-                    ->select(
-                        'users.id',
-                        'users.name',
-                        'users.email',
-                        'users.phone',
-                        'users.rolelabel',
-                        'users.rolewise',
-                        'usermetas.state',
-                        'usermetas.district',
-                        'usermetas.block',
-                        'usermetas.city'
-                    )
-                    ->where('users.rolewise', 'national-sports-day-2025')
-                    ->count();
-            return view('nationalsportsday2025',compact('user_data_count'));
-
-		}catch (Exception $e) {
-
-			return abort(404);
-
-		}
-	}
-
-    public function nsd_upload_image(Request $request)
+	public function nsd_upload_image(Request $request)
 	{
 		try{
 			$states = State::all();
@@ -1266,5 +1243,34 @@ class GeneralController extends Controller
 			return abort(404);
 		}
 	}
+
+	public function nsd_show_static_page(Request $request){
+		try{
+
+            $user_data_count = User::join('usermetas', 'users.id', '=', 'usermetas.user_id')
+                    ->select(
+                        'users.id',
+                        'users.name',
+                        'users.email',
+                        'users.phone',
+                        'users.rolelabel',
+                        'users.rolewise',
+                        'usermetas.state',
+                        'usermetas.district',
+                        'usermetas.block',
+                        'usermetas.city'
+                    )
+                    ->where('users.rolewise', 'national-sports-day-2025')
+                    ->count();
+            return view('nationalsportsday2025',compact('user_data_count'));
+
+		}catch (Exception $e) {
+
+			return abort(404);
+
+		}
+	}
+
+
 
 }
