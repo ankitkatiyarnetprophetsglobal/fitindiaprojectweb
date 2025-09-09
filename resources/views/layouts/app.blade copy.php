@@ -133,6 +133,10 @@
                                 {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
                                                                         ?>
                             </a>
+                            <a class="dropdown-item" href="{{ url('edit-school-password') }}">
+                                {{ __('home_content.change_password')}} <?php // {{ __('Edit Profile') }} 
+                                                                        ?>
+                            </a>
                             @else
                             <a class="dropdown-item" href="{{ url('edit-profile') }}">
                                 {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
@@ -243,7 +247,7 @@
                             </li>
                             <li>
                                 <a class="font_f y_c"
-                                    href="{{ route('redirect', ['url' => 'https://www.youtube.com/channel/UCQtxCmXhApXDBfV59_JNagA']) }}"
+                                    href="{{ route('redirect', ['url' => 'https://www.youtube.com111/channel/UCQtxCmXhApXDBfV59_JNagA']) }}"
                                     target="_blank"
                                     rel="noopener noreferrer">
                                     <i class="fa fa-youtube-play" aria-hidden="true"></i>

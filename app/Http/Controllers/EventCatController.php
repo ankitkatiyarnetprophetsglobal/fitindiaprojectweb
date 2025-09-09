@@ -27,10 +27,10 @@ class EventCatController extends Controller
 {
 
     public function createFreedomrunEvent(){
-
+        
         try{
-            // dd(123456);
-            // dd(Auth::user());
+         
+            dd(Auth::user());
             if (isset(auth()->user()->role)){
 
                     $role = Auth::user()->role;
@@ -97,8 +97,9 @@ class EventCatController extends Controller
     }
 
     public function store(Request $request){
+      
         try {
-
+             
             $validator = Validator::make($request->all(), [
                 'category_name' => 'required',
                 'org_name' => 'required',
@@ -111,6 +112,7 @@ class EventCatController extends Controller
                 'prt_image.*' => 'nullable|file|max:2047|mimes:jpeg,jpg,png',
                 'from_date' => 'required',
                 'to_date' => 'required',
+                 'addparticipants' => 'nullable|numeric|min:0'
             ],[
                 'category_name.required' => 'Please Select Event Name',
                 'org_name.required' => 'Please Enter Organization / Institution / Group / School Name',
@@ -124,6 +126,8 @@ class EventCatController extends Controller
                 'prt_image.*.mimes' => 'Event Picture Must in .jpg/.jpeg/.png',
                 'from_date.required' => 'Please Select Event Start Date',
                 'to_date.required' => 'Please Select Event End Date',
+                'addparticipants.numeric' => 'Please enter a valid number.',
+                'addparticipants.min' => 'Please enter a value greater than or equal to 0.'
             ]);
             if ($validator->fails()) {
                 // dd(1);
@@ -162,16 +166,9 @@ class EventCatController extends Controller
             // dd(4);
             if($request->hasfile('prt_image')) {
                 foreach($request->file('prt_image') as $file){
-                    // old
-                    // $name = $file->getClientOriginalName();
-                    // $name = $file->store($year,['disk'=> 'uploads']);
-                    // $name = url('wp-content/uploads/'.$name);
-                    // $imgurl[] = $name;
-                    // new
+                 
                     $name = $file->getClientOriginalName();
                     $name = $file->store($event_name_store.'/'.$state.'/'.Auth::user()->name.'/'.'event_image',['disk'=> 'uploads']);
-                    // $image_path = 'fitindiaweek2023/extra/'.$request['state'].'/'.$request['org_name'].$year;
-                    // $name = $request->file('event_bg_image')->store($image_path,['disk'=> "uploads"]);
                     $name = url('wp-content/uploads/'.$name);
                     $imgurl[] = $name;
 
@@ -630,7 +627,7 @@ class EventCatController extends Controller
     public function update($id, Request $request){
 
         try{
-            // dd("Done");
+           
             if (isset(auth()->user()->role)){
 
                 $categories = EventCat::where('status',2)->get();
@@ -665,15 +662,17 @@ class EventCatController extends Controller
     }
 
     public function edit(Request $request){
-
+        
         try{
-            // dd("fasdfasdfasdf");
+           
             $validator = Validator::make($request->all(), [
                 'org_name' => 'required',
                 'event_bg_image' => 'nullable|file|max:2047|mimes:jpeg,jpg,png',
                 'prt_image.*' => 'nullable|file|max:2047|mimes:jpeg,jpg,png',
                 'from_date' => 'required',
                 'to_date' => 'required',
+                 'addparticipants' => 'nullable|numeric|min:0'
+                
             ],[
                 // 'contact.required' => 'Please Enter Contact Number',
                 'org_name.required' => 'Please Enter Organization / Institution / Group / School Name',
@@ -683,6 +682,8 @@ class EventCatController extends Controller
                 'prt_image.*.mimes' => 'Event Picture Must in .jpg/.jpeg/.png',
                 'from_date.required' => 'Please Select Event Start Date',
                 'to_date.required' => 'Please Select Event End Date',
+                'addparticipants.numeric' => 'Please enter a valid number.',
+               'addparticipants.min' => 'Please enter a value greater than or equal to 0.'
             ]);
 
             if ($validator->fails()) {

@@ -107,9 +107,9 @@
        <div class="panel panel-default lastpanel">
         <div class="panel-heading" role="tab" id="headingThree">
              <h4 class="panel-title">
-			 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
-			   Procedure for Schools to get Fit India Star Certification
-			  </a>
+             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+               Procedure for Schools to get Fit India Star Certification
+              </a>
             </h4>
 
         </div>
@@ -165,13 +165,13 @@
         }
     
         function chkorganise(){
-			  var agree = document.getElementById('agreed');
+              var agree = document.getElementById('agreed');
             if (agree.checked == false){
                        alert("Please Check Terms & Conditions");
               return false;
             }else{
-				   window.location.href = "{{ url('/fit-india-school-certification') }}"
-				
+                   window.location.href = "{{ url('/fit-india-school-certification') }}"
+                
             }
         }
 

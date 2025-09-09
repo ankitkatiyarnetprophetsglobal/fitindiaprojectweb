@@ -218,10 +218,12 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
 	Route::resource('socevents', SoceventController::class);
 	Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
-	Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
-	Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
+    Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
+        // 18-08-2025 Index page
+    Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
     Route::get('soc-report-download', [\App\Http\Controllers\SocReportController::class, 'download'])->name('soc-reports.download');
-	Route::resource('dashboard-tiles', MaganageDashboardController::class);
+
+    Route::resource('dashboard-tiles', MaganageDashboardController::class);
     //Images Status Approve
     Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
     Route::post('/image_approve/{id}', [MaganageImageStatusController::class, 'image_approve'])->name('image-approve');
@@ -338,6 +340,8 @@ Route::get('edit-profile', [App\Http\Controllers\Auth\UserController::class, 'ed
 Route::put('update-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'update']);
 //Route::get('school-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
 Route::get('school-profile', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
+Route::get('edit-school-password', [App\Http\Controllers\Auth\UserController::class, 'edit_school_password']);
+Route::post('update-school-password', [App\Http\Controllers\Auth\UserController::class, 'update_school_password']);
 Route::put('update-school/{id}', [App\Http\Controllers\Auth\UserController::class, 'updateSchool']);
 Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class,'profileDis'])->name('profile-dis');
 Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class,'profileBlk'])->name('profile-blk');
@@ -1023,5 +1027,9 @@ Route::get('/redirect', function (\Illuminate\Http\Request $request) {
     $url = $request->query('url');
     return redirect()->away($url);
 })->name('redirect');
+
+Route::fallback(function () {
+    return redirect('/');
+});
 
 URL::forceScheme('https');
