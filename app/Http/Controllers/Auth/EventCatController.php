@@ -208,7 +208,6 @@ class EventCatController extends Controller
     public function listofEvents(){
 
         try{
-
             if (isset(auth()->user()->role)){
 
                 $role = Auth::user()->role;
