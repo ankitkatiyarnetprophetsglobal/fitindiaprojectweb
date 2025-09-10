@@ -638,6 +638,7 @@ class GeneralController extends Controller
                     'mobile' => $phoneencrypt_trim,
 
                 ]);
+                
                 // dd($response->collect());
                 $Registrationemail = new Registrationemailotp;
                 $Registrationemail->mode = "email";
