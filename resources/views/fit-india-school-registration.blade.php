@@ -107,9 +107,9 @@
        <div class="panel panel-default lastpanel">
         <div class="panel-heading" role="tab" id="headingThree">
              <h4 class="panel-title">
-             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
-               Procedure for Schools to get Fit India Star Certification
-              </a>
+			 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+			   Procedure for Schools to get Fit India Star Certification
+			  </a>
             </h4>
 
         </div>
@@ -126,21 +126,9 @@
                 <li>To honour Fit India 3 Star and 5 Star Schools by organising appropriate function in the State Head-Quarters. Fit India 5 Star Schools could be felicitated at State level Republic Day and Independence Day functions</li>
                 <li>Nominate a senior ofﬁcer as a State Nodal Ofﬁcer for Fit India in your department and intimate to us; and</li>
                 <li>Organise Fit India events at schools from time to time. You may encourage schools to use their creativity in designing and organising Fit India events.</li>
-              </ol>
-              {{-- <p>For information, contact:</p>
-              <table border="0" width="100%" class="table-grid">
-                <tbody>
-                <tr>
-                <th colspan="2">Contact Person</th>
-                </tr>
-                <tr>
-                <td><strong>Rohit Khanna</strong><br> CEO Fit India Mission</td>
-                <td><strong>Ms. Amar Jyoti</strong><br> Mission Director Fit India</td>
-                </tr>
-                </tbody>
-                </table> --}}
+              </ol>              
             </div>
-            <div>Queries may be sent to <a href="mailto:contact@fitindia.gov.in">contact[at]fitindia[dot]gov[dot]in</a></div>
+            <div>Queries may be sent to contact[at]fitindia[dot]gov[dot]in</div>
         </div>
     </div>
         
@@ -165,13 +153,13 @@
         }
     
         function chkorganise(){
-              var agree = document.getElementById('agreed');
+			  var agree = document.getElementById('agreed');
             if (agree.checked == false){
                        alert("Please Check Terms & Conditions");
               return false;
             }else{
-                   window.location.href = "{{ url('/fit-india-school-certification') }}"
-                
+				   window.location.href = "{{ url('/fit-india-school-certification') }}"
+				
             }
         }
 
@@ -188,7 +176,7 @@
     </div>
     <div class="row">
       <div class="et_pb_button_btn_area">
-      <a class="et_pb_button_btn" href="Fit-India-Movement-2019.pdf" target="_blank" data-icon="5">Fit India School Certification Circular</a>
+      <a class="et_pb_button_btn" href="{{url('/resources/pdf/Fit-India-Movement-2019.pdf')}}" target="_blank" data-icon="5">Fit India School Certification Circular</a>
     </div>
     </div>
     </div>

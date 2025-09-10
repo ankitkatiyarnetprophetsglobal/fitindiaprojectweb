@@ -16,7 +16,8 @@
                         </div>
                         @endif
                         <p>New to site?
-                            <a id="fi_signup" href="{{ route('register') }}">Create an Account</a>
+                            {{-- <a id="fi_signup" href="{{ route('register') }}">Create an Account</a> --}}
+                            <a id="fi_signup" href="register?role=bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1">Create an Account</a>
                         </p>
                         <br>
                          {{-- Lockout countdown timer --}}
@@ -53,8 +54,8 @@
                                 </span>
                                 @enderror
 
-                                
-                           
+
+
                             </div>
                             <div class="login-row" style="display:block;">
                                 <label for="password">Password</label>

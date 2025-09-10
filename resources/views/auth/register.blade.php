@@ -169,54 +169,6 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-<<<<<<< HEAD:resources/views/auth/register.blade copy.php
-                                @enderror
-                                <span id="email_error" style="display:none; color:red;">
-                                    Please enter a valid email address
-                                </span>
-                                <span id="duplicate_email_error" style="display:none; color:red;">
-                                    Email already exists
-                                </span>
-                    </div>
-                    <div class="register-row-rt">
-                        {{-- <span id="verify_button_hide" display:block;>
-                            <button type="button" class="btn btn-info" style="min-width: 120px;">
-                                <a class="email_verify" style="color:#fff;"> Verify email </a>
-                            </button>
-                        </span> --}}
-                        <span id="verifyed_button_show" class="btn btn-info" style="background-color:#14ae5c; color:#fff; min-width: 120px; display:none;">
-                            Email verified
-                            <i class="fa fa-check" style="font-size:12px"></i>
-                        </span>
-                        {{-- cursor: pointer; --}}
-                        {{-- <div><a href="url">link text</a></div> --}}
-                        {{-- <button type="button">Click Me!</button> --}}
-						{{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
-							@error('phone')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror --}}
-                    </div>
-                </div>
-                <div style="clear:both"></div>
-
-                {{-- <div class="register-row" style="align-items: center">  --}}
-                <div class="register-row e-mob-fx" >
-                    <div class="register-row-lft">
-                        <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') ?? "" }}" required autocomplete="phone" min="0" max="9999999999" placeholder="Mobile">
-							@error('phone')
-								<span class="invalid-feedback" role="alert">
-									<strong>{{ $message }}</strong>
-								</span>
-							@enderror
-                            <span id="phone_error" style="display:none; color:red;">
-                                Please enter a valid mobile number
-                            </span>
-                            <span id="duplicate_phone_error" style="display:none; color:red;">
-                                Phone already exists
-                            </span>
-=======
                                     @enderror
                                 </div>
                                 <div class="register-row-rt">
@@ -233,7 +185,6 @@
                                 </div>
                             </div>
                             <div style="clear:both"></div>
->>>>>>> a45c8026e99cc4f526ff96de6302d17c4bd9d78d:resources/views/auth/register.blade.php
 
 
                             {{-- <div class="register-row" style="align-items: center">  --}}
@@ -596,7 +547,7 @@
                     </div>
                 </div>
 
-             
+
 
             </div>
         </div>
@@ -819,13 +770,7 @@
             },
 
 
-<<<<<<< HEAD:resources/views/auth/register.blade copy.php
-            success: function (response) {
-                console.log("response",response);
-                return false;
-=======
             success: function(response) {
->>>>>>> a45c8026e99cc4f526ff96de6302d17c4bd9d78d:resources/views/auth/register.blade.php
                 $("#divloader").css("display", "none");
 
                 if (response.success == 'otplimitexceed') {
