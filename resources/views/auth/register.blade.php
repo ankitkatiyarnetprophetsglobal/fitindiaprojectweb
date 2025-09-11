@@ -88,6 +88,11 @@
                         <p>Already have an account?
                             <a id="fi_signin" href="login">Login</a>
                         </p>
+                        <!-- server-side generated nonce (per form) -->
+                        <input type="hidden" name="form_nonce" id="form_nonce" value="{{ $formNonce ?? '' }}">
+                        <input type="hidden" id="screen_width" name="screen_width" value="">
+                        <input type="hidden" id="screen_height" name="screen_height" value="">
+
                         <div class="frm-details res_mobile">
                             <h1>{{ __('Register') }}</h1>
                             <label for="role">{{ __('Register As') }}</label>
@@ -973,110 +978,139 @@
         });
     });
 </script>
-<script>
-    // Enhanced Crypto JS with input validation
-    var CryptoJSAesJson = {
-        stringify: function(cipherParams) {
-            try {
-                var j = {
-                    ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
-                };
-                if (cipherParams.iv) j.iv = cipherParams.iv.toString();
-                if (cipherParams.salt) j.s = cipherParams.salt.toString();
-                return JSON.stringify(j);
-            } catch (e) {
-                console.error('Encryption stringify error:', e);
-                throw new Error('Encryption failed');
-            }
-        },
-        parse: function(jsonStr) {
-            try {
-                var j = JSON.parse(jsonStr);
-                var cipherParams = CryptoJS.lib.CipherParams.create({
-                    ciphertext: CryptoJS.enc.Base64.parse(j.ct)
-                });
-                if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv);
-                if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s);
-                return cipherParams;
-            } catch (e) {
-                console.error('Encryption parse error:', e);
-                throw new Error('Decryption failed');
-            }
-        }
-    };
-
-    // Enhanced form validation and security
-    $('#fi-register').on('submit', function(e) {
-        let email = $('#email').val();
-        let password = $('#password').val();
-        let password_confirmation = $('#password-confirm').val();
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if ((!regex.test(email)) || (email == "")) {
-
-            $("#email_error").css("display", "block");
-            $("#divloader").css("display", "none");
-            return false;
-
-        } else {
-
-            $("#email_error").css("display", "none");
-        }
-        try {
-            // Encrypt password securely
-            let encrypt_pass = CryptoJS.AES.encrypt(JSON.stringify(password), "64", {
-                format: CryptoJSAesJson
-            }).toString();
-            let encrypt_password_confirmation = CryptoJS.AES.encrypt(JSON.stringify(password_confirmation), "64", {
-                format: CryptoJSAesJson
-            }).toString();
-
-            // Validate encrypted length
-            $('#password').val(encrypt_pass);
-            $('#password-confirm').val(encrypt_password_confirmation);
-
-
-        } catch (error) {
-            console.error('Encryption error:', error);
-            alert('Password encryption failed. Please try again.');
-            e.preventDefault();
-            return false;
-        }
-    });
-</script>
 
 <script>
-    function validatePassword(input) {
-        const password = input.value;
-        const errorEl = document.getElementById("password-error");
+// =======================
+// ENHANCED CLIENT-SIDE SECURITY
+// =======================
 
-        // Regex for password policy
-        const policyRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/;
+function clientTimestamp() {
+    return Math.floor(Date.now()); // ms
+}
 
-        if (!policyRegex.test(password)) {
-            errorEl.textContent =
-                "Password must be at least 8 characters, include 1 lowercase, 1 uppercase, 1 digit, and 1 special character.";
-            input.classList.add("is-invalid");
-        } else {
-            errorEl.textContent = "";
-            input.classList.remove("is-invalid");
-        }
+// ModeA: produce client-side SHA256 of (password + form_nonce + timestamp)
+function clientDeriveSecret(password, nonce) {
+    const ts = clientTimestamp();
+    // concat: password + nonce + ts (ts to avoid replay)
+    const hashHex = CryptoJS.SHA256(password + nonce + ts).toString(); // 64 hex chars
+    // we'll include timestamp for server replay-check if needed, but we return only hash (server stored)
+    // For payload we can send base64 of (hashHex | '|' | ts)
+    const payload = btoa(hashHex + '|' + ts);
+    return payload;
+}
+function validatePassword(input) {
+    const password = input.value;
+    const errorSpan = document.getElementById('password-error');
+    
+    const minLength = password.length >= 8;
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecial = /[@$!%*?&]/.test(password);
+    
+    let errors = [];
+    if (!minLength) errors.push('8+ characters');
+    if (!hasUpper) errors.push('uppercase letter');
+    if (!hasLower) errors.push('lowercase letter');
+    if (!hasDigit) errors.push('digit');
+    if (!hasSpecial) errors.push('special character');
+    
+    if (errors.length > 0) {
+        errorSpan.textContent = 'Password needs: ' + errors.join(', ');
+        errorSpan.style.display = 'block';
+    } else {
+        errorSpan.style.display = 'none';
     }
+}
 
-    function validateConfirmPassword(input) {
-        const confirmPassword = input.value;
-        const password = document.getElementById("password").value;
-        const errorEl = document.getElementById("confirm-error");
-
-        if (confirmPassword !== password) {
-            errorEl.textContent = "Passwords do not match.";
-            input.classList.add("is-invalid");
-        } else {
-            errorEl.textContent = "";
-            input.classList.remove("is-invalid");
-        }
+function validateConfirmPassword(input) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = input.value;
+    const errorSpan = document.getElementById('confirm-error');
+    
+    // Real-time validation with visual feedback
+    if (password !== confirmPassword) {
+        errorSpan.textContent = 'Passwords do not match';
+        errorSpan.style.display = 'block';
+        input.classList.add('is-invalid');
+        return false;
+    } else {
+        errorSpan.style.display = 'none';
+        input.classList.add('is-valid');
+        return true;
     }
+}
+
+// On submit, ensure screen width/height are posted so server can reconstruct fingerprint
+$('#fi-register').on('submit', function(e) {
+    try {
+
+         const nonce = document.querySelector('#form_nonce').value;
+         const   password = document.querySelector('#password').value;
+         const   passwordConfirm = document.querySelector('#password-confirm').value;
+         if (!nonce) {
+            alert('Missing form nonce, refresh the page.');
+            return false;
+        }
+
+        const pPayload = clientDeriveSecret(password, nonce);
+        const pcPayload = clientDeriveSecret(passwordConfirm, nonce);
+
+        // Optionally use Mode B encryption over the pPayload or the hex; currently using Mode A
+        document.querySelector('#password').value = pPayload;
+        document.querySelector('#password-confirm').value = pcPayload;
+
+        // // Clear raw password fields before submit
+        // document.querySelector('#password').value = '';
+        // document.querySelector('#password-confirm').value = '';
+        return true;
+
+    } catch (error) {
+        if (window.console && window.console.error) {
+            console.error('Form submission error:', error);
+        }
+        alert('An error occurred. Please try again.');
+        $("#divloader").hide();
+        return false;
+    }
+});
+
+function validateAllFields(data) {
+    // Email validation
+    const emailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!emailRegex.test(data.email)) {
+        $("#email_error").show();
+        return false;
+    }
+    
+    // Phone validation
+    if (data.phone.length !== 10 || !/^[6-9]/.test(data.phone)) {
+        alert('Invalid phone number');
+        return false;
+    }
+    
+    // Password strength
+    const password = data.password;
+    const hasStrength = password.length >= 8 && 
+                       /[A-Z]/.test(password) && 
+                       /[a-z]/.test(password) && 
+                       /\d/.test(password) && 
+                       /[@$!%*?&]/.test(password);
+    
+    if (!hasStrength) {
+        alert('Password does not meet security requirements');
+        return false;
+    }
+    
+    // Password match
+    if (data.password !== data.password_confirmation) {
+        alert('Passwords do not match');
+        return false;
+    }
+    
+    return true;
+}
 </script>
-
 <style>
     select,
     input::-webkit-input-placeholder {

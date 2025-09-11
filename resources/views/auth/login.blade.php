@@ -10,6 +10,7 @@
                 <div class="frontlogin ">
                     <form action="{{ route('login') }}" method="POST" id="frontadmin" novalidate="novalidate">
                         @csrf
+                        <input type="hidden" name="form_nonce" id="form_nonce" value="{{ $formNonce }}">
                         @if (Session::has('succ'))
                         <div class="alert alert-success">
                             <strong>Success !!</strong> {{ Str::limit(e(Session::get('succ')), 100) }}
@@ -196,76 +197,198 @@
     };
 
     // Enhanced form validation and security
+    // $('#frontadmin').on('submit', function(e) {
+    //     let email = $('#email').val();
+    //     let password = $('#password').val();
+    //     let captcha = $('#captcha').val();
+
+    //     // Client-side input validation
+    //     if (!email || email.length > 255) {
+    //         alert('Please enter a valid email address.');
+    //         e.preventDefault();
+    //         return false;
+    //     }
+
+    //     // Email format validation
+    //     const emailRegex = /^[a-zA-Z0-9@._-]+$/;
+    //     if (!emailRegex.test(email)) {
+    //         alert('Email contains invalid characters.');
+    //         e.preventDefault();
+    //         return false;
+    //     }
+
+    //     if (!password || password.length < 6 || password.length > 255) {
+    //         alert('Password must be between 6 and 255 characters.');
+    //         e.preventDefault();
+    //         return false;
+    //     }
+
+    //     if (!captcha || captcha.length > 10) {
+    //         alert('Please enter a valid captcha.');
+    //         e.preventDefault();
+    //         return false;
+    //     }
+
+    //     // Captcha validation
+    //     const captchaRegex = /^[a-zA-Z0-9]+$/;
+    //     if (!captchaRegex.test(captcha)) {
+    //         alert('Captcha contains invalid characters.');
+    //         e.preventDefault();
+    //         return false;
+    //     }
+
+    //     try {
+    //         // Encrypt password securely
+    //         let encrypt_pass = CryptoJS.AES.encrypt(JSON.stringify(password), "64", {
+    //             format: CryptoJSAesJson
+    //         }).toString();
+
+    //         // Validate encrypted length
+    //         if (encrypt_pass.length > 2000) {
+    //             alert('Password encryption failed. Please try again.');
+    //             e.preventDefault();
+    //             return false;
+    //         }
+
+    //         $('#password').val(encrypt_pass);
+
+    //         // Disable submit button to prevent double submission
+    //         $('#login-submit').prop('disabled', true).val('Logging in...');
+
+    //         // Re-enable after timeout
+    //         setTimeout(function() {
+    //             $('#login-submit').prop('disabled', false).val('LOGIN');
+    //         }, 10000);
+
+    //     } catch (error) {
+    //         console.error('Encryption error:', error);
+    //         alert('Password encryption failed. Please try again.');
+    //         e.preventDefault();
+    //         return false;
+    //     }
+    // });
+
+
     $('#frontadmin').on('submit', function(e) {
-        let email = $('#email').val();
-        let password = $('#password').val();
-        let captcha = $('#captcha').val();
+    e.preventDefault();
 
-        // Client-side input validation
-        if (!email || email.length > 255) {
-            alert('Please enter a valid email address.');
-            e.preventDefault();
-            return false;
-        }
+    // Get form values
+    const email = $('#email').val().trim();
+    const password = $('#password').val();
+    const captcha = $('#captcha').val();
+    const nonce = $('#form_nonce').val(); // server-side nonce
+    const screenWidth = screen.width;
+    const screenHeight = screen.height;
 
-        // Email format validation
-        const emailRegex = /^[a-zA-Z0-9@._-]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Email contains invalid characters.');
-            e.preventDefault();
-            return false;
-        }
+    // -----------------------
+    // CLIENT-SIDE VALIDATION
+    // -----------------------
+    if (!email || email.length > 255) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
 
-        if (!password || password.length < 6 || password.length > 255) {
-            alert('Password must be between 6 and 255 characters.');
-            e.preventDefault();
-            return false;
-        }
+    const emailRegex = /^[a-zA-Z0-9@._-]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Email contains invalid characters.');
+        return false;
+    }
 
-        if (!captcha || captcha.length > 10) {
-            alert('Please enter a valid captcha.');
-            e.preventDefault();
-            return false;
-        }
+    if (!password || password.length < 6 || password.length > 255) {
+        alert('Password must be between 6 and 255 characters.');
+        return false;
+    }
 
-        // Captcha validation
-        const captchaRegex = /^[a-zA-Z0-9]+$/;
-        if (!captchaRegex.test(captcha)) {
-            alert('Captcha contains invalid characters.');
-            e.preventDefault();
-            return false;
-        }
+    if (!captcha || captcha.length > 10) {
+        alert('Please enter a valid captcha.');
+        return false;
+    }
 
+    const captchaRegex = /^[a-zA-Z0-9]+$/;
+    if (!captchaRegex.test(captcha)) {
+        alert('Captcha contains invalid characters.');
+        return false;
+    }
+
+    if (!nonce) {
+        alert('Missing form nonce. Refresh the page.');
+        return false;
+    }
+
+    // -----------------------
+    // CLIENT-SIDE ENCRYPTION
+    // -----------------------
+    function generateLoginKey() {
+        // SHA256 of nonce + 5-min timestamp + user fingerprint
+        const timestamp = Math.floor(Date.now() / 300000); // 5 min slot
+        const fingerprint = navigator.userAgent + screenWidth + screenHeight;
+        return CryptoJS.SHA256(nonce + timestamp + fingerprint).toString();
+    }
+
+    function encryptPayload(data) {
         try {
-            // Encrypt password securely
-            let encrypt_pass = CryptoJS.AES.encrypt(JSON.stringify(password), "64", {
-                format: CryptoJSAesJson
-            }).toString();
+            const keyHex = generateLoginKey();
+            const key = CryptoJS.enc.Hex.parse(keyHex);
+            const iv = CryptoJS.lib.WordArray.random(16);
 
-            // Validate encrypted length
-            if (encrypt_pass.length > 2000) {
-                alert('Password encryption failed. Please try again.');
-                e.preventDefault();
-                return false;
-            }
+            const encrypted = CryptoJS.AES.encrypt(data, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
 
-            $('#password').val(encrypt_pass);
+            const combined = iv.concat(encrypted.ciphertext);
+            const combinedB64 = CryptoJS.enc.Base64.stringify(combined);
+            const hash = CryptoJS.SHA256(combinedB64 + keyHex).toString().substring(0,16);
 
-            // Disable submit button to prevent double submission
-            $('#login-submit').prop('disabled', true).val('Logging in...');
-
-            // Re-enable after timeout
-            setTimeout(function() {
-                $('#login-submit').prop('disabled', false).val('LOGIN');
-            }, 10000);
-
-        } catch (error) {
-            console.error('Encryption error:', error);
-            alert('Password encryption failed. Please try again.');
-            e.preventDefault();
-            return false;
+            return btoa(combinedB64 + ':' + hash);
+        } catch(e) {
+            // fallback: simple base64
+            return btoa(data);
         }
-    });
+    }
+
+    // Encrypt password
+    const timestamp = Date.now();
+    const passwordPayload = encryptPayload(password + '|' + timestamp);
+
+    // Set encrypted password in hidden input
+    if (!$('#password').length) {
+        $('<input>').attr({
+            type: 'hidden',
+            id: 'password_payload',
+            name: 'password_payload',
+            value: passwordPayload
+        }).appendTo('#frontadmin');
+    } else {
+        $('#password').val(passwordPayload);
+    }
+
+    // // Clear raw password
+    // $('#password').val('');
+
+    // Add timestamp and screen info for server reconstruction
+    if (!$('#screen_width').length) {
+        $('<input>').attr({ type:'hidden', name:'screen_width', value:screenWidth }).appendTo('#frontadmin');
+    } else { $('#screen_width').val(screenWidth); }
+
+    if (!$('#screen_height').length) {
+        $('<input>').attr({ type:'hidden', name:'screen_height', value:screenHeight }).appendTo('#frontadmin');
+    } else { $('#screen_height').val(screenHeight); }
+
+    if (!$('#timestamp').length) {
+        $('<input>').attr({ type:'hidden', name:'timestamp', value:timestamp }).appendTo('#frontadmin');
+    } else { $('#timestamp').val(timestamp); }
+
+    // Disable button temporarily to prevent double submit
+    $('#login-submit').prop('disabled', true).val('Logging in...');
+    setTimeout(() => {
+        $('#login-submit').prop('disabled', false).val('LOGIN');
+    }, 10000);
+
+    // Submit form
+    this.submit();
+});
 
     // Input sanitization for real-time validation
     $('#email').on('input', function() {

@@ -78,7 +78,7 @@ class LoginController extends Controller
     public function cryptoJsAesDecrypt($passphrase, $jsonString)
     {
         $jsondata = json_decode($jsonString, true);
-      
+
         $salt = hex2bin($jsondata["s"]);
         $ct = base64_decode($jsondata["ct"]);
         $iv  = hex2bin($jsondata["iv"]);
@@ -94,11 +94,11 @@ class LoginController extends Controller
         $data = openssl_decrypt($ct, 'aes-256-cbc', $key, true, $iv);
         return json_decode($data, true);
     }
-    public function login(Request $request)
+    public function login123(Request $request)
     {
         // Enhanced rate limiting
         $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
-     
+
         if (RateLimiter::tooManyAttempts($key, 3)) {
             $seconds = RateLimiter::availableIn($key);
             throw ValidationException::withMessages([
@@ -118,9 +118,9 @@ class LoginController extends Controller
 
         try {
             // Decrypt password with proper error handling
-           
+
             $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
-            
+
             // Additional password validation
             if (empty($password_encrypted) || strlen($password_encrypted) > 255) {
                 RateLimiter::hit($key, 900); // 15 minutes
@@ -147,14 +147,164 @@ class LoginController extends Controller
                 $request->session()->put('auth.password_confirmed_at', time());
             }
             // 🔒 Prevent session fixation / replay attacks
-           $request->session()->regenerate();
+            $request->session()->regenerate();
             return $this->sendLoginResponse($request);
         }
         // Increment rate limiter on failed attempt
         RateLimiter::hit($key, 900);
         $this->incrementLoginAttempts($request);
-         
+
         return $this->sendFailedLoginResponse($request);
+    }
+
+    public function login(Request $request)
+    {
+        
+        $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
+
+        // Rate limiting
+//         if (RateLimiter::tooManyAttempts($key, 3)) {
+//             $seconds = RateLimiter::availableIn($key);
+//             throw ValidationException::withMessages([
+//                 'emailTomanyattampt' => ["Too many login attempts. Please try again in {$seconds} seconds."],
+//             ]);
+//         }
+//  dd($request->all());
+//         $this->validateLogin($request);
+
+        try {
+        
+            // -------------------------------
+            // Hybrid AES + SHA-256 Client Payload
+            // -------------------------------
+            $clientPayload = $request->input('password'); // encrypted payload from JS
+            $timestamp = $request->input('timestamp');
+
+            if (!$clientPayload || !$timestamp) {
+                RateLimiter::hit($key, 900);
+                throw ValidationException::withMessages([
+                    'password' => ['Missing or invalid payload.'],
+                ]);
+            }
+
+            $passwordPlain = $this->recoverClientPassword($request->input('password'), $request);
+           dd($passwordPlain);
+            if (!$passwordPlain || strlen($passwordPlain) > 255) {
+                RateLimiter::hit($key, 900);
+                throw ValidationException::withMessages([
+                    'password' => ['Invalid password format.'],
+                ]);
+            }
+
+            $request->merge(['password' => $passwordPlain]);
+        } catch (\Exception $e) {
+            RateLimiter::hit($key, 900);
+            throw ValidationException::withMessages([
+                'password' => ['Invalid login credentials.'],
+            ]);
+        }
+
+        // Attempt login
+        if ($this->attemptLogin($request)) {
+            RateLimiter::clear($key);
+
+            if ($request->hasSession()) {
+                $request->session()->put('auth.password_confirmed_at', time());
+            }
+            $request->session()->regenerate();
+            return $this->sendLoginResponse($request);
+        }
+
+        RateLimiter::hit($key, 900);
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+
+    private function recoverClientPassword(string $payload, Request $request)
+    {
+        // Try decode outer (Mode B style): payload is base64 of "combinedB64:integrity"
+        $decodedOuter = base64_decode($payload, true);
+        
+        if ($decodedOuter !== false && strpos($decodedOuter, ':') !== false) {
+            // Mode B path: decodedOuter = combinedB64:hash
+            [$combinedB64, $receivedHash] = explode(':', $decodedOuter, 2);
+           
+            // Reconstruct keyHex same as client:
+            // keyHex = SHA256(session_token + floor(time()/300) + userAgent + screen_width + screen_height)
+            $sessionId = $request->session()->token();
+            $timeSlot = floor(now()->timestamp / 300);
+            $screenWidth = $request->input('screen_width', '');
+            $screenHeight = $request->input('screen_height', '');
+            $browserFingerprint = $request->userAgent() . $screenWidth . $screenHeight;
+            $keyHex = hash('sha256', $sessionId . $timeSlot . $browserFingerprint);
+
+            // verify integrity: expected = substr(SHA256(combinedB64 + keyHex), 0, 16)
+            $expected = substr(hash('sha256', $combinedB64 . $keyHex), 0, 16);
+            if (!hash_equals($expected, $receivedHash)) {
+                Log::warning('Integrity mismatch in recoverClientPassword');
+                return false;
+            }
+  dd($decodedOuter,'heldddlo');
+            // decode combined
+            $combined = base64_decode($combinedB64, true);
+            if ($combined === false) {
+                return false;
+            }
+
+            $iv = substr($combined, 0, 16);
+            $ciphertext = substr($combined, 16);
+            if ($iv === false || $ciphertext === false) {
+                return false;
+            }
+
+            $keyBinary = hex2bin($keyHex);
+            if ($keyBinary === false) return false;
+            
+            $decrypted = openssl_decrypt($ciphertext, 'AES-256-CBC', $keyBinary, OPENSSL_RAW_DATA, $iv);
+            if ($decrypted === false) {
+                Log::warning('OpenSSL decrypt failed in recoverClientPassword');
+                return false;
+            }
+
+            // At this point $decrypted should be clientHashHex|timestamp (if client appended)
+            // If client used pattern "clientHash|timestamp" return clientHash
+            if (strpos($decrypted, '|') !== false) {
+                [$clientHash, $_ts] = explode('|', $decrypted, 2);
+               
+                return $clientHash;
+            }
+
+            // else return whole decrypted
+            return $decrypted;
+        }
+
+        // Mode A fallback: payload might be base64 or plain clientHashHex
+        $maybe = $payload;
+        $decoded = base64_decode($payload, true);
+        if ($decoded !== false && preg_match('/^[A-Fa-f0-9]{64}$/', $decoded) === 1) {
+            // base64 decoded yields 64-hex chars.
+            return $decoded;
+        }
+
+        // If payload itself is hex string (client might have sent hex directly)
+        if (preg_match('/^[A-Fa-f0-9]{64}$/', $payload) === 1) {
+            return $payload;
+        }
+
+        // Last: if payload is base64 of clientHashHex:timestamp (very possible)
+        if ($decoded !== false) {
+            // maybe format clientHash|timestamp encoded
+            if (strpos($decoded, '|') !== false) {
+                [$clientHash, $_ts] = explode('|', $decoded, 2);
+                if (preg_match('/^[A-Fa-f0-9]{64}$/', $clientHash) === 1) {
+                    return $clientHash;
+                }
+            }
+        }
+
+        return false;
     }
 
 

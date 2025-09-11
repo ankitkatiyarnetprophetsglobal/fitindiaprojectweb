@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-
-
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 class RegisterController extends Controller
 {
     /*
@@ -64,11 +64,32 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
-        $password_confirmation_encrypted = $this->cryptoJsAesDecrypt("64", $request->password_confirmation);
+
+        // dd($request->all());
+        // $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
+        // $password_confirmation_encrypted = $this->cryptoJsAesDecrypt("64", $request->password_confirmation);
+        // $data = $request->all();
+        // $data['password'] = $password_encrypted;
+        // $data['password_confirmation'] = $password_confirmation_encrypted;
+        // Validate nonce & _token
+
         $data = $request->all();
-        $data['password'] = $password_encrypted;
-        $data['password_confirmation'] = $password_confirmation_encrypted;
+        // dd($this->validateNonceAndCsrf($request));
+        if (!$this->validateNonceAndCsrf($request)) {
+            return redirect()->back()->withErrors(['password' => 'Security validation failed']);
+        }
+        // Decrypt / parse password payloads (supports Mode A and Mode B)
+        $passwordPlain = $this->recoverClientPassword($request->input('password'), $request);
+        $passwordConfirmPlain = $this->recoverClientPassword($request->input('password_confirmation'), $request);
+
+        if (!$passwordPlain || !$passwordConfirmPlain) {
+            return redirect()->back()->withErrors(['password' => 'Security validation failed']);
+        }
+      
+         if (!hash_equals($passwordPlain, $passwordConfirmPlain)) {
+            return redirect()->back()->withErrors(['password' => 'Passwords do not match']);
+        }
+         $data['password'] = $passwordPlain ;
         event(new Registered($user = $this->create($data)));
         // Session::flash('success', 'Please Login');
         $success = "Your Registration Done Successfully, please login";
@@ -84,11 +105,394 @@ class RegisterController extends Controller
             ? new JsonResponse([], 201)
             : redirect($this->redirectPath());
     }
-    
-     public function cryptoJsAesDecrypt($passphrase, $jsonString)
+
+     // Validate nonce & CSRF token & timestamp window
+    private function validateNonceAndCsrf(Request $request): bool
+    {
+        // CSRF verify
+       
+        if ($request->session()->token() !== $request->input('_token')) {
+            Log::warning('CSRF mismatch on form submit', ['ip' => $request->ip()]);
+            return false;
+        }
+
+        // nonce validation
+        $sessionNonce = session('form_nonce');
+        $sessionTs = session('form_nonce_ts');
+        
+        if (!$sessionNonce || !$sessionTs) {
+           
+            Log::warning('Nonce missing in session');
+            return false;
+        }
+        // dd($sessionNonce, $request->input('form_nonce'));
+        if (!hash_equals($sessionNonce, $request->input('form_nonce'))) {
+            //  dd(3,$sessionNonce,$sessionTs);
+            Log::warning('Form nonce mismatch');
+            return false;
+        }
+
+        // timestamp window: require submission within X seconds (e.g. 10 minutes)
+        $now = now()->timestamp;
+        if (($now - $sessionTs) > 600) { // 600s = 10 minutes
+             dd(4,$sessionNonce,$sessionTs);
+            Log::warning('Form nonce expired');
+            return false;
+        }
+
+        return true;
+    }
+    private function recoverClientPassword(string $payload, Request $request)
+    {
+        // Try decode outer (Mode B style): payload is base64 of "combinedB64:integrity"
+        $decodedOuter = base64_decode($payload, true);
+        if ($decodedOuter !== false && strpos($decodedOuter, ':') !== false) {
+            // Mode B path: decodedOuter = combinedB64:hash
+            [$combinedB64, $receivedHash] = explode(':', $decodedOuter, 2);
+
+            // Reconstruct keyHex same as client:
+            // keyHex = SHA256(session_token + floor(time()/300) + userAgent + screen_width + screen_height)
+            $sessionId = $request->session()->token();
+            $timeSlot = floor(now()->timestamp / 300);
+            $screenWidth = $request->input('screen_width', '');
+            $screenHeight = $request->input('screen_height', '');
+            $browserFingerprint = $request->userAgent() . $screenWidth . $screenHeight;
+            $keyHex = hash('sha256', $sessionId . $timeSlot . $browserFingerprint);
+
+            // verify integrity: expected = substr(SHA256(combinedB64 + keyHex), 0, 16)
+            $expected = substr(hash('sha256', $combinedB64 . $keyHex), 0, 16);
+            if (!hash_equals($expected, $receivedHash)) {
+                Log::warning('Integrity mismatch in recoverClientPassword');
+                return false;
+            }
+
+            // decode combined
+            $combined = base64_decode($combinedB64, true);
+            if ($combined === false) {
+                return false;
+            }
+
+            $iv = substr($combined, 0, 16);
+            $ciphertext = substr($combined, 16);
+            if ($iv === false || $ciphertext === false) {
+                return false;
+            }
+
+            $keyBinary = hex2bin($keyHex);
+            if ($keyBinary === false) return false;
+
+            $decrypted = openssl_decrypt($ciphertext, 'AES-256-CBC', $keyBinary, OPENSSL_RAW_DATA, $iv);
+            if ($decrypted === false) {
+                Log::warning('OpenSSL decrypt failed in recoverClientPassword');
+                return false;
+            }
+
+            // At this point $decrypted should be clientHashHex|timestamp (if client appended)
+            // If client used pattern "clientHash|timestamp" return clientHash
+            if (strpos($decrypted, '|') !== false) {
+                [$clientHash, $_ts] = explode('|', $decrypted, 2);
+                return $clientHash;
+            }
+
+            // else return whole decrypted
+            return $decrypted;
+        }
+
+        // Mode A fallback: payload might be base64 or plain clientHashHex
+        $maybe = $payload;
+        $decoded = base64_decode($payload, true);
+        if ($decoded !== false && preg_match('/^[A-Fa-f0-9]{64}$/', $decoded) === 1) {
+            // base64 decoded yields 64-hex chars.
+            return $decoded;
+        }
+
+        // If payload itself is hex string (client might have sent hex directly)
+        if (preg_match('/^[A-Fa-f0-9]{64}$/', $payload) === 1) {
+            return $payload;
+        }
+
+        // Last: if payload is base64 of clientHashHex:timestamp (very possible)
+        if ($decoded !== false) {
+            // maybe format clientHash|timestamp encoded
+            if (strpos($decoded, '|') !== false) {
+                [$clientHash, $_ts] = explode('|', $decoded, 2);
+                if (preg_match('/^[A-Fa-f0-9]{64}$/', $clientHash) === 1) {
+                    return $clientHash;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function registernww(Request $request)
+    {
+        // Enhanced security validation
+        $this->validateSecurityHeaders($request);
+        // Decrypt and validate passwords
+
+        $decryptedData = $this->decryptPasswords($request);
+        if (!$decryptedData) {
+            return redirect()->back()->withErrors(['password' => 'Security validation failed']);
+        }
+        // Rate limiting check
+        // if ($this->tooManyAttempts($request)) {
+        //     return redirect()->back()->withErrors(['email' => 'Too many registration attempts']);
+        // }
+        // Enhanced validation
+        $validator = $this->getEnhancedValidator($request, $decryptedData);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput($request->except(['password', 'password_confirmation', 'captcha']));
+        }
+        // Create user with enhanced security
+        $data = $request->all();
+        event(new Registered($user =  $this->createSecureUser($data, $decryptedData)));
+        // event(new Registered($user = $this->create($data)));
+        // Session::flash('success', 'Please Login');
+        $success = "Your Registration Done Successfully, please login";
+        $request->session()->put('succ', $success);
+        redirect()->route('login')->withSuccess('Success message');;
+        // $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
+    }
+
+    private function validateSecurityHeaders(Request $request)
+    {
+
+        // Validate security token
+        $securityToken = $request->input('security_token');
+
+        if (!$securityToken) {
+            abort(403, 'Security token missing');
+        }
+
+        // Validate CSRF token
+        if ($request->session()->token() !== $request->input('_token')) {
+            abort(403, 'CSRF token mismatch');
+        }
+
+        // Check for suspicious patterns
+        if ($this->detectSuspiciousActivity($request)) {
+            Log::warning('Suspicious registration attempt detected', [
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent()
+            ]);
+            abort(403, 'Suspicious activity detected');
+        }
+    }
+
+    private function decryptPasswords(Request $request)
+    {
+        try {
+            $encryptedPassword = $request->input('password');
+            $encryptedPasswordConfirm = $request->input('password_confirmation');
+
+            $password = $this->multiLayerDecrypt($encryptedPassword, $request);
+            $passwordConfirm = $this->multiLayerDecrypt($encryptedPasswordConfirm, $request);
+
+            if (!$password || !$passwordConfirm) {
+                return false;
+            }
+
+            $passwordParts = explode('|', $password);
+            $passwordConfirmParts = explode('|', $passwordConfirm);
+
+            if (count($passwordParts) !== 2 || count($passwordConfirmParts) !== 2) {
+                return false;
+            }
+
+            $timestamp = $passwordParts[1];
+
+            // Validate timestamp (should be recent). JS uses Date.now() (ms)
+            if (time() - ($timestamp / 1000) > 300) { // 5 minute window
+                return false;
+            }
+
+            return [
+                'password' => $passwordParts[0],
+                'password_confirmation' => $passwordConfirmParts[0]
+            ];
+        } catch (\Exception $e) {
+            Log::error('Password decryption error', ['error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    private function multiLayerDecrypt($encryptedData, Request $request)
+    {
+        try {
+            // Outer base64 produced by JS's btoa(combinedB64 + ':' + hash)
+            $decodedOuter = base64_decode($encryptedData);
+            if ($decodedOuter === false) {
+                return false;
+            }
+
+            // split into combinedB64 and hash (only first colon)
+            $parts = explode(':', $decodedOuter, 2);
+            if (count($parts) !== 2) {
+                // fallback: treat the decoded outer as base64 ciphertext (legacy)
+                $fallback = openssl_decrypt(
+                    base64_decode($encryptedData),
+                    'AES-256-CBC',
+                    hash('sha256', 'fallback_key_2024', true),
+                    OPENSSL_RAW_DATA,
+                    substr(hash('sha256', 'fallback_key_2024', true), 0, 16)
+                );
+                return $fallback ?: false;
+            }
+
+            $combinedB64 = $parts[0];
+            $receivedHash = $parts[1];
+
+            // Reconstruct the same keyHex as JS
+            $sessionId = $request->session()->token();
+            $timestamp = floor(time() / 300); // same 5-minute slot as JS
+            // JS uses navigator.userAgent + screen.width + screen.height
+            $screenWidth = $request->input('screen_width', '');
+            $screenHeight = $request->input('screen_height', '');
+            $browserFingerprint = $request->userAgent() . $screenWidth . $screenHeight;
+
+            $keyHex = hash('sha256', $sessionId . $timestamp . $browserFingerprint); // 64 hex chars
+            // Verify hash (JS used: substr(SHA256(combinedB64 + keyHex), 0, 16))
+            $expectedHash = substr(hash('sha256', $combinedB64 . $keyHex), 0, 16);
+            if (!hash_equals($expectedHash, $receivedHash)) {
+                Log::warning('Integrity hash mismatch during decrypt', [
+                    'expected' => $expectedHash,
+                    'received' => $receivedHash
+                ]);
+                return false;
+            }
+
+            // decode combined (base64 from client)
+            $combined = base64_decode($combinedB64);
+            if ($combined === false) {
+                return false;
+            }
+
+            // first 16 bytes = IV, rest = ciphertext
+            $iv = substr($combined, 0, 16);
+            $ciphertext = substr($combined, 16);
+
+            if ($iv === false || $ciphertext === false) {
+                return false;
+            }
+
+            // Convert keyHex to raw binary (32 bytes) for AES-256
+            $keyBinary = hex2bin($keyHex);
+            if ($keyBinary === false) {
+                return false;
+            }
+
+            $decrypted = openssl_decrypt(
+                $ciphertext,
+                'AES-256-CBC',
+                $keyBinary,
+                OPENSSL_RAW_DATA,
+                $iv
+            );
+
+            if ($decrypted === false) {
+                Log::warning('OpenSSL decrypt failed');
+                return false;
+            }
+
+            return $decrypted;
+        } catch (\Exception $e) {
+            Log::error('Decrypt error', ['msg' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+
+    private function multiRoundHash($password, $salt)
+    {
+        // Multiple rounds of SHA-256 with different salts
+        $hash = $password;
+
+        for ($i = 0; $i < 10000; $i++) {
+            $hash = hash('sha256', $hash . $salt . $i);
+        }
+
+        // Final SHA-512 round
+        return hash('sha512', $hash . $salt);
+    }
+
+    private function tooManyAttempts(Request $request)
+    {
+        $key = 'register_attempts_' . $request->ip();
+        $attempts = cache()->get($key, 0);
+
+        if ($attempts >= 5) {
+            return true;
+        }
+
+        cache()->put($key, $attempts + 1, 3600); // 1 hour
+        return false;
+    }
+
+    private function detectSuspiciousActivity(Request $request)
+    {
+        // Check for automated requests
+        if (
+            empty($request->userAgent()) ||
+            strpos($request->userAgent(), 'bot') !== false ||
+            strpos($request->userAgent(), 'crawl') !== false
+        ) {
+            return true;
+        }
+
+        // Check request timing (too fast)
+        $lastRequest = cache()->get('last_register_' . $request->ip());
+        if ($lastRequest && (time() - $lastRequest) < 10) {
+            return true;
+        }
+
+        cache()->put('last_register_' . $request->ip(), time(), 3600);
+        return false;
+    }
+    private function getEnhancedValidator(Request $request, array $decryptedData)
+    {
+        return Validator::make(array_merge($request->all(), $decryptedData), [
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users',
+                'not_regex:/[<>"\']/' // Prevent XSS
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'size:10',
+                'regex:/^[6-9][0-9]{9}$/',
+                'unique:users'
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'max:128', // Prevent DoS
+                'confirmed',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'
+            ],
+            'captcha' => 'required|captcha',
+        ]);
+    }
+    public function cryptoJsAesDecrypt($passphrase, $jsonString)
     {
         $jsondata = json_decode($jsonString, true);
-      
+
         $salt = hex2bin($jsondata["s"]);
         $ct = base64_decode($jsondata["ct"]);
         $iv  = hex2bin($jsondata["iv"]);
@@ -105,60 +509,17 @@ class RegisterController extends Controller
         return json_decode($data, true);
     }
 
-    public function registernew(Request $request)
-    {
-      
-        // Create a copy of the request data for validation
-        $validationData = $request->all();
 
-        // For validation, we need to adjust password rules since it's now hashed
-        $validator = $this->validator($validationData);
-        
-        // Add custom validation for hashed passwords
-        $validator->after(function ($validator) use ($request) {
-            // Check if passwords match (hashed comparison)
-            if ($request->password !== $request->password_confirmation) {
-                $validator->errors()->add('password', 'The passwords do not match.');
-            }
-
-            // Check password length (hashed passwords are 64 chars)
-            if (strlen($request->password) !== 64) {
-                $validator->errors()->add('password', 'Invalid password format.');
-            }
-        });
-
-        // Validate the request
-        $validator->validate();
-
-        // Create the user with the hashed password
-        event(new Registered($user = $this->create($request->all())));
-
-        $success = "Your Registration Done Successfully, please login";
-        $request->session()->put('succ', $success);
-        
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
-    }
 
     public function showRegistrationForm(Request $request)
     {
-      
+     
         $role_name = $request->input('role');
-        // dd($role_name);
-        // dd('its here you');
-        // //$roles = Role::where('groupof',0)->get();
-        // $role_name = "national-sports-day-2025";
-        // echo $encode = base64_encode($role_name);
-        // exit;
-        // echo '<br/>';
-        // echo base64_decode($encode);
-        // echo base64_decode($role_name);
-        // exit;
+        $nonce = bin2hex(random_bytes(16)); // 32 hex chars
+        $formNonce = $nonce; // 32 hex chars
+         session(['form_nonce' => $nonce, 'form_nonce_ts' => now()->timestamp]);
+
+        // session(['form_nonce' => $nonce, 'form_nonce_ts' => now()->timestamp]);
         if ($role_name == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==') {
             // dd(123);
             $roles = Role::where('groupof', 0)
@@ -218,7 +579,7 @@ class RegisterController extends Controller
         // dd($blocks->toArray());
         $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
 
-        return view('auth.register', compact('roles', 'state', 'districts', 'blocks'));
+        return view('auth.register', compact('roles', 'state', 'districts', 'blocks','formNonce'));
     }
 
 
@@ -281,31 +642,7 @@ class RegisterController extends Controller
         }
     }
 
-    public function coiregistration09042025(Request $request)
-    {
-        try {
-            // dd("cyclothonshowRegistrationForm");
-            $role_name = "cyclothon-2024";
-            // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
 
-            $roles = Role::where('groupof', 0)
-                ->where('slug', '=', $role_name)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-
-            // }
-            // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-            // dd($blocks->toArray());
-            $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
-            return view('auth.09042025coiregistration', compact('roles', 'state'));
-        } catch (Exception $e) {
-            return abort(404);
-        }
-    }
 
 
     protected function validator(array $data)
@@ -769,6 +1106,476 @@ class RegisterController extends Controller
             }
         }
 
+        return $user;
+    }
+
+    protected function createSecureUser(array $data, array $decryptedData)
+    {
+        // Generate cryptographically secure salt
+        $salt = bin2hex(random_bytes(64)); // 128-character salt
+        // Multiple hashing rounds for enhanced security
+        $password = $decryptedData['password'];
+        $hashedPassword = $this->multiRoundHash($password, $salt);
+        $role_name = $data['role'];
+        if ($role_name == "cyclothon-2024") {
+            $records = DB::table('users')
+                ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
+                ->where([
+                    ['users.email', '=', $data['email']]
+                ])
+                ->select(
+                    'usermetas.id as id',
+                    'name',
+                    'email',
+                    "phone",
+                    "email_verified_at",
+                    "role",
+                    "rolelabel",
+                    "role_id",
+                    "password",
+                    "verified",
+                    "remember_token",
+                    "users.created_at as created_at",
+                    "users.updated_at as updated_at",
+                    "via",
+                    "deviceid",
+                    "FCMToken",
+                    "authid",
+                    "viamedium",
+                    "rolewise",
+                    "user_id",
+                    "dob",
+                    "age",
+                    "gender",
+                    "address",
+                    "state",
+                    "district",
+                    "block",
+                    "city",
+                    "mobile",
+                    "orgname",
+                    "udise",
+                    "pincode",
+                    "tshirtsize",
+                    "height",
+                    "weight",
+                    "image",
+                    "board",
+                    "medium",
+                    "gmail",
+                    "facebook",
+                    "apple",
+                    "cycle",
+                    "cyclothonrole",
+                    "address_line_one",
+                    "address_line_two",
+                    "participant_number"
+                )
+                ->first();
+            // dd($records);
+            if (!empty($records)) {
+                $user = Namouser::create([
+                    'user_id' => $records->user_id,
+                    'name' => $records->name,
+                    'email' => $records->email,
+                    'phone' =>  $records->phone,
+                    'email_verified_at' => $records->email_verified_at,
+                    'role' => $records->role,
+                    'rolelabel' => $records->rolelabel,
+                    'role_id' => $records->role_id,
+                    'password' => $records->password,
+                    'verified' => $records->verified,
+                    'remember_token' => $records->remember_token,
+                    'created_at' => $records->created_at,
+                    'updated_at' => $records->updated_at,
+                    'via' => $records->via,
+                    'deviceid' => $records->deviceid,
+                    'FCMToken' => $records->FCMToken,
+                    'authid' => $records->authid,
+                    'viamedium' => $records->viamedium,
+                    'rolewise' => $records->rolewise,
+                    'cycle' => $records->cycle,
+                    'cyclothonrole' => $records->cyclothonrole,
+                    'participant_number' => $records->participant_number,
+                    'pincode' => $records->pincode,
+                    'tshirtsize' => $records->tshirtsize,
+                    'address_line_one' => $records->address_line_one,
+                    'address_line_two' => $records->address_line_two,
+                    'state' => $records->state,
+                    'district' => $records->district,
+                    'block' => $records->block,
+                    'city' => $records->city
+                ]);
+
+                $Usermappings = new Usermapping();
+                $Usermappings->user_id = $records->user_id;
+                $Usermappings->register_for = $role_name;
+                $Usermappings->status = 1;
+                $Usermappings->save();
+                // dd($role_name);
+                // dd($records->user_id);
+                $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+                // $update = User::where('id',$records->id)
+                $update = User::where('id', $records->user_id)
+                    ->update(
+                        [
+                            'name' => $data['name'],
+                            'email' => $data['email'],
+                            'phone' => $data['phone'],
+                            'role' =>  "subscriber",
+                            'rolelabel' => "INDIVIDUAL",
+                            'rolewise' =>  "cyclothon-2024",
+                            'role_id' => $rolearr['id'],
+                            'password' => Hash::make($data['password']),
+                            'updated_at' => date("Y-m-d h:i:s")
+                        ]
+                    );
+
+                // $records1 = DB::table('usermetas')
+                // ->where([
+                //  ['user_id', '=', $records->id]
+                // ])
+                // ->first();
+                // dd($records);
+                if (!$data['participant_number']) {
+                    $data['participant_number'] = null;
+                }
+                if (!$data['user_join_club_id']) {
+                    $data['user_join_club_id'] = null;
+                }
+                if (isset($data['tshirtsize'])) {
+
+                    if ($data['cyclothonrole'] == "club") {
+                        $tshirtsize = $data['tshirtsize'];
+                    } else {
+                        $tshirtsize = NULL;
+                    }
+                }
+                $records_update = Usermeta::where('id', $records->id)
+                    ->update(
+                        [
+                            'cycle' => $data['cycle'],
+                            'cyclothonrole' => $data['cyclothonrole'],
+                            'participant_number' => $data['participant_number'],
+                            'pincode' => $data['pincode'],
+                            'address_line_one' => NULL,
+                            'address_line_two' => NULL,
+                            'tshirtsize' => $tshirtsize,
+                            'state' => $data['state'],
+                            'district' => $data['district'],
+                            'block' => $data['block'],
+                            'city' => $data['city'],
+                            'user_join_club_id' => $data['user_join_club_id']
+                        ]
+                    );
+            } else {
+
+                $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+
+                if (!empty($data['state'])) {
+                    $state = State::find($data['state']);
+                }
+                if (!empty($data['district'])) {
+                    $district = District::find($data['district']);
+                }
+                if (!empty($data['block'])) {
+                    $block = Block::find($data['block']);
+                }
+                // dd($role_name);
+                $user = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                    'rolewise' => "cyclothon-2024",
+                    'role' =>  "subscriber",
+                    'rolelabel' => "INDIVIDUAL",
+                    'role_id' => $rolearr['id'],
+                    'password' => Hash::make($data['password']),
+                ]);
+
+                if ($user->id) {
+                    $usermeta = new Usermeta();
+                    $usermeta->user_id = $user->id;
+                    // if (!empty($state['name'])) $usermeta->state = $state['name'];
+                    // if (!empty($district['name'])) $usermeta->district = $district['name'];
+                    // if (!empty($block['name'])) $usermeta->block = $block['name'];
+                    // if (!empty($data['state'])) $usermeta->state = $data['state'];
+                    // if (!empty($data['district'])) $usermeta->district = $data['district'];
+                    // if (!empty($data['block'])) $usermeta->block = $data['block'];
+                    // if (!empty($data['city'])) $usermeta->city = $data['city'];
+                    if (is_numeric($data['state'])) {
+                        // echo 1;
+                        if (!empty($state['name'])) $usermeta->state = $state['name'];
+                        if (!empty($district['name'])) $usermeta->district = $district['name'];
+                        if (!empty($block['name'])) $usermeta->block = $block['name'];
+                        if (!empty($data['city'])) $usermeta->city = $data['city'];
+                    } else {
+                        // echo 2;
+                        // dd($data['state']);
+                        if (!empty($data['state'])) $usermeta->state = $data['state'];
+                        if (!empty($data['district'])) $usermeta->district = $data['district'];
+                        if (!empty($data['block'])) $usermeta->block = $data['block'];
+                        if (!empty($data['city'])) $usermeta->city = $data['city'];
+                    }
+                    if (!empty($data['udise'])) $usermeta->udise = $data['udise'];
+                    if (!empty($data['pincode'])) $usermeta->pincode = $data['pincode'];
+                    if (isset($data['tshirtsize'])) {
+
+                        if ($data['cyclothonrole'] == "club") {
+                            $tshirtsize = $data['tshirtsize'];
+                        } else {
+                            $tshirtsize = NULL;
+                        }
+                    }
+                    if (!empty($tshirtsize)) $usermeta->tshirtsize = $tshirtsize;
+                    if (!empty($data['phone'])) $usermeta->mobile = $data['phone'];
+                    if (!empty($data['orgname'])) $usermeta->orgname = $data['orgname'];
+                    if (!empty($data['cycle'])) $usermeta->cycle = $data['cycle'];
+                    if (!empty($data['cyclothonrole'])) $usermeta->cyclothonrole = $data['cyclothonrole'];
+                    if (!empty($data['participant_number'])) $usermeta->participant_number = $data['participant_number'];
+                    if (!empty($data['user_join_club_id'])) $usermeta->user_join_club_id = $data['user_join_club_id'];
+
+                    $usermeta->save();
+                }
+            }
+        } elseif ($role_name == 'namo-fit-india-youth-club' || $role_name == "namo-fit-india-cycling-club") {
+            $records = DB::table('users')
+                ->join('usermetas', 'usermetas.user_id', '=', 'users.id')
+                ->where([
+                    ['users.email', '=', $data['email']]
+                ])
+                ->first();
+
+            if (!empty($records)) {
+                $user = Namouser::create([
+                    'user_id' => $records->user_id,
+                    'name' => $records->name,
+                    'email' => $records->email,
+                    'phone' =>  $records->phone,
+                    'email_verified_at' => $records->email_verified_at,
+                    'role' => $records->role,
+                    'rolelabel' => $records->rolelabel,
+                    'role_id' => $records->role_id,
+                    'password' => $records->password,
+                    'verified' => $records->verified,
+                    'remember_token' => $records->remember_token,
+                    'created_at' => $records->created_at,
+                    'updated_at' => $records->updated_at,
+                    'via' => $records->via,
+                    'deviceid' => $records->deviceid,
+                    'FCMToken' => $records->FCMToken,
+                    'authid' => $records->authid,
+                    'viamedium' => $records->viamedium,
+                    'rolewise' => $records->rolewise,
+                    'cycle' => $records->cycle,
+                    'cyclothonrole' => $records->cyclothonrole,
+                    'participant_number' => $records->participant_number,
+                    'pincode' => $records->pincode,
+                    'tshirtsize' => $records->tshirtsize,
+                    'address_line_one' => $records->address_line_one,
+                    'address_line_two' => $records->address_line_two,
+                    'state' => $records->state,
+                    'district' => $records->district,
+                    'block' => $records->block,
+                    'city' => $records->city
+                ]);
+
+                $Usermappings = new Usermapping();
+                $Usermappings->user_id = $records->id;
+                $Usermappings->register_for = $role_name;
+                $Usermappings->status = 1;
+                $Usermappings->save();
+                $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+                $recordscopy = User::where('id', $records->user_id)
+                    ->update(
+                        [
+                            'name' => $data['name'],
+                            'email' => $data['email'],
+                            'phone' => $data['phone'],
+                            'role' =>  $data['role'],
+                            'rolelabel' => $rolearr['name'],
+                            'role_id' => $rolearr['id'],
+                            'rolewise' => null,
+                            'password' => Hash::make($data['password']),
+                            'updated_at' => date("Y-m-d h:i:s")
+                        ]
+                    );
+                if (isset($data['participant_number'])) {
+                    $participant_number = $data['participant_number'];
+                } else {
+                    $participant_number = NULL;
+                }
+                if (isset($data['pincode'])) {
+                    $pincode = $data['pincode'];
+                } else {
+                    $pincode = NULL;
+                }
+
+                if (isset($data['tshirtsize'])) {
+                    if ($role_name == "namo-fit-india-cycling-club") {
+                        $tshirtsize = $data['tshirtsize'];
+                    } else {
+                        $tshirtsize = NULL;
+                    }
+                }
+                $records_update = Usermeta::where('user_id', $records->user_id)
+                    ->update(
+                        [
+                            'cycle' => NULL,
+                            'cyclothonrole' => NULL,
+                            'participant_number' => $participant_number,
+                            'pincode' => $pincode,
+                            'tshirtsize' => $tshirtsize,
+                            'address_line_one' => $data['address_line_one'] ?? NULL,
+                            'address_line_two' => $data['address_line_two'] ?? NULL,
+                            'state' => $data['state'],
+                            'district' => $data['district'],
+                            'block' => $data['block'],
+                            'city' => $data['city']
+                        ]
+                    );
+            } else {
+
+                $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+
+                if (!empty($data['state'])) {
+                    $state = State::find($data['state']);
+                }
+                if (!empty($data['district'])) {
+                    $district = District::find($data['district']);
+                }
+                if (!empty($data['block'])) {
+                    $block = Block::find($data['block']);
+                }
+
+                $user = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                    'role' =>  $data['role'],
+                    'rolelabel' => $rolearr['name'],
+                    'role_id' => $rolearr['id'],
+                    'password' => Hash::make($data['password']),
+                ]);
+
+                if ($user->id) {
+                    $usermeta = new Usermeta();
+                    $usermeta->user_id = $user->id;
+                    if (is_numeric($data['state'])) {
+                        // echo 1;
+                        if (!empty($state['name'])) $usermeta->state = $state['name'];
+                        if (!empty($district['name'])) $usermeta->district = $district['name'];
+                        if (!empty($block['name'])) $usermeta->block = $block['name'];
+                        if (!empty($data['city'])) $usermeta->city = $data['city'];
+                    } else {
+                        // echo 2;
+                        // dd($data['state']);
+                        if (!empty($data['state'])) $usermeta->state = $data['state'];
+                        if (!empty($data['district'])) $usermeta->district = $data['district'];
+                        if (!empty($data['block'])) $usermeta->block = $data['block'];
+                        if (!empty($data['city'])) $usermeta->city = $data['city'];
+                    }
+
+                    if (!empty($data['udise'])) $usermeta->udise = $data['udise'];
+                    if (!empty($data['phone'])) $usermeta->mobile = $data['phone'];
+                    if (!empty($data['pincode'])) $usermeta->pincode = $data['pincode'];
+                    if (isset($data['tshirtsize'])) {
+                        if ($role_name == "namo-fit-india-cycling-club") {
+                            $tshirtsize = $data['tshirtsize'];
+                        } else {
+                            $tshirtsize = NULL;
+                        }
+                    }
+                    if (!empty($tshirtsize)) $usermeta->tshirtsize = $tshirtsize;
+                    if (!empty($data['orgname'])) $usermeta->orgname = $data['orgname'];
+
+                    if (isset($data['participant_number'])) {
+                        $participant_number = $data['participant_number'];
+                    } else {
+                        $participant_number = NULL;
+                    }
+                    if (!empty($participant_number)) $usermeta->participant_number = $participant_number;
+                    if (!empty($data['address_line_one'])) $usermeta->address_line_one = $data['address_line_one'];
+                    if (!empty($data['address_line_two'])) $usermeta->address_line_two = $data['address_line_two'];
+
+                    $usermeta->save();
+                }
+            }
+        } elseif ($data['role_name'] == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1') {
+
+            $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+
+            if (!empty($data['state'])) {
+                $state = State::find($data['state']);
+            }
+            if (!empty($data['district'])) {
+                $district = District::find($data['district']);
+            }
+            if (!empty($data['block'])) {
+                $block = Block::find($data['block']);
+            }
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'role' =>  $data['role'],
+                'rolelabel' => $rolearr['name'],
+                'role_id' => $rolearr['id'],
+                'rolewise' =>  base64_decode($data['role_name']),
+                'password' => $hashedPassword,
+            ]);
+
+            if ($user->id) {
+                $usermeta = new Usermeta();
+                $usermeta->user_id = $user->id;
+                if (!empty($state['name'])) $usermeta->state = $state['name'];
+                if (!empty($district['name'])) $usermeta->district = $district['name'];
+                if (!empty($block['name'])) $usermeta->block = $block['name'];
+                if (!empty($data['city'])) $usermeta->city = $data['city'];
+                if (!empty($data['udise'])) $usermeta->udise = $data['udise'];
+                if (!empty($data['phone'])) $usermeta->mobile = $data['phone'];
+                if (!empty($data['orgname'])) $usermeta->orgname = $data['orgname'];
+
+                $usermeta->save();
+            }
+        } else {
+            $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
+
+            if (!empty($data['state'])) {
+                $state = State::find($data['state']);
+            }
+            if (!empty($data['district'])) {
+                $district = District::find($data['district']);
+            }
+            if (!empty($data['block'])) {
+                $block = Block::find($data['block']);
+            }
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'role' =>  $data['role'],
+                'rolelabel' => $rolearr['name'],
+                'role_id' => $rolearr['id'],
+                'password' => $hashedPassword,
+            ]);
+
+            if ($user->id) {
+                $usermeta = new Usermeta();
+                $usermeta->user_id = $user->id;
+                if (!empty($state['name'])) $usermeta->state = $state['name'];
+                if (!empty($district['name'])) $usermeta->district = $district['name'];
+                if (!empty($block['name'])) $usermeta->block = $block['name'];
+                if (!empty($data['city'])) $usermeta->city = $data['city'];
+                if (!empty($data['udise'])) $usermeta->udise = $data['udise'];
+                if (!empty($data['phone'])) $usermeta->mobile = $data['phone'];
+                if (!empty($data['orgname'])) $usermeta->orgname = $data['orgname'];
+
+                $usermeta->save();
+            }
+        }
         return $user;
     }
 
