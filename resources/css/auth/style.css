@@ -1,0 +1,76 @@
+
+    .register-row-lft {
+        width: 64% !important;
+    }
+
+    .loaderregister {
+        position: relative;
+        z-index: 100000000;
+        font-family: arial;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        right: 0;
+        text-align: center;
+        color: #000;
+        opacity: 0.6;
+        /* background: #fff; */
+        background: #000;
+        border-radius: 0;
+        /* position: absolute;
+        z-index: 10;
+        font-family: arial;
+        width: 100%;
+        height: 100%;
+        margin:auto;
+        position:fixed;
+        bottom:0;
+        left:0;
+        top:50%;
+        right: 0;
+        text-align: center;
+        color: #000;
+        opacity: 0.4;
+        background: #fff;
+        border-radius: 10px;         */
+    }
+
+    .e-mob-fx {
+        align-items: center;
+    }
+
+    @media screen and (max-width:576px) {
+        .e-mob-fx {
+            align-items: flex-start;
+        }
+    }
+
+    .mheight-modal {
+        min-height: 402px;
+    }
+
+    .modal-headerotp .close {
+        padding: 1rem 4rem;
+        margin: -1rem -1rem -1rem auto;
+    }
+    .otpheight-modal{
+            min-height: 230px;
+    }
+    #otpLimitLabel{
+        margin: 10px 139px;
+    }
+    #otpfooter{
+    padding: .20rem .75rem;
+    /* margin: 7px; */
+    margin: 0px 220px;
+}
+select,
+input::-webkit-input-placeholder {
+    font-size: 14px !important;
+    /* padding-left:8px!important; */
+
+}

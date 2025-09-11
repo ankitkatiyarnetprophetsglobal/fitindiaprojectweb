@@ -64,11 +64,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $password_encrypted = $this->cryptoJsAesDecrypt("64", $request->password);
-        $password_confirmation_encrypted = $this->cryptoJsAesDecrypt("64", $request->password_confirmation);
+        $password_plain =  $this->decryptAesGcm("64", $request->password);
+        $password_confirmation_plain = $this->decryptAesGcm("64", $request->password_confirmation);
         $data = $request->all();
-        $data['password'] = $password_encrypted;
-        $data['password_confirmation'] = $password_confirmation_encrypted;
+        $data['password'] = $password_plain;
+        $data['password_confirmation'] = $password_confirmation_plain;
+        if (!hash_equals($password_plain, $password_confirmation_plain)) {
+            return back()->withErrors(['password' => 'Passwords do not match.']);
+        }
         event(new Registered($user = $this->create($data)));
         // Session::flash('success', 'Please Login');
         $success = "Your Registration Done Successfully, please login";
@@ -84,11 +87,49 @@ class RegisterController extends Controller
             ? new JsonResponse([], 201)
             : redirect($this->redirectPath());
     }
-    
-     public function cryptoJsAesDecrypt($passphrase, $jsonString)
+
+    public function decryptAesGcm($passphrase, $jsonString)
+    {
+        $json = json_decode($jsonString, true);
+
+        if (!isset($json['ct'], $json['iv'], $json['s'])) {
+            throw new \Exception("Invalid encrypted payload");
+        }
+
+        // Decode
+        $cipherTag = base64_decode($json['ct']);
+        $iv = base64_decode($json['iv']);
+        $salt = base64_decode($json['s']);
+
+        // AES-GCM tag = last 16 bytes, ciphertext = rest
+        $tag = substr($cipherTag, -16);
+        $ciphertext = substr($cipherTag, 0, -16);
+
+        // Derive key using PBKDF2
+        $key = hash_pbkdf2("sha256", $passphrase, $salt, 100000, 32, true);
+
+        // Decrypt
+        $plaintext = openssl_decrypt(
+            $ciphertext,
+            'aes-256-gcm',
+            $key,
+            OPENSSL_RAW_DATA,
+            $iv,
+            $tag
+        );
+
+        if ($plaintext === false) {
+            throw new \Exception("Decryption failed or data tampered");
+        }
+
+        return $plaintext;
+    }
+
+
+    public function cryptoJsAesDecrypt($passphrase, $jsonString)
     {
         $jsondata = json_decode($jsonString, true);
-      
+
         $salt = hex2bin($jsondata["s"]);
         $ct = base64_decode($jsondata["ct"]);
         $iv  = hex2bin($jsondata["iv"]);
@@ -105,121 +146,109 @@ class RegisterController extends Controller
         return json_decode($data, true);
     }
 
-    public function registernew(Request $request)
-    {
-      
-        // Create a copy of the request data for validation
-        $validationData = $request->all();
 
-        // For validation, we need to adjust password rules since it's now hashed
-        $validator = $this->validator($validationData);
-        
-        // Add custom validation for hashed passwords
-        $validator->after(function ($validator) use ($request) {
-            // Check if passwords match (hashed comparison)
-            if ($request->password !== $request->password_confirmation) {
-                $validator->errors()->add('password', 'The passwords do not match.');
-            }
 
-            // Check password length (hashed passwords are 64 chars)
-            if (strlen($request->password) !== 64) {
-                $validator->errors()->add('password', 'Invalid password format.');
-            }
-        });
+    // public function showRegistrationForm(Request $request)
+    // {
 
-        // Validate the request
-        $validator->validate();
+    //     $role_name = $request->input('role');
+    //     if ($role_name == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==') {
+    //         $roles = Role::where('groupof', 0)
+    //             ->where('slug', '=', 'namo-fit-india-youth-club')
+    //             ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+    //         $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //         $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //         $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //         $club_name = "Club Name";
+    //         return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks', 'club_name'));
+    //     } else if ($role_name == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $role_name == 'namo-fit-india-cycling-club') {
+    //         $roles = Role::where('groupof', 0)
+    //             ->where('slug', '=', 'namo-fit-india-cycling-club')
+    //             ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+    //         $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //         $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //         $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //         $participant = "Member Count";
 
-        // Create the user with the hashed password
-        event(new Registered($user = $this->create($request->all())));
+    //         $club_name = "Club Name";
+    //         $listofcenter = "Kindly contact your nearest SAI Centre to be a part of FIT India’s World Bicycle Day Celebrations.";
+    //         return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks', 'participant', 'listofcenter', 'club_name'));
 
-        $success = "Your Registration Done Successfully, please login";
-        $request->session()->put('succ', $success);
-        
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
+    //     } else if ($role_name == 'Y3ljbG90aG9uLTIwMjQ=') {
+    //         $roles = Role::where('groupof', 0)
+    //             ->where('slug', '=', 'cyclothon-2024')
+    //             ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
 
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
-    }
+    //     } else if ($role_name == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1') {
 
+    //         $roles = Role::where('groupof', 1)
+    //             ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+    //     } else {
+
+    //         $roles = Role::where('groupof', 1)
+    //             ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+    //     }
+    //     $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+
+    //     $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //     $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+    //     return view('auth.register', compact('roles', 'state', 'districts', 'blocks'));
+    // }
     public function showRegistrationForm(Request $request)
     {
-      
         $role_name = $request->input('role');
-        // dd($role_name);
-        // dd('its here you');
-        // //$roles = Role::where('groupof',0)->get();
-        // $role_name = "national-sports-day-2025";
-        // echo $encode = base64_encode($role_name);
-        // exit;
-        // echo '<br/>';
-        // echo base64_decode($encode);
-        // echo base64_decode($role_name);
-        // exit;
-        if ($role_name == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==') {
-            // dd(123);
-            $roles = Role::where('groupof', 0)
-                ->where('slug', '=', 'namo-fit-india-youth-club')
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-            $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
 
-            $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-            // dd($blocks->toArray());
-            $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+        // Common queries
+        $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+        $blocks    = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
+        $state     = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+
+        // Excluded slugs
+        $excluded = ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'];
+
+        if ($role_name === 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==') {
+            $roles = Role::where('groupof', 0)
+                ->where('slug', 'namo-fit-india-youth-club')
+                ->whereNotIn('slug', $excluded)
+                ->orderBy('name', 'ASC')
+                ->get();
 
             $club_name = "Club Name";
+
             return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks', 'club_name'));
-        } else if ($role_name == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $role_name == 'namo-fit-india-cycling-club') {
-
+        } elseif (in_array($role_name, ['bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi', 'namo-fit-india-cycling-club'])) {
             $roles = Role::where('groupof', 0)
-                ->where('slug', '=', 'namo-fit-india-cycling-club')
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-            $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+                ->where('slug', 'namo-fit-india-cycling-club')
+                ->whereNotIn('slug', $excluded)
+                ->orderBy('name', 'ASC')
+                ->get();
 
-            // dd($club_name_with_id);
-
-            $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-            // dd($blocks->toArray());
-            $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            $participant = "Member Count";
-
-            $club_name = "Club Name";
-
-            $listofcenter = "Kindly contact your nearest SAI Centre to be a part of FIT India’s World Bicycle Day Celebrations.";
+            $participant   = "Member Count";
+            $club_name     = "Club Name";
+            $listofcenter  = "Kindly contact your nearest SAI Centre to be a part of FIT India’s World Bicycle Day Celebrations.";
 
             return view('auth.coiregistration', compact('roles', 'state', 'districts', 'blocks', 'participant', 'listofcenter', 'club_name'));
-            // return view('severdownpage');
-
-        } else if ($role_name == 'Y3ljbG90aG9uLTIwMjQ=') {
-
+        } elseif ($role_name === 'Y3ljbG90aG9uLTIwMjQ=') {
             $roles = Role::where('groupof', 0)
-                ->where('slug', '=', 'cyclothon-2024')
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-
-        } else if ($role_name == 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1') {
-
+                ->where('slug', 'cyclothon-2024')
+                ->whereNotIn('slug', $excluded)
+                ->orderBy('name', 'ASC')
+                ->get();
+        } elseif ($role_name === 'bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1') {
             $roles = Role::where('groupof', 1)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+                ->whereNotIn('slug', $excluded)
+                ->orderBy('name', 'ASC')
+                ->get();
         } else {
-
             $roles = Role::where('groupof', 1)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
+                ->whereNotIn('slug', $excluded)
+                ->orderBy('name', 'ASC')
+                ->get();
         }
-        $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-        $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-        // dd($blocks->toArray());
-        $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
 
         return view('auth.register', compact('roles', 'state', 'districts', 'blocks'));
     }
+
 
 
     public function cyclothonshowRegistrationForm(Request $request)
@@ -281,31 +310,7 @@ class RegisterController extends Controller
         }
     }
 
-    public function coiregistration09042025(Request $request)
-    {
-        try {
-            // dd("cyclothonshowRegistrationForm");
-            $role_name = "cyclothon-2024";
-            // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
-
-            $roles = Role::where('groupof', 0)
-                ->where('slug', '=', $role_name)
-                ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-
-            // }
-            // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-            // dd($blocks->toArray());
-            $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
-            return view('auth.09042025coiregistration', compact('roles', 'state'));
-        } catch (Exception $e) {
-            return abort(404);
-        }
-    }
+    
 
 
     protected function validator(array $data)
@@ -597,77 +602,6 @@ class RegisterController extends Controller
             return abort(404);
         }
 
-        /*if($data['role']=='school'){
-            //echo "aaaa";die;
-            return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'role' => ['required'],
-            'udise' =>'required|numeric|digits:11',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'digits:10'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'state' => ['required'],
-            'district' => ['required'],
-            'block' => ['required'],
-            'city' => ['required'],
-            'password_confirmation' => ['required'],
-            'captcha' => ['required', 'captcha'],
-            ],
-            ['captcha.captcha' => 'Invalid Captcha']);
-
-        } else {
-
-          return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'role' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'digits:10'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'state' => ['required'],
-            'district' => ['required'],
-            'block' => ['required'],
-            'city' => ['required'],
-            'password_confirmation' => ['required'],
-            'captcha' => ['required', 'captcha'],
-          ],
-          ['captcha.captcha' => 'Invalid Captcha']);
-        } */
-
-
-        /* $chkerro = false;
-        $validator = Validator::make([],[]);
-
-        if(($data['udise']=='school') && empty($data['udise'])){
-            $chkerro = true;
-            $validator->errors()->add("The udise field is required");
-        }
-
-        if(empty($data['email'])){
-            $chkerro = true;
-            $validator->errors()->add("Please input a valid Email ID");
-        }
-
-        if(empty($data['state'])){
-            $chkerro = true;
-            $validator->errors()->add("The state field is required");
-        }
-
-        if(empty($data['district'])){
-            $chkerro = true;
-            $validator->errors()->add("The district field is required");
-        }
-        if(empty($data['block'])){
-            $chkerro = true;
-            $validator->errors()->add("The block field is required");
-        }
-        if(empty($data['city'])){
-            $chkerro = true;
-            $validator->errors()->add("The city/town/village is required");
-        }
-
-        if($chkerro){
-            throw new ValidationException($validator);
-        } */
     }
 
     /**

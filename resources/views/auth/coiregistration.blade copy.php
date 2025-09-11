@@ -1020,7 +1020,49 @@
                     $("#pincode_error").css("display", "none");
                 }
 
-                
+                // if(state == ""){
+                //     $('#state').select()
+                //     $("#state").focus();
+                //     $("#blankstate").css("display", "block");
+                //     $("#divloader").css("display", "none");
+                //     return false;
+                // }else{
+
+                //     $("#blankstate").css("display", "none");
+                // }
+
+                // if(district_value == ""){
+                //     $('#district').select()
+                //     $("#district").focus();
+                //     $("#blankdistrict").css("display", "block");
+                //     $("#divloader").css("display", "none");
+                //     return false;
+                // }else{
+
+                //     $("#blankdistrict").css("display", "none");
+                // }
+
+                // if(block_value == ""){
+                //     $('#block').select()
+                //     $("#block").focus();
+                //     $("#blankblock").css("display", "block");
+                //     $("#divloader").css("display", "none");
+                //     return false;
+                // }else{
+
+                //     $("#blankblock").css("display", "none");
+                // }
+
+                // if(fi_city_value == ""){
+                //     $("#fi_city").focus();
+                //     $("#blankfi_city_value").css("display", "block");
+                //     $("#divloader").css("display", "none");
+                //     return false;
+                // }else{
+
+                //     $("#blankfi_city_value").css("display", "none");
+                // }
+
                 if(password == ""){
                     $("#password").focus();
                     $("#blankpassword").css("display", "block");
@@ -1043,6 +1085,15 @@
                     }
                 }
 
+                // if(cycle == ""){
+                //     $("#cycle").focus();
+                //     $("#blankcycle").css("display", "block");
+                //     $("#divloader").css("display", "none");
+                //     return false;
+                // }else{
+                //     $("#blankcycle").css("display", "none");
+                //     // return true;
+                // }
 
                 if(captcha == ""){
                     $("#captcha").focus();

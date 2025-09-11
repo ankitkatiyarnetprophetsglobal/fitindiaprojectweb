@@ -685,13 +685,8 @@ class GeneralController extends Controller
             $emailencrypt_trim = $this->encrypt($key, $iv, $emailid);
             $phoneencrypt_trim = $this->encrypt($key, $iv, $phone);
             $email_value = $request->email_value;
-            // dd($email_value);
             $role_value = $request['role_value'];
-
             if (isset($role_value) && isset($email_value) && isset($phone)) {
-       
-                
-                // if($role_name =="bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi"){
                 $records = DB::table('users')
                     ->Join('usermetas', 'users.id', '=', 'usermetas.user_id')
                     ->where('users.role', '=', $role_value)

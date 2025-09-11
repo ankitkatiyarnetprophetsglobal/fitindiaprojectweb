@@ -19,17 +19,17 @@
                             <a id="fi_signup" href="{{ route('register') }}">Create an Account</a>
                         </p>
                         <br>
-                         {{-- Lockout countdown timer --}}
-                         @if ($errors->has('emailTomanyattampt'))
-                            @php
-                                preg_match('/\d+/', $errors->first('emailTomanyattampt'), $matches);
-                                $lockoutSeconds = isset($matches[0]) ? (int) $matches[0] : 0;
-                            @endphp
+                        {{-- Lockout countdown timer --}}
+                        @if ($errors->has('emailTomanyattampt'))
+                        @php
+                        preg_match('/\d+/', $errors->first('emailTomanyattampt'), $matches);
+                        $lockoutSeconds = isset($matches[0]) ? (int) $matches[0] : 0;
+                        @endphp
                         @endif
-                            <div id="lockout-message" class="alert alert-danger" style="display:none;">
-                                Too many login attempts. Please try again in
-                                <span id="countdown"></span>
-                            </div>
+                        <div id="lockout-message" class="alert alert-danger" style="display:none;">
+                            Too many login attempts. Please try again in
+                            <span id="countdown"></span>
+                        </div>
                         <div class="frm-details log_div">
                             <h1>{{ __('Login') }}</h1>
 
@@ -52,9 +52,6 @@
                                     <strong>{{ e($message) }}</strong>
                                 </span>
                                 @enderror
-
-                                
-                           
                             </div>
                             <div class="login-row" style="display:block;">
                                 <label for="password">Password</label>
@@ -71,8 +68,7 @@
                                     oncut="return false"
                                     ondrag="return false"
                                     ondrop="return false"
-                                    oncontextmenu="return false"
-                                    >
+                                    oncontextmenu="return false">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -130,274 +126,68 @@
     </div>
 
 </section>
+{{-- OTP Verification Modal --}}
+<div id="otpModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background-color: #fefefe; margin: 10% auto; padding: 0; border-radius: 10px; width: 90%; max-width: 500px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div class="modal-header" style="padding: 20px; border-bottom: 1px solid #ddd; position: relative;">
+            <span class="close" style="position: absolute; right: 20px; top: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                    <svg width="30" height="30" fill="white" viewBox="0 0 24 24">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                    </svg>
+                </div>
+                <h2 style="margin: 0; color: #333; font-size: 24px;">OTP Verification</h2>
+            </div>
+        </div>
 
-<script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
+        <div class="modal-body" style="padding: 20px;">
+            <p style="text-align: center; color: #666; margin-bottom: 20px; line-height: 1.5;">
+                Please type the OTP as shared on your mobile
+                <span id="phone-display"></span> and Email
+                <span id="email-display"></span>
+            </p>
+
+            <div id="otp-inputs" style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
+                <input type="text" class="otp-input" maxlength="1" style="width: 50px; height: 50px; text-align: center; font-size: 20px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+                <input type="text" class="otp-input" maxlength="1" style="width: 50px; height: 50px; text-align: center; font-size: 20px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+                <input type="text" class="otp-input" maxlength="1" style="width: 50px; height: 50px; text-align: center; font-size: 20px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+                <input type="text" class="otp-input" maxlength="1" style="width: 50px; height: 50px; text-align: center; font-size: 20px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+                <input type="text" class="otp-input" maxlength="1" style="width: 50px; height: 50px; text-align: center; font-size: 20px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+                <input type="text" class="otp-input" maxlength="1" style="width: 50px; height: 50px; text-align: center; font-size: 20px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <span>OTP not received? </span>
+                <a href="#" id="resend-otp" style="color: #667eea; text-decoration: none; font-weight: bold;">RESEND</a>
+                <span id="resend-timer" style="color: #666;"></span>
+            </div>
+
+            <div id="otp-error" class="alert alert-danger" style="display: none; margin: 10px 0; padding: 10px; background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;"></div>
+
+            <button id="verify-otp" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;">
+                SUBMIT
+            </button>
+        </div>
+    </div>
+</div>
 <script>
-    // Secure CAPTCHA reload with CSRF protection and rate limiting
-    let captchaReloadCount = 0;
-    const maxCaptchaReloads = 10;
-
-    jQuery('#reload').click(function() {
-        if (captchaReloadCount >= maxCaptchaReloads) {
-            alert('Too many captcha reload attempts. Please refresh the page.');
-            return;
-        }
-
-        captchaReloadCount++;
-
-        jQuery.ajax({
-            type: 'GET',
-            url: '{{ route("reloadCaptcha") }}', // Use named route instead of hardcoded URL
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            timeout: 10000, // 10 second timeout
-            success: function(data) {
-                if (data && data.captcha) {
-                    jQuery(".captchaimg span").html(data.captcha);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Captcha reload failed:', error);
-                alert('Failed to reload captcha. Please try again.');
-            }
-        });
-    });
-
-    // Enhanced Crypto JS with input validation
-    var CryptoJSAesJson = {
-        stringify: function(cipherParams) {
-            try {
-                var j = {
-                    ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)
-                };
-                if (cipherParams.iv) j.iv = cipherParams.iv.toString();
-                if (cipherParams.salt) j.s = cipherParams.salt.toString();
-                return JSON.stringify(j);
-            } catch (e) {
-                console.error('Encryption stringify error:', e);
-                throw new Error('Encryption failed');
-            }
-        },
-        parse: function(jsonStr) {
-            try {
-                var j = JSON.parse(jsonStr);
-                var cipherParams = CryptoJS.lib.CipherParams.create({
-                    ciphertext: CryptoJS.enc.Base64.parse(j.ct)
-                });
-                if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv);
-                if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s);
-                return cipherParams;
-            } catch (e) {
-                console.error('Encryption parse error:', e);
-                throw new Error('Decryption failed');
-            }
-        }
+    window.appConfig = {
+        reloadCaptchaUrl: "{{ route('reloadCaptcha') }}",
+        csrfToken: "{{ csrf_token() }}",
+        sessionTimeout: {{config('session.lifetime') * 60000 - 300000}},
+        lockoutSeconds: {{$lockoutSeconds ?? 0}},
+        currentEmail: "{{ strtolower(old('email', request()->input('email'))) }}"
     };
 
-    // Enhanced form validation and security
-    $('#frontadmin').on('submit', function(e) {
-        let email = $('#email').val();
-        let password = $('#password').val();
-        let captcha = $('#captcha').val();
-
-        // Client-side input validation
-        if (!email || email.length > 255) {
-            alert('Please enter a valid email address.');
-            e.preventDefault();
-            return false;
-        }
-
-        // Email format validation
-        const emailRegex = /^[a-zA-Z0-9@._-]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Email contains invalid characters.');
-            e.preventDefault();
-            return false;
-        }
-
-        if (!password || password.length < 6 || password.length > 255) {
-            alert('Password must be between 6 and 255 characters.');
-            e.preventDefault();
-            return false;
-        }
-
-        if (!captcha || captcha.length > 10) {
-            alert('Please enter a valid captcha.');
-            e.preventDefault();
-            return false;
-        }
-
-        // Captcha validation
-        const captchaRegex = /^[a-zA-Z0-9]+$/;
-        if (!captchaRegex.test(captcha)) {
-            alert('Captcha contains invalid characters.');
-            e.preventDefault();
-            return false;
-        }
-
-        try {
-            // Encrypt password securely
-            let encrypt_pass = CryptoJS.AES.encrypt(JSON.stringify(password), "64", {
-                format: CryptoJSAesJson
-            }).toString();
-
-            // Validate encrypted length
-            if (encrypt_pass.length > 2000) {
-                alert('Password encryption failed. Please try again.');
-                e.preventDefault();
-                return false;
-            }
-
-            $('#password').val(encrypt_pass);
-
-            // Disable submit button to prevent double submission
-            $('#login-submit').prop('disabled', true).val('Logging in...');
-
-            // Re-enable after timeout
-            setTimeout(function() {
-                $('#login-submit').prop('disabled', false).val('LOGIN');
-            }, 10000);
-
-        } catch (error) {
-            console.error('Encryption error:', error);
-            alert('Password encryption failed. Please try again.');
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    // Input sanitization for real-time validation
-    $('#email').on('input', function() {
-        let value = $(this).val();
-        let sanitized = value.replace(/[^a-zA-Z0-9@._-]/g, '');
-        if (value !== sanitized) {
-            $(this).val(sanitized);
-        }
-        if (sanitized.length > 255) {
-            $(this).val(sanitized.substr(0, 255));
-        }
-    });
-
-    $('#captcha').on('input', function() {
-        let value = $(this).val();
-        let sanitized = value.replace(/[^a-zA-Z0-9]/g, '');
-        if (value !== sanitized) {
-            $(this).val(sanitized);
-        }
-        if (sanitized.length > 10) {
-            $(this).val(sanitized.substr(0, 10));
-        }
-    });
-
-    $('#password').on('input', function() {
-        let value = $(this).val();
-        if (value.length > 255) {
-            $(this).val(value.substr(0, 255));
-            alert('Password too long. Maximum 255 characters allowed.');
-        }
-    });
-
-    $(document).ready(function() {
-        // Security headers and settings
-        $('form').attr('autocomplete', 'off');
-        $('#password').attr('autocomplete', 'new-password');
-
-        // Prevent right-click on sensitive fields
-        $('#password, #captcha').on('contextmenu', function(e) {
-            return false;
-        });
-
-        // Clear sensitive data on page unload
-        $(window).on('beforeunload', function() {
-            $('#password').val('');
-            $('#captcha').val('');
-        });
-
-        // Add CSRF token to meta if not present
-        if (!$('meta[name="csrf-token"]').length) {
-            $('head').append('<meta name="csrf-token" content="{{ csrf_token() }}">');
-        }
-
-        // Session timeout warning
-        let sessionTimeout = {{  config('session.lifetime') * 60000 - 300000}}; // 5 minutes before expiry
-        setTimeout(function() {
-            alert('Your session will expire soon. Please save your work and login again if needed.');
-        }, sessionTimeout);
-    });
-
-    // Content Security Policy helpers
-    window.addEventListener('securitypolicyviolation', function(e) {
-        console.error('CSP Violation:', e.violatedDirective, e.blockedURI);
-    });
+        const routes = {
+        verify_otp: "{{ route('verify-otp') }}",
+        resend_otp: "{{ route('resend-otp') }}"
+    };
+    const csrfToken = "{{ csrf_token() }}";
+     
 </script>
-
-{{-- ===== Countdown Script ===== --}}
-<script>
-    // let lockoutExpiry = localStorage.getItem("lockoutExpiry");
-    const currentEmail = "{{ strtolower(old('email', request()->input('email'))) }}";
-const lockoutKey = currentEmail ? `lockoutExpiry:${currentEmail}` : null;
-let lockoutExpiry = lockoutKey ? localStorage.getItem(lockoutKey) : null;
-
-    // Backend se agar naya lockoutSeconds aaya to update karo
-    // @if(isset($lockoutSeconds) && $lockoutSeconds > 0)
-    //     lockoutExpiry = Date.now() + ({{ $lockoutSeconds }} * 1000);
-    //     localStorage.setItem("lockoutExpiry", lockoutExpiry);
-    // @endif
-
-    @if(isset($lockoutSeconds) && $lockoutSeconds > 0)
-    if (lockoutKey) {
-        lockoutExpiry = Date.now() + ({{ $lockoutSeconds }} * 1000);
-        localStorage.setItem(lockoutKey, lockoutExpiry);
-        }
-    @endif
-
-    function formatTime(seconds) {
-        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-        const s = (seconds % 60).toString().padStart(2, '0');
-        return `${m}:${s}`;
-    }
-
-    function startCountdown() {
-        const msgBox = document.getElementById("lockout-message");
-        const countdownElement = document.getElementById("countdown");
-        const loginBtn = document.getElementById("login-submit");
-
-        if (!lockoutExpiry || Date.now() > lockoutExpiry) {
-            localStorage.removeItem("lockoutExpiry");
-            if (msgBox) msgBox.style.display = "none";
-            if (loginBtn) loginBtn.disabled = false;
-            return;
-        }
-
-        if (msgBox) msgBox.style.display = "block";
-        if (loginBtn) loginBtn.disabled = false;
-
-        const interval = setInterval(() => {
-            const remaining = Math.floor((lockoutExpiry - Date.now()) / 1000);
-
-            if (remaining <= 0) {
-                clearInterval(interval);
-                localStorage.removeItem("lockoutExpiry");
-
-                if (msgBox) msgBox.innerHTML = "You can now try logging in again.";
-                if (loginBtn) loginBtn.disabled = false;
-            } else {
-                if (countdownElement) {
-                    countdownElement.textContent = formatTime(remaining);
-                }
-            }
-        }, 1000);
-    }
-
-    if (lockoutExpiry) startCountdown();
-</script>
-<script>
-// Extra keyboard shortcut protection (Ctrl+V, Ctrl+C etc.)
-document.getElementById("password").addEventListener("keydown", function(e) {
-    if ((e.ctrlKey || e.metaKey) && (e.key === "v" || e.key === "c" || e.key === "x" || e.key === "a")) {
-        e.preventDefault();
-    }
-});
-</script>
+<script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
+<script src="{{ asset('resources/js/auth/crypto.js')}}"></script>
+<script src="{{ asset('resources/js/auth/login.js')}}"></script>
 @endsection
