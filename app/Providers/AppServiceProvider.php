@@ -5,7 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Models\Announcement;
-
+use App\Services\EncryptionService;
+use App\Services\OTPService;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -15,7 +16,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+          // Register EncryptionService as singleton
+        $this->app->singleton(EncryptionService::class, function ($app) {
+            return new EncryptionService();
+        });
+
+        // Register OTPService as singleton
+        $this->app->singleton(OTPService::class, function ($app) {
+            return new OTPService($app->make(EncryptionService::class));
+        });
     }
 
     /**

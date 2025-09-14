@@ -64,6 +64,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        
         $password_plain =  $this->decryptAesGcm("64", $request->password);
         $password_confirmation_plain = $this->decryptAesGcm("64", $request->password_confirmation);
         $data = $request->all();
@@ -254,23 +255,11 @@ class RegisterController extends Controller
     public function cyclothonshowRegistrationForm(Request $request)
     {
         try {
-            // dd("cyclothonshowRegistrationForm");
             $role_name = "cyclothon-2024";
-            // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
-
             $roles = Role::where('groupof', 0)
                 ->where('slug', '=', $role_name)
                 ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-
-            // }
-            // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-            // dd($blocks->toArray());
-            $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
+                $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
             return view('auth.cyclothonregister', compact('roles', 'state'));
         } catch (Exception $e) {
             return abort(404);
@@ -280,9 +269,7 @@ class RegisterController extends Controller
     public function coiregistration(Request $request)
     {
         try {
-            // dd("cyclothonshowRegistrationForm");
             $role_name = "cyclothon-2024";
-            // if($role_name == 'Y3ljbG90aG9uLTIwMjQ='){
             $club_name_with_id = DB::table('users')
                 ->select(DB::raw('MIN(id) as id'), 'name') // One ID per name (smallest)
                 ->whereIn('role', ['namo-fit-india-cycling-club', 'namo-fit-india-youth-club']) // Filter by roles
@@ -293,16 +280,8 @@ class RegisterController extends Controller
             $roles = Role::where('groupof', 0)
                 ->where('slug', '=', $role_name)
                 ->whereNotIn('slug', ['champion', 'smambassador', 'sai_user', 'author', 'gmambassador', 'caadmin', 'gram_panchayat', 'lbambassador', 'ghd', 'stateadmin'])->orderBy('name', 'ASC')->get();
-            // dd($roles);
-
-            // }
-            // $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-
-            // $blocks = Block::whereStatus(true)->orderBy('name', 'ASC')->get();
-            // dd($blocks->toArray());
             $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
 
-            // return view('auth.cyclothonregister', compact('roles', 'state', 'districts', 'blocks'));
             $listofcenter = "Kindly contact your nearest SAI Centre to be a part of FIT India’s World Bicycle Day Celebrations.";
             return view('auth.coiregistration', compact('roles', 'state', 'listofcenter', 'club_name_with_id', 'role_name'));
         } catch (Exception $e) {

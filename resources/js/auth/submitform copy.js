@@ -3,24 +3,38 @@ $('#fi-register').on('submit', async function (e) {
      e.preventDefault();
     let isValid = true;
 
+    // Clear old errors
+    $('.text-danger.small').text('');
+    $('.invalid-feedback strong').text('');
+
+    // Helper function
+    function showError(selector, message) {
+        $(selector).text(message).show();
+        isValid = false;
+    }
+
+    // 1. Role Type (radio)
+    if (!$('input[name="roletype"]:checked').val()) {
+        alert("Please select role type."); // no span available for this
+        isValid = false;
+    }
 
     // 2. Role (select)
-    if (!$('#role').val()) {
-         $('#role-error').text('Role is required');
-    }else{
-          $('#role-error').text('');
-    }
+    // if (!$('#role').val()) {
+    //     showError('#role').next('.invalid-feedback strong', 'Role is required');
+    // }
 
     // 3. Name
-    const name = $('#name').val().trim();
-    if (!name) {
-        $('#name-error').text('Name is required');
+    if (!$('#name').val().trim()) {
+        $('#name').siblings('.invalid-feedback strong').text('Name is required');
         isValid = false;
-    }  else {
-        $('#name-error').text('');
     }
 
- 
+    // 4. Udise / Orgname (if visible)
+    if ($('#fi_udise').is(':visible') && !$('#fi_udise').val().trim()) {
+        $('#fi_udise').siblings('.invalid-feedback strong').text('U-Dise number is required');
+        isValid = false;
+    }
     if ($('#fi_orgname').is(':visible') && !$('#fi_orgname').val().trim()) {
         $('#fi_orgname').after('<span class="text-danger small">Organisation name is required</span>');
         isValid = false;
@@ -29,10 +43,10 @@ $('#fi-register').on('submit', async function (e) {
     // 5. Email
     const email = $('#email').val().trim();
     if (!email) {
-        $('#email-error').text('Email is required').show();
+        $('#email_error').text('Email is required').show();
         isValid = false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        $('#email-error').text('Invalid email format').show();
+        $('#email_error').text('Invalid email format').show();
         isValid = false;
     } else {
         $('#email_error').hide();
@@ -41,46 +55,37 @@ $('#fi-register').on('submit', async function (e) {
     // 6. Phone
     const phone = $('#phone').val().trim();
     if (!phone) {
-        $('#phone-error').text('Phone is required').show();
+        $('#phone_error').text('Phone is required').show();
         isValid = false;
     } else if (!/^[0-9]{10}$/.test(phone)) {
-        $('#phone-error').text('Enter valid 10 digit phone').show();
+        $('#phone_error').text('Enter valid 10 digit phone').show();
         isValid = false;
     } else {
-        $('#phone-error').hide();
+        $('#phone_error').hide();
     }
 
     // 7. State
-        if ($('#state').val() === "") {
-            $('#state-error').text('State is required');
-            isValid = false;
-        } else {
-            $('#state-error').text('');
-        }
+    if (!$('#state').val()) {
+        $('#state').siblings('.invalid-feedback strong').text('State is required');
+        isValid = false;
+    }
 
     // 8. District
     if (!$('#district').val()) {
-        $('#district-error').text('District is required');
+        $('#district').siblings('.invalid-feedback strong').text('District is required');
         isValid = false;
-    }else{
-         $('#district-error').text('');
     }
 
     // 9. Block
     if (!$('#block').val()) {
-        $('#block-error').text('Block is required');
+        $('#block').siblings('.invalid-feedback strong').text('Block is required');
         isValid = false;
-    }
-    else{
-        $('#block-error').text('');
     }
 
     // 10. City
     if (!$('#fi_city').val().trim()) {
-        $('#fi_city-error').text('City is required');
+        $('#fi_city').siblings('.invalid-feedback strong').text('City is required');
         isValid = false;
-    }else{
-        $('#fi_city-error').text('');
     }
 
     // 11. Password
@@ -109,7 +114,7 @@ $('#fi-register').on('submit', async function (e) {
 
     // 13. Captcha
     if (!$('#captcha').val().trim()) {
-        $('#captcha-error').text('Captcha is required');
+        $('#captcha').siblings('.invalid-feedback strong').text('Captcha is required');
         isValid = false;
     }
 
@@ -153,9 +158,3 @@ function validateConfirmPassword(input) {
         input.classList.remove("is-invalid");
     }
 }
-// === Real-time remove error when typing / selecting ===
-$('#fi-register input, #fi-register select').on('input change', function () {
-    const id = $(this).attr('id');   // input ka id get karo
-    $('#' + id + '-error').text(''); // uske error span ko clear karo
-});
-

@@ -300,15 +300,6 @@
                             Email verified
                             <i class="fa fa-check" style="font-size:12px"></i>
                         </span>
-                        {{-- cursor: pointer; --}}
-                        {{-- <div><a href="url">link text</a></div> --}}
-                        {{-- <button type="button">Click Me!</button> --}}
-                        {{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
-                            @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
                     </div>
                 </div>
                 <div style="clear:both"></div>
@@ -546,10 +537,6 @@
                                     Password is required
                                 </span>
                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="password_show()"></span>
-
-
-
-
                     </div>
                     <div class="register-row-rt r_parent">
 
@@ -646,9 +633,6 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content mheight-modal">
                     <div class="modal-header">
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> --}}
                     </div>
                     <div class="modal-body" id="mediumBody">
                         <div class="row justify-content-center">
@@ -682,27 +666,11 @@
                                 <br/>
                                 <span id="resend_otp" style="display:none;">
                                     <button type="button" class="btn btn-info">
-                                    {{-- <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;"> --}}
                                         <a class="email_verify" style="color:#fff;">Resend OTP</a>
                                     </button>
                                 </span>
                             </p>
                         </div>
-                        {{-- <div>
-                            <input type="number" id="email_otp" name="email_otp" size="50" maxlength="6" min="1">
-                            <span id="email_otp_error" style="display:none; color:red;">
-                                Please Enter A Valid OTP
-                            </span>
-                            <button type="button" class="btn btn-info">
-                                <a id="email_otp_verify">otp verify</a>
-                            </button>
-                            <div>Time left = <span id="timer"></span></div>
-                            <span id="resend_otp" style="display:none;">
-                                <button type="button" class="btn btn-info">
-                                    <a id="resendotp">Resend OTP</a>
-                                </button>
-                            </span>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -711,9 +679,6 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content mheight-modal">
                     <div class="modal-header">
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> --}}
                     </div>
                     <div class="modal-body" id="mediumBody">
                         <div class="row justify-content-center">
@@ -752,16 +717,6 @@
                                     </span>
                             </p>
                         </div>
-                        {{-- <div>
-                            Mobile
-                            <input type="number" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
-                            <span id="mobile_otp_error" style="display:none; color:red;">
-                                Please Enter A Valid OTP
-                            </span>
-                            <button type="button" class="btn btn-info">
-                                <a id="mobile_otp_verify">otp verify</a>
-                            </button>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -880,8 +835,6 @@
 
             }
 
-            // alert(cyclothon_val)
-            // return false;
         });
 
         $(function () {

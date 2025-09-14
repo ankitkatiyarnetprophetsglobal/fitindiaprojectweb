@@ -849,7 +849,6 @@ class GeneralController extends Controller
     {
 
         try {
-            // dd($request->all());
             $currentdatetime = time();
             $iv = "fedcba9876543210"; #Same as in JAVA
             $key = "0a9b8c7d6e5f4g3h"; #Same as in JAVA
@@ -872,7 +871,6 @@ class GeneralController extends Controller
                 'otp' => $otp_valuecrypt_trim,
             ]);
 
-            // dd($response->collect());
 
             if ($response['success'] == true) {
 

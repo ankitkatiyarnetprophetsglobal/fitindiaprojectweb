@@ -131,12 +131,24 @@
     <div class="modal-content" style="background-color: #fefefe; margin: 10% auto; padding: 0; border-radius: 10px; width: 90%; max-width: 500px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         <div class="modal-header" style="padding: 20px; border-bottom: 1px solid #ddd; position: relative;">
             <span class="close" style="position: absolute; right: 20px; top: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
-            <div style="text-align: center;">
-                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
-                    <svg width="30" height="30" fill="white" viewBox="0 0 24 24">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+            <div style="text-align: center;margin: 10px 122px;">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                    <!-- Mobile Icon -->
+                    <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                        <path d="M7 2C5.9 2 5 2.9 5 4v16c0 1.1.9 2 
+                 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H7zm0 
+                 2h10v16H7V4zm5 18c.55 0 1-.45 1-1h-2c0 
+                 .55.45 1 1 1z" />
+                    </svg>
+                    <!-- Email Icon -->
+                    <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 
+                 2v12c0 1.1.9 2 2 2h16c1.1 
+                 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 
+                 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                 </div>
+
                 <h2 style="margin: 0; color: #333; font-size: 24px;">OTP Verification</h2>
             </div>
         </div>
@@ -180,12 +192,12 @@
         currentEmail: "{{ strtolower(old('email', request()->input('email'))) }}"
     };
 
-        const routes = {
+    const routes = {
         verify_otp: "{{ route('verify-otp') }}",
-        resend_otp: "{{ route('resend-otp') }}"
+        resend_otp: "{{ route('resend-otp') }}",
+        reloadCaptcha:'{{ route("reloadCaptcha") }}'
     };
     const csrfToken = "{{ csrf_token() }}";
-     
 </script>
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
 <script src="{{ asset('resources/js/auth/crypto.js')}}"></script>
