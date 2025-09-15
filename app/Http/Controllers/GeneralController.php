@@ -686,7 +686,8 @@ class GeneralController extends Controller
             $phoneencrypt_trim = $this->encrypt($key, $iv, $phone);
             $email_value = $request->email_value;
             $role_value = $request['role_value'];
-            if (isset($role_value) && isset($email_value) && isset($phone)) {
+            if (isset($phone)) {
+            // if (isset($role_value) && isset($email_value) && isset($phone)) {
                 $records = DB::table('users')
                     ->Join('usermetas', 'users.id', '=', 'usermetas.user_id')
                     ->where('users.role', '=', $role_value)
@@ -705,7 +706,7 @@ class GeneralController extends Controller
                         ->where('type', 'user')
                         ->whereBetween('created_at', [$start, $end])
                         ->count();
-                    if ($otpDailyCount == 10) {
+                    if ($otpDailyCount == 2) {
                          return response()->json(['success' => 'otplimitexceed']);
                     }
                     // 🔒 End Daily OTP Limit

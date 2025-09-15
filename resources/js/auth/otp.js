@@ -51,6 +51,7 @@ $('.email_verify').click(function (event) {
 
 // Mobile verify
 $('.mobile_verify').click(function (event) {
+
     event.preventDefault();
     $("#divloader").show();
     $("#mobile_otp_resend").hide();
@@ -58,14 +59,16 @@ $('.mobile_verify').click(function (event) {
     const phone_value = $('#phone').val();
     const role_name = $('#role_name').val();
 
-    if (!$.isNumeric(phone_value) || phone_value.length !== 10) {
-        $("#divloader").hide();
-        $("#phone_error").show();
-        return;
-    }
-    $("#phone_error").hide();
-
-    $.post(routes.duplicatemobilecheck, {
+   const phone = $('#phone').val().trim();
+    if (!phone) {
+        $('#phone-error').text('Mobile is required').show();
+        isValid = false;
+    } else if (!/^[0-9]{10}$/.test(phone)) {
+        $('#phone-error').text('Enter valid 10 digit Mobile').show();
+        isValid = false;
+    } else {
+        $('#phone-error').hide();
+         $.post(routes.duplicatemobilecheck, {
         phone_number: phone_value,
         role_name,
         _token: csrfToken
@@ -80,4 +83,7 @@ $('.mobile_verify').click(function (event) {
             startTimer('mobile_timer', 180, "#mobile_otp_resend");
         }
     });
+    }
+
+   
 });

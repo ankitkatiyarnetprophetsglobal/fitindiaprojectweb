@@ -2,13 +2,11 @@
 $('#fi-register').on('submit', async function (e) {
      e.preventDefault();
     let isValid = true;
-
-
     // 2. Role (select)
-    if (!$('#role').val()) {
-         $('#role-error').text('Role is required');
+    if (!$('#cyclothonrole').val()) {
+         $('#cyclothonrole-error').text('Role is required');
     }else{
-          $('#role-error').text('');
+          $('#cyclothonrole-error').text('');
     }
 
     // 3. Name
@@ -18,6 +16,13 @@ $('#fi-register').on('submit', async function (e) {
         isValid = false;
     }  else {
         $('#name-error').text('');
+    }
+    const participant_number = $('#name').val().trim();
+    if (!participant_number) {
+        $('#participant_number-error').text('Participant number is required');
+        isValid = false;
+    }  else {
+        $('#participant_number-error').text('');
     }
 
  
@@ -41,13 +46,34 @@ $('#fi-register').on('submit', async function (e) {
     // 6. Phone
     const phone = $('#phone').val().trim();
     if (!phone) {
-        $('#phone-error').text('Phone is required').show();
+        $('#phone-error').text('Mobile is required').show();
         isValid = false;
     } else if (!/^[0-9]{10}$/.test(phone)) {
-        $('#phone-error').text('Enter valid 10 digit phone').show();
+        $('#phone-error').text('Enter valid 10 digit Mobile').show();
         isValid = false;
     } else {
         $('#phone-error').hide();
+    }
+    // const address_line_one = $('#address_line_one').val().trim();
+    // if (!address_line_one) {
+    //     $('#address_line_one-error').text('Address Line 1 is required').show();
+    //     isValid = false;
+    // } else {
+    //     $('#address_line_one-error').hide();
+    // }
+    // const address_line_two = $('#address_line_two').val().trim();
+    // if (!address_line_two) {
+    //     $('#address_line_two-error').text('Address Line 1 is required').show();
+    //     isValid = false;
+    // } else {
+    //     $('#address_line_two-error').hide();
+    // }
+    const pincode = $('#pincode').val().trim();
+    if (!pincode) {
+        $('#pincode-error').text('pincode is required').show();
+        isValid = false;
+    } else {
+        $('#pincode-error').hide();
     }
 
     // 7. State
@@ -155,8 +181,8 @@ function validateConfirmPassword(input) {
 }
 // === Real-time remove error when typing / selecting ===
 $('#fi-register input, #fi-register select').on('input change', function () {
-    const id = $(this).attr('id');
-     if (id === 'password' || id === 'password-confirm') return;
-    $('#' + id + '-error').text('');
+    const id = $(this).attr('id');   // input ka id get karo
+    if (id === 'password' || id === 'password-confirm') return;
+    $('#' + id + '-error').text(''); //
 });
 

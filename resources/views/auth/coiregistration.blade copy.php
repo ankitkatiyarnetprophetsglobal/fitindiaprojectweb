@@ -26,22 +26,6 @@
         /* background: #fff; */
         background: #000;
         border-radius: 0;
-        /* position: absolute;
-        z-index: 10;
-        font-family: arial;
-        width: 100%;
-        height: 100%;
-        margin:auto;
-        position:fixed;
-        bottom:0;
-        left:0;
-        top:50%;
-        right: 0;
-        text-align: center;
-        color: #000;
-        opacity: 0.4;
-        background: #fff;
-        border-radius: 10px;         */
     }
     .e-mob-fx{
         align-items: center;
@@ -122,6 +106,7 @@
                                     <option value="club" selected>Club</option>
                                 </select>
                             @endif
+                            <span id="role-error" class="error-message text-danger small"></span>
                             @error('cyclothonrole')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -300,15 +285,6 @@
                             Email verified
                             <i class="fa fa-check" style="font-size:12px"></i>
                         </span>
-                        {{-- cursor: pointer; --}}
-                        {{-- <div><a href="url">link text</a></div> --}}
-                        {{-- <button type="button">Click Me!</button> --}}
-                        {{-- <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" placeholder="Mobile">
-                            @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror --}}
                     </div>
                 </div>
                 <div style="clear:both"></div>
@@ -546,10 +522,6 @@
                                     Password is required
                                 </span>
                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password r_child" onclick="password_show()"></span>
-
-
-
-
                     </div>
                     <div class="register-row-rt r_parent">
 
@@ -646,9 +618,6 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content mheight-modal">
                     <div class="modal-header">
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> --}}
                     </div>
                     <div class="modal-body" id="mediumBody">
                         <div class="row justify-content-center">
@@ -682,27 +651,11 @@
                                 <br/>
                                 <span id="resend_otp" style="display:none;">
                                     <button type="button" class="btn btn-info">
-                                    {{-- <button type="button" class="btn btn-info mt-2"  style="background-color: #02349a;"> --}}
                                         <a class="email_verify" style="color:#fff;">Resend OTP</a>
                                     </button>
                                 </span>
                             </p>
                         </div>
-                        {{-- <div>
-                            <input type="number" id="email_otp" name="email_otp" size="50" maxlength="6" min="1">
-                            <span id="email_otp_error" style="display:none; color:red;">
-                                Please Enter A Valid OTP
-                            </span>
-                            <button type="button" class="btn btn-info">
-                                <a id="email_otp_verify">otp verify</a>
-                            </button>
-                            <div>Time left = <span id="timer"></span></div>
-                            <span id="resend_otp" style="display:none;">
-                                <button type="button" class="btn btn-info">
-                                    <a id="resendotp">Resend OTP</a>
-                                </button>
-                            </span>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -711,9 +664,6 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content mheight-modal">
                     <div class="modal-header">
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> --}}
                     </div>
                     <div class="modal-body" id="mediumBody">
                         <div class="row justify-content-center">
@@ -752,16 +702,6 @@
                                     </span>
                             </p>
                         </div>
-                        {{-- <div>
-                            Mobile
-                            <input type="number" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
-                            <span id="mobile_otp_error" style="display:none; color:red;">
-                                Please Enter A Valid OTP
-                            </span>
-                            <button type="button" class="btn btn-info">
-                                <a id="mobile_otp_verify">otp verify</a>
-                            </button>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -770,6 +710,9 @@
     </div>
   </div>
 </section>
+
+
+
 
 <script>
     $('.select2').select2();
@@ -880,8 +823,6 @@
 
             }
 
-            // alert(cyclothon_val)
-            // return false;
         });
 
         $(function () {
@@ -1020,49 +961,7 @@
                     $("#pincode_error").css("display", "none");
                 }
 
-                // if(state == ""){
-                //     $('#state').select()
-                //     $("#state").focus();
-                //     $("#blankstate").css("display", "block");
-                //     $("#divloader").css("display", "none");
-                //     return false;
-                // }else{
-
-                //     $("#blankstate").css("display", "none");
-                // }
-
-                // if(district_value == ""){
-                //     $('#district').select()
-                //     $("#district").focus();
-                //     $("#blankdistrict").css("display", "block");
-                //     $("#divloader").css("display", "none");
-                //     return false;
-                // }else{
-
-                //     $("#blankdistrict").css("display", "none");
-                // }
-
-                // if(block_value == ""){
-                //     $('#block').select()
-                //     $("#block").focus();
-                //     $("#blankblock").css("display", "block");
-                //     $("#divloader").css("display", "none");
-                //     return false;
-                // }else{
-
-                //     $("#blankblock").css("display", "none");
-                // }
-
-                // if(fi_city_value == ""){
-                //     $("#fi_city").focus();
-                //     $("#blankfi_city_value").css("display", "block");
-                //     $("#divloader").css("display", "none");
-                //     return false;
-                // }else{
-
-                //     $("#blankfi_city_value").css("display", "none");
-                // }
-
+                
                 if(password == ""){
                     $("#password").focus();
                     $("#blankpassword").css("display", "block");
@@ -1085,15 +984,6 @@
                     }
                 }
 
-                // if(cycle == ""){
-                //     $("#cycle").focus();
-                //     $("#blankcycle").css("display", "block");
-                //     $("#divloader").css("display", "none");
-                //     return false;
-                // }else{
-                //     $("#blankcycle").css("display", "none");
-                //     // return true;
-                // }
 
                 if(captcha == ""){
                     $("#captcha").focus();
@@ -1176,97 +1066,6 @@
     }
 
 
-
-    // $('.email_verify').click(function(){
-
-    //     $("#divloader").css("display", "block");
-    //     $("#resend_otp").css("display", "none");
-
-    //     event.preventDefault();
-
-    //     email_value = $('#email').val();
-    //     role_name = $('#role_name').val();
-
-    //     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-    //     if((!regex.test(email_value)) || (email_value == "") ){
-
-    //         $("#email_error").css("display", "block");
-    //         $("#divloader").css("display", "none");
-    //         return false;
-
-    //     }else{
-
-    //         $("#email_error").css("display", "none");
-    //     }
-
-    //     $.ajax({
-
-    //        url: "{{ route('duplicateemailcheck') }}",
-    //        type: "post",
-    //        data: {
-    //                 "email":email_value,
-    //                 "role_name":role_name,
-    //                 "_token": $('meta[name="csrf-token"]').attr('content')
-    //             } ,
-
-
-    //         success: function (response) {
-
-    //             $("#divloader").css("display", "none");
-
-    //             if(response.success == false){
-    //                 $("#duplicate_email_error").css("display", "block");
-    //                 return false;
-
-    //             }else{
-
-    //                 // $('#emailModal').modal("show");
-    //                 $('#emailModal').modal({
-    //                     backdrop: 'static',
-    //                     keyboard: false
-    //                 });
-
-    //                 $("#duplicate_email_error").css("display", "none");
-
-    //                 let timerOn = true;
-
-    //                 function timer(remaining) {
-    //                     var m = Math.floor(remaining / 60);
-    //                     var s = remaining % 60;
-
-    //                     m = m < 10 ? '0' + m : m;
-    //                     s = s < 10 ? '0' + s : s;
-    //                     document.getElementById('timer').innerHTML = m + ':' + s;
-    //                     remaining -= 1;
-
-    //                     if(remaining >= 0 && timerOn) {
-    //                         setTimeout(function() {
-    //                             timer(remaining);
-    //                         }, 1000);
-    //                         return;
-    //                     }
-
-    //                     if(!timerOn) {
-    //                         // Do validate stuff here
-    //                         return;
-    //                     }
-    //                     // else{
-    //                     //     alert('timer stopped');
-    //                     // }
-    //                     // Do timeout stuff here
-    //                     $("#resend_otp").css("display", "block");
-    //                     // alert('Timeout for otp');
-    //                 }
-
-    //                 timer(180);
-    //                 // return false;
-
-    //             }
-
-    //         }
-    //     });
-    // });
 
     $('.mobile_verify').click(function(){
 
@@ -1681,6 +1480,20 @@
 
 </script>
 <script>
+
+    jQuery('#reload').click(function () {
+        jQuery.ajax({
+    type: 'GET',
+    url: "{{ route('reloadCaptcha')}}",
+    success: function (data) {
+        jQuery(".captchaimg span").html(data.captcha);
+    }
+    });
+});
+</script>
+
+
+<script>
     var CryptoJSAesJson = {
         stringify: function (cipherParams) {
             var j = {ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)};
@@ -1697,18 +1510,7 @@
         }
     }
 </script>
-<script>
 
-    jQuery('#reload').click(function () {
-        jQuery.ajax({
-    type: 'GET',
-    url: "{{ route('reloadCaptcha')}}",
-    success: function (data) {
-        jQuery(".captchaimg span").html(data.captcha);
-    }
-    });
-});
-</script>
 
 <style>
     select,
