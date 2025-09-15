@@ -188,7 +188,7 @@ $(document).ready(function () {
 
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     showOtpError(xhr.responseJSON.message);
-                    window.location.href = routes.logout_session;
+                    // window.location.href = routes.logout_session;
                 } else {
                     showOtpError("Verification failed. Please try again.");
                 }
@@ -220,7 +220,7 @@ $(document).ready(function () {
             error: function (xhr) {
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     showOtpError(xhr.responseJSON.message);
-                    window.location.href = routes.logout_session;
+                    // window.location.href = routes.logout_session;
                 }
             },
         });
