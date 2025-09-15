@@ -273,21 +273,25 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
-            $('.logoutid').click(function() {
-                //alert("rak")
-                document.getElementById('logout-form').submit();
-            })
-        })
+    const routes1 = {
+        logout_session: "{{ route('logout-session') }}"
+    };
+    const csrfToken1 = "{{ csrf_token() }}";
+</script>
+
+    <script>
+      $(document).ready(function () {
+    $('.logoutid').click(function (e) {
+        e.preventDefault();
+        // 🔹 URL call via GET (Laravel route)
+        window.location.href = routes1.logout_session;
+    });
+});
 
 
         function logoutfn() {
-            // var z = confirm("Are you sure to logout?");
-            // if (z == true) {
-
-            // }
+        
         }
-        //logoutfn();
     </script>
     <script>
         $('a[href*="#"]').on('click', function(e) {

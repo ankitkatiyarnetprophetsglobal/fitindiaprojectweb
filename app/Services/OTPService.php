@@ -106,9 +106,7 @@ class OTPService
         if ($this->verifyOTPWithAPI($user, $request->otp)) {
             return $this->handleSuccessfulOTPVerification($user, $request, $userId);
         }
-        // ❌ OTP galat hai, attempts ++
-        $otpData['attempts']++;
-        Cache::put('otp_' . $userId, $otpData, now()->addMinutes(5));
+       
         // Handle failed verification
         return $this->handleFailedOTPVerification($otpData, $userId);
     }
@@ -292,7 +290,7 @@ class OTPService
 
         return response()->json([
             'status' => 'error',
-            'message' => 'Invalid OTP. ' . (3 - $otpData['attempts']) . ' attempts remaining.'
+            'message' => 'Invalid OTP. ' . max(0, 3 - $otpData['attempts']) . ' attempts remaining.'
         ], 400);
     }
 

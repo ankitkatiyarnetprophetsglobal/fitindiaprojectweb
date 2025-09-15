@@ -195,7 +195,8 @@
     const routes = {
         verify_otp: "{{ route('verify-otp') }}",
         resend_otp: "{{ route('resend-otp') }}",
-        reloadCaptcha:'{{ route("reloadCaptcha") }}'
+        reloadCaptcha:'{{ route("reloadCaptcha") }}',
+        logout_session: "{{ route('logout-session') }}"
     };
     const csrfToken = "{{ csrf_token() }}";
 </script>

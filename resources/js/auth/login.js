@@ -182,10 +182,13 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr) {
+                $(".otp-input").val("");
+                $(".otp-input").first().focus();
                 $("#verify-otp").prop("disabled", false).text("SUBMIT");
 
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     showOtpError(xhr.responseJSON.message);
+                    window.location.href = routes.logout_session;
                 } else {
                     showOtpError("Verification failed. Please try again.");
                 }
@@ -196,7 +199,6 @@ $(document).ready(function () {
     // Resend OTP
     $("#resend-otp").on("click", function (e) {
         e.preventDefault();
-
         if (resendTimer > 0) return;
 
         // Get CSRF token
@@ -218,6 +220,7 @@ $(document).ready(function () {
             error: function (xhr) {
                 if (xhr.responseJSON && xhr.responseJSON.message) {
                     showOtpError(xhr.responseJSON.message);
+                    window.location.href = routes.logout_session;
                 }
             },
         });

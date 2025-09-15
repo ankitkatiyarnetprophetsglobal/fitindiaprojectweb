@@ -254,7 +254,8 @@
         reloadCaptcha: "{{ route('reloadCaptcha')}}",
         getdistrict: "{{ route('getdistrict') }}",
         getblock: "{{ route('getblock') }}",
-        coiregistration: "{{ route('coiregistration') }}"
+        coiregistration: "{{ route('coiregistration') }}",
+        getroles: "{{ route('getroles') }}"
     };
     const csrfToken = "{{ csrf_token() }}";
 </script>

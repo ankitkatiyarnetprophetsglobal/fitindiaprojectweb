@@ -459,7 +459,7 @@
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
 <script src="{{ asset('resources/js/auth/otp.js')}}"></script>
 <script src="{{ asset('resources/js/auth/otpverify.js')}}"></script>
-<script src="{{ asset('resources/js/auth/role.js')}}"></script>
+<script src="{{ asset('resources/js/auth/rolecoi.js')}}"></script>
 <script src="{{ asset('resources/js/auth/crypto.js')}}"></script>
 <script src="{{ asset('resources/js/auth/coisubmitform.js')}}"></script>
 <script src="{{ asset('resources/js/auth/captcha.js')}}"></script>

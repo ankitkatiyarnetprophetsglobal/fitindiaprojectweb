@@ -113,6 +113,7 @@ Route::get('/fitindia-site-up-site-sal-Pk9tpVWSYUsJTqUhDTN7', function() {
 });
 Route::post('/verify-otp', [App\Http\Controllers\Auth\LoginController::class, 'verifyOTP'])->name('verify-otp');
 Route::post('/resend-otp', [App\Http\Controllers\Auth\LoginController::class, 'resendOTP'])->name('resend-otp');
+Route::get('/logout-session', [App\Http\Controllers\Auth\LogoutController::class, 'logoutSession'])->name('logout-session');
 /*Route::prefix('admin')->group(function (){
     Route::get('login', [App\Http\Controllers\Auth\Admin\LoginController::class,'showLoginForm'])->name('admin.login');
     Route::post('login', [App\Http\Controllers\Auth\Admin\LoginController::class,'login']);

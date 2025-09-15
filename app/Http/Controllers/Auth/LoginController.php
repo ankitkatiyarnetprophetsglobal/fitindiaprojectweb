@@ -61,6 +61,8 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
+        
         // Rate limiting check
         if (!$this->checkRateLimit($request)) {
             return $this->handleRateLimitExceeded($request);
@@ -100,6 +102,7 @@ class LoginController extends Controller
 
     public function verifyOTP(Request $request)
     {
+       
         return $this->otpService->verifyOTP($request);
     }
 
