@@ -290,7 +290,65 @@ class DownloadSocController extends Controller
                         $each_user->ubloack,
                         $each_user->ucity,
                         $each_user->ucreated_at,
-                      
+
+                ]);
+
+            }
+
+            fclose($handle);
+            return Response()->download($filename, "soc_report_national_sport_day_2025.csv", $headers);
+    }
+
+    function soc_withparticipantnum_download_nationalsportday2025(){
+
+        $query = "SELECT users.id as user_id,users.name as uname ,users.email as uemail,event_organizations.total_participant,event_organizations.event_bg_image,users.phone as uphone,users.rolelabel as urolelabel,users.rolewise as urolewise,usermetas.state as ustate,usermetas.district as udistrict,usermetas.block as ubloack,usermetas.city as ucity,users.created_at as ucreated_at,event_organizations.eventimg_meta  FROM users inner join usermetas on users.id = usermetas.user_id inner join event_organizations on event_organizations.user_id = users.id WHERE users.rolewise = 'national-sports-day-2025';";
+
+        $data = DB::select(DB::raw($query));
+
+        // dd(count($data));
+            $headers = array(
+                'Content-Type' => 'text/csv'
+            );
+            $filename =  public_path("event.csv");
+            $handle = fopen($filename, 'w');
+
+
+            fputcsv($handle, [
+                    "User ID",
+                    "Name",
+                    "email",
+                    "participant",
+                    "Phone",
+                    "Role label",
+                    "Role wise",
+                    "State",
+                    "District",
+                    "Block",
+                    "City",
+                    "BG image",
+                    "Event All image",
+                    "Created_at",
+
+            ]);
+
+            foreach ($data as $each_user) {
+
+                fputcsv($handle, [
+                        $each_user->user_id,
+                        $each_user->uname,
+                        $each_user->uemail,
+                        $each_user->total_participant,
+                        $each_user->uphone,
+                        $each_user->urolelabel,
+                        $each_user->urolewise,
+                        $each_user->ustate,
+                        $each_user->udistrict,
+                        $each_user->ubloack,
+                        $each_user->ucity,
+                        $each_user->event_bg_image,
+                        $each_user->eventimg_meta,
+                        $each_user->ucreated_at,
+
                 ]);
 
             }

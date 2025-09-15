@@ -13,7 +13,7 @@
             <h1>Add Reward</h1>
           </div>
           </div>
-     <div class="row mb-2">  
+     <div class="row mb-2">
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
@@ -25,11 +25,11 @@
     </section>
 
     <!-- Main content -->
-    
+
   <section class="content">
       <div class="container-fluid">
         <div class="row">
-          
+
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
@@ -55,12 +55,12 @@
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
-                        </ul>                        
+                        </ul>
                     </div>
                 @endif
 
 
-                 
+
                         <div class="form-group">
                     <label for="exampleInputEmail1">Award Group Type</label>
                     <select name="a_group_type" class="form-control">
@@ -88,7 +88,7 @@
                    <input type="radio" name="awardee_select_type" value="state_select"> State Select
                   </div>
                 </div>
-                
+
                 <div class="form-group" id="userlist">
                   <!--   <select class="form-control">
                     <option value="">Select User</option>
@@ -118,7 +118,7 @@
                     <label for="exampleInputEmail1">Image</label>
                     <input type="file" name="image" class="form-control" id="image">
                 </div>
-                
+
                         </div>
                 <!-- /.card-body -->
 
@@ -127,21 +127,22 @@
                 </div>
               </form>
             </div>
-           
-            
+
+
 
           </div>
-          
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-    
+
     <!-- /.content -->
   </div>
 
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<script src="{{ asset('resources/js/newjs/jquery.min.js')}}"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 <!--  <script src="https://jqwidgets.com/public/jqwidgets/jqx-all.js"></script>  -->
 
  <script>
@@ -149,7 +150,7 @@
     $('#webreward').on('submit', function() {
       //alert();
       //   return $('#webreward').jqxValidator('validate');
-     
+
 
      });
   });*/
@@ -177,13 +178,13 @@
           required: "This field is requried",
         },
     },
-    submitHandler: function(form) { 
+    submitHandler: function(form) {
       form.submit();
     }
 });
  });*/
 
-$(document).ready(function(){ 
+$(document).ready(function(){
   $('input[type=radio][name=awardee_select_type]').change(function() {
       if (this.value == 'user_select') {
           $('#userlist').show();
@@ -194,7 +195,7 @@ $(document).ready(function(){
           $('#statelist').show();
       }
   });
-  $('#user_id').keyup(function(){ 
+  $('#user_id').keyup(function(){
       var userid = $(this).val();
       $.ajax({
           type:"POST",

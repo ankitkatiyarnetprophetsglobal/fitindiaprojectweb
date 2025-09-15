@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('resources/ncss/create.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/ncss/style.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/ncss/media_query_quiz.css') }}">
-     <link rel="stylesheet" href="{{ asset('resources/css/newcss/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/css/newcss/select2.min.css') }}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <script>
@@ -205,7 +205,7 @@
                                         <label style="font-weight: 700; margin:0;  font-size:14px" >Student Full Name</label>
                                         <input type="hidden" name="sec" id="sec" />
                                         <input type="text" name="name" autocomplete="off" id="name"
-                                            class="form-control @error('name') is-invalid @enderror" 
+                                            class="form-control @error('name') is-invalid @enderror"
                                             placeholder="{{ __('Student Full Name') }}" value="{{ old('name') }}" maxlength="150">
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -467,7 +467,7 @@
     <script src="{{ asset('resources/js/newjs/bootstrap.min.js')}}"></script>
     <script src="{{ asset('resources/js/newjs/jquery-ui.js')}}"></script>
      <script src="{{ asset('resources/js/newjs/select2.min.js')}}"></script>
-   
+
     <script src="{{ asset('resources/js/jquery.fullscreen.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -518,7 +518,7 @@
 
             $('#district').select2();
             $("#dob").datepicker({
-                dateFormat: 'dd-mm-yy', 
+                dateFormat: 'dd-mm-yy',
                 yearRange: '2002:2022',
                 changeMonth: true,
                 changeYear: true,
@@ -555,7 +555,7 @@
             document.getElementById("error-div").style.display = 'none';
             $('.js_error').addClass('d-none');
 
-            
+
             var name = document.getElementById("name").value;
             var dob = document.getElementById("dob").value;
             var parent_name = document.getElementById("parent_name").value;
@@ -568,12 +568,12 @@
             var pincode = document.getElementById("pincode").value;
             var class_name = document.getElementById("class_name").value;
             var section = document.getElementById("section").value;
-           
+
             var msgflag = false;
             var msgflag1 = false;
             var msg = '';
             var msg1 = '';
-            
+
             if (!name) {
                 msgflag = true;
                 msg += 'Student Full Name,';
@@ -683,7 +683,7 @@
             }
 
 
-            
+
             if (sclass) {
                 var reg = /^[0-9]{1,10}$/;
                 var checking = reg.test(sclass);
@@ -703,21 +703,21 @@
             if (msgflag) {
                 $('.larvel-validate').addClass('d-none');
                 document.getElementById("error-div").innerHTML = msg;
-                
-                
+
+
                 document.getElementById("error-div").style.display = 'block';
                 $('#error-div').removeClass('d-none');
                 document.getElementById("fixed-c").scrollIntoView();
                 if(!msgflag1){
                     return false;
                 }
-                
+
             }
             if (msgflag1) {
                 $('.larvel-validate').addClass('d-none');
                 document.getElementById("error-div").innerHTML = msg1;
-               
-                
+
+
                 document.getElementById("error-div").style.display = 'block';
                 $('#error-div').removeClass('d-none');
                 document.getElementById("fixed-c").scrollIntoView();
@@ -726,7 +726,7 @@
 
 
 
-            //countdown();  
+            //countdown();
 
             //getquizques('en');
             getquizques()
@@ -747,7 +747,7 @@
                     if (response.status == 'error') {
 
                         $('.larvel-validate').addClass('d-none');
-                       
+
                         $('.js_error').html(response.message);
                         $('.js_error').removeClass('d-none');
                     } else {
@@ -811,14 +811,14 @@
                         $('#pincode').prop("readonly", true);
                         $('#class_name').prop("readonly", true);
                         $('#section').prop("readonly", true);
-                  
+
 
 
                         jQuery('#startquizelem').html(msg);
                         jQuery('#start-btn').hide();
                         jQuery('#div_userdata').hide();
                         jQuery('.top_heading_quiz').hide();
-                        
+
                         counterquiz();
                     }
                 }

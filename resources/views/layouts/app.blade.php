@@ -86,8 +86,8 @@
                 <!-- <a class="getlink" data-link="https://drive.google.com/drive/folders/1jFcbOqYHtrFr7giyoULoru0UWBj4Mrl7" href="javascript:void(0);">Download : Fitness ki dose Aadha Ghanta Roz</a>              -->
             </div><!-- Raj close -->
 
-            <!-- <div class="top_head_item on-print"> 
-                <a style="background-color:#008000;" href="https://fitindia.gov.in/road-to-tokyo-2020/Ngwjw1F8RQ+K9gjvFTXYqg==" target="_blank">Road to Tokyo 2020 Quiz </a> 
+            <!-- <div class="top_head_item on-print">
+                <a style="background-color:#008000;" href="https://fitindia.gov.in/road-to-tokyo-2020/Ngwjw1F8RQ+K9gjvFTXYqg==" target="_blank">Road to Tokyo 2020 Quiz </a>
             </div> -->
 
 
@@ -101,14 +101,15 @@
 
                     <li class="nav-item l_area log">
                         @if (Route::has('login'))
-                        <span><a class="nav-link" href="{{ route('login') }}">{{ __('home_content.Login')}} <?php //{{ __('Login') }} 
+                        <span><a class="nav-link" href="{{ route('login') }}">{{ __('home_content.Login')}} <?php //{{ __('Login') }}
                                                                                                             ?> </a></span>
                         @endif
                     </li>
                     <li class="nav-item l_area reg">
                         @if (Route::has('register'))
-                        <span><a class="nav-link" href="{{ route('register') }}">{{ __('home_content.Register')}} <?php //{{ __('Register') }} 
-                                                                                                                    ?></a></span>
+                        {{-- <span><a class="nav-link" href="{{ route('register') }}">{{ __('home_content.Register')}}  --}}
+                            <?php //{{ __('Register') }} ?>
+                        {{-- </a></span> --}}
                         @endif
                     </li>
 
@@ -124,12 +125,12 @@
 
                         <div class="dropdown-menu  top-bar-li cus_drop " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ url('dashboard') }}">
-                                {{ __('home_content.My_account')}} <?php //{{ __('My Account') }} 
+                                {{ __('home_content.My_account')}} <?php //{{ __('My Account') }}
                                                                     ?>
                             </a>
                             @if(Auth::user()->role == 'school')
                             <a class="dropdown-item" href="{{ url('school-profile') }}">
-                                {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }} 
+                                {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
                                                                         ?>
                             </a>
                             <a class="dropdown-item" href="{{ url('edit-school-password') }}">
@@ -138,17 +139,17 @@
                             </a>
                             @else
                             <a class="dropdown-item" href="{{ url('edit-profile') }}">
-                                {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }} 
+                                {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
                                                                         ?>
                             </a>
                             @endif
                             <a class="dropdown-item last_child" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutDivId">
                                 <!--
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" 
+                                                     document.getElementById('logout-form').submit();"
                                                      -->
                                 {{ __('home_content.Logout')}}
-                                <?php // {{ __('Logout') }} 
+                                <?php // {{ __('Logout') }}
                                 ?>
                             </a>
 
@@ -347,7 +348,7 @@
 
 
             //     $('.h_contrast').click(function(){
-            //        ;       
+            //        ;
             //     })
 
             // $('.l_contrast').click(function(){
@@ -491,13 +492,13 @@
             //     html += '. For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.';
             //     html += '</div>';
             //     html += '<div class="modal-footer">';
-            //     html += '<div class="modal-footer linkchange">';   
+            //     html += '<div class="modal-footer linkchange">';
             //     html +='<a href="" class="btn btn-primary btn_custyes">Yes</a>';
             //      html += '<a class="btn  btn_custno" data-dismiss="modal">No</span></a>';
-            //      html += '</div>';  
-            //     html += '</div>';  
-            //     html += '</div>';  
-            //     html += '</div>';  
+            //      html += '</div>';
+            //     html += '</div>';
+            //     html += '</div>';
+            //     html += '</div>';
 
 
             //     $("#textlink").text(linkdata);
@@ -587,7 +588,7 @@
 
 
 
-            // when the modal is opened autoplay it  
+            // when the modal is opened autoplay it
             $('#videoId').on('shown.bs.modal', function(e) {
 
                 // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get

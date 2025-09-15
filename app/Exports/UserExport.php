@@ -31,13 +31,13 @@ class UserExport implements FromCollection,WithHeadings
     public function headings():array{
 
 
-        if(request()->has('rolesoc')){
+        if(request()->has('rolesoc')){			
             return[
 			'ID',
 			'Name',
-			'Email',
+			// 'Email',
 			'Role',
-			'Mobile',
+			// 'Mobile',
 			'Address line one',
 			'Address line two',
 			'City',
@@ -54,9 +54,9 @@ class UserExport implements FromCollection,WithHeadings
 		return[
 			'ID',
 			'Name',
-			'Email',
+			// 'Email',
 			'Role',
-			'Mobile',
+			// 'Mobile',
 			'Address line one',
 			'Address line two',
 			'City',

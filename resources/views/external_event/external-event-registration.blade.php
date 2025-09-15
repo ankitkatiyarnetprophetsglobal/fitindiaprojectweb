@@ -2,10 +2,10 @@
 
 <!doctype html>
 <html lang="en">
-  <head>   
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
      <link rel="stylesheet" href="{{ asset('resources/css/newcss/bootstrap.min.css') }}">
 
     <title>External-Event-Activity</title>
@@ -51,14 +51,14 @@ height: auto;;
  <div class="col-md-12 col-lg-12 mt-4 ">
    <h4 class=" mb-3 text-center">Welcome to 75 crore Suryanamaskar initiative</h4>
    <p class=" mb-2">Register as:</p>
- </div>   
+ </div>
 </div>
 <div class="row">
   <div class="col-md-12 col-lg-12  ">
     <div class="ex_flex">
    <div  class="card card_cus "><input type="radio" name="r1" value="individual"><label class="mb-0 mr-2"> Individual</label></div>
    <div  class="card card_cus"><input type="radio" name="r1" value="organization"> <label class="mb-0 mr-2"> Organization</label></div>
-  
+
    </div>
    </div>
    </div>
@@ -67,18 +67,18 @@ height: auto;;
     <form action="{{route('external-event-add')}}" method="POST" id="extevt_registratoin" name="extevt_registratoin" style="display:none;">
     @csrf
 
-  
+
   <input type="hidden" name="reg_type" value="organization">
     <input type="hidden" name="user_id" value="<?=$_REQUEST['Fit_id'];?>">
 
   <div class="form-group">
     <label for="exampleInputEmail1"> Organization Name</label>
-    <input type="text" name="org_name" class="form-control">   
+    <input type="text" name="org_name" class="form-control">
   </div>
 
   <div class="form-group">
     <label for="exampleInputEmail1"> Number of Participants</label>
-    <input type="number" min="0" name="num_of_participant"  class="form-control">  
+    <input type="number" min="0" name="num_of_participant"  class="form-control">
   </div>
 
   <div class="form-group">
@@ -119,7 +119,8 @@ height: auto;;
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  --}}
+<script src="{{ asset('resources/js/newjs/jquery.min.js')}}"></script>
  <script src='resources/js/jquery.validate.min.js'></script>
 <script type="text/javascript" src="resources/js/additional-methods.js"></script>
 
@@ -127,11 +128,11 @@ height: auto;;
 
 <script>
 $(function() {
-    $.validator.addMethod("lettersonly", function(value, element) 
+    $.validator.addMethod("lettersonly", function(value, element)
     {
       //return this.optional(element) || /^[a-z," "]+$/i.test(value);
       return this.optional(element) || /^[a-zA-Z0-9_@./#&+,:\s/-]+$/i.test(value);
-    }, "Letters and spaces only please"); 
+    }, "Letters and spaces only please");
     $("form[name='extevt_registratoin']").validate({
             rules: {
                 org_name:{
@@ -141,10 +142,10 @@ $(function() {
                 num_of_participant:{
                   required:true
                 },
-                state: {  
+                state: {
                     required:true
                 }
-                
+
             },
             messages: {
                 org_name:{
@@ -155,9 +156,9 @@ $(function() {
                     required: "Please enter your email"
                 }
             },
-            submitHandler: function(form){ 
+            submitHandler: function(form){
                 form.submit();
-            }   
+            }
         });
 });
 
@@ -165,7 +166,7 @@ $(function() {
 
 
 
-$(document).ready(function(){ 
+$(document).ready(function(){
   $('input[type=radio][name=r1]').change(function() {
       if (this.value == 'organization') {
           $('#extevt_registratoin').show();

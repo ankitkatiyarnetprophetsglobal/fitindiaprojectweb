@@ -147,7 +147,20 @@
                         <div class="icon">
                             <i class="fas fa-bicycle"></i>
                         </div>
-                         <a href="{{ route('socadmin.soc_download_national_sport_day_2025') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a> 
+                         <a href="{{ route('socadmin.soc_download_national_sport_day_2025') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <!-- small box -->
+                    <div class="small-box bg-black">
+                        <div class="inner">
+                            <h3>{{ $socwithparticipantnumdownloadnationalsportday2025count ?? '' }}</h3>
+                            <p>National Sport day 2025 with participant</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-bicycle"></i>
+                        </div>
+                         <a href="{{ route('socadmin.soc-withparticipantnum-download-nationalsportday2025') }}" class="small-box-footer">Download <i class="fas fa-download"></i></a>
                     </div>
                 </div>
             </div>

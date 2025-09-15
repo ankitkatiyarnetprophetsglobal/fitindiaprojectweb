@@ -501,13 +501,13 @@ $active_section_id = trim($active_section);
     <div class="main">
         <marquee class="marq" style="background-color:#ff6000;" direction="left" loop="">
             <div class="geek1">
-                IMPORTANT: PLEASE PRE-REGISTER FOR MAXIMUM PARTICIPATION | UPLOAD YOUR PHOTOS/VIDEOS AFTER THE EVENT TO DOWNLOAD PARTICIPATION CERTIFICATES
+                IMPORTANT: PLEASE PRE-REGISTER FOR MAXIMUM PARTICIPATION | UPLOAD YOUR PHOTOS/VIDEOS AFTER THE EVENT TO DOWNLOAD PARTICIPATION CERTIFICATES. For any queries, please contact us on - 1800-202-5155, 1800-258-5155
             </div>
         </marquee>
     </div>
-    <div>
+    {{-- <div>
         <h5><center> Registration Count: {{ $user_data_count ?? ""}}</center></h5>
-    </div>
+    </div> --}}
 
     <div class="container-fluid over-hide">
         <div class="row">
@@ -533,8 +533,11 @@ $active_section_id = trim($active_section);
                         Take the pledge
                     </a>
                     {{-- <button class=" buttons d-block mx-auto mb-2">Upload Photos/Videos</button> --}}
-                    <a class="buttons d-block mx-auto mb-2 text-center" href="{{ url('nsd-upload-image') }}">
+                    {{-- <a class="buttons d-block mx-auto mb-2 text-center" href="{{ url('nsd-upload-image') }}">
                         Upload Photos/Videos
+                    </a> --}}
+                    <a class="buttons d-block mx-auto mb-2 text-center" href="https://drive.google.com/drive/u/5/folders/1c7yLP6ONGGIhYRIMIyQGeMKnkCuu4udC">
+                        Suggested Creatives
                     </a>
                 </div>
             </div>
@@ -641,7 +644,7 @@ $active_section_id = trim($active_section);
                             <li>Morning tribute to Major Dhyan Chand in schools, colleges, offices</li>
                             <li>Fit India Pledge</li>
                             <li>60 minutes of team sports & recreational games</li>
-                            <li>Launch of Sansad Khel Mahotsav by MPs in constituencies</li>
+                            {{-- <li>Launch of Sansad Khel Mahotsav by MPs in constituencies</li> --}}
                         </ul>
                     </div>
                     </div>
@@ -854,13 +857,13 @@ $active_section_id = trim($active_section);
                                 <table class="table w-100" >
                                 <tbody>
                                     <tr>
-                                        <td>Tug of war</td>
-                                        <td>50m/100m/200m races</td>
+                                        <td>Hockey</td>
+                                        <td>50m/100m/200m races or Marathons</td>
                                         {{-- <td>Kho Kho</td> --}}
                                     </tr>
                                     <tr>
                                         <td>Relay run</td>
-                                        <td>Marathons</td>
+                                        <td>Tug of war</td>
                                         {{-- <td>Kabaddi</td> --}}
                                     </tr>
                                     <tr>
