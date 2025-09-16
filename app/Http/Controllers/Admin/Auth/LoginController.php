@@ -22,8 +22,8 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-    
-    
+
+
     /**
      * Where to redirect users after login.
      *
@@ -48,8 +48,8 @@ class LoginController extends Controller
        return view('admin.login');
     }
 
-   
-    
+
+
     public function logout(Request $request)
     {
         $this->guard('admin')->logout();
@@ -57,10 +57,10 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return redirect()->route('admin.login');
-    }   
+    }
 
     public function login(Request $request)
-    { 
+    {
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6',
@@ -71,7 +71,7 @@ class LoginController extends Controller
             'password.required' => 'The Password field is required.',
             'captcha.required' => 'The captcha field is required.',
             'captcha.captcha' => 'Invalid Captcha',
-         ]  
+         ]
         );
 
         if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1], $request->get('remember'))) {
@@ -81,12 +81,12 @@ class LoginController extends Controller
 
         return back()->with(['status' => 'success' , 'msg' => 'Invalid Credentials']);
     }
-    
+
      protected function guard()
     {
         return Auth::guard('admin');
     }
-    
-    
-    
+
+
+
 }

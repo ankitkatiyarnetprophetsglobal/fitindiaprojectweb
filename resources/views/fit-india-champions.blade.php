@@ -5,16 +5,16 @@
     $active_section = request()->segment(count(request()->segments()));
     $active_section_id = trim($active_section);
 @endphp
-<div class="container-fluid"> 
+<div class="container-fluid">
     <div class="banner_area1">
         <img src="{{asset('resources/imgs/champion-banner.png') }}" class="fluid-img">
     </div>
 </div>
-<div class="container"> 
+<div class="container">
 <section id="{{ $active_section_id }}">
     <div class="row ">
         <div class="col-sm-12 ahover">
-            <a href = "{{asset('wp-content/uploads/doc/Guidelines-for-Fit-India-Champion.pdf') }}" class="og_btn" target="_blank">Guidelines of Fit India Champion</a>
+            <a href = "{{asset('resources/pdf/renewed-guidelines-registration-fitindia-champion.pdf') }}" class="og_btn" target="_blank">Guidelines of Fit India Champion</a>
             <a href ="champion" class="gr_btn" target="_blank">Register for Fit India Champion</a>
            <div class="m-40"></div>
         </div>
@@ -33,7 +33,7 @@
                      <div class="amb-dv">
                         <div class="amb-colm">
                         <div class="amb-rw">
-                                <div class="amb-pic"> 
+                                <div class="amb-pic">
                                      <img src="{{ $champion_value->image }}" alt="{{ $champion_value->name }}" title="{{ $champion_value->name }}" class="fluid-img">
                                 </div>
                                 <div class="amb-details">
@@ -43,7 +43,7 @@
                                     <p class="amb-social-dv">
                                         <a class="fb-i"href="{{ $champion_value->facebook_profile }}" target="_blank" rel="facebook"></a>
                                         <a href="{{ $champion_value->twitter_profile }}" target="_blank" rel="twitter">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">								
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
                                                 </path>
                                             </svg>
@@ -57,10 +57,10 @@
                     </div>
                 @endforeach
             @endif
-<!-- 
+<!--
             <div class="amb_area">
                 <div class="d-flex">
-                        <div> 
+                        <div>
                             <img src="https://fitindia.gov.in/wp-content/uploads/2021/01/Mickey-Mehta.jpg" alt="Luke-Coutinho" title="Luke Coutinho" class="fluid-img">
                         </div>
                         <div class="amb-details">
@@ -78,7 +78,7 @@
 
          <!--    <div class="amb_area">
                 <div class="d-flex">
-                        <div> 
+                        <div>
                             <img src="https://fitindia.gov.in/wp-content/uploads/2021/01/Shweta-Rathore.jpg" alt="Luke-Coutinho" title="Luke Coutinho" class="fluid-img">
                         </div>
                         <div class="amb-details">
@@ -96,9 +96,9 @@
 
 
         </div>
-       
+
     </div>
-  
+
 </section>
 </div>
 @endsection

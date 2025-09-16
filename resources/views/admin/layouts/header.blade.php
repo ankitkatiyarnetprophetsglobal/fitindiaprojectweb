@@ -8,29 +8,29 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('admin.dashboard') }}" class="nav-link">Home</a>
       </li>
-     
+
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-      
 
-     
-      
+
+
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-	  <li class="nav-item">
+	  {{-- <li class="nav-item">
 		<a class="nav-link" href="{{ route('admin.changepassword') }}"  >  {{ __('Change Password') }} </a>
-	   </li>
+	   </li> --}}
       <li class="nav-item">
-		
-		
+
+
 			<div class="list-group">
-				<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); 
+				<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
 					 document.getElementById('logout-form').submit();">
 					{{ __('Logout') }}
 				</a>

@@ -34,7 +34,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-
+ 
 
 
     <!-- Header -->
@@ -44,21 +44,21 @@
     <!-- Header -->
     @include('admin.layouts.sidebar')
 
-
+   
     <!-- Header end-->
-
-
+  
+     
 
   <!-- Content Wrapper. Contains page content -->
     @yield('content')
   <!-- /.content-wrapper -->
 
-
+    
 
   <footer class="main-footer">
     <strong>Copyright &copy; 2021 </strong>
     All rights reserved.
-
+    
   </footer>
 
   <!-- Control Sidebar -->
