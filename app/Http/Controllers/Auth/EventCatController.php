@@ -56,7 +56,7 @@ class EventCatController extends Controller
 
                     }else{
 
-                        abort(404);
+                         return redirect('/login');
 
                     }
                 }else{
@@ -66,8 +66,7 @@ class EventCatController extends Controller
                 }
 
             }else{
-
-                abort(404);
+                return redirect('/login');
 
             }
         }catch (Exception $e) {
@@ -113,58 +112,31 @@ class EventCatController extends Controller
                  'addparticipants.min' => 'Please enter a value greater than or equal to 0.',
             ]);
             if ($validator->fails()) {
-                // dd(1);
                 Session::flash('error_message', $validator->errors()->first());
                 return back()->withInput();
             }
-
-            // dd($request->event_activity);
-
-            // dd(2);
             $year = date("Y/m");
             $imgurl = array();
             $event_name_store = $request['event_name_store'];
             $state = $request['state'];
             $districts = $request['districts'];
-            // dd(3);
             if($request->hasfile('event_bg_image')) {
-                // old
-                // $name = $request->file('event_bg_image')->getClientOriginalName();
-                // $name = $request->file('event_bg_image')->store($year,['disk'=> 'uploads']);
-                // $name = url('wp-content/uploads/'.$name);
-                // $event_background_image = $name;
-                // new
                 $name = $request->file('event_bg_image')->getClientOriginalName();
-
-                // $name = $request->file('event_bg_image')->store($year,['disk'=> 'uploads']);
                 $image_path = $event_name_store.'/'.$state.'/'.Auth::user()->name;
-                // dd($image_path);
                 $name = $request->file('event_bg_image')->store($image_path,['disk'=> "uploads"]);
                 $name = url('wp-content/uploads/'.$name);
-                // dd($name);
                 $event_background_image = $name;
 
             }
-            // dd($request->event_activity);
-            // dd(4);
             if($request->hasfile('prt_image')) {
                 foreach($request->file('prt_image') as $file){
-                    // old
-                    // $name = $file->getClientOriginalName();
-                    // $name = $file->store($year,['disk'=> 'uploads']);
-                    // $name = url('wp-content/uploads/'.$name);
-                    // $imgurl[] = $name;
-                    // new
                     $name = $file->getClientOriginalName();
                     $name = $file->store($event_name_store.'/'.$state.'/'.Auth::user()->name.'/'.'event_image',['disk'=> 'uploads']);
-                    // $image_path = 'fitindiaweek2023/extra/'.$request['state'].'/'.$request['org_name'].$year;
-                    // $name = $request->file('event_bg_image')->store($image_path,['disk'=> "uploads"]);
                     $name = url('wp-content/uploads/'.$name);
                     $imgurl[] = $name;
 
                 }
             }
-            // dd($request->event_activity);
             $run = new Eventorganizations();
             $run->user_id = Auth::user()->id;
             $run->category = $request->category_name; // event category from event_cat table
@@ -213,11 +185,7 @@ class EventCatController extends Controller
                 $role = Auth::user()->role;
 
                 if($role){
-                    // dd(auth()->user()->rolewise);
                     if (isset(auth()->user()->rolewise)){
-
-                        // if(auth()->user()->rolewise == 'cyclothon-2024'){
-
                         if(auth()->user()->rolewise == 'cyclothon-2024'){
                             $now = Carbon::now()->toDateString();
                             $freedom_events = Eventorganizations::
@@ -225,11 +193,7 @@ class EventCatController extends Controller
                                             ->whereRaw("eventstartdate <=  date('$now')")
                                             ->whereRaw("eventenddate >=  date('$now')")
                                             ->orderBy('id', 'DESC')->first();
-                            // echo '<pre>';
-                            // print_r($freedom_events);
                             if(!empty($freedom_events)){
-
-                                // $categories = EventCat::where('status',2)->where('id','=',13078)->orderBy('id', 'DESC')->get();
                                 $categories = EventCat::where('status',2)->orderBy('id', 'DESC')->get();
                                 $freedom_events = Eventorganizations::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
                                 $role = Role::where('slug', $role)->first()->name;
@@ -248,88 +212,66 @@ class EventCatController extends Controller
                                 switch($DayOfWeekNumber)
                                 {
                                     case 0 :
-                                        // echo("Today is Sunday.");
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("0 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                        // echo $start_date_format;
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("6 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                     case 1 :
-                                        // echo("Today is Monday.");
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-1 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                        // echo $start_date_format;
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("5 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                     case 2 :
-                                        // echo("Today is Tuesday.");
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-2 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                        // echo $start_date_format;
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("4 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                     case 3 :
-                                        // echo("Today is Wednesday.");
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-3 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                        // echo $start_date_format;
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("3 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                     case 4 :
-                                        // echo("Today is thursday.");
+                                       
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-4 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                        // echo $start_date_format;
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("2 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                     case 5 :
-                                        // echo("Today is Friday.");
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-5 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                        // echo $start_date_format;
-                                        // dd("131313");
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("1 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                     case 6 :
-                                        // echo("Today is Saturday.");
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-6 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
-                                            // echo $start_date_format;
                                         $dateend = date_create(date("Y-m-d"));
                                         $end_date = date_add($dateend,date_interval_create_from_date_string("0 days"));
                                         $end_date_format =  date_format($end_date,"Y-m-d");
-                                        // dd($end_date_format);
                                         break;
                                 }
 
                                     $user_information = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
                                     $categories_name = EventCat::where('status',2)->where('id','=',13078)->orderBy('id', 'DESC')->first();
-                                    // $categories_name = EventCat::where('status',2)->orderBy('id', 'DESC')->first();
                                     $imgurl = null;
                                     $prt_date = null;
                                     $number_of_partcipant = null;
@@ -461,7 +403,7 @@ class EventCatController extends Controller
                                             // dd($end_date_format);
                                             break;
                                         case 4 :
-                                            // echo("Today is thursday.");
+                                           
                                             $date = date_create(date("Y-m-d"));
                                             $start_date = date_add($date,date_interval_create_from_date_string("-4 days"));
                                             $start_date_format =  date_format($start_date,"Y-m-d");
@@ -588,7 +530,6 @@ class EventCatController extends Controller
 
                     if(count($freedom_events)>0){
 
-                        // $encryptid = $freedom_events[0]->encryptid;
 
 
                         return response()->json(['success' => true, 'message' => 'records found', 'freedom_events' => $freedom_events]);
@@ -650,7 +591,6 @@ class EventCatController extends Controller
     public function edit(Request $request){
 
         try{
-            // dd("fasdfasdfasdf");
             $validator = Validator::make($request->all(), [
                 'org_name' => 'required',
                 'event_bg_image' => 'nullable|file|max:2047|mimes:jpeg,jpg,png',
@@ -681,7 +621,6 @@ class EventCatController extends Controller
             $state = $request['state'];
             if($request->hasfile('event_bg_image')) {
                 $name = $request->file('event_bg_image')->getClientOriginalName();
-                // $name = $request->file('event_bg_image')->store($year,['disk'=> 'uploads']);
                 $image_path = $event_name_store.'/'.$state.'/'.Auth::user()->name;
                 $name = $request->file('event_bg_image')->store($image_path,['disk'=> "uploads"]);
                 $name = url('wp-content/uploads/'.$name);
@@ -725,7 +664,6 @@ class EventCatController extends Controller
             if (isset(auth()->user()->role)){
 
                 $id = decrypt($id);
-                // dd($id);
                 $role = Auth::user()->role;
                 $categories = EventCat::where('status',2)->orderBy('id', 'DESC')->get();
                 $events = DB::table('event_organizations')
@@ -794,18 +732,14 @@ class EventCatController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'user_id' => 'required',
-                //'ex_file_sheet' => 'required|mimes:xlsx, csv, xls',
             ],[
                 'ex_file_sheet.required' => 'This Input is required.',
-                //'ex_file_sheet.mimes' => 'Please choose a file (.xlsx, .csv, .xls).',
             ]);
 
             if ($validator->fails()) {
                 Session::flash('error_message', $validator->errors()->first());
                 return back()->withInput();
-                // $this->errorOutput['status'] = 400;
-                // $this->errorOutput['message'] = $validator->errors()->first();
-                // $this->output($this->errorOutput);
+  
             }
 
             $extensions = array("xls","xlsx","csv");
@@ -853,12 +787,9 @@ class EventCatController extends Controller
                         ->where('event_organizations.user_id', Auth::user()->id)
                         ->where('event_organizations.id', $id)
                         ->first();
-                // dd($users);
 
                 $categories = EventCat::where([['id',$users->category],['status',2]])->orderBy('id', 'DESC')->first();
-                // dd($categories['name']);
                 $categoriesid = encrypt($categories['id']);
-                // dd($categoriesid);
                 return view('event.event-certificate-process',compact('role','users','id','categories','categoriesid'));
 
             }else{
@@ -875,15 +806,12 @@ class EventCatController extends Controller
     }
 
     public function eventaddPartcipant($id){
-        // dd(1);
         try{
             if (isset(auth()->user()->role)){
                 $id = decrypt($id);
                 $role = Auth::user()->role;
                 $event = Eventorganizations::find($id);
                 $categories = EventCat::where([['id',$event->category],['status',2]])->orderBy('id', 'DESC')->first();
-
-                // dd($categories['name']);
                 return view('event.event-add-participant',compact('event','role','categories'));
 
             }else{
@@ -902,11 +830,9 @@ class EventCatController extends Controller
                 'participant_names' => 'required',
             ],[
                 'participant_names.required' => 'Please Enter Participant Name.',
-                //'participant_names.regex' => 'Please Enter valid Participant Name.',
             ]);
             $memberlist = $request->participant_names;
             $memberlist = explode(PHP_EOL, $memberlist);
-            //dd(empty($memberlist));
             if(!empty($memberlist)){
             $count = count($memberlist);
             }else{
@@ -915,7 +841,6 @@ class EventCatController extends Controller
             $freedom_participant_update = Eventorganizations::where('id', '=', $request->id)->update(['participant_names' => serialize($memberlist),'total_participant' => $count]);
 
             if($freedom_participant_update){
-                //  return redirect('school-updatedetail/'.$request->id);
                 return redirect('event-updatedetail/'.encrypt($request->id));
             }else{
                 return back()->with('success','Participants updated successfully');
@@ -927,164 +852,32 @@ class EventCatController extends Controller
         }
     }
 
-    // public function downloadFreedomCertificate(Request $request){
-    //     try{
-    //         // dd($request->category);
-    //         $categories = EventCat::where([['id',$request->category],['status',2]])->orderBy('id', 'DESC')->first();
-    //         // dd($categories['name']);
 
-
-    //         $eventname = $request->name;
-    //         $organiser_name = $request->organiser_name;
-
-    //         $participant = $request->participant;
-    //         $certificate_type = $request->cert_type;
-    //         $categoriesid = decrypt($request['categoriesid']);
-
-    //         if($categoriesid == 13065){
-
-    //             if($certificate_type == 'participant'){
-    //                 // dd('event.event-participant-certificate');
-    //                 // return view('event.Freedom-Run-5-event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant]);
-    //                 $pdf = PDF::loadView('event.Freedom-Run-5-event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant])->setPaper('a4', 'landscape');
-    //                 $pdf->getDomPDF()->setHttpContext(
-
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-    //                 );
-
-    //                 return $pdf->download($participant.".pdf");
-
-    //             }else{
-    //                     // dd('event.event-organizer-certificate');
-    //                     // return view('event.freedom-run-5-event-organizer-certificate',['name' =>  $eventname]);
-    //                     $pdf = PDF::loadView('event.freedom-run-5-event-organizer-certificate',['name' =>  $organiser_name])->setPaper('a4', 'landscape');
-    //                     $pdf->getDomPDF()->setHttpContext(
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-
-    //                 );
-
-
-    //             return $pdf->download($organiser_name.".pdf");
-
-    //             }
-
-
-    //         }elseif($categoriesid == 13064){
-
-    //             if($certificate_type == 'participant'){
-
-    //                 $pdf = PDF::loadView('event.event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant])->setPaper('a4', 'landscape');
-    //                 $pdf->getDomPDF()->setHttpContext(
-
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-    //                 );
-
-    //                 return $pdf->download($participant.".pdf");
-
-    //             }else{
-
-    //                     //return view('freedomrun.school-organizer-certificate',['name' =>  $eventname]);
-    //                     $pdf = PDF::loadView('event.event-organizer-certificate',['name' =>  $organiser_name])->setPaper('a4', 'landscape');
-    //                     $pdf->getDomPDF()->setHttpContext(
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-
-    //                 );
-
-
-    //             return $pdf->download($organiser_name.".pdf");
-
-    //             }
-    //         }elseif($categoriesid == 13063){
-
-    //             if($certificate_type == 'participant'){
-
-    //                 $pdf = PDF::loadView('event.fit-india-week-2023-event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant])->setPaper('a4', 'landscape');
-    //                 $pdf->getDomPDF()->setHttpContext(
-
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-    //                 );
-
-    //                 return $pdf->download($participant.".pdf");
-
-    //             }else{
-
-    //                     //return view('freedomrun.school-organizer-certificate',['name' =>  $eventname]);
-    //                     $pdf = PDF::loadView('event.fit-india-week-2023-event-organizer-certificate',['name' =>  $organiser_name])->setPaper('a4', 'landscape');
-    //                     $pdf->getDomPDF()->setHttpContext(
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-
-    //                 );
-
-
-    //             return $pdf->download($organiser_name.".pdf");
-
-    //             }
-
-    //         }
-
-    //     }catch (Exception $e) {
-
-    //         return abort(404);
-
-    //     }
-    // }
 
     public function downloadFreedomCertificate(Request $request){
         try{
 
-            // dd("asdfsadfasdfsadf");
-            // dd($request->all());
-            // FI#062025#34788
-            // dd(Auth::user()->rolewise);
             $eventname = $request->name;
             $event_id = decrypt($request->event_id);
-            // dd($event_id);
             $organiser_name = $request->organiser_name;
             $participant = $request->participant;
             $certificate_type = $request->cert_type;
             $eventstartdate = $request->eventstartdate;
-            // $eventenddate = $request->eventenddate;
             $eventstartdate = Carbon::createFromFormat('Y-m-d', $request->eventstartdate)->format('d-m-Y');
             $eventenddate = Carbon::createFromFormat('Y-m-d', $request->eventenddate)->format('d-m-Y');
             $categoriesid = decrypt($request['categoriesid']);
             $categories = EventCat::where([['id',$categoriesid],['status',2]])->orderBy('id', 'DESC')->first();
-            // dd($event_id);
-            // dd($categories['id']);
             $categories_event_id = $categories['id'];
-            // $Usermeta_data = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
-            // $usermeta_data_state = $Usermeta_data['state'];
-            // $usermeta_datadistrict = $Usermeta_data['district'];
-            // dd($usermeta_data_state);
-            // dd($usermeta_datadistrict);
-            // $state_district = $usermeta_data_state.','.$usermeta_datadistrict;
             $eventorganizationsdate = Eventorganizations::where([
                                                                     ['category',$categoriesid],
                                                                     ['id','=',$event_id],
                                                                     ['user_id','=',Auth::user()->id]
                                                                 ])->orderBy('id', 'DESC')->first();
-            // if($eventorganizationsdate['state'] == ''){
-            //     $state = $usermeta_data_state;
-            // }else{
-            //     $state = $eventorganizationsdate['state'];
-            // }
-
-            // if($eventorganizationsdate['districts'] == ''){
-            //     $district = $usermeta_datadistrict;
-            // }else{
-            //     $district = $eventorganizationsdate['districts'];
-            // }
-
-            // $state_district = $state.','.$district;
-            // dd($eventorganizationsdate['state']);
-            // dd($eventorganizationsdate['districts']);
-            // dd($categories->name);
-            // if($categoriesid == 13065){
 
             $state = $eventorganizationsdate['state'];
             $districts = $eventorganizationsdate['districts'];
             $cer_date = date("mY");
             $serialno = 'FI#'.$cer_date.'#';
-            // dd($serialno);
                 if($certificate_type == 'participant'){
 
                     $certificationtracking = new CertificationTrackings();
@@ -1099,8 +892,7 @@ class EventCatController extends Controller
                     $last_id = $certificationtracking->id;
                     $serialno_with_id = $serialno .$last_id;
                     CertificationTrackings::where('id', '=', $last_id)->update(['serialno_with_id' => $serialno_with_id]);
-                    // dd('event.event-participant-certificate');
-                    // return view('event.Freedom-Run-5-event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant,'participant_certificate'=> $categories['participant_certificate']]);
+               
                     $pdf = PDF::loadView('event.Freedom-Run-5-event-participant-certificate',[
                                             'organiser_name' => $organiser_name,
                                             'participant_name'=> $participant,
@@ -1122,8 +914,7 @@ class EventCatController extends Controller
                     return $pdf->download($participant.".pdf");
 
                 }else{
-                        // dd('event.event-organizer-certificate');
-                        // return view('event.freedom-run-5-event-organizer-certificate',['name' =>  $eventname]);
+
                         $certificationtracking = new CertificationTrackings();
                         $certificationtracking->user_id = Auth::user()->id;
                         $certificationtracking->name = $organiser_name;
@@ -1176,14 +967,10 @@ class EventCatController extends Controller
 
                     // Define file name
 
-                    // $pdf = Pdf::loadView('pdf.invoice', $data);
+
                     $fileName = 'invoice_' . time() . '.pdf';
-
-                    // Define full path on the server (inside storage folder)
                     $path = storage_path('app/public/pdf/' . $fileName);
-                    // $path = storage_path('wp-content/uploads/pdfs/' . $fileName);
 
-                    // Ensure the directory exists
                     if (!file_exists(dirname($path))) {
                         mkdir(dirname($path), 0777, true);
                     }
@@ -1201,60 +988,6 @@ class EventCatController extends Controller
                     return $pdf->download($organiser_name.".pdf");
 
                 }
-
-
-            // }elseif($categoriesid == 13064){
-
-            //     if($certificate_type == 'participant'){
-
-            //         $pdf = PDF::loadView('event.event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant])->setPaper('a4', 'landscape');
-            //         $pdf->getDomPDF()->setHttpContext(
-
-            //             stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-            //         );
-
-            //         return $pdf->download($participant.".pdf");
-
-            //     }else{
-
-            //             //return view('freedomrun.school-organizer-certificate',['name' =>  $eventname]);
-            //             $pdf = PDF::loadView('event.event-organizer-certificate',['name' =>  $organiser_name])->setPaper('a4', 'landscape');
-            //             $pdf->getDomPDF()->setHttpContext(
-            //             stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-
-            //         );
-
-
-            //     return $pdf->download($organiser_name.".pdf");
-
-            //     }
-            // }elseif($categoriesid == 13063){
-
-            //     if($certificate_type == 'participant'){
-
-            //         $pdf = PDF::loadView('event.fit-india-week-2023-event-participant-certificate',['organiser_name' => $organiser_name, 'participant_name'=> $participant])->setPaper('a4', 'landscape');
-            //         $pdf->getDomPDF()->setHttpContext(
-
-            //             stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-            //         );
-
-            //         return $pdf->download($participant.".pdf");
-
-            //     }else{
-
-            //             //return view('freedomrun.school-organizer-certificate',['name' =>  $eventname]);
-            //             $pdf = PDF::loadView('event.fit-india-week-2023-event-organizer-certificate',['name' =>  $organiser_name])->setPaper('a4', 'landscape');
-            //             $pdf->getDomPDF()->setHttpContext(
-            //             stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-
-            //         );
-
-
-            //     return $pdf->download($organiser_name.".pdf");
-
-            //     }
-
-            // }
 
         }catch (Exception $e) {
 
@@ -1341,8 +1074,6 @@ class EventCatController extends Controller
                 $run->video_link = $request->video_link;
                 $run->role = 'individual';
                 if($run->save()){
-                    /*$pdf = PDF::loadView('freedomrun.freedomrun-cert',['organiser_name' => 'test'])->setPaper('a4', 'landscape');
-                        return $pdf->stream($request->name.".pdf");*/
                     return back()->with('success','Congratulations, your event has been successfully created')->with('success_email',$request->email);
                 }else{
                     return back()->with('failed','Something Wrong')->withInput();
@@ -1394,9 +1125,7 @@ class EventCatController extends Controller
                         );
                         return $pdf->stream($freedom_run->name.".pdf");
                 }
-                /*else{
-                    return back()->with('failed','We have no any record for this email id, Please submit your application for download certificate')->withInput();
-                }*/
+               
             }
             return redirect('freedom-run-2.0');
         }catch (Exception $e) {
@@ -1556,51 +1285,26 @@ class EventCatController extends Controller
     public function EventSearchImages($id){
 
         try{
-            // dd($id);
             if (isset(auth()->user()->role)){
 
                 $role = Auth::user()->role;
 
                 if($role){
-                    // $categories = EventCat::where('status',2)->get();
-                    // $role = Role::where('slug', $role)->first()->name;
+
 
                     $freedomrun_event = Eventorganizations::where([['category',$id],['user_id', Auth::user()->id]])->orderBy('id', 'DESC')->get(['eventimg_meta']);
-                    // dd(count($freedomrun_event));
-                    // dd($freedomrun_event);
-                    // $freedomrun_image = unserialize($freedomrun_event[0]['eventimg_meta']);
-                    // dd(count($freedomrun_image));
                     if(count($freedomrun_event)>0){
-                        // $freedomrun_event;
-
                         foreach($freedomrun_event as $freedomrun_key => $imagevalue){
-                            // dd($imagevalue['eventimg_meta']);
                             $freedomrun_image = unserialize($imagevalue['eventimg_meta']);
                             foreach($freedomrun_image as $eventimg_image){
-                                    // echo $eventimg_image;
                                     $freedomrun_event_value[] = "<article class='cards-list'><div class='card-img'><img src='".$eventimg_image."' /></div></article>";
 
                             }
-                            // $freedomrun_event_value = "<article class='cards-list'><div class='card-img'><img src='".$freedomrun_image."' /></div></article>";
-                            // echo '<pre>';
-                            // echo print_r($freedomrun_image);
-                            // echo '<br>';
-                            // $imagevalue;
-                            // $freedomrun_event_value[] = $freedomrun_event_value;
+                 
                         }
-                        // dd( $freedomrun_event_value);
-                            return response()->json(['success' => true, 'message' => 'records found', 'event_value' => $freedomrun_event_value]);
-                        // return response()->json(['success' => true, 'message' => 'records found']);
-                        // dd($freedomrun_image);
-                        // exit;
-                        // foreach($freedomrun_image as $value => $image) {
-                        //     // echo $image;
-                        //     $freedomrun_event_value[] = "<article class='cards-list'><div class='card-img'><img src='".$image."' /></div></article>";
 
-                        // }
-                        // return response()->json(['success' => true, 'message' => 'records found', 'event_value' => $freedomrun_event_value]);
-                        // dd(123456);
-                        // dd(count($freedomrun_event));
+                            return response()->json(['success' => true, 'message' => 'records found', 'event_value' => $freedomrun_event_value]);
+                       
 
 
                     }else{
@@ -1608,10 +1312,6 @@ class EventCatController extends Controller
                         return response()->json(['success' => false,'message' => 'No records found']);
 
                     }
-
-                    // exit;
-                    // $freedomrun_event_value = json_encode(unserialize($freedomrun_event[0]['eventimg_meta']), JSON_FORCE_OBJECT);
-                    // exit;
 
                 }else{
 
@@ -1633,7 +1333,7 @@ class EventCatController extends Controller
     public function eventdatesearch($id){
 
         try{
-            // dd($id);
+
             if (isset(auth()->user()->role)){
 
                 $role = Auth::user()->role;
@@ -1643,13 +1343,12 @@ class EventCatController extends Controller
                                                     ['id',$id],
                                                     ['status',2]
                                                 ])->first();
-                    // dd();
+
                     if(isset($categories)){
 
                         $from_date = date('Y-m-d', strtotime($categories->from_date));
                         $to_date = date('Y-m-d', strtotime($categories->to_date));
                         $name = $categories->name;
-                        // dd($name);
                         return response()->json(['success' => true, 'message' => 'records found', 'from_date' => $from_date, 'to_date' => $to_date, 'name' => $name]);
 
                     }else{
@@ -1678,22 +1377,17 @@ class EventCatController extends Controller
     public function DownloadRegistrationCertificate(){
 
         try{
-            // dd(Auth::user()->name);
             $organiser_name = Auth::user()->name;
 
             $certificationtracking = new CertificationTrackings();
             $certificationtracking->user_id = Auth::user()->id;
             $certificationtracking->name = $organiser_name;
             $certificationtracking->user_type = "registration-certificate";
-            // $certificationtracking->event_id = $categoriesid;
-            // $certificationtracking->event_name = $categories->name;
-            // $certificationtracking->event_participant_certification_name = $participant;
             $certificationtracking->status = 1;
             $certificationtracking->save();
 
             $pdf = PDF::loadView('event.download-registration-certificate',[
                         'organiser_name' => $organiser_name,
-                // ])->setPaper('a4', 'landscape');
                 ])->setPaper('a4');
 
             $pdf->getDomPDF()->setHttpContext(
@@ -1712,76 +1406,6 @@ class EventCatController extends Controller
 
         }
     }
-
-    // public function user_certificate_event_sunday($user_id,$event_id){
-    //     try{
-    //         // dd("asdfsadfasdfsadf");
-
-
-
-    //         // echo  $user_id .'+++++++++++++++'.$event_id;
-    //         // dd("the end");
-    //         $active_all_user = User::
-    //                                 join('event_organizations','event_organizations.user_id', '=',   'users.id')
-    //                                 ->where(
-    //                                 [
-    //                                     ['users.rolewise', '=', 'cyclothon-2024'],
-    //                                     ['users.id','=' , $user_id],
-    //                                     ['event_organizations.id','=' , $event_id],
-    //                                 ])
-    //                                 ->orWhere('users.role','=' , 'namo-fit-india-cycling-club')
-    //                                 ->first();
-    //         // dd($active_all_user);
-    //         // if($active_all_user->count() > 0){
-    //         if (isset($active_all_user)){
-    //             $organiser_name = $active_all_user['name'];
-    //             $certificate_type = "mobile";
-    //             $categories = EventCat::where([['id',13078],['status',2]])->orderBy('id', 'DESC')->first();
-    //             $categoriesid = $categories['id'];
-    //             $certificationtracking = new CertificationTrackings();
-    //             $certificationtracking->user_id = $user_id;
-    //             $certificationtracking->name = $organiser_name;
-    //             $certificationtracking->user_type = $certificate_type;
-    //             $certificationtracking->event_id = $categoriesid;
-    //             $certificationtracking->event_name = $categories->name;
-    //             $certificationtracking->event_participant_certification_name = null;
-    //             $certificationtracking->status = 1;
-    //             $certificationtracking->save();
-
-    //             $participant = null;
-    //             // dd($organiser_name);
-    //             // $participant = $request->participant;
-
-    //             $pdf = PDF::loadView('event.freedom-run-5-event-organizer-certificate',
-
-    //                     [
-    //                         'name' =>  $organiser_name,
-    //                         'organizer_certificate' => $categories['organizer_certificate'],
-    //                         'organizer_style_name' => $categories['organizer_style_name']
-    //                     ])->setPaper('a4', 'landscape');
-    //                     $pdf->getDomPDF()->setHttpContext(
-    //                     stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
-
-    //                 );
-
-    //             return $pdf->download($organiser_name.".pdf");
-
-    //         }else{
-
-    //             // return Response::json(array(
-    //             //     'status'    => 'error',
-    //             //     'code'      =>  200,
-    //             //     'message'   =>  'Data not found',
-    //             //     'data'   => null,
-    //             // ), 401);
-    //         }
-
-    //     }catch (Exception $e) {
-
-    //         return abort(404);
-
-    //     }
-    // }
 
 
 }
