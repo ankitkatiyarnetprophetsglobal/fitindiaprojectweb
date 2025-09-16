@@ -36,12 +36,19 @@ $("#frontadmin").on("submit", async function (e) {
     if (hasError) return;
 
     try {
-        const encrypt_pass = await encryptGCM(password, "64");
-        if (encrypt_pass.length > 2000) {
+        let current = $("#password").val().trim();
+        let encrypt_pass = current;
+        if (current && !current.startsWith("{")) {
+            encrypt_pass = await encryptGCM(current, "64");
+        }
+
+        // Sanity check
+        if (!encrypt_pass || encrypt_pass.length > 2000) {
             alert("Password encryption failed. Please try again.");
             return;
         }
 
+        // Replace plain password with encrypted one
         $("#password").val(encrypt_pass);
         $("#login-submit").prop("disabled", true).val("Logging in...");
 
@@ -56,6 +63,9 @@ $("#frontadmin").on("submit", async function (e) {
                     $("#phone-display").text(response.phone_masked);
                     $("#email-display").text(response.email_masked);
                     $("#otpModal").show();
+                    setTimeout(() => {
+                        $("#otp-inputs .otp-input:first").focus();
+                    }, 100);
                     startResendTimer();
                     $("#login-submit").prop("disabled", false).val("LOGIN");
                 } else if (response.redirect) {
@@ -301,3 +311,9 @@ $("#reload").click(function () {
         },
     });
 });
+
+$('.close').click(function (e) {
+        e.preventDefault();
+        // 🔹 URL call via GET (Laravel route)
+        window.location.href = routes.logout_session;
+    });
