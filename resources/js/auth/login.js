@@ -77,6 +77,8 @@ $("#frontadmin").on("submit", async function (e) {
             },
             error: function (xhr) {
                 $("#login-submit").prop("disabled", false).val("LOGIN");
+                 // 🔹 Refresh captcha image every time login fails
+                    $("#reload").trigger("click");
 
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     // Handle validation errors
@@ -287,6 +289,7 @@ let captchaReloadCount = 0;
 const maxCaptchaReloads = 10;
 
 $("#reload").click(function () {
+    $("#captcha").val("");
     if (captchaReloadCount >= maxCaptchaReloads) {
         alert("Too many captcha reload attempts. Please refresh the page.");
         return;
