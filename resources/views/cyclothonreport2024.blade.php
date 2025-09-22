@@ -12,15 +12,16 @@ $active_section_id = trim($active_section);
   }
 </style>
 
-  
-<div class="banner_area1"> 
+
+<div class="banner_area1">
   <section id="{{ $active_section_id }}">
       <div class="container">
         <div class="row">
-          <a class="freedombtn1" href="{{ url('cyclothonRegistration') }}">Total Count</a>                  
-          <a class="freedombtn3" href="{{ url('hanolcyclothonrenningdatawise') }}">Hanol cyclothon cycle</a>           
-          <a class="freedombtn3" href="{{ url('cyclothonrenningdatawise') }}">cyclothon cycle</a>           
-        </div>      
+          <a class="freedombtn1" href="{{ url('cyclothonRegistration') }}">Total Count</a>
+          <a class="freedombtn3" href="{{ url('hanolcyclothonrenningdatawise') }}">Hanol cyclothon cycle</a>
+          <a class="freedombtn3" href="{{ url('cyclothonrenningdatawise') }}">cyclothon cycle</a>
+          <a class="freedombtn3" href="{{ url('carboncratedsoc') }}">carbon crated soc</a>
+        </div>
       </div>
     </div>
 </div>

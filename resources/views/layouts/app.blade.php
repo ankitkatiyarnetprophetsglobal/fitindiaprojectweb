@@ -107,9 +107,9 @@
                     </li>
                     <li class="nav-item l_area reg">
                         @if (Route::has('register'))
-                        {{-- <span><a class="nav-link" href="{{ route('register') }}">{{ __('home_content.Register')}}  --}}
+                        <span><a class="nav-link" href="{{ route('register') }}">{{ __('home_content.Register')}}
                             <?php //{{ __('Register') }} ?>
-                        {{-- </a></span> --}}
+                        </a></span>
                         @endif
                     </li>
 
@@ -134,7 +134,7 @@
                                                                         ?>
                             </a>
                             <a class="dropdown-item" href="{{ url('edit-school-password') }}">
-                                {{ __('home_content.change_password')}} <?php // {{ __('Edit Profile') }} 
+                                {{ __('home_content.change_password')}} <?php // {{ __('Edit Profile') }}
                                                                         ?>
                             </a>
                             @else
@@ -291,7 +291,7 @@
 
 
         function logoutfn() {
-        
+
         }
     </script>
     <script>

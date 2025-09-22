@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 @section('title', 'Fit India Admin Manage Event Master')
 @section('content')
+
 <style>
     .mb-3 {
         margin-bottom: 0 !important;
@@ -23,6 +24,7 @@
                 <div class="col-sm-6">
                     <h1>Upload Event Schedule</h1>
                 </div>
+                
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
@@ -47,7 +49,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                   
+
 
 
                         <ul style="list-style: none">
@@ -73,7 +75,7 @@
             </div>
               <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
-
+            
           <table class="table table-striped projects">
               <thead>
 
@@ -197,7 +199,7 @@
       </div>
       </div>
     </section>
-    
+
     <!-- Table content -->
     <section class="content">
         <div class="container-fluid">
@@ -212,16 +214,20 @@
                         </div>
                         @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
-                        
+
                         @endif
+                        
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>S.No</th>
                                     <th>Venue</th>
                                     <th>Cycle</th>
+                                    <th>Cycle Waiting</th>
                                     <th>T-Shirt</th>
+                                    <th>T-Shirt Waiting</th>
                                     <th>Meal</th>
+                                    <th>Meal Waiting</th>
                                     <th>Latitude</th>
                                     <th>Longitude</th>
                                     <th>Event Date</th>
@@ -235,8 +241,11 @@
                                     <td>{{ ($events->currentPage() - 1) * $events->perPage() + $loop->iteration }}</td>
                                     <td>{{ $event->venue }}</td>
                                     <td>{{ $event->cycle }}</td>
+                                    <td>{{ $event->cycle_waiting }}</td>
                                     <td>{{ $event->t_shirt }}</td>
+                                    <td>{{ $event->tshirt_waiting }}</td>
                                     <td>{{ $event->meal }}</td>
+                                    <td>{{ $event->meal_waiting }}</td>
                                     <td>{{ $event->latitude }}</td>
                                     <td>{{ $event->longitude }}</td>
                                     <td>{{ $event->event_date }}</td>

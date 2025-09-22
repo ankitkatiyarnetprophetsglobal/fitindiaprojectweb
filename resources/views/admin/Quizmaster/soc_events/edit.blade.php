@@ -55,8 +55,11 @@
 
                                         <input type="text" name="venue" placeholder="Venue" class="form-control mb-2" value="{{ old('venue', $soc_event->venue ?? '') }}">
                                         <input type="number" name="cycle" placeholder="Cycle" class="form-control mb-2" value="{{ old('cycle', $soc_event->cycle ?? '') }}">
+                                        <input type="number" name="cycle_waiting" placeholder="Cycle Waiting" class="form-control mb-2" value="{{ old('cycle_waiting', $soc_event->cycle_waiting ?? '') }}">
                                         <input type="number" name="t_shirt" placeholder="T-Shirt" class="form-control mb-2" value="{{ old('t_shirt', $soc_event->t_shirt ?? '') }}">
+                                        <input type="number" name="tshirt_waiting" placeholder="T-Shirt Waiting" class="form-control mb-2" value="{{ old('tshirt_waiting', $soc_event->tshirt_waiting ?? '') }}">
                                         <input type="number" name="meal" placeholder="Meal" class="form-control mb-2" value="{{ old('meal', $soc_event->meal ?? '') }}">
+                                        <input type="number" name="meal_waiting" placeholder="Meal Waiting" class="form-control mb-2" value="{{ old('meal_waiting', $soc_event->meal_waiting ?? '') }}">
                                         <input type="text" name="latitude" placeholder="Latitude" class="form-control mb-2" value="{{ old('latitude', $soc_event->latitude ?? '') }}">
                                         <input type="text" name="longitude" placeholder="Longitude" class="form-control mb-2" value="{{ old('longitude', $soc_event->longitude ?? '') }}">
                                         <input type="date" name="event_date" class="form-control mb-2" value="{{ old('event_date', $soc_event->event_date ?? '') }}">

@@ -49,11 +49,15 @@ public function index()
 
     public function update(Request $request, SocEventMaster $soc_event)
     {
+        // dd($request->all());
         $request->validate([
             'venue' => 'required|string',
             'cycle' => 'required|integer',
+            'cycle_waiting' => 'required|integer',
             't_shirt' => 'required|integer',
-            'meal' => 'nullable|integer',
+            'tshirt_waiting' => 'required|integer',
+            'meal' => 'required|integer',
+            'meal_waiting' => 'required|integer',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'event_date' => 'required|date_format:Y-m-d',
@@ -61,7 +65,7 @@ public function index()
         ]);
 
         $soc_event->update($request->all());
-
+        // dd("232131313");
         return redirect()->route('admin.soc-events.index')->with('success', 'Event Updated Successfully.');
     }
 
@@ -72,7 +76,7 @@ public function index()
     }
 
     public function upload(Request $request){
-         
+
           $request->validate([
 
                         'file' => 'required|file|mimes:xlsx,xls|max:10240',  // 10MB max size

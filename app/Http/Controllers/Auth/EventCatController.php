@@ -82,7 +82,7 @@ class EventCatController extends Controller
 
     public function store(Request $request){
         try {
-           
+
             $validator = Validator::make($request->all(), [
                 'category_name' => 'required',
                 'org_name' => 'required',
@@ -244,7 +244,7 @@ class EventCatController extends Controller
                                         $end_date_format =  date_format($end_date,"Y-m-d");
                                         break;
                                     case 4 :
-                                       
+
                                         $date = date_create(date("Y-m-d"));
                                         $start_date = date_add($date,date_interval_create_from_date_string("-4 days"));
                                         $start_date_format =  date_format($start_date,"Y-m-d");
@@ -403,7 +403,7 @@ class EventCatController extends Controller
                                             // dd($end_date_format);
                                             break;
                                         case 4 :
-                                           
+
                                             $date = date_create(date("Y-m-d"));
                                             $start_date = date_add($date,date_interval_create_from_date_string("-4 days"));
                                             $start_date_format =  date_format($start_date,"Y-m-d");
@@ -555,7 +555,7 @@ class EventCatController extends Controller
     public function update($id, Request $request){
 
         try{
-        
+
             if (isset(auth()->user()->role)){
 
                 $categories = EventCat::where('status',2)->get();
@@ -739,7 +739,7 @@ class EventCatController extends Controller
             if ($validator->fails()) {
                 Session::flash('error_message', $validator->errors()->first());
                 return back()->withInput();
-  
+
             }
 
             $extensions = array("xls","xlsx","csv");
@@ -892,7 +892,7 @@ class EventCatController extends Controller
                     $last_id = $certificationtracking->id;
                     $serialno_with_id = $serialno .$last_id;
                     CertificationTrackings::where('id', '=', $last_id)->update(['serialno_with_id' => $serialno_with_id]);
-               
+
                     $pdf = PDF::loadView('event.Freedom-Run-5-event-participant-certificate',[
                                             'organiser_name' => $organiser_name,
                                             'participant_name'=> $participant,
@@ -978,11 +978,11 @@ class EventCatController extends Controller
                     // Save PDF to the server path
                     file_put_contents($path, $pdf->output());
 
-                    return response()->json([
-                        'message' => 'PDF saved on server',
-                        'file' => $fileName,
-                        'path' => $path,
-                    ]);
+                    // return response()->json([
+                    //     'message' => 'PDF saved on server',
+                    //     'file' => $fileName,
+                    //     'path' => $path,
+                    // ]);
 
 
                     return $pdf->download($organiser_name.".pdf");
@@ -1125,7 +1125,7 @@ class EventCatController extends Controller
                         );
                         return $pdf->stream($freedom_run->name.".pdf");
                 }
-               
+
             }
             return redirect('freedom-run-2.0');
         }catch (Exception $e) {
@@ -1300,11 +1300,11 @@ class EventCatController extends Controller
                                     $freedomrun_event_value[] = "<article class='cards-list'><div class='card-img'><img src='".$eventimg_image."' /></div></article>";
 
                             }
-                 
+
                         }
 
                             return response()->json(['success' => true, 'message' => 'records found', 'event_value' => $freedomrun_event_value]);
-                       
+
 
 
                     }else{

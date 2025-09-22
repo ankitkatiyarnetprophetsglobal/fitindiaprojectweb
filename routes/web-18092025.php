@@ -111,6 +111,9 @@ Route::get('/fitindia-site-up-site-sal-Pk9tpVWSYUsJTqUhDTN7', function() {
     Artisan::call('up');
     return 'up';
 });
+Route::post('/verify-otp', [App\Http\Controllers\Auth\LoginController::class, 'verifyOTP'])->name('verify-otp');
+Route::post('/resend-otp', [App\Http\Controllers\Auth\LoginController::class, 'resendOTP'])->name('resend-otp');
+Route::get('/logout-session', [App\Http\Controllers\Auth\LogoutController::class, 'logoutSession'])->name('logout-session');
 /*Route::prefix('admin')->group(function (){
     Route::get('login', [App\Http\Controllers\Auth\Admin\LoginController::class,'showLoginForm'])->name('admin.login');
     Route::post('login', [App\Http\Controllers\Auth\Admin\LoginController::class,'login']);
@@ -148,7 +151,8 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     Route::patch('freedomrun-organizer/{id}/pupdate',[FreedomrunbackendController::class,'organizerUpstatus'])->name('freedomrun-organizer.pupdate');
 
     Route::delete('partnerDeleteAll',[FreedomrunbackendController::class,'partnerdeleteAll']);
-
+    Route::get('changepassword', [UserController::class, 'resetpassForm'])->name('changepassword');
+    Route::post('resetpassword', [UserController::class, 'resetPassword'])->name('resetpassword');
 
     //End freedom run
 
@@ -211,17 +215,19 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
 
 
     Route::resource('champions', ChampController::class);
-	Route::get('champion_export',[ChampController::class,'exportChamp']);
-	Route::get('champ-status/{champ}/{cid}',[ChampController::class,'champStatus']);
-	Route::post('champ-status',[ChampController::class,'champStatus']);
-	Route::resource('posts', PostController::class);
-	Route::resource('socevents', SoceventController::class);
-	Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
+    Route::get('champion_export',[ChampController::class,'exportChamp']);
+    Route::get('champ-status/{champ}/{cid}',[ChampController::class,'champStatus']);
+    Route::post('champ-status',[ChampController::class,'champStatus']);
+    Route::resource('posts', PostController::class);
+    Route::resource('socevents', SoceventController::class);
+    Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
-	Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
-	Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
+    Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
+        // 18-08-2025 Index page
+    Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
     Route::get('soc-report-download', [\App\Http\Controllers\SocReportController::class, 'download'])->name('soc-reports.download');
-	Route::resource('dashboard-tiles', MaganageDashboardController::class);
+
+    Route::resource('dashboard-tiles', MaganageDashboardController::class);
     //Images Status Approve
     Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
     Route::post('/image_approve/{id}', [MaganageImageStatusController::class, 'image_approve'])->name('image-approve');
@@ -266,9 +272,6 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
 
     Route::get('/youths/{uid}/{catid}',[App\Http\Controllers\Admin\Auth\YouthController::class,'show'])->name('youths.show');
 
-    Route::get('changepassword', [App\Http\Controllers\Admin\Auth\UserController::class, 'resetpassForm'])->name('changepassword');
-    Route::post('resetpassword', [App\Http\Controllers\Admin\Auth\UserController::class, 'resetPassword'])->name('resetpassword');
-
     Route::resource('corporate', CorporatebackendController::class);
     Route::get('corporatedetail/{cid}',[CorporatebackendController::class,'corporatedetail']);
     Route::get('corporate_export',[CorporatebackendController::class,'export']);
@@ -298,7 +301,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], 
     /* 16-07-2025  End Routes for daily Dashboard  */
 });
 
-Route::get('wp-admin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
+// Route::get('wp-admin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
 
 Route::namespace("Admin")->prefix('admin')->group(function(){
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin');
@@ -315,6 +318,7 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
         Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
         Route::get('/soc-download-national-sport-day-2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_national_sport_day_2025'])->name('socadmin.soc_download_national_sport_day_2025');
         Route::get('/soc-withparticipantnum-download-nationalsportday2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_withparticipantnum_download_nationalsportday2025'])->name('socadmin.soc-withparticipantnum-download-nationalsportday2025');
+
         // end soc admin download data
     });
 });
@@ -338,6 +342,8 @@ Route::get('edit-profile', [App\Http\Controllers\Auth\UserController::class, 'ed
 Route::put('update-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'update']);
 //Route::get('school-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
 Route::get('school-profile', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
+Route::get('edit-school-password', [App\Http\Controllers\Auth\UserController::class, 'edit_school_password']);
+Route::post('update-school-password', [App\Http\Controllers\Auth\UserController::class, 'update_school_password']);
 Route::put('update-school/{id}', [App\Http\Controllers\Auth\UserController::class, 'updateSchool']);
 Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class,'profileDis'])->name('profile-dis');
 Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class,'profileBlk'])->name('profile-blk');
@@ -1023,5 +1029,9 @@ Route::get('/redirect', function (\Illuminate\Http\Request $request) {
     $url = $request->query('url');
     return redirect()->away($url);
 })->name('redirect');
+
+Route::fallback(function () {
+    return redirect('/');
+});
 
 URL::forceScheme('https');

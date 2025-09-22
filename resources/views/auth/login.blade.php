@@ -16,8 +16,7 @@
                         </div>
                         @endif
                         <p>New to site?
-                            {{-- <a id="fi_signup" href="{{ route('register') }}">Create an Account</a> --}}
-                            <a id="fi_signup" href="register?role=bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1">Create an Account</a>
+                            <a id="fi_signup" href="{{ route('register') }}">Create an Account</a>
                         </p>
                         <br>
                         {{-- Lockout countdown timer --}}
@@ -136,16 +135,16 @@
                 <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; gap: 5px;">
                     <!-- Mobile Icon -->
                     <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
-                        <path d="M7 2C5.9 2 5 2.9 5 4v16c0 1.1.9 2 
-                 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H7zm0 
-                 2h10v16H7V4zm5 18c.55 0 1-.45 1-1h-2c0 
+                        <path d="M7 2C5.9 2 5 2.9 5 4v16c0 1.1.9 2
+                 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H7zm0
+                 2h10v16H7V4zm5 18c.55 0 1-.45 1-1h-2c0
                  .55.45 1 1 1z" />
                     </svg>
                     <!-- Email Icon -->
                     <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-2 .9-2 
-                 2v12c0 1.1.9 2 2 2h16c1.1 
-                 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 
+                        <path d="M20 4H4c-1.1 0-2 .9-2
+                 2v12c0 1.1.9 2 2 2h16c1.1
+                 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0
                  4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                 </div>

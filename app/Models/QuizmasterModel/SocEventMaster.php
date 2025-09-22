@@ -10,8 +10,11 @@ class SocEventMaster extends Model
         protected $fillable = [
             'venue',
             'cycle',
+            'cycle_waiting',
             't_shirt',
+            'tshirt_waiting',
             'meal',
+            'meal_waiting',
             'latitude',
             'longitude',
             'event_date',

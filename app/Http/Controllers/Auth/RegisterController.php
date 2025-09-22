@@ -64,7 +64,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        
+
         $password_plain =  $this->decryptAesGcm("64", $request->password);
         $password_confirmation_plain = $this->decryptAesGcm("64", $request->password_confirmation);
         $data = $request->all();
@@ -197,6 +197,7 @@ class RegisterController extends Controller
     // }
     public function showRegistrationForm(Request $request)
     {
+
         $role_name = $request->input('role');
 
         // Common queries
@@ -289,7 +290,7 @@ class RegisterController extends Controller
         }
     }
 
-    
+
 
 
     protected function validator(array $data)

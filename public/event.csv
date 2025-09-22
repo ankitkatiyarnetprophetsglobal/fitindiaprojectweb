@@ -1,1 +1,1 @@
-"User ID",Name,email,Phone,"Role label","Role wise",State,District,Block,City,Created_at
+ID,Name,Email,Phone,"Trip Name","Duration (Min)",Distance,"Average Speed",Mode,Date,"carbon Save",State,District,City

@@ -1034,7 +1034,7 @@ class ReporteventController extends Controller
     //     try{
     //         // dd("sadfsadfasdfasdfasdf");
     //         // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2;';
-            
+
     //         $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
 
     //         $data = DB::select(DB::raw($query));
@@ -1099,7 +1099,7 @@ class ReporteventController extends Controller
             // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
             // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
             // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2025-08-16 00:00:01" and uh.modegroupid = 2 and u.id in (2207513,2207524,2207465,2207425,2198495,2207642,2207546,2207451,2207427,2200635,2207839,2207508,2207556,2207453,1989687,2207841,2207640,2207843,2207810,2207845,2207313,2207501,2207572,2207616,2207783,2207565,2207615,2207757,2207487,2203217,2207630,2207467,2207639,2207485,2207473,2207855,2207856,2207480,2207445,2207430,2207858,2207455,2207432,2207466,1998024,2207876,2207237,2207824,2207880,2169457,2207626,2129871,2203864,2205255,2207422,2207419,2207548,2207474,2207778,2207434,2206103) order by uh.created_by ASC;';
-            $query = 'SELECT 
+            $query = 'SELECT
                                 u.id,
                                 u.name,
                                 u.email,
@@ -1118,13 +1118,14 @@ class ReporteventController extends Controller
                                 MAX(um.block) AS block,
                                 MAX(um.city) AS city
                             FROM users AS u
-                            INNER JOIN userhistorytrakings AS uh 
+                            INNER JOIN userhistorytrakings AS uh
                                 ON u.id = uh.user_id
-                            INNER JOIN usermetas AS um 
+                            INNER JOIN usermetas AS um
                                 ON u.id = um.user_id
                             WHERE uh.created_by >= "2024-12-17 00:00:01"
-                            AND uh.modegroupid = 2                            
-                            GROUP BY 
+                            AND uh.average_speed <= 100
+                            AND uh.modegroupid = 2
+                            GROUP BY
                                 u.id,
                                 u.name,
                                 u.email,
@@ -1198,8 +1199,8 @@ class ReporteventController extends Controller
 
         }
     }
-    
-    public function hanolcyclothonrenningdatawise(){
+
+    public function carboncratedsoc(){
         try{
 
             // dd("sadfsadfasdfasdfasdf");
@@ -1207,7 +1208,7 @@ class ReporteventController extends Controller
             // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
             // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
             // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2025-08-16 00:00:01" and uh.modegroupid = 2 and u.id in (2207513,2207524,2207465,2207425,2198495,2207642,2207546,2207451,2207427,2200635,2207839,2207508,2207556,2207453,1989687,2207841,2207640,2207843,2207810,2207845,2207313,2207501,2207572,2207616,2207783,2207565,2207615,2207757,2207487,2203217,2207630,2207467,2207639,2207485,2207473,2207855,2207856,2207480,2207445,2207430,2207858,2207455,2207432,2207466,1998024,2207876,2207237,2207824,2207880,2169457,2207626,2129871,2203864,2205255,2207422,2207419,2207548,2207474,2207778,2207434,2206103) order by uh.created_by ASC;';
-            $query = 'SELECT 
+            $query = 'SELECT
                                 u.id,
                                 u.name,
                                 u.email,
@@ -1226,14 +1227,124 @@ class ReporteventController extends Controller
                                 MAX(um.block) AS block,
                                 MAX(um.city) AS city
                             FROM users AS u
-                            INNER JOIN userhistorytrakings AS uh 
+                            INNER JOIN userhistorytrakings AS uh
                                 ON u.id = uh.user_id
-                            INNER JOIN usermetas AS um 
+                            INNER JOIN usermetas AS um
+                                ON u.id = um.user_id
+                            WHERE uh.created_by >= "2024-12-17 00:00:01"
+                            AND uh.average_speed <= 100
+                            AND uh.modegroupid = 2
+                            GROUP BY
+                                u.id,
+                                u.name,
+                                u.email,
+                                u.phone
+                            ORDER BY first_created_by ASC;';
+
+
+            $data = DB::select(DB::raw($query));
+
+            // dd($data);
+            $headers = array(
+                'Content-Type' => 'text/csv'
+            );
+
+
+            $filename =  public_path("event.csv");
+            $handle = fopen($filename, 'w');
+
+            fputcsv($handle, [
+                "ID",
+                "Name",
+                "Email",
+                "Phone",
+                "Trip Name",// Name of school
+                "Duration (Min)",
+                "Distance",
+                // "Max Speed",
+                "Average Speed",
+                // "Commemt",
+                "Mode",
+                "Date",
+                "carbon Save",
+                "State",
+                "District",
+                // "Block",
+                "City"
+            ]);
+
+            foreach ($data as $each_user) {
+                // dd($each_user);
+                fputcsv($handle, [
+                    $each_user->id,
+                    $each_user->name,
+                    $each_user->email,
+                    $each_user->phone,
+                    $each_user->total_trips,
+                    round($each_user->duration/60,2),
+                    round($each_user->distance,2).' '.$each_user->uom,
+                    // // $each_user->max_speed,
+                    $each_user->average_speed,
+                    // $each_user->commemt,
+                    "Cycle",
+                    $each_user->first_created_by,
+                    $each_user->carbonSave,
+                    $each_user->state,
+                    $each_user->district,
+                    $each_user->city,
+
+                ]);
+
+            }
+            fclose($handle);
+
+            //download command
+            return Response::download($filename, "Cycle data.csv", $headers);
+
+            // dd($school);
+        }catch (Exception $e) {
+
+            return abort(404);
+
+        }
+    }
+
+    public function hanolcyclothonrenningdatawise(){
+        try{
+
+            // dd("sadfsadfasdfasdfasdf");
+            // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2;';
+            // $query = 'SELECT u.name,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
+            // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2024-12-17 00:00:01" and uh.modegroupid = 2 order by uh.created_by ASC;';
+            // $query = 'SELECT u.name,u.email,u.phone,uh.trip_name,uh.duration,uh.distance,uh.uom,uh.max_speed,uh.average_speed,uh.commemt,uh.modegroupid,uh.created_by,uh.carbonSave,um.state,um.district,um.block,um.city FROM users as u inner join userhistorytrakings as uh on u.id = uh.user_id inner join usermetas as um on u.id = um.user_id where uh.created_by >= "2025-08-16 00:00:01" and uh.modegroupid = 2 and u.id in (2207513,2207524,2207465,2207425,2198495,2207642,2207546,2207451,2207427,2200635,2207839,2207508,2207556,2207453,1989687,2207841,2207640,2207843,2207810,2207845,2207313,2207501,2207572,2207616,2207783,2207565,2207615,2207757,2207487,2203217,2207630,2207467,2207639,2207485,2207473,2207855,2207856,2207480,2207445,2207430,2207858,2207455,2207432,2207466,1998024,2207876,2207237,2207824,2207880,2169457,2207626,2129871,2203864,2205255,2207422,2207419,2207548,2207474,2207778,2207434,2206103) order by uh.created_by ASC;';
+            $query = 'SELECT
+                                u.id,
+                                u.name,
+                                u.email,
+                                u.phone,
+                                COUNT(uh.trip_name) AS total_trips,
+                                SUM(uh.duration) AS duration,
+                                SUM(uh.distance) AS distance,
+                                MAX(uh.uom) AS uom,
+                                MAX(uh.max_speed) AS max_speed,
+                                AVG(uh.average_speed) AS average_speed,
+                                MAX(uh.modegroupid) AS modegroupid,
+                                MIN(uh.created_by) AS first_created_by,
+                                SUM(uh.carbonSave) AS carbonSave,
+                                MAX(um.state) AS state,
+                                MAX(um.district) AS district,
+                                MAX(um.block) AS block,
+                                MAX(um.city) AS city
+                            FROM users AS u
+                            INNER JOIN userhistorytrakings AS uh
+                                ON u.id = uh.user_id
+                            INNER JOIN usermetas AS um
                                 ON u.id = um.user_id
                             WHERE uh.created_by >= "2025-08-16 00:00:01"
+                            AND uh.average_speed <= 100
                             AND uh.modegroupid = 2
                             AND u.id IN (2207744,2207463,2207441,2207432,2207604,2207474,2207828,2207657,2207731,2207732,2207610,2207578,2207633,2207801,2207785,2207678,2208881,2207545,2208999,2207589,2207876,2207442,2208859,2207592,2208930,2207562,2207835,2207632,2207839,2207640,2207434,2207508,2207724,2207774,2207538,2207650,2207485,2207587,2207525,2207570,2207468,2207494,2207480,2207498,2207444,2207827,2207436,2208781,2207487,2207596,2207524,2207472,2208983,2208959,2207450,2207621,2207455,2207575,2207493,2207639,2207460,2207651,2208783,2207543,2207585,2207489,2207559,2207462,2207696,2207858,2207743,2207422,2207549,2207440,2207461,2207845,2208886,2207783,2207513,2207591,2207641,2207807,2207464,2207676,2207459,2207616,2207484,2207705,2207673,2207773,2207555,2207780,2207576,2207565,2207560,2207486,2208756,2207577,2207656,2207490,2207499,2207644,2207626,2207514,2207573,2208969,2207786,2207467,2207778,2207841,2207511,2207529,2207627,2207495,2207833,2207501,2207775,2207759,2208749,2207782,2207439,2207855,2207552,2207793,2207528,2207646,2207553,2207536,2207734,2207547,2207526,2207711,2208966,2207945,2207769,2207636,2207515,2207557,2207426,2207756,2207629,2207446,2207502,2207917,2207542,2207558,2207607,2207789,2207634,2207597,2207537,2207594,2207469,2207454,2207582,2207520,2207503,2207572,2207445,2207746,2207581,2207612,2207473,2208082,2207619,2207601,2207694,2207546,2207448,2207717,2208937,2207749,2207451,2207843,2207481,2207630,2207483,2207735,2207590,2207738,2207598,2207504,2207579,2207764,2207466,2207615,2207539,2207443,2207475,2208992,2207712,2207831,2207544,2207437,2207523,2207456,2207482,2208007,2207492,2207760,2207556,2207507,2207602,2207470,2207649,2207518,2207642,2207608,2207563,2207465,2207772,2207548,2207757,2207516,2207568,2207791,2207505,2207781,2207500,2207637,2207609,2207787,2207603,2207668,2207534,2207675,2207428,2207625,2207810,2207533,2208975,2207635,2207661,2207517,2207595,2207850,2207477,2207613,2207638,2207509,2207643,2207701,2207674,2207521,2207531,2207471,2207453,2207623,2207532,2207478,2207777,2207512,2207784,2207856,2207771,2207593,2207571,2207496,2207583,2208890,2207584,2207551,2207683,2207491,2207458)
-                            GROUP BY 
+                            GROUP BY
                                 u.id,
                                 u.name,
                                 u.email,

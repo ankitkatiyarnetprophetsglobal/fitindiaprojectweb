@@ -104,7 +104,7 @@
                                 @error('email')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
                                 @enderror
-        
+
                                 <span id="duplicate_email_error" style="display:none; color:red;">Email already exists</span>
                             </div>
                             <div class="register-row-rt">
@@ -219,9 +219,15 @@
                         <div class="register-row">
                             <div class="register-row-lft">
                                 <label for="captcha">Please enter the captcha text</label>
-                                <div class="d-flex align-items-center">
+                                {{-- <div class="d-flex align-items-center">
                                     <div class="captchaimg">{!! captcha_img() !!}</div>
-                                    <button type="button" class="btn btn-info ml-2" id="reload">↻</button>
+                                    <button type="button" class="btn btn-info reload-captcha" id="reload"> ↻ </button>
+                                </div> --}}
+                                <div class="d-flex align-items-center" id="pagecaptcha-cont">
+                                    <div class="captchaimg">
+                                        <span>{!! captcha_img() !!}</span>
+                                    </div>
+                                    <button type="button" class="btn btn-info reload-captcha" id="reload"> ↻ </button>
                                 </div>
                                 <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha">
                                 <span id="captcha-error" class="error-message text-danger small"></span>
