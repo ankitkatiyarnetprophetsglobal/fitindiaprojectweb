@@ -44,6 +44,9 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    private $OPENSSL_CIPHER_NAME = "aes-128-cbc"; //Name of OpenSSL Cipher
+    private $CIPHER_KEY_LEN = 16; //128 bits
+
     /**
      * Create a new controller instance.
      *
@@ -65,14 +68,21 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
+        // dd($request->password);
+        // dd($request->password_confirmation);
         $password_plain =  $this->decryptAesGcm("64", $request->password);
         $password_confirmation_plain = $this->decryptAesGcm("64", $request->password_confirmation);
+        // dd($password_plain);
+        // dd($password_confirmation_plain);
         $data = $request->all();
         $data['password'] = $password_plain;
         $data['password_confirmation'] = $password_confirmation_plain;
         if (!hash_equals($password_plain, $password_confirmation_plain)) {
             return back()->withErrors(['password' => 'Passwords do not match.']);
         }
+
+        $this->validator($request->all())->validate();
+
         event(new Registered($user = $this->create($data)));
         // Session::flash('success', 'Please Login');
         $success = "Your Registration Done Successfully, please login";
@@ -145,6 +155,48 @@ class RegisterController extends Controller
         $key = substr($result, 0, 32);
         $data = openssl_decrypt($ct, 'aes-256-cbc', $key, true, $iv);
         return json_decode($data, true);
+    }
+
+    function decrypt($key, $iv, $data) {
+
+
+
+        if (strlen($key) < $this->CIPHER_KEY_LEN) {
+
+            $key = str_pad("$key", $this->CIPHER_KEY_LEN, "0"); //0 pad to len 16
+
+        } else if (strlen($key) > $this->CIPHER_KEY_LEN) {
+
+            $key = substr($str, 0, $this->CIPHER_KEY_LEN); //truncate to 16 bytes
+
+        }
+
+        // $parts = explode(':', $data);
+        //$decryptedData = openssl_decrypt(base64_decode($parts[0]), $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, base64_decode($parts[1]));
+
+        $decryptedData = openssl_decrypt(base64_decode($data), $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, $iv);
+        return $decryptedData;
+    }
+
+    function encrypt($key, $iv, $data) {
+
+        if (strlen($key) < $this->CIPHER_KEY_LEN) {
+
+            $key = str_pad("$key", $this->CIPHER_KEY_LEN, "0"); //0 pad to len 16
+
+        } else if (strlen($key) > $this->CIPHER_KEY_LEN) {
+
+            $key = substr($str, 0, $this->CIPHER_KEY_LEN); //truncate to 16 bytes
+
+        }
+
+        $encodedEncryptedData = base64_encode(openssl_encrypt($data, $this->OPENSSL_CIPHER_NAME, $key, OPENSSL_RAW_DATA, $iv));
+        // $encodedIV = base64_ode($iv);
+        // $encryptedPayload = $encodedEncryptedData.":".$encodedIV;
+        $encryptedPayload = $encodedEncryptedData;
+
+        return $encryptedPayload;
+
     }
 
 
@@ -242,10 +294,12 @@ class RegisterController extends Controller
                 ->orderBy('name', 'ASC')
                 ->get();
         } else {
+
             $roles = Role::where('groupof', 1)
-                ->whereNotIn('slug', $excluded)
-                ->orderBy('name', 'ASC')
-                ->get();
+            ->whereNotIn('slug', $excluded)
+            ->orderBy('name', 'ASC')
+            ->get();
+            // dd($roles);
         }
 
         return view('auth.register', compact('roles', 'state', 'districts', 'blocks'));
@@ -362,7 +416,7 @@ class RegisterController extends Controller
                                 // 'district' => 'required',
                                 // 'block' => 'required',
                                 // 'city' => 'required|regex:/^[\pL\s\-]+$/u',
-                                'password' => 'required|string|min:8|confirmed',
+                                'password' => 'required|string|min:8',
                                 'password_confirmation' => 'required',
                                 // 'captcha' => 'required|captcha',
                                 'captcha' => 'required',
@@ -387,8 +441,8 @@ class RegisterController extends Controller
                                 // 'city.regex' => 'Please enter character value only.',
                                 'password.required' => 'Password is required.',
                                 'password.min' => 'Please enter 8 digit value.',
-                                'password.confirmed' => 'Password does not match.',
-                                'password_confirmation.required' => 'Confirmation password is required.',
+                                // 'password.confirmed' => 'Password does not match.',
+                                // 'password_confirmation.required' => 'Confirmation password is required.',
                                 // 'cycle.required' => 'Please select cycle type.',
                                 // 'captcha.required' => 'Captcha field is required.',
                                 // 'captcha.captcha' => 'Please fill correct value.',
@@ -408,7 +462,7 @@ class RegisterController extends Controller
                                 'district' => 'required',
                                 'block' => 'required',
                                 'city' => 'required|regex:/^[\pL\s\-]+$/u',
-                                'password' => 'required|string|min:8|confirmed',
+                                'password' => 'required|string|min:8',
                                 'password_confirmation' => 'required',
                                 // 'captcha' => 'required|captcha',
                                 'captcha' => 'required',
@@ -430,8 +484,8 @@ class RegisterController extends Controller
                                 'city.regex' => 'Please enter character value only.',
                                 'password.required' => 'Password is required.',
                                 'password.min' => 'Please enter 8 digit value.',
-                                'password.confirmed' => 'Password does not match.',
-                                'password_confirmation.required' => 'Confirmation password is required.',
+                                // 'password.confirmed' => 'Password does not match.',
+                                // 'password_confirmation.required' => 'Confirmation password is required.',
                                 // 'captcha.required' => 'Captcha field is required.',
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
@@ -449,7 +503,7 @@ class RegisterController extends Controller
                                 'district' => 'required',
                                 'block' => 'required',
                                 'city' => 'required|regex:/^[\pL\s\-]+$/u',
-                                'password' => 'required|string|min:8|confirmed',
+                                'password' => 'required|string|min:8',
                                 'password_confirmation' => 'required',
                                 // 'captcha' => 'required|captcha',
                                 'captcha' => 'required',
@@ -470,8 +524,8 @@ class RegisterController extends Controller
                                 'city.regex' => 'Please enter character value only.',
                                 'password.required' => 'Password is required.',
                                 'password.min' => 'Please enter 8 digit value.',
-                                'password.confirmed' => 'Password does not match.',
-                                'password_confirmation.required' => 'Confirmation password is required.',
+                                // 'password.confirmed' => 'Password does not match.',
+                                // 'password_confirmation.required' => 'Confirmation password is required.',
                                 // 'captcha.required' => 'Captcha field is required.',
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
@@ -490,7 +544,7 @@ class RegisterController extends Controller
                                 'district' => 'required',
                                 'block' => 'required',
                                 'city' => 'required|regex:/^[\pL\s\-]+$/u',
-                                'password' => 'required|string|min:8|confirmed',
+                                'password' => 'required|string|min:8',
                                 'password_confirmation' => 'required',
                                 // 'captcha' => 'required|captcha',
                                 'captcha' => 'required',
@@ -514,8 +568,8 @@ class RegisterController extends Controller
                                 'city.regex' => 'Please enter character value only.',
                                 'password.required' => 'Password is required.',
                                 'password.min' => 'Please enter 8 digit value.',
-                                'password.confirmed' => 'Password does not match.',
-                                'password_confirmation.required' => 'Confirmation password is required.',
+                                // 'password.confirmed' => 'Password does not match.',
+                                // 'password_confirmation.required' => 'Confirmation password is required.',
                                 // 'captcha.required' => 'Captcha field is required.',
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
@@ -533,7 +587,7 @@ class RegisterController extends Controller
                                 'district' => 'required',
                                 'block' => 'required',
                                 'city' => 'required|regex:/^[\pL\s\-]+$/u',
-                                'password' => 'required|string|min:8|confirmed',
+                                'password' => 'required|string|min:8',
                                 'password_confirmation' => 'required',
                                 // 'captcha' => 'required|captcha',
                                 'captcha' => 'required',
@@ -554,8 +608,8 @@ class RegisterController extends Controller
                                 'city.regex' => 'Please enter character value only.',
                                 'password.required' => 'Password is required.',
                                 'password.min' => 'Please enter 8 digit value.',
-                                'password.confirmed' => 'Password does not match.',
-                                'password_confirmation.required' => 'Confirmation password is required.',
+                                // 'password.confirmed' => 'Password does not match.',
+                                // 'password_confirmation.required' => 'Confirmation password is required.',
                                 // 'captcha.required' => 'Captcha field is required.',
                                 // 'captcha.captcha' => 'Please fill correct value.',
                             ]
@@ -688,7 +742,6 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-
         $role_name = $data['role'];
 
         if ($role_name == "cyclothon-2024") {
@@ -1128,6 +1181,7 @@ class RegisterController extends Controller
                 $usermeta->save();
             }
         } else {
+
             $rolearr = Role::where('slug', $data['role'])->select('id', 'slug', 'name')->first();
 
             if (!empty($data['state'])) {
@@ -1139,6 +1193,13 @@ class RegisterController extends Controller
             if (!empty($data['block'])) {
                 $block = Block::find($data['block']);
             }
+            if (!empty($data['role_name'])) {
+                $decoded = base64_decode($data['role_name'], true); // strict mode
+                $rolewise_name = $decoded !== false ? $decoded : null;
+            } else {
+                $rolewise_name = null;
+            }
+
 
             $user = User::create([
                 'name' => $data['name'],
@@ -1148,6 +1209,7 @@ class RegisterController extends Controller
                 'rolelabel' => $rolearr['name'],
                 'role_id' => $rolearr['id'],
                 'password' => Hash::make($data['password']),
+                'rolewise' => $rolewise_name,
             ]);
 
             if ($user->id) {

@@ -472,7 +472,7 @@ Route::get('/sendemail',[SendmailController::class,'sendemail'])->name('sendemai
 // National Sports day
 // Route::view('national-sports-day-2022', 'national-sports-day');
 Route::view('national-sports-day-2023', 'nationalsportsday2023');
-// Route::view('national-sports-day-2025', 'nationalsportsday2025');
+Route::view('national-sports-day-2025', 'nationalsportsday2025');
 Route::view('national-sports-day-merchandise-creatives-2025','nationalsportsdaymerchandisecreatives2025');
 Route::view('past-glimpses-2025', 'pastglimpses2025');
 Route::view('fit-india-pledge-2025', 'fitindiapledgeview2025');
@@ -504,6 +504,12 @@ Route::view('freedom-run-5.0-merchandise','freedomrunmerchandise');
 Route::view('fit-india-pledge-freedom-run-5', 'fitindiapledgeviewfreedomrun5');
 Route::view('past-glimpses-freedom-run-5', 'pastglimpsesfreedomrun5');
 // end event page
+// open event page Fit India Freedom Run 6.0
+Route::view('fit-india-freedom-run-6', 'fitinfreedomrun6');
+Route::view('freedom-run-5.0-merchandise','freedomrunmerchandise');
+Route::view('fit-india-pledge-freedom-run-5', 'fitindiapledgeviewfreedomrun5');
+Route::view('past-glimpses-freedom-run-5', 'pastglimpsesfreedomrun5');
+// end event page Fit India Freedom Run 6.0
 Route::get('fit-india-school-week', [App\Http\Controllers\GeneralController::class, 'fitindschoolweek2020']);
 Route::view('fit-india-cyclothon-2021','fit-india-cyclothon-2021');
 Route::view('fit-india-cyclothon-2020','fit-india-cyclothon-2020');

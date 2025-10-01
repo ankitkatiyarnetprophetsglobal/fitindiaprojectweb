@@ -59,49 +59,24 @@
 				<li class="nav-item {{ (request()->is('home')) ? 'active' : 'active' }}">
 				    <a class="nav-link  home-menu {{ (request()->is('home')) ? 'active' : '' }}" href="{{ route('home') }}"><i class="fa fa-home home_nav" aria-hidden="true" ></i><span class="menu-txt">{{ __('home_content.home')}} <!--Home--></span></span></a>
 				</li>
-				{{-- <li class="nav-item {{ (request()->is('fit-india-cycling-drive')) ? 'active' : 'active' }}">
-					<a class="nav-link  home-menu {{ (request()->is('fit-india-cycling-drive')) ? 'active' : '' }}" href="{{url('fit-india-cycling-drive')}}">Fit India Cycling Drive</span></a>
-				</li> --}}
-				{{-- <li class="nav-item {{ (request()->is('home')) ? 'active' : 'active' }}">
-					<a class="nav-link  home-menu {{ (request()->is('home')) ? 'active' : '' }}" href="{{ route('home') }}"><i class="fa fa-home home_nav" aria-hidden="true" ></i><span class="menu-txt">{{ __('home_content.home')}} <!--Home--></span></span></a>
-				</li> --}}
-				<li class="nav-item {{ (request()->is('fit-india-cycling-drive')) ? 'active' : 'active' }}">
-				  <a class="nav-link  home-menu {{ (request()->is('fit-india-cycling-drive')) ? 'active' : '' }}" href="{{url('fit-india-cycling-drive')}}">{{ __('home_content.fit-india-cycling-drive')}}</span></a>
+                <li class="nav-item {{ (request()->is('namo-cycling-club') || request()->is('namo-fit-india-youth-club')) ? 'active' : '' }}">
+					<a class="nav-link  {{ (request()->is('namo-cycling-club') || request()->is('namo-fit-india-youth-club')) ? 'active' : '' }}"
+					 {{-- href="javascript:void(0);"><span class="menu-txt">Namo Fit India Club</span><span class="m-arrow"><svg --}}
+						href="javascript:void(0);"><span class="menu-txt">{{ __('home_content.fit-india-events')}}</span><span class="m-arrow"><svg
+						xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+						<path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" /></svg></span></a>
+						<ul class="sub-menu">
+						 <li class="nav-item ">
+						  <a class="nav-link  home-menu {{ (request()->is('fit-india-cycling-drive')) ? 'active' : '' }}" href="{{url('fit-india-cycling-drive')}}">{{ __('home_content.fit-india-cycling-drive')}}</span></a>
+						 </li>
+						 <li class="nav-item ">
+						    <a class="nav-link {{ (request()->is('fit-india-freedom-run-6')  ? 'active' : '' )}}" href="{{url('fit-india-freedom-run-6')}}">{{ __('home_content.fit-india-freedom-run6')}} <!--Dialogue Session 1--></a>
+						 </li>
+						 <li class="nav-item ">
+						  <a class="nav-link {{ (request()->is('national-sports-day-2025')  ? 'active' : '' )}}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}} <!--Dialogue Session 1--></a>
+						 </li>
+						</ul>
 				</li>
-
-                {{-- <li class="nav-item {{ (request()->is('national-sports-day-2025')) ? 'active' : 'active' }}">
-				  <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2025')) ? 'active' : '' }}" href="{{url('national-sports-day-2025')}}">{{ __('home_content.national-sports-day-2025')}}</span></a>
-				</li> --}}
-
-				{{-- <li class="nav-item {{ (request()->is('womens-week-bicycle-day')) ? 'active' : 'active' }}">
-				  <a class="nav-link  home-menu {{ (request()->is('womens-week-bicycle-day')) ? 'active' : '' }}" href="{{url('womens-week-bicycle-day')}}">{{ __('home_content.womens-week-bicycle-day')}}</span></a>
-				</li> --}}
-				{{-- <li class="nav-item {{ (request()->is('fit-india-women-week')) ? 'active' : 'active' }}">
-				  <a class="nav-link  home-menu {{ (request()->is('fit-india-women-week')) ? 'active' : '' }}" href="{{url('fit-india-women-week')}}">{{ __('home_content.international-women')}}</span></a>
-				</li> --}}
-				{{-- <li class="nav-item {{ (request()->is('cyclothon-2024')) ? 'active' : 'active' }}">
-					<a class="nav-link  home-menu {{ (request()->is('cyclothon-2024')) ? 'active' : '' }}" href="{{url('cyclothon-2024')}}">Cyclothon</span></a>
-				</li> --}}
-				{{-- <li class="nav-item {{ (request()->is('fit-india-swacchta-freedom-run-5.0')) ? 'active' : 'active' }}">
-					<a class="nav-link  home-menu {{ (request()->is('fit-india-swacchta-freedom-run-5.0')) ? 'active' : '' }}" href="{{url('fit-india-swacchta-freedom-run-5.0')}}">Freedom run</span></a>
-				</li> --}}
-				{{-- <li class="nav-item {{ (request()->is('national-sports-day-2024')) ? 'active' : 'active' }}">
-					<a class="nav-link  home-menu {{ (request()->is('national-sports-day-2024')) ? 'active' : '' }}" href="{{url('national-sports-day-2024')}}">National Sports Day</span></a>
-				</li> --}}
-				{{-- <li class="nav-item {{ (request()->is('Fit-India-Swachhata-Freedom-Run-4.0')) ? 'active' : 'active' }}"> --}}
-				{{-- <li class="nav-item {{ (request()->is('fit-india-week-2024')) ? 'active' : 'active' }}"> --}}
-				    {{-- <a class="nav-link  home-menu {{ (request()->is('national-sports-day-2023')) ? 'active' : '' }}" href="{{url('national-sports-day-2023')}}">{{ __('home_content.event_title')}} </span></a> --}}
-				    {{-- <a class="nav-link  home-menu {{ (request()->is('Fit-India-Swachhata-Freedom-Run-4.0')) ? 'active' : '' }}" href="{{url('Fit-India-Swachhata-Freedom-Run-4.0')}}">Fit India Swachhata Freedom Run 4.0</span></a> --}}
-				    {{-- <a class="nav-link  home-menu {{ (request()->is('fit-india-week-2023')) ? 'active' : '' }}" href="{{url('fit-india-week-2023')}}">Fit India Week</span></a> --}}
-					{{-- <a class="nav-link  home-menu {{ (request()->is('fit-india-week-2024')) ? 'active' : '' }}" href="{{url('fit-india-week-2024')}}">{{ __('home_content.fit-india-week')}}</span></a> --}}
-				{{-- </li> --}}
-
-				{{-- <li class="nav-item {{ (request()->is('national-sports-day-2023') || request()->is('national-sports-day-2023')) ? 'active' : 'active' }}">
-				 <a class="nav-link  {{ (request()->is('national-sports-day-2023') || request()->is('national-sports-day-2023')) ? 'active' : '' }}" href="javascript:void(0);">
-				 	<span class="menu-txt">{{ __('home_content.events')}}</span>
-				 	<span class="m-arrow">
-					 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" /></svg></span>
-				</a> --}}
 				{{-- <ul class="sub-menu">
 					<li class="nav-item {{ (request()->is('fit-india-school-week-2022')) ? 'active' : 'active' }}">
 	              		<a class="nav-link  {{ (request()->is('fit-india-school-week-2022')) ? 'active' : '' }}"

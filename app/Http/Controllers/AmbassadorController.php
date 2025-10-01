@@ -21,12 +21,12 @@ class AmbassadorController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-    */	 
-	 
+    */
+
     /* public function sendemail(Request $request){
-	   
+
 	   $data = array(
-	   
+
         'name' => "Learning Laravel",
        );
 
@@ -35,23 +35,23 @@ class AmbassadorController extends Controller
 			$message->to('nagendragupta85@gmail.com')->subject('Learning Laravel test email');
 		});
 
-		return "Your email has been sent successfully";		
-	} */	
-	
+		return "Your email has been sent successfully";
+	} */
+
     public function index()
     {
         $states = State::all();
         return view('ambassador',compact('states'));
     }
 
-    
+
     public function create()
     {
-        
+
     }
-    
-    public function Store(Request $request){ 
-		try{			
+
+    public function Store(Request $request){
+		try{
 			$image = '';
 			$role_slug = 'smambassador';
 			$year = date("Y/m");
@@ -62,35 +62,35 @@ class AmbassadorController extends Controller
 				'designation' => 'required|string|regex:/(^[a-zA-Z ]+$)+/',
 				'state_name' => 'required|string',
 				'district_name' =>'required|string',
-				'block_name' => 'required|string',            
+				'block_name' => 'required|string',
 				'pincode' => 'required|numeric|digits:6',
 				'image' => 'required|image|mimes:jpg,png,gif,svg|max:1024',
-				'facebook_profile' => 'required|string',
-				'facebook_profile_followers' => 'required|numeric|digits_between:2,7',
-				'twitter_profile' => 'required|string',
-				'twitter_profile_followers' => 'required|numeric|digits_between:2,7',
-				'instagram_profile' => 'required|string',
-				'instagram_profile_followers' => 'required|numeric|digits_between:2,7',
+				// 'facebook_profile' => 'required|string',
+				// 'facebook_profile_followers' => 'required|numeric|digits_between:2,7',
+				// 'twitter_profile' => 'required|string',
+				// 'twitter_profile_followers' => 'required|numeric|digits_between:2,7',
+				// 'instagram_profile' => 'required|string',
+				// 'instagram_profile_followers' => 'required|numeric|digits_between:2,7',
 				'work_profession' => 'required',
 				'description' => 'required',
 				'declaration' => 'required'
 			]);
-			
-			
+
+
 			if($request->file('image'))
-			{			
-				$image = $request->file('image')->store($year,['disk'=>'uploads']);			
+			{
+				$image = $request->file('image')->store($year,['disk'=>'uploads']);
 				$image = url('wp-content/uploads/'.$image);
-			}			
+			}
 			$state = State::where('id', $request->state_name)->first();
 			$district = District::where('id', $request->district_name)->first();
 			$block = Block::where('id', $request->block_name)->first();
-			
+
 			$user = User::where('email', '=', $request->email)->first();
 			$get_role = Role::where('slug', '=', $role_slug)->first();
-			
+
 			if(empty($user)){
-				$user = new User();			
+				$user = new User();
 				$user->name = $request->name;
 				$user->email = $request->email;
 				$user->phone = $request->contact;
@@ -98,18 +98,18 @@ class AmbassadorController extends Controller
 				$user->rolelabel = $get_role->name;
 				$user->role_id = $get_role->id;
 
-				$user->password = Hash::make('Ambassador@123');			
-				if($user->save()){		
-				// for new user	
+				$user->password = Hash::make('Ambassador@123');
+				if($user->save()){
+				// for new user
 					$usermeta = new Usermeta();
 					$usermeta->user_id = $user->id;
 					$usermeta->state = $request->state;
 					$usermeta->district = $request->district;
 					$usermeta->block = $request->block;
-					$usermeta->pincode = $request->pincode;   
-					$usermeta->orgname = $get_role->name;		
+					$usermeta->pincode = $request->pincode;
+					$usermeta->orgname = $get_role->name;
 					$usermeta->save();
-			
+
 					$ambassador = Ambassador::create([
 						'user_id' => $user->id,
 						'name' => $request->name,
@@ -131,9 +131,9 @@ class AmbassadorController extends Controller
 						'instagram_profile' => $request->instagram_profile,
 						'instagram_profile_followers' => $request->instagram_profile_followers,
 						'work_profession' => $request->work_profession,
-						'description' => $request->description,	
-						'user_checker' => '1',				
-					]);	
+						'description' => $request->description,
+						'user_checker' => '1',
+					]);
 					if($ambassador){
 						return back()->with('success','Request to become a Fit India Ambassador has been submitted successfully. Please wait until your application is verified.');
 					}else{
@@ -175,7 +175,7 @@ class AmbassadorController extends Controller
 							'instagram_profile_followers' => $request->instagram_profile_followers,
 							'work_profession' => $request->work_profession,
 							'description' => $request->description,
-							'user_checker' => '0',					
+							'user_checker' => '0',
 							]);
 							if($ambassador){
 								return back()->with('success','Request to become a Fit India Ambassador has been submitted successfully. Please wait until your application is verified.');
@@ -208,7 +208,7 @@ class AmbassadorController extends Controller
 							'instagram_profile_followers' => $request->instagram_profile_followers,
 							'work_profession' => $request->work_profession,
 							'description' => $request->description,
-							'user_checker' => '0',					
+							'user_checker' => '0',
 							]);
 							if($ambassador){
 								return back()->with('success','Request to become a Fit India Ambassador has been submitted successfully. Please wait until your application is verified.');
@@ -221,36 +221,36 @@ class AmbassadorController extends Controller
 					}
 				}
 			}
-			
+
 			return back()->withInput();
 		} catch (Exception $e) {
-			
+
             return view('404');
         }
 	}
 
     public function show($id)
     {
-      
+
     }
-   
+
     public function edit($id)
     {
-        
+
     }
-    
+
     public function update(Request $request, $id)
     {
-       
+
     }
-   
+
     public function destroy($id)
     {
-        
+
     }
     public function getDistrict(Request $request)
     {
-        
+
         $state_id = $request->id;
 
         $district_list = District::where('state_id', $state_id)->orderby('name', 'asc')->get();
@@ -263,7 +263,7 @@ class AmbassadorController extends Controller
         return $district;
 
     }
-    
+
     public function getBlock(Request $request){
         $block_id = $request->id;
         $block_list = Block::where('district_id', $block_id)->get();
@@ -277,7 +277,7 @@ class AmbassadorController extends Controller
 	            }
         	}
         }
-        $block.='<option value="NA">N/A</option>';	
+        $block.='<option value="NA">N/A</option>';
         return $block;
 
     }
@@ -285,5 +285,5 @@ class AmbassadorController extends Controller
     	$all_ambassador = Ambassador::where('status', '1')->orderBy('created_at','DESC')->paginate(18);
     	return view('fit-india-ambassador',compact('all_ambassador'));
     }
-    
+
 }

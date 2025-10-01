@@ -217,10 +217,11 @@ return [
     'international-women' => 'फिट इंडिया महिला सप्ताह',
     'fit-india-cycling-drive' => 'फिट इंडिया संडे ऑन साइकिल',
     'fit-india-cycling-drive' => 'फिट इंडिया संडे ऑन साइकिल',
-    'national-sports-day-2025' => 'राष्ट्रीय खेल दिवस',
+    'national-sports-day-2025' => 'राष्ट्रीय खेल दिवस २०२५',
     'register_school_certification' => 'स्कूल प्रमाणन',
     'womens-week-bicycle-day' => 'विश्व साइकिल दिवस',
     'home-news-letter' => "समाचार पत्रिका",
     'expression-of-interest-fit-india' => "रुचि की अभिव्यक्ति-फिट इंडिया",
-
+    'fit-india-events' => "फिट इंडिया इवेंट",
+    'fit-india-freedom-run6' => "फिट इंडिया फ्रीडम रन ६.०",
 ];

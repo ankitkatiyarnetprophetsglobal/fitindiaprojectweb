@@ -6,13 +6,13 @@
  <div class="container">
    @if(session('success'))
       <div class="alert alert-success"><center><i class="fa fa-check-circle" aria-hidden="true"></i> {{session('success')}}</center></div>
-      @endif    
+      @endif
       @if(session('failed'))
       <div class="alert alert-danger"><center><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{session('failed')}}</center></div>
-      @endif 
+      @endif
         <div class="row ambass_area">
-            
-          <h2>Be a Fit India Ambassador</h2>           
+
+          <h2>Be a Fit India Ambassador</h2>
           <form name="ambassadorform" method="post" action="ambassador" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -55,13 +55,13 @@
                       <select name="state_name" id="state" class="form-control">
                       <option value="">Select State</option>
                       @foreach($states as $state)
-                        <option value="{{$state->id}}">{{$state->name}}</option> 
+                        <option value="{{$state->id}}">{{$state->name}}</option>
                       @endforeach
                   </select>
                   {!!$errors->first("state_name","<span class='text-danger'>:message</span>")!!}
                   </div>
                   </div>
-                  
+
                   <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                       <label for="District">District:-</label>
@@ -125,8 +125,8 @@
                   {!!$errors->first("twitter_profile","<span class='text-danger'>:message</span>")!!}
                   </div>
                   </div>
-                  
-                  <div class="col-sm-12 col-md-6">  
+
+                  <div class="col-sm-12 col-md-6">
                       <div class="form-group">
                         <label for="twitter_profile_followers">Twitter Profile Followers</label>
                         <input type="text" name="twitter_profile_followers" id="twitter_profile_followers" value="{{ old('twitter_profile_followers') }}" class="form-control">
@@ -224,10 +224,10 @@
            console.log(response);
            $('#block').html(response);
         },
-        
+
     });
   });
-  </script> 
+  </script>
 <script>
   $(function() {
     jQuery.validator.addMethod("validate_email", function(value, element) {
@@ -238,17 +238,17 @@
         }
     }, "Please enter a valid Email.");
 
-    jQuery.validator.addMethod("lettersonly", function(value, element) 
+    jQuery.validator.addMethod("lettersonly", function(value, element)
     {
       //return this.optional(element) || /^[a-z," "]+$/i.test(value);
       return this.optional(element) || /^[a-zA-Z0-9_@./#&+,:\s/-]+$/i.test(value);
-    }, "Letters and spaces only please"); 
+    }, "Letters and spaces only please");
 
     $.validator.addMethod('filesize', function (value, element, param) {
         return this.optional(element) || (element.files[0].size <= param)
     }, 'File size must be less than {0} bytes.');
 
-    
+
     $("form[name='ambassadorform']").validate({
       rules: {
         name:{
@@ -272,24 +272,24 @@
       image: {
         required: true,
         extension: "gif|png|jpg|jpeg", // work with additional-mothods.js
-                filesize: 1048576, 
+                filesize: 1048576,
       },
-      facebook_profile: { required:true, url: true },
-            facebook_profile_followers: { required:true, digits: true, maxlength:7 },
+            // facebook_profile: { required:true, url: true },
+            // facebook_profile_followers: { required:true, digits: true, maxlength:7 },
 
-            twitter_profile: { required:true, url: true },
-            twitter_profile_followers: { required:true, digits: true, maxlength:7 },
+            // twitter_profile: { required:true, url: true },
+            // twitter_profile_followers: { required:true, digits: true, maxlength:7 },
 
-            instagram_profile: { required:true, url: true },
-            instagram_profile_followers: { required:true, digits: true, maxlength:7 },
-            
+            // instagram_profile: { required:true, url: true },
+            // instagram_profile_followers: { required:true, digits: true, maxlength:7 },
+
       work_profession: { required:true, lettersonly: true },
             description: { required:true, lettersonly: true },
       "declaration": {
             required: true,
             minlength: 1
           }
-        
+
       },
       messages: {
         amb_name:{
@@ -309,47 +309,47 @@
         state: "Please select your state",
         district: "Please select your state",
         block: "Please select your block",
-        pincode: { 
+        pincode: {
           required:"Please enter pincode",
-                digits: "Only digits allow", 
-          minlength:"Only 6 digit allowed", 
-          maxlength:"Only 6 digit allowed" 
+                digits: "Only digits allow",
+          minlength:"Only 6 digit allowed",
+          maxlength:"Only 6 digit allowed"
         },
       image: {
          filesize:"File size must be less than 1 mb."
             },
 
-      facebook_profile: {required: "Please enter your facebook profile url", url:"Please enter valid url" },
-            facebook_profile_followers: {required: "Please enter your facebook followers count", digits:"Allow digit only", maxlength:"digit length should be less than 7 or equal to 7 digit" },
-            twitter_profile: {required: "Please enter your twitter profile url", url:"Please enter valid url" },
-            twitter_profile_followers: {required: "Please enter your twitter followers count", digits:"Allow digit only", maxlength:"digit length should be less than 7 or equal to 7 digit" },
-            instagram_profile: {required: "Please enter your instagram profile url", url:"Please enter valid url" },
-            instagram_profile_followers: {required: "Please enter your instagram followers count", digits:"Allow digit only", maxlength:"digit length should be less than 7 or equal to 7 digit" },
-      work_profession: { required:"Please enter your work profession", lettersonly: "Only Alphabetic character allow" }, 
+            // facebook_profile: {required: "Please enter your facebook profile url", url:"Please enter valid url" },
+            // facebook_profile_followers: {required: "Please enter your facebook followers count", digits:"Allow digit only", maxlength:"digit length should be less than 7 or equal to 7 digit" },
+            // twitter_profile: {required: "Please enter your twitter profile url", url:"Please enter valid url" },
+            // twitter_profile_followers: {required: "Please enter your twitter followers count", digits:"Allow digit only", maxlength:"digit length should be less than 7 or equal to 7 digit" },
+            // instagram_profile: {required: "Please enter your instagram profile url", url:"Please enter valid url" },
+            // instagram_profile_followers: {required: "Please enter your instagram followers count", digits:"Allow digit only", maxlength:"digit length should be less than 7 or equal to 7 digit" },
+            work_profession: { required:"Please enter your work profession", lettersonly: "Only Alphabetic character allow" },
             description: { required:"Please fill the description", lettersonly: "Only Alphabetic character allow" },
       "declaration": "Please select at least one checkbox"
     },
 
-    submitHandler: function(form) {
-        var fb_follower = parseInt($('#facebook_profile_followers').val());
-        var twit_follwer = parseInt($('#twitter_profile_followers').val());
-        var insta_follwer = parseInt($('#instagram_profile_followers').val());
-        var follwer_sum = fb_follower + twit_follwer + insta_follwer; 
-        if(follwer_sum > 9999){
-            form.submit();
-        }else{
-            alert("Your Social media follower's count should be greater than or equal to 10,000");
-        }
-    }
+    // submitHandler: function(form) {
+    //     var fb_follower = parseInt($('#facebook_profile_followers').val());
+    //     var twit_follwer = parseInt($('#twitter_profile_followers').val());
+    //     var insta_follwer = parseInt($('#instagram_profile_followers').val());
+    //     var follwer_sum = fb_follower + twit_follwer + insta_follwer;
+    //     if(follwer_sum > 9999){
+    //         form.submit();
+    //     }else{
+    //         alert("Your Social media follower's count should be greater than or equal to 10,000");
+    //     }
+    // }
   });
-}); 
+});
 
 /*$(document).ready(function(){
     $('#facebook_profile').focus(function(){
         $('.facebook_detail').show();
     }).blur(function(){
      $('.facebook_detail').hide();
-    }); 
+    });
     $('#instagram_profile').focus(function(){
         $('.insta_detail').show();
     }).blur(function(){
@@ -361,5 +361,5 @@
 </script>
 <style>
   .error{color:red;}
-</style>                  
+</style>
 @endsection

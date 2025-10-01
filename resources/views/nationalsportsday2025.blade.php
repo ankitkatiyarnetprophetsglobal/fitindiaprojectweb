@@ -498,13 +498,13 @@ $active_section_id = trim($active_section);
             </div>
         </div>
     </div>
-    <div class="main">
+    {{-- <div class="main">
         <marquee class="marq" style="background-color:#ff6000;" direction="left" loop="">
             <div class="geek1">
                 IMPORTANT: PLEASE PRE-REGISTER FOR MAXIMUM PARTICIPATION | UPLOAD YOUR PHOTOS/VIDEOS AFTER THE EVENT TO DOWNLOAD PARTICIPATION CERTIFICATES. For any queries, please contact us on - 1800-202-5155, 1800-258-5155
             </div>
         </marquee>
-    </div>
+    </div> --}}
     {{-- <div>
         <h5><center> Registration Count: {{ $user_data_count ?? ""}}</center></h5>
     </div> --}}
@@ -525,9 +525,9 @@ $active_section_id = trim($active_section);
                     <h3>Be the part of the biggest ever sporting revolution!!</h3>
                     <h2 class="mb-4">Ek ghanta khel ke maidaan mein!!</h2>
                     {{-- <button class="buttons d-block mx-auto mb-2">Register & participate</button> --}}
-                    <a class="buttons d-block mx-auto mb-2 text-center" href="register?role=bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1">
+                    {{-- <a class="buttons d-block mx-auto mb-2 text-center" href="register?role=bmF0aW9uYWwtc3BvcnRzLWRheS0yMDI1">
                         Register & participate
-                    </a>
+                    </a> --}}
                     {{-- <button class="buttons d-block mx-auto mb-2">Take the pledge</button> --}}
                     <a class="buttons d-block mx-auto mb-2 text-center" href="{{ url('fit-india-pledge-2025') }}">
                         Take the pledge
