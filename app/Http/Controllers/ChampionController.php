@@ -41,8 +41,8 @@ class ChampionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */	 
-	 
+     */
+
     public function ChampStore(Request $request){
 	    $image = '';
         $role_slug = 'champion';
@@ -54,15 +54,15 @@ class ChampionController extends Controller
             'designation' => 'required|string|regex:/(^[a-zA-Z ]+$)+/',
             'state_name' => 'required|string',
             'district_name' =>'required|string',
-            'block_name' => 'required|string',            
+            'block_name' => 'required|string',
             'pincode' => 'required|numeric|digits:6',
             'image' => 'required|image|mimes:jpg,png,gif,svg|max:1024',
-            'facebook_profile' => 'required|string',
-            'facebook_profile_followers' => 'required|numeric|digits_between:2,7',
-            'twitter_profile' => 'required|string',
-            'twitter_profile_followers' => 'required|numeric|digits_between:2,7',
-            'instagram_profile' => 'required|string',
-            'instagram_profile_followers' => 'required|numeric|digits_between:2,7',
+            // 'facebook_profile' => 'required|string',
+            // 'facebook_profile_followers' => 'required|numeric|digits_between:2,7',
+            // 'twitter_profile' => 'required|string',
+            // 'twitter_profile_followers' => 'required|numeric|digits_between:2,7',
+            // 'instagram_profile' => 'required|string',
+            // 'instagram_profile_followers' => 'required|numeric|digits_between:2,7',
             'work_profession' => 'required',
             'description' => 'required',
             'declaration' => 'required'
@@ -74,16 +74,16 @@ class ChampionController extends Controller
             $image = $request->file('image')->store($year,['disk'=>'uploads']);
             $image = url('wp-content/uploads/'.$image);
         }
-        
+
         $state = State::where('id', $request->state_name)->first();
         $district = District::where('id', $request->district_name)->first();
         $block = Block::where('id', $request->block_name)->first();
-        
+
         $user = User::where('email', '=', $request->email)->first();
         $get_role = Role::where('slug', '=', $role_slug)->first();
 
         if(empty($user)){
-            $user = new User();         
+            $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->contact;
@@ -91,18 +91,18 @@ class ChampionController extends Controller
             $user->rolelabel = $get_role->name;
             $user->role_id = $get_role->id;
 
-            $user->password = Hash::make('Champion@123');         
-            if($user->save()){      
-            // for new user 
+            $user->password = Hash::make('Champion@123');
+            if($user->save()){
+            // for new user
                 $usermeta = new Usermeta();
                 $usermeta->user_id = $user->id;
                 $usermeta->state = $request->state;
                 $usermeta->district = $request->district;
                 $usermeta->block = $request->block;
-                $usermeta->pincode = $request->pincode;   
-                $usermeta->orgname = $get_role->name;       
+                $usermeta->pincode = $request->pincode;
+                $usermeta->orgname = $get_role->name;
                 $usermeta->save();
-        
+
                 $champion = Champion::create([
                     'user_id' => $user->id,
                     'name' => $request->name,
@@ -124,9 +124,9 @@ class ChampionController extends Controller
                     'instagram_profile' => $request->instagram_profile,
                     'instagram_profile_followers' => $request->instagram_profile_followers,
                     'work_profession' => $request->work_profession,
-                    'description' => $request->description, 
-                    'user_checker' => '1',              
-                ]); 
+                    'description' => $request->description,
+                    'user_checker' => '1',
+                ]);
                 if($champion){
                     return back()->with('success','Request to become a Fit India Champion has been submitted successfully. Please wait until your application is verified.');
                 }else{
@@ -168,7 +168,7 @@ class ChampionController extends Controller
                         'instagram_profile_followers' => $request->instagram_profile_followers,
                         'work_profession' => $request->work_profession,
                         'description' => $request->description,
-                        'user_checker' => '0',                  
+                        'user_checker' => '0',
                         ]);
                         if($champion){
                             return back()->with('success','Request to become a Fit India Champion has been submitted successfully. Please wait until your application is verified.');
@@ -201,7 +201,7 @@ class ChampionController extends Controller
                         'instagram_profile_followers' => $request->instagram_profile_followers,
                         'work_profession' => $request->work_profession,
                         'description' => $request->description,
-                        'user_checker' => '0',                  
+                        'user_checker' => '0',
                         ]);
                         if($champion){
                             return back()->with('success','Request to become a Fit India Champion has been submitted successfully. Please wait until your application is verified.');
@@ -261,8 +261,8 @@ class ChampionController extends Controller
     {
         //
     }
-		
-    public function champdistrict(Request $request){       		
+
+    public function champdistrict(Request $request){
 		$state_id = $request->id;
         $district_list = District::where('state_id', $state_id)->orderby('name', 'asc')->get();
         $district = '<option value="">Select District</option>';
@@ -271,15 +271,15 @@ class ChampionController extends Controller
                $district .= '<option value="'.$dist['id'].'">'.$dist['name'].'</option>';
             }
         }
-		
+
         return $district;
 
     }
-    
-    public function champblock(Request $request){		
-		//dd($request);		
-        $block_id = $request->id;		
-		//dd($block_id);		
+
+    public function champblock(Request $request){
+		//dd($request);
+        $block_id = $request->id;
+		//dd($block_id);
         $block_list = Block::where('district_id', $block_id)->orderBy('name')->get();;
         $block = '<option value="">Select Block</option>';
 
@@ -292,8 +292,8 @@ class ChampionController extends Controller
                 }
             }
         }
-        $block.='<option value="13297">N/A</option>';   
-		
+        $block.='<option value="13297">N/A</option>';
+
         return $block;
     }
     public function championList(){

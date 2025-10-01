@@ -944,48 +944,48 @@ class EventCatController extends Controller
                         stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
 
                     );
-
-
-                    $data = [
-                                'title' => 'Invoice',
-                                'content' => 'This is a sample PDF content.',
-                            ];
-
-                    // Generate PDF from a Blade view
-                    $pdf = PDF::loadView('event.freedom-run-5-event-organizer-certificate',
-                                        [
-                                            'name' =>  $organiser_name,
-                                            'organizer_certificate' => $categories['organizer_certificate'],
-                                            'organizer_style_name' => $categories['organizer_style_name'],
-                                            'eventstartdate'=> $eventstartdate ?? '',
-                                            'eventenddate'=> $eventenddate ?? '',
-                                            'state'=> $state ?? '--',
-                                            'districts'=> $districts ?? '--',
-                                            'categories_event_id'=> $categories_event_id ?? '',
-                                            'serialno_with_id'=> $serialno_with_id ?? '',
-                                        ])->setPaper('a4', 'landscape');
-
-                    // Define file name
-
-
-                    $fileName = 'invoice_' . time() . '.pdf';
-                    $path = storage_path('app/public/pdf/' . $fileName);
-
-                    if (!file_exists(dirname($path))) {
-                        mkdir(dirname($path), 0777, true);
-                    }
-
-                    // Save PDF to the server path
-                    file_put_contents($path, $pdf->output());
-
-                    // return response()->json([
-                    //     'message' => 'PDF saved on server',
-                    //     'file' => $fileName,
-                    //     'path' => $path,
-                    // ]);
-
-
                     return $pdf->download($organiser_name.".pdf");
+
+                    // $data = [
+                    //             'title' => 'Invoice',
+                    //             'content' => 'This is a sample PDF content.',
+                    //         ];
+
+                    // // Generate PDF from a Blade view
+                    // $pdf = PDF::loadView('event.freedom-run-5-event-organizer-certificate',
+                    //                     [
+                    //                         'name' =>  $organiser_name,
+                    //                         'organizer_certificate' => $categories['organizer_certificate'],
+                    //                         'organizer_style_name' => $categories['organizer_style_name'],
+                    //                         'eventstartdate'=> $eventstartdate ?? '',
+                    //                         'eventenddate'=> $eventenddate ?? '',
+                    //                         'state'=> $state ?? '--',
+                    //                         'districts'=> $districts ?? '--',
+                    //                         'categories_event_id'=> $categories_event_id ?? '',
+                    //                         'serialno_with_id'=> $serialno_with_id ?? '',
+                    //                     ])->setPaper('a4', 'landscape');
+
+                    // // Define file name
+
+
+                    // $fileName = 'invoice_' . time() . '.pdf';
+                    // $path = storage_path('app/public/pdf/' . $fileName);
+
+                    // if (!file_exists(dirname($path))) {
+                    //     mkdir(dirname($path), 0777, true);
+                    // }
+
+                    // // Save PDF to the server path
+                    // file_put_contents($path, $pdf->output());
+
+                    // // return response()->json([
+                    // //     'message' => 'PDF saved on server',
+                    // //     'file' => $fileName,
+                    // //     'path' => $path,
+                    // // ]);
+
+
+                    // return $pdf->download($organiser_name.".pdf");
 
                 }
 

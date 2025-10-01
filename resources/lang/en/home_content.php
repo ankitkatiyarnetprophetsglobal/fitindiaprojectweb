@@ -212,9 +212,12 @@ return [
     'namo-fit-india-club' => 'Namo Fit India Club',
     'international-women' => "Fit India Women's Week",
     'fit-india-cycling-drive' => 'Fit India Sundays on Cycle',
-    'national-sports-day-2025' => 'National sports day',
+    'national-sports-day-2025' => 'National sports day 2025',
     'register_school_certification' => 'School Certification',
     'womens-week-bicycle-day' => "World Bicycle Day",
     'home-news-letter' => "Newsletter",
     'expression-of-interest-fit-india' => "Expression of Interest-Fit India",
+    'fit-india-events' => "Fit India Events",
+    'fit-india-freedom-run6' => "Fit India Freedom Run 6.0",
+
 ];
