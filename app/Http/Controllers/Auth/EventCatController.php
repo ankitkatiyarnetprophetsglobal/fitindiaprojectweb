@@ -27,13 +27,14 @@ class EventCatController extends Controller
 {
 
     public function createFreedomrunEvent(){
-
+     
         try{
             if (isset(auth()->user()->role)){
                     $role = Auth::user()->role;
                     $a_id = Auth::user()->id;
                 if (Auth::check()){
                     $categories = EventCat::where('status', '=', 2)->orderBy('id', 'DESC')->get();
+                   
                     $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
                     $userdata = user::with('usermeta')->find($a_id);
                     $Usermeta_data = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
