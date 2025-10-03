@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', '	Password change | Fit India')
+@section('title', ' Password change | Fit India')
 @section('content')
 <style>
     .footer_ab{position:absolute;bottom:0;width:100%;}

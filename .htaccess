@@ -40,3 +40,11 @@ Header always set X-Frame-Options "DENY"
 # Alternative method with RewriteRule
 RewriteCond %{REQUEST_METHOD} ^(OPTIONS)$ [NC]
 RewriteRule .* - [R=405,L]
+
+# Block log files specifically
+<FilesMatch "\.(log|txt|yml)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+

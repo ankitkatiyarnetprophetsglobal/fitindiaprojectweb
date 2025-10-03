@@ -26,28 +26,28 @@
                    
                        <div class="form-group">
                             <label for="userEmail">Department / Who you are*</label>
-                            <input type="text" name="department" class="form-control" value="">
+                            <input type="text" name="department" class="form-control" value="" autocomplete="off">
                             {!!$errors->first("department", "<span class='text-danger'>:message</span>")!!}
                         </div>
                         <div class="form-group">
                             <label for="userEmail">Your Name *</label>
-                            <input type="text" class="form-control" name="name" value="">
+                            <input type="text" class="form-control" name="name" value="" autocomplete="off">
                             {!!$errors->first("name", "<span class='text-danger'>:message</span>")!!}
                         </div>
                         
                         <div class="form-group">
                             <label for="userEmail">Email Address *</label>
-                            <input type="email" class="form-control" name="email" value="">
+                            <input type="email" class="form-control" name="email" value="" autocomplete="off">
                             {!!$errors->first("email", "<span class='text-danger'>:message</span>")!!}
                         </div>
                          <div class="form-group">
                             <label for="userEmail">Contact Number</label>
-                            <input type="number" class="form-control" name="mobile" value="">
+                            <input type="number" class="form-control" name="mobile" value="" autocomplete="off">
                             {!!$errors->first("mobile", "<span class='text-danger'>:message</span>")!!}
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="userEmail">Your Feedback</label>
-                            <textarea class="form-control" name="feedback" value=""></textarea>
+                            <textarea class="form-control" name="feedback" value="" autocomplete="off"></textarea>
                             {!!$errors->first("feedback", "<span class='text-danger'>:message</span>")!!}
                         </div>
                    
@@ -64,7 +64,7 @@
                            </div>
                            
                            <div style="float:left; width:40%">
-                               <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
+                               <input type="text" id="captcha" name="captcha" autocomplete="off" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha" maxlength="6" pattern="[A-Za-z0-9]{1,6}">
                                 @error('captcha')
                                     <span class="invalid-feedback" role="alert" >
                                         <strong>{{ $message }}</strong>
@@ -82,5 +82,12 @@
         </div>
     </div>
     </section>
-
+    <script>
+    const routes = {
+        reloadCaptcha: "{{ route('reloadCaptcha')}}",
+    };
+    const csrfToken = "{{ csrf_token() }}";
+</script>
+    <script src="{{ asset('resources/js/auth/captcha.js')}}"></script>
 @endsection
+
