@@ -320,6 +320,7 @@ class GeneralController extends Controller
                     'feedback' => 'required',
                     'captcha' => 'required|captcha'
                 ],
+                
                 [
                     'captcha.required'    => 'Please fill the captcha.',
                     'captcha.captcha'     => 'Invalid captcha entered, please try again.',
