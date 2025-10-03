@@ -750,7 +750,8 @@ class GeneralController extends Controller
             $phoneencrypt_trim = $this->encrypt($key, $iv, $phone);
             $email_value = $request->email_value;
             $role_value = $request['role_value'];
-            if (isset($role_value) && isset($email_value) && isset($phone)) {
+            // if (isset($role_value) && isset($email_value) && isset($phone)) {
+            if (isset($phone)) {
                 $records = DB::table('users')
                     ->Join('usermetas', 'users.id', '=', 'usermetas.user_id')
                     ->where('users.role', '=', $role_value)
@@ -777,8 +778,8 @@ class GeneralController extends Controller
                     $success = 'No duplicate';
                     $apiurl = config('app.api_url').'generateotpvtwo';
 
-                    // $response = Http::post('http://localhost/fit_india_api_git/api/v2/generateotpvtwo', [
-                    $response = Http::post('https://service.fitindia.gov.in/api/v2/generateotpvtwo', [
+                    $response = Http::post('http://localhost/fitindiaapigit/api/v2/generateotpvtwo', [
+                    // $response = Http::post('https://service.fitindia.gov.in/api/v2/generateotpvtwo', [
 
                             'reqtime' => $reqtimeencrypt_trim,
                             'email' => $emailencrypt_trim,
@@ -962,8 +963,8 @@ class GeneralController extends Controller
             $emailencrypt_trim = $this->encrypt($key, $iv, $email_trim);
             $apiurl = config('app.api_url').'verifyingemail';
             // $response = Http::post($apiurl, [
-            // $response = Http::post('http://localhost/fit_india_api_git/api/v2/verifyingemail', [
-            $response = Http::post('https://service.fitindia.gov.in/api/v2/verifyingemail', [
+            $response = Http::post('http://localhost/fitindiaapigit/api/v2/verifyingemail', [
+            // $response = Http::post('https://service.fitindia.gov.in/api/v2/verifyingemail', [
 
                         'reqtime' => $reqtimeencrypt_trim,
                         'email' => $emailencrypt_trim,

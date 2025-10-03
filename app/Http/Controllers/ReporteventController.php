@@ -1659,4 +1659,143 @@ class ReporteventController extends Controller
         }
     }
 
+    public function fitindiafreedomrun6report(){
+        try{
+
+            try{
+                // dd("sadfsadfasdfasdfasdf");
+                $query = "SELECT * FROM users as u inner join usermetas as um on u.id = um.user_id WHERE rolewise = 'fit-india-freedom-run6';";
+
+                $data = DB::select(DB::raw($query));
+
+                // dd($data);
+                $headers = array(
+                    'Content-Type' => 'text/csv'
+                );
+
+
+                $filename =  public_path("event.csv");
+                $handle = fopen($filename, 'w');
+
+                fputcsv($handle, [
+                    "Role",// Name of school
+                    "Name",
+                    "Email",
+                    "Phone",
+                    // "Pincode",
+                    "State",
+                    "District",
+                    "Block",
+                    "City",
+                    "Created at",
+                ]);
+
+                foreach ($data as $each_user) {
+
+                    fputcsv($handle, [
+                        $each_user->role,
+                        $each_user->name,
+                        $each_user->email,
+                        $each_user->phone,
+                        // $each_user->pincode,
+                        $each_user->state,
+                        $each_user->district,
+                        $each_user->block,
+                        $each_user->city,
+                        // $each_user->max_speed,
+                        $each_user->created_at,
+                    ]);
+
+                }
+                fclose($handle);
+
+                //download command
+                return Response::download($filename, "Event Drive Report.csv", $headers);
+
+                // dd($school);
+            }catch (Exception $e) {
+
+                return abort(404);
+
+            }
+            // dd($school);
+        }catch (Exception $e) {
+
+            return abort(404);
+
+        }
+    }
+
+
+    // fitindiaeventorgreport
+
+    public function fitindiaeventorgreport(){
+
+        try{
+            // dd('get_excel_image');
+            $query = "SELECT
+            eo.user_id,
+            eo.organiser_name,
+            eo.name,
+            eo.email,
+            eo.contact,
+            eo.eventstartdate,
+            eo.eventenddate,
+            eo.event_bg_image,
+            eo.eventimg_meta,
+            eo.excel_sheet,
+            IFNULL(eo.participantnum, 0) as participantnum
+            FROM event_organizations AS eo where category = 13084 order by id desc";
+
+            // $query = "SELECT eo.user_id,eo.organiser_name,eo.name,eo.email,eo.contact,eo.eventstartdate,eo.eventenddate,eo.event_bg_image,eo.eventimg_meta,eo.excel_sheet,um.state FROM usermetas um left join event_organizations AS eo on um.user_id = eo.user_id where category = 13064 order by um.state;";
+            // $query = "SELECT eo.user_id,eo.organiser_name,eo.name,eo.email,eo.contact,eo.eventstartdate,eo.eventenddate,eo.event_bg_image,eo.eventimg_meta,eo.excel_sheet,IFNULL(um.state, 'Not specified') as state,um.created_at FROM usermetas um left join event_organizations AS eo on um.user_id = eo.user_id where category = 13064 order by eo.name;";
+            $data = DB::select(DB::raw($query));
+
+            $headers = array(
+                'Content-Type' => 'text/csv'
+            );
+
+            $filename =  public_path("event.csv");
+            $handle = fopen($filename, 'w');
+
+            fputcsv($handle, [
+                "Organiser Name",
+                "Name",
+                "Email",
+                "Contact",
+                "Event Start Date",
+                "Event End Date",
+                "Event BG Image",
+                "Eventimg Meta",
+                "Excel Sheet",
+            ]);
+
+            foreach ($data as $each_user) {
+                // dd($each_user);
+                $arr = unserialize($each_user->eventimg_meta);
+                $arr_eventimg_meta = implode(" | ",$arr);
+
+                fputcsv($handle, [
+                    $each_user->organiser_name,
+                    $each_user->name,
+                    $each_user->email,
+                    $each_user->contact,
+                    $each_user->eventstartdate,
+                    $each_user->eventenddate,
+                    $each_user->event_bg_image,
+                    $arr_eventimg_meta,
+                    $each_user->excel_sheet,
+                ]);
+
+            }        fclose($handle);
+
+            //download command
+            return Response::download($filename, "All Report Till Date.csv", $headers);
+
+        }catch (Exception $e) {
+
+            return abort(404);
+        }
+    }
+
 }

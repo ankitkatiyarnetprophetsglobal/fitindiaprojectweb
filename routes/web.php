@@ -881,6 +881,8 @@ Route::get('hanolcyclothonrenningdatawise', [\App\Http\Controllers\ReporteventCo
 Route::get('cyclothonrenningdatawise', [\App\Http\Controllers\ReporteventController::class, 'cyclothonrenningdatawise']);
 Route::get('carboncratedsoc', [\App\Http\Controllers\ReporteventController::class, 'carboncratedsoc']);
 Route::get('coiregistrationdrivereport', [\App\Http\Controllers\ReporteventController::class, 'coiregistrationdrivereport']);
+Route::get('fitindiafreedomrun6report', [\App\Http\Controllers\ReporteventController::class, 'fitindiafreedomrun6report']);
+Route::get('fitindiafreedomrun6eventorgreport', [\App\Http\Controllers\ReporteventController::class, 'fitindiaeventorgreport']);
 // Route::POST('report-fit-india-event', 'reportfitindiaevent');
 
 
