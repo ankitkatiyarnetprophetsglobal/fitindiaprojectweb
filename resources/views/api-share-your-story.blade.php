@@ -15,18 +15,18 @@
     <!-- <link rel="stylesheet" href="{{ asset('resources/fonts/bootstrap.min.css') }}" media="screen"> -->
     <link rel="stylesheet" href="{{ asset('resources/css/bootstrap.min.css') }}" media="screen">
     <link rel="stylesheet" href="{{ asset('resources/css/bootstrap.min.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('resources/css/font-awesome.css') }}" media="screen"> 
-   
+    <link rel="stylesheet" href="{{ asset('resources/css/font-awesome.css') }}" media="screen">
+
     <link rel="stylesheet" href="{{ asset('resources/css/dashboard.min.css') }}" media="screen">
     <!-- <link href="{{ asset('resources/css/print.min.css') }}" rel="stylesheet" media="all">   -->
-    <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">   
-    <link href="{{ asset('resources/css/responsive.css') }}" rel="stylesheet" media="screen"> 
-    <link href="{{ asset('resources/css/print.css') }}" rel="stylesheet" media="print">  
-     
+    <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('resources/css/responsive.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('resources/css/print.css') }}" rel="stylesheet" media="print">
+
     <style>
 
         /* .nav-item{line-height: 1.9;} */
-        
+
     </style>
 
 <script src="{{ asset('resources/js/jquery.min.js')}}"></script>
@@ -87,7 +87,7 @@
                             @error('videourl')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            
+
                         </div>
                         <div class="form-group">
                             <label for="userEmail">Story Title *</label>
@@ -95,7 +95,7 @@
                             @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            
+
                         </div>
                         <div class="form-group">
                                 <label for="exampleInputEmail1">Image:</label>
@@ -110,7 +110,7 @@
                             @error('story')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            
+
                         </div>
                     </div>
                     <div class="modal-footer">

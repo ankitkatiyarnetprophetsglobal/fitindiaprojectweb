@@ -46,5 +46,11 @@ RewriteRule .* - [R=405,L]
     Order allow,deny
     Deny from all
 </FilesMatch>
-
+<FilesMatch "(^phpunit\.xml|phpunit\.xml\.dist|^phpunit\.php|^tests|^coverage)">
+    Require all denied
+</FilesMatch>
+<FilesMatch "(^phpunit\.xml|phpunit\.xml\.dist|^phpunit\.php|^tests|^coverage)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
 

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Champion;
-
 class Champion extends Model
 {
     use HasFactory;
@@ -35,16 +33,16 @@ class Champion extends Model
         'instagram_profile_followers',
         'work_profession',
         'description',
-        'status',  
-        'user_checker', 
+        'status',
+        'user_checker',
         'updated_by',
-        'reason',     
+        'reason',
     ];
-	
-	
+
+
     public static function getAllChamp()
     {
-            
+
         $result  = Champion::select('champions.name','champions.email','champions.contact','champions.designation','champions.state_name','champions.district_name','champions.block_name','champions.pincode','champions.facebook_profile','champions.facebook_profile_followers','champions.twitter_profile','champions.twitter_profile_followers','champions.instagram_profile','champions.instagram_profile_followers','champions.work_profession','champions.description',  DB::raw('(CASE WHEN champions.status = "1" THEN "Approved" WHEN champions.status = "2" THEN "Rejected" ELSE "Pending" END) AS application_status'),'champions.created_at','admins.email as uemail')
             ->leftJoin('admins', 'admins.id', '=', 'champions.updated_by')
             ->orderBy('champions.id','DESC')
@@ -63,6 +61,6 @@ class Champion extends Model
             ->orWhere('champions.district_name','LIKE','%'.$search_txt.'%')
             ->orWhere('champions.block_name','LIKE','%'.$search_txt.'%')
             ->get(40);
-            return $result;        
+            return $result;
     }
 }

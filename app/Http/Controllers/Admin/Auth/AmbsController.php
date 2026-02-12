@@ -22,15 +22,16 @@ use Illuminate\Support\Facades\Auth;
 
 class AmbsController extends Controller
 {
-    
+
     public function index(Request $request)
     {
+
         $admins = Admin::all();
-        
+
         $admins_role = Auth::user()->role_id;
         if($request->input('search')=='search')
         {
-            
+
             $search_txt = $request->input('s');
             $ambassadors = Ambassador::select('ambassadors.id','ambassadors.name','ambassadors.email','ambassadors.contact','ambassadors.designation','ambassadors.state_name','ambassadors.district_name','ambassadors.block_name','ambassadors.pincode','ambassadors.facebook_profile','ambassadors.twitter_profile','ambassadors.instagram_profile','ambassadors.work_profession','ambassadors.description','ambassadors.image','ambassadors.status','ambassadors.created_at','admins.email as uemail','ambassadors.reason')
                 ->leftJoin('admins', 'admins.id', '=', 'ambassadors.updated_by')
@@ -61,7 +62,7 @@ class AmbsController extends Controller
                             $query->orWhere('ambassadors.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('ambassadors.block_name','LIKE','%'.$search_txt.'%');
                         })->count();
-                        
+
             $approved_amb = Ambassador::select("*")
                         ->where('ambassadors.status', '1')
                         ->where(function($query) use ($search_txt){
@@ -95,27 +96,27 @@ class AmbsController extends Controller
             $approved_amb = Ambassador::where('status','1')->count();
             $pending_amb = Ambassador::where('status','0')->count();
         }
-        
+
         return view('admin.ambassador.index',compact('ambassadors','total_amb','rejected_amb','approved_amb','pending_amb'));
-    }   
-   
+    }
+
     public function exportAmbassador()
     {
        if(request()->has('s'))
         {
-           
+
         return Excel::download(new AmbsExport,'ambassadorlist.xlsx');
         }
       else
         {
         return Excel::download(new AmbsExport,'ambassadorlist.xlsx');
         }
-    }	
+    }
 	public function ambsActive(Request $request)
     {
         $auth_user = Auth::user();
         $response = array();
-        $reject_reson = $request->rejection_value; 
+        $reject_reson = $request->rejection_value;
         $reasons = '';
         if($reject_reson=='2'){
             $reasons = 'Followers';
@@ -177,28 +178,28 @@ class AmbsController extends Controller
         die;
     }
 
-    public function gramPanchayatambassadorlist(Request $request){          
-        
+    public function gramPanchayatambassadorlist(Request $request){
+
         if($request->input('search')=='search'){
-            
+
             $search_txt = $request->input('s');
-                    
+
             $gramPanchayat = GramPanchayat::select('gram_panchayat_ambassador.id','gram_panchayat_ambassador.name',
             'gram_panchayat_ambassador.email','gram_panchayat_ambassador.contact','gram_panchayat_ambassador.state_name','gram_panchayat_ambassador.district_name',
             'gram_panchayat_ambassador.block_name','gram_panchayat_ambassador.document_file','gram_panchayat_ambassador.event_image',
             'gram_panchayat_ambassador.status','admins.email as uemail')
                 ->leftJoin('admins', 'admins.id', '=', 'gram_panchayat_ambassador.updated_by')
                 ->where('gram_panchayat_ambassador.email','LIKE','%'.$search_txt.'%')
-                ->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%')                          
+                ->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%')
                 ->orWhere('gram_panchayat_ambassador.state_name','LIKE','%'.$search_txt.'%')
                 ->orWhere('gram_panchayat_ambassador.district_name','LIKE','%'.$search_txt.'%')
                 ->orWhere('gram_panchayat_ambassador.block_name','LIKE','%'.$search_txt.'%')
-                ->paginate(50);            
-                        
+                ->paginate(50);
+
                $total= GramPanchayat::select('*')
                         ->leftJoin('admins', 'admins.id', '=', 'gram_panchayat_ambassador.updated_by')
                         ->where('gram_panchayat_ambassador.email','LIKE','%'.$search_txt.'%')
-                        ->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%')                       
+                        ->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%')
                         ->orWhere('gram_panchayat_ambassador.state_name','LIKE','%'.$search_txt.'%')
                         ->orWhere('gram_panchayat_ambassador.district_name','LIKE','%'.$search_txt.'%')
                         ->orWhere('gram_panchayat_ambassador.block_name','LIKE','%'.$search_txt.'%')
@@ -208,17 +209,17 @@ class AmbsController extends Controller
                         ->where('gram_panchayat_ambassador.status', '0')
                         ->where(function($query) use ($search_txt){
                             $query->where('gram_panchayat_ambassador.email','LIKE','%'.$search_txt.'%');
-                            $query->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%');                            
+                            $query->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.state_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.block_name','LIKE','%'.$search_txt.'%');
                         })->count();
-                        
+
               $approved = GramPanchayat::select("*")
                         ->where('gram_panchayat_ambassador.status', '1')
                         ->where(function($query) use ($search_txt){
                             $query->where('gram_panchayat_ambassador.email','LIKE','%'.$search_txt.'%');
-                            $query->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%');                           
+                            $query->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.state_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.block_name','LIKE','%'.$search_txt.'%');
@@ -228,13 +229,13 @@ class AmbsController extends Controller
                         ->where('gram_panchayat_ambassador.status', '2')
                         ->where(function($query) use ($search_txt){
                             $query->where('gram_panchayat_ambassador.email','LIKE','%'.$search_txt.'%');
-                            $query->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%');                           
+                            $query->orWhere('gram_panchayat_ambassador.name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.state_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('gram_panchayat_ambassador.block_name','LIKE','%'.$search_txt.'%');
                         })->count();
-        } else { 
-    
+        } else {
+
            $gramPanchayat=GramPanchayat::select('gram_panchayat_ambassador.id','gram_panchayat_ambassador.name','gram_panchayat_ambassador.email','gram_panchayat_ambassador.contact',
            'gram_panchayat_ambassador.state_name','gram_panchayat_ambassador.district_name','gram_panchayat_ambassador.block_name',
            'gram_panchayat_ambassador.social_media_url','gram_panchayat_ambassador.document_file','gram_panchayat_ambassador.age_proof','gram_panchayat_ambassador.status',
@@ -246,10 +247,10 @@ class AmbsController extends Controller
             $total = GramPanchayat::all()->count();
             $rejected = GramPanchayat::where('status','2')->count();
             $approved = GramPanchayat::where('status','1')->count();
-            $pending = GramPanchayat::where('status','0')->count(); 
-       }       
-        
-        return view('admin.ambassador.panchyat',compact('gramPanchayat','total','rejected','approved','pending'));  
+            $pending = GramPanchayat::where('status','0')->count();
+       }
+
+        return view('admin.ambassador.panchyat',compact('gramPanchayat','total','rejected','approved','pending'));
     }
 
     public function gramPanchayatAmbDetail($pactid){
@@ -292,12 +293,12 @@ class AmbsController extends Controller
                 }else{
                     $pass = "GramPanchayat@123";
                 }
-				
+
                 $response = array('status'=>1,'msg'=>'Approved','pass'=>$pass);
-                  
+
             }
             elseif($gmp_info->status=='2'){
-                $response = array('status'=>2,'msg'=>'Rejected');              
+                $response = array('status'=>2,'msg'=>'Rejected');
             }
             else{
                 $response = array('status'=>0,'msg'=>'Pending');
@@ -308,8 +309,8 @@ class AmbsController extends Controller
         }
         echo json_encode($response);
         die;
-    }	
-   
+    }
+
 	public function localbodyAmbassadorList(Request $request)
 	{
 	    if($request->input('search')=='search'){
@@ -320,15 +321,15 @@ class AmbsController extends Controller
 			'local_body_ambassador.status','admins.email as uemail')
 				->leftJoin('admins', 'admins.id', '=', 'local_body_ambassador.updated_by')
 				->where('local_body_ambassador.email','LIKE','%'.$search_txt.'%')
-				->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%')							
+				->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%')
 				->orWhere('local_body_ambassador.state_name','LIKE','%'.$search_txt.'%')
 				->orWhere('local_body_ambassador.district_name','LIKE','%'.$search_txt.'%')
 				->orWhere('local_body_ambassador.block_name','LIKE','%'.$search_txt.'%')
-				->paginate(50);  		   
+				->paginate(50);
 	            $total= LocalBody::select('*')
                         ->leftJoin('admins', 'admins.id', '=', 'local_body_ambassador.updated_by')
                         ->where('local_body_ambassador.email','LIKE','%'.$search_txt.'%')
-                        ->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%')                       
+                        ->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%')
                         ->orWhere('local_body_ambassador.state_name','LIKE','%'.$search_txt.'%')
                         ->orWhere('local_body_ambassador.district_name','LIKE','%'.$search_txt.'%')
                         ->orWhere('local_body_ambassador.block_name','LIKE','%'.$search_txt.'%')
@@ -337,7 +338,7 @@ class AmbsController extends Controller
                         ->where('local_body_ambassador.status', '0')
                         ->where(function($query) use ($search_txt){
                             $query->where('local_body_ambassador.email','LIKE','%'.$search_txt.'%');
-                            $query->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%');                            
+                            $query->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.state_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.block_name','LIKE','%'.$search_txt.'%');
@@ -346,7 +347,7 @@ class AmbsController extends Controller
                         ->where('local_body_ambassador.status', '1')
                         ->where(function($query) use ($search_txt){
                             $query->where('local_body_ambassador.email','LIKE','%'.$search_txt.'%');
-                            $query->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%');                           
+                            $query->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.state_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.block_name','LIKE','%'.$search_txt.'%');
@@ -356,13 +357,13 @@ class AmbsController extends Controller
                         ->where('local_body_ambassador.status', '2')
                         ->where(function($query) use ($search_txt){
                             $query->where('local_body_ambassador.email','LIKE','%'.$search_txt.'%');
-                            $query->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%');                           
+                            $query->orWhere('local_body_ambassador.name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.state_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.district_name','LIKE','%'.$search_txt.'%');
                             $query->orWhere('local_body_ambassador.block_name','LIKE','%'.$search_txt.'%');
                         })->count();
-        } else { 
-	
+        } else {
+
 	       $localBody = LocalBody::select('local_body_ambassador.id','local_body_ambassador.name',
 		   'local_body_ambassador.email','local_body_ambassador.contact','local_body_ambassador.state_name','local_body_ambassador.district_name',
 			'local_body_ambassador.block_name','local_body_ambassador.document_file','local_body_ambassador.event_image',
@@ -374,10 +375,10 @@ class AmbsController extends Controller
             $total = LocalBody::all()->count();
             $rejected = LocalBody::where('status','2')->count();
             $approved = LocalBody::where('status','1')->count();
-            $pending = LocalBody::where('status','0')->count(); 
-       }	   
-        
-        return view('admin.ambassador.localbody',compact('localBody','total','rejected','approved','pending'));	
+            $pending = LocalBody::where('status','0')->count();
+       }
+
+        return view('admin.ambassador.localbody',compact('localBody','total','rejected','approved','pending'));
 	}
 	public function localbodyAmbDetail($lbid)
 	{
@@ -417,12 +418,12 @@ class AmbsController extends Controller
                 }else{
                     $pass = "Localbody@123";
                 }
-				
+
                 $response = array('status'=>1,'msg'=>'Approved','pass'=>$pass);
-                  
+
             }
             elseif($lbody_info->status=='2'){
-                $response = array('status'=>2,'msg'=>'Rejected');              
+                $response = array('status'=>2,'msg'=>'Rejected');
             }
             else{
                 $response = array('status'=>0,'msg'=>'Pending');

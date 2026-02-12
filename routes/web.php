@@ -7,33 +7,33 @@ use App\Http\Controllers\Admin\Auth\BlockController;
 use App\Http\Controllers\Admin\Auth\EventController;*/
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Admin\Auth\StateController;
-// use App\Http\Controllers\Admin\Auth\DistrictController;
-// use App\Http\Controllers\Admin\Auth\BlockController;
-// use App\Http\Controllers\Admin\Auth\UserController;
-// use App\Http\Controllers\Admin\Auth\EventController;
+use App\Http\Controllers\Admin\Auth\StateController;
+use App\Http\Controllers\Admin\Auth\DistrictController;
+use App\Http\Controllers\Admin\Auth\BlockController;
+use App\Http\Controllers\Admin\Auth\UserController;
+use App\Http\Controllers\Admin\Auth\EventController;
 use App\Http\Controllers\Auth\RegisterController;
-// use App\Http\Controllers\Admin\Auth\FoodChartController;
-// use App\Http\Controllers\Admin\Auth\SleepChartController;
-// use App\Http\Controllers\Admin\Auth\EventCatController;
-// use App\Http\Controllers\Admin\Auth\EventArchiveController;
+use App\Http\Controllers\Admin\Auth\FoodChartController;
+use App\Http\Controllers\Admin\Auth\SleepChartController;
+use App\Http\Controllers\Admin\Auth\EventCatController;
+use App\Http\Controllers\Admin\Auth\EventArchiveController;
 use App\Http\Controllers\AmbassadorController;
 use App\Http\Controllers\ChampionController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\SendmailController;
-// use App\Http\Controllers\Admin\Auth\AmbsController;
-// use App\Http\Controllers\Admin\Auth\ChampController;
-// use App\Http\Controllers\Admin\Auth\PostController;
-// use App\Http\Controllers\Admin\Auth\SoceventController;
-// use App\Http\Controllers\Admin\Auth\MaganageDashboardController ;
-// use App\Http\Controllers\Admin\Auth\MaganageImageStatusController ;
-// use App\Http\Controllers\Admin\Auth\PostCatController;
-// use App\Http\Controllers\Admin\Auth\FoodnameController;
-// use App\Http\Controllers\Admin\Auth\FoodquantityController;
-// use App\Http\Controllers\Admin\Auth\StarratingstatusController;
-// use App\Http\Controllers\Admin\Auth\AnnouncementsController;
-// use App\Http\Controllers\Admin\Auth\BulletinController;
-// use App\Http\Controllers\Admin\Auth\UserimagesController;
+use App\Http\Controllers\Admin\Auth\AmbsController;
+use App\Http\Controllers\Admin\Auth\ChampController;
+use App\Http\Controllers\Admin\Auth\PostController;
+use App\Http\Controllers\Admin\Auth\SoceventController;
+use App\Http\Controllers\Admin\Auth\MaganageDashboardController ;
+use App\Http\Controllers\Admin\Auth\MaganageImageStatusController ;
+use App\Http\Controllers\Admin\Auth\PostCatController;
+use App\Http\Controllers\Admin\Auth\FoodnameController;
+use App\Http\Controllers\Admin\Auth\FoodquantityController;
+use App\Http\Controllers\Admin\Auth\StarratingstatusController;
+use App\Http\Controllers\Admin\Auth\AnnouncementsController;
+use App\Http\Controllers\Admin\Auth\BulletinController;
+use App\Http\Controllers\Admin\Auth\UserimagesController;
 use App\Http\Controllers\Api\YourStoriesController;
 use App\Http\Controllers\PasswordresetController;
 use App\Http\Controllers\FitnessquizController;
@@ -44,16 +44,16 @@ use App\Http\Controllers\LocalizationController;
 
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\ChanagePasswordController;
-// use App\Http\Controllers\Admin\Auth\YouthController;
+use App\Http\Controllers\Admin\Auth\YouthController;
 
 
-// use App\Http\Controllers\Admin\Auth\QuizController;
-// use App\Http\Controllers\Admin\Auth\QuizWinnerController;
-// use App\Http\Controllers\Admin\Auth\QuizOrgController;
-// use App\Http\Controllers\Admin\Auth\PrkController;
-// use App\Http\Controllers\Admin\Auth\FitEnthController;
-// use App\Http\Controllers\Admin\Auth\FreedomrunbackendController;
-// use App\Http\Controllers\Admin\Auth\CorporatebackendController;
+use App\Http\Controllers\Admin\Auth\QuizController;
+use App\Http\Controllers\Admin\Auth\QuizWinnerController;
+use App\Http\Controllers\Admin\Auth\QuizOrgController;
+use App\Http\Controllers\Admin\Auth\PrkController;
+use App\Http\Controllers\Admin\Auth\FitEnthController;
+use App\Http\Controllers\Admin\Auth\FreedomrunbackendController;
+use App\Http\Controllers\Admin\Auth\CorporatebackendController;
 use App\Http\Controllers\Admin\Auth\WebrewardController;
 use App\Http\Controllers\FitindiaDotNetController;
 use App\Http\Controllers\FitindiaDotNetreportController;
@@ -135,225 +135,228 @@ Route::get('update-password/{token?}', [ResetPasswordController::class,'showRese
 //Route::get('update-password/{token?}', 'Auth\ForgotPasswordController@showLinkRequestForm');
 Route::post('/update_password', [App\Http\Controllers\Api\ChanagePasswordController::class,'updatePassword'])->name('updatePassword');
 
-// Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], function(){
-//     //freedomrun start
-//     Route::resource('webreward',WebrewardController::class);
-//     Route::get('freedomrun_partners',[FreedomrunbackendController::class,'pexport']);
-//     Route::get('freedomrun_export',[FreedomrunbackendController::class,'export']);
-//     Route::resource('freedomrun-individual', FreedomrunbackendController::class);
-//     Route::get('freedomrun-partner', [FreedomrunbackendController::class, 'partner'])->name('partner');
-//     Route::get('freedomrun-organizer', [FreedomrunbackendController::class, 'organizer'])->name('organizer');
-//     Route::get('partner-activation/{ambs}/{aid}',[FreedomrunbackendController::class,'partnerActive']);
-//     Route::post('partner-activation',[FreedomrunbackendController::class,'partnerActive']);
-//     Route::get('freedomrun-partner/{id}/pedit',[FreedomrunbackendController::class,'partnerEstatus'])->name('freedomrun-partner.pedit');
-//     Route::delete('freedomrun-partner/{id}/pdestroy',[FreedomrunbackendController::class,'partnerDelete'])->name('freedomrun-partner.pdestroy');
-//     Route::delete('freedomrun-organizer/{id}/odestroy',[FreedomrunbackendController::class,'organizerDelete'])->name('freedomrun-organizer.odestroy');
-//     Route::patch('freedomrun-partner/{id}/pupdate',[FreedomrunbackendController::class,'partnerUpstatus'])->name('freedomrun-partner.pupdate');
-//     Route::get('freedomrun-organizer/{id}/orgedit',[FreedomrunbackendController::class,'organizerEstatus'])->name('freedomrun-organizer.orgedit');
-//     Route::patch('freedomrun-organizer/{id}/pupdate',[FreedomrunbackendController::class,'organizerUpstatus'])->name('freedomrun-organizer.pupdate');
+Route::group(['prefix'=>'admin', 'as'=>'admin.', 'middleware' => 'auth:admin'], function(){
+    //freedomrun start
+    Route::resource('webreward',WebrewardController::class);
+    Route::get('freedomrun_partners',[FreedomrunbackendController::class,'pexport']);
+    Route::get('freedomrun_export',[FreedomrunbackendController::class,'export']);
+    Route::resource('freedomrun-individual', FreedomrunbackendController::class);
+    Route::get('freedomrun-partner', [FreedomrunbackendController::class, 'partner'])->name('partner');
+    Route::get('freedomrun-organizer', [FreedomrunbackendController::class, 'organizer'])->name('organizer');
+    Route::get('partner-activation/{ambs}/{aid}',[FreedomrunbackendController::class,'partnerActive']);
+    Route::post('partner-activation',[FreedomrunbackendController::class,'partnerActive']);
+    Route::get('freedomrun-partner/{id}/pedit',[FreedomrunbackendController::class,'partnerEstatus'])->name('freedomrun-partner.pedit');
+    Route::delete('freedomrun-partner/{id}/pdestroy',[FreedomrunbackendController::class,'partnerDelete'])->name('freedomrun-partner.pdestroy');
+    Route::delete('freedomrun-organizer/{id}/odestroy',[FreedomrunbackendController::class,'organizerDelete'])->name('freedomrun-organizer.odestroy');
+    Route::patch('freedomrun-partner/{id}/pupdate',[FreedomrunbackendController::class,'partnerUpstatus'])->name('freedomrun-partner.pupdate');
+    Route::get('freedomrun-organizer/{id}/orgedit',[FreedomrunbackendController::class,'organizerEstatus'])->name('freedomrun-organizer.orgedit');
+    Route::patch('freedomrun-organizer/{id}/pupdate',[FreedomrunbackendController::class,'organizerUpstatus'])->name('freedomrun-organizer.pupdate');
 
-//     Route::delete('partnerDeleteAll',[FreedomrunbackendController::class,'partnerdeleteAll']);
-//     Route::get('changepassword', [UserController::class, 'resetpassForm'])->name('changepassword');
-//     Route::post('resetpassword', [UserController::class, 'resetPassword'])->name('resetpassword');
+    Route::delete('partnerDeleteAll',[FreedomrunbackendController::class,'partnerdeleteAll']);
+    Route::get('changepassword', [UserController::class, 'resetpassForm'])->name('changepassword');
+    Route::post('resetpassword', [UserController::class, 'resetPassword'])->name('resetpassword');
 
-//     //End freedom run
+    //End freedom run
 
-//     Route::post('prerak-activation',[PrkController::class,'active']);
-//     Route::get('preraklist', [PrkController::class,'index']);
-//     Route::get('prerakdetails/{pid}', [PrkController::class,'show']);
-//     Route::get('prerak_export',[PrkController::class,'exportPrerak']);
-//     Route::post('influencer-upgrade',[PrkController::class,'influencerUpgrade']);
+    Route::post('prerak-activation',[PrkController::class,'active']);
+    Route::get('preraklist', [PrkController::class,'index']);
+    Route::get('prerakdetails/{pid}', [PrkController::class,'show']);
+    Route::get('prerak_export',[PrkController::class,'exportPrerak']);
+    Route::post('influencer-upgrade',[PrkController::class,'influencerUpgrade']);
 
-//     Route::post('enthusiast-activation',[FitEnthController::class,'active']);
-//     Route::get('enthusiastlist', [FitEnthController::class,'index']);
-//     Route::get('enthusiastdetails/{pid}', [FitEnthController::class,'show']);
-//     Route::get('enthusiast_export',[FitEnthController::class,'exportEnthusiast']);
-//     Route::post('fitevent-specialist-upgrade',[FitEnthController::class,'fitnessEventUpgrade']);
+    Route::post('enthusiast-activation',[FitEnthController::class,'active']);
+    Route::get('enthusiastlist', [FitEnthController::class,'index']);
+    Route::get('enthusiastdetails/{pid}', [FitEnthController::class,'show']);
+    Route::get('enthusiast_export',[FitEnthController::class,'exportEnthusiast']);
+    Route::post('fitevent-specialist-upgrade',[FitEnthController::class,'fitnessEventUpgrade']);
 
-//     Route::resource('quizs', QuizController::class);
-//     Route::get('quiz_export',[QuizController::class,'quizExport']);
+    Route::resource('quizs', QuizController::class);
+    Route::get('quiz_export',[QuizController::class,'quizExport']);
 
-//     Route::resource('quizwinners', QuizWinnerController::class);
-//     Route::get('quiz_winner_export',[QuizWinnerController::class,'quizwinnerexport']);
+    Route::resource('quizwinners', QuizWinnerController::class);
+    Route::get('quiz_winner_export',[QuizWinnerController::class,'quizwinnerexport']);
 
-//     Route::get('quiz-organizers', [QuizOrgController::class, 'index'])->name('quizorganizer');
-//     Route::get('quiz-organizers-export', [QuizOrgController::class, 'quizorgexport'])->name('quizorganizerexport');
+    Route::get('quiz-organizers', [QuizOrgController::class, 'index'])->name('quizorganizer');
+    Route::get('quiz-organizers-export', [QuizOrgController::class, 'quizorgexport'])->name('quizorganizerexport');
 
-//     Route::get('deletequizorg/{id}',[QuizOrgController::class, 'deletequizorg'])->name('deletequizorg');
-//     Route::resource('eventarchive', EventArchiveController::class);
-//     Route::resource('bulletin', BulletinController::class);
+    Route::get('deletequizorg/{id}',[QuizOrgController::class, 'deletequizorg'])->name('deletequizorg');
+    Route::resource('eventarchive', EventArchiveController::class);
+    Route::resource('bulletin', BulletinController::class);
 
-//     Route::get('localbodylist/{id?}',[AmbsController::class, 'localbodyAmbDetail'])->name('localbodyAmbDetail');
+    Route::get('localbodylist/{id?}',[AmbsController::class, 'localbodyAmbDetail'])->name('localbodyAmbDetail');
 
-//     Route::resource('states', StateController::class);
-//     Route::resource('districts', DistrictController::class);
-//     Route::resource('blocks', BlockController::class);
-//     Route::resource('users', UserController::class);
-//     Route::get('user_export',[UserController::class,'userExport']);
-//     //Route::get('user_pdf',[UserController::class,'createPDF']);
-//     Route::get('edit-user/{id}',[UserController::class,'editUser']);
-//     Route::get('user-destroy/{id}',[UserController::class,'destroyUser']);
+    Route::resource('states', StateController::class);
+    Route::resource('districts', DistrictController::class);
+    Route::resource('blocks', BlockController::class);
+    Route::resource('users', UserController::class);
+    Route::get('user_export',[UserController::class,'userExport']);
+    //Route::get('user_pdf',[UserController::class,'createPDF']);
+    Route::get('edit-user/{id}',[UserController::class,'editUser']);
+    Route::get('user-destroy/{id}',[UserController::class,'destroyUser']);
 
-//     Route::post('user-profile-dis',[UserController::class,'userprofileDis'])->name('user-profile-dis');
-//     Route::post('user-profile-blk',[UserController::class,'userprofileBlk'])->name('user-profile-blk');
-//     Route::resource('events', EventController::class);
-//     Route::get('edit-event/{id}',[EventController::class,'editEvent']);
-//     Route::get('events-show/{id}',[EventController::class,'eventShow']);
-//     Route::get('event-destroy/{id}',[EventController::class,'destroyEvent']);
-//     //Route::get('search',[UserController::class,'searchData']);
-//     Route::get('event_export',[EventController::class,'export']);
-//     Route::resource('foodcharts', FoodChartController::class);
-//     Route::resource('sleepcharts', SleepChartController::class);
-//     Route::resource('eventcats', EventCatController::class);
-//     Route::get('status/{type}/{id}',[EventCatController::class,'status']);
+    Route::post('user-profile-dis',[UserController::class,'userprofileDis'])->name('user-profile-dis');
+    Route::post('user-profile-blk',[UserController::class,'userprofileBlk'])->name('user-profile-blk');
+    Route::resource('events', EventController::class);
+    Route::get('edit-event/{id}',[EventController::class,'editEvent']);
+    Route::get('events-show/{id}',[EventController::class,'eventShow']);
+    Route::get('event-destroy/{id}',[EventController::class,'destroyEvent']);
+    //Route::get('search',[UserController::class,'searchData']);
+    Route::get('event_export',[EventController::class,'export']);
+    Route::resource('foodcharts', FoodChartController::class);
+    Route::resource('sleepcharts', SleepChartController::class);
+    Route::resource('eventcats', EventCatController::class);
+    Route::get('status/{type}/{id}',[EventCatController::class,'status']);
 
-//     Route::resource('ambassadors',AmbsController::class);
-//     Route::get('ambassador-activation/{ambs}/{aid}',[AmbsController::class,'ambsActive']);
-//     Route::post('ambassador-activation',[AmbsController::class,'ambsActive']);
-//     Route::get('ambassador_export',[AmbsController::class,'exportAmbassador']);
-//     Route::get('panchayatlist',[AmbsController::class,'gramPanchayatAmbassadorList']);
-//     Route::get('panchayatdetail',[AmbsController::class,'gramPanchayatAmbDetail']);
-//     /*  Route::post('panchayat-ambassador-list',[AmbsController::class,'gramPanchayatAmbassadorList']);*/
-
-
-//     Route::resource('champions', ChampController::class);
-//     Route::get('champion_export',[ChampController::class,'exportChamp']);
-//     Route::get('champ-status/{champ}/{cid}',[ChampController::class,'champStatus']);
-//     Route::post('champ-status',[ChampController::class,'champStatus']);
-//     Route::resource('posts', PostController::class);
-//     Route::resource('socevents', SoceventController::class);
-//     Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
-//     Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
-//     Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
-//         // 18-08-2025 Index page
-//     Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
-//     Route::get('soc-report-download', [\App\Http\Controllers\SocReportController::class, 'download'])->name('soc-reports.download');
-
-//     Route::resource('dashboard-tiles', MaganageDashboardController::class);
-//     //Images Status Approve
-//     Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
-//     Route::post('/image_approve/{id}', [MaganageImageStatusController::class, 'image_approve'])->name('image-approve');
-//     Route::post('/image_reject/{id}', [MaganageImageStatusController::class, 'image_reject'])->name('image-reject');
-//     Route::post('/image_status/{id}', [MaganageImageStatusController::class, 'image_updateStatus'])->name('image-status');
-//     Route::post('/image_bulk_approve', [MaganageImageStatusController::class, 'image_bulkApprove'])->name('image-bulk-approve');
-//     Route::post('/image_bulk_reject', [MaganageImageStatusController::class, 'image_bulkReject'])->name('image-bulk-reject');
-//     // End Images Status
-
-//     Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
-//     Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
-//     Route::get('destroy-soc-admin-id/{id}', [SoceventController::class, 'destroy_soc_admin_id'])->name('destroysocadminid');
-//     Route::post('nemoclub-dispatch-status',[SoceventController::class,'nemoclub_dispatch_status']);
-//     Route::get('send-to-approval/{id}',[PostController::class,'SendToApproval'])->name('SendToApproval');
-//     Route::get('ready-to-publish/{id}',[PostController::class,'ReadyToPublish'])->name('ReadyToPublish');
-//     Route::get('post-comment-status/{id}/{commitstatus?}/{postid?}',[PostController::class,'PostCommentStatus'])->name('PostCommentStatus');
-//     Route::get('rejected/{id}',[PostController::class,'Rejected'])->name('Rejected');
-//     Route::resource('category', PostCatController::class);
-//     Route::resource('foodnames', FoodnameController::class);
-//     Route::resource('servingquantities', FoodquantityController::class);
-//     Route::get('post_status/{post_status}/{id}',[PostCatController::class,'post_status']);
-//     Route::resource('starratings', StarratingstatusController::class);
-
-//     Route::get('schoolcert_export',[StarratingstatusController::class,'export']);
-
-//     Route::get('starrating-certificate/{cat_id}/{user_id}',[StarratingstatusController::class,'starRatingCertificate']);
-//     Route::get('schoolflag/{cat_id}/{user_id}',[StarratingstatusController::class,'FlagRequest']);
-//     Route::resource('announcement', AnnouncementsController::class);
-//     Route::get('announcement/{id}/edit',[AnnouncementsController::class], 'edit');
-//     Route::get('announcement/{id}/status',[AnnouncementsController::class,'announStatus'])->name('announcement.status');
-
-//     Route::resource('userimages', UserimagesController::class);
-//     Route::get('userimagedeactive/{id}',[UserimagesController::class,'userimagedeactive'])->name('userimagedeactive');
-//     Route::get('userimageactive/{id}',[UserimagesController::class,'userimageactive'])->name('userimageactive');
-
-//     /*******************nagendra********************************/
-
-//     Route::resource('youths', YouthController::class);
-//     Route::get('youths_export',[YouthController::class,'export']);
-
-//         Route::post('/getquizpartner', [App\Http\Controllers\Admin\Auth\QuizController::class, 'getquizpartner'])->name('getquizpartner');
-
-//     Route::get('/youths/{uid}/{catid}',[App\Http\Controllers\Admin\Auth\YouthController::class,'show'])->name('youths.show');
-
-//     Route::resource('corporate', CorporatebackendController::class);
-//     Route::get('corporatedetail/{cid}',[CorporatebackendController::class,'corporatedetail']);
-//     Route::get('corporate_export',[CorporatebackendController::class,'export']);
-//     Route::get('gujarat-events',[EventController::class,'gujaratEvent']);
-//     Route::resource('pushnotification', PushNotificationController::class);
-//     Route::get('pushnotefication',[App\Http\Controllers\Admin\Auth\WebNotificationController::class,'pushnotefication']);
-//     Route::post('sendingwebnotification', [App\Http\Controllers\Admin\Auth\WebNotificationController::class, 'sendingwebnotification'])->name('sendingwebnotification');
+    Route::resource('ambassadors',AmbsController::class);
+    Route::get('ambassador-activation/{ambs}/{aid}',[AmbsController::class,'ambsActive']);
+    Route::post('ambassador-activation',[AmbsController::class,'ambsActive']);
+    Route::get('ambassador_export',[AmbsController::class,'exportAmbassador']);
+    Route::get('panchayatlist',[AmbsController::class,'gramPanchayatAmbassadorList']);
+    Route::get('panchayatdetail',[AmbsController::class,'gramPanchayatAmbDetail']);
+    /*  Route::post('panchayat-ambassador-list',[AmbsController::class,'gramPanchayatAmbassadorList']);*/
 
 
-//     Route::get('quiz-dashboard', function () {
-//         return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
-//     })->name('admin.Quizmaster.quiz-categories.quiz_dashboard');
-//     /* 16-07-2025 Below Routes for daily Dashboard  */
-//     Route::get('quiz-dashboard', function () {
-//         return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
-//     })->name('admin.Quizmaster.quiz-categories.quiz_dashboard');;
-//     // Quiz Categories 🔹 Quiz Titles 🔹 Quiz Questions
-//     Route::resource('quiz-categories', QuizCategoryController::class);
-//     Route::resource('quiz-titles', QuizTitleController::class);
-//     Route::resource('quiz-questions', QuizQuestionController::class);
-//     Route::resource('app_versions', AppVersionController::class);
-//     Route::resource('app_banners', AppBannerController::class);
-//     Route::resource('soc-events', SocEventMasterController::class);
-//     Route::post('soc-events-upload', [SocEventMasterController::class,'upload'])->name('socevent.upload');
-//     Route::get('/query-export', [QueryExportController::class, 'index'])->name('query.form');
-//     Route::post('/query-export', [QueryExportController::class, 'export'])->name('query.export');
-//     /* 16-07-2025  End Routes for daily Dashboard  */
-// });
+    Route::resource('champions', ChampController::class);
+    Route::get('champion_export',[ChampController::class,'exportChamp']);
+    Route::get('champ-status/{champ}/{cid}',[ChampController::class,'champStatus']);
+    Route::post('champ-status',[ChampController::class,'champStatus']);
+    Route::resource('posts', PostController::class);
+    Route::resource('socevents', SoceventController::class);
+    Route::get('/nemoclub-data', [SoceventController::class, 'nemoclubdata'])->name('nemoclubdata');
+    Route::get('/nemoclub/export', [SoceventController::class, 'exportNemoClubData'])->name('admin.nemoclub.export');
+    Route::get('socadmin-write', [SoceventController::class, 'socadmin_write'])->name('socadminwrite');
+        // 18-08-2025 Index page
+    Route::get('soc-report-index', [\App\Http\Controllers\SocReportController::class, 'index'])->name('soc-reports.index');
+    Route::get('soc-report-download', [\App\Http\Controllers\SocReportController::class, 'download'])->name('soc-reports.download');
 
-// Route::get('wp-admin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
+    Route::resource('dashboard-tiles', MaganageDashboardController::class);
+    //Images Status Approve
+    Route::get('/image_index', [MaganageImageStatusController::class, 'image_index'])->name('image_index');
+    Route::post('/image_approve/{id}', [MaganageImageStatusController::class, 'image_approve'])->name('image-approve');
+    Route::post('/image_reject/{id}', [MaganageImageStatusController::class, 'image_reject'])->name('image-reject');
+    Route::post('/image_status/{id}', [MaganageImageStatusController::class, 'image_updateStatus'])->name('image-status');
+    Route::post('/image_bulk_approve', [MaganageImageStatusController::class, 'image_bulkApprove'])->name('image-bulk-approve');
+    Route::post('/image_bulk_reject', [MaganageImageStatusController::class, 'image_bulkReject'])->name('image-bulk-reject');
+    // End Images Status
 
-// Route::namespace("Admin")->prefix('admin')->group(function(){
-//     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin');
-//     Route::namespace('Auth')->group(function(){
-//         Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
-//         Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.dashboard');
-//         Route::get('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
-//         Route::post('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.postlogin');
-//         Route::post('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
-//         // start soc admin download data
-//         Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
-//         Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
-//         Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
-//         Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
-//         Route::get('/soc-download-national-sport-day-2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_national_sport_day_2025'])->name('socadmin.soc_download_national_sport_day_2025');
-//         Route::get('/soc-withparticipantnum-download-nationalsportday2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_withparticipantnum_download_nationalsportday2025'])->name('socadmin.soc-withparticipantnum-download-nationalsportday2025');
+    Route::get('socadmin-create-write', [SoceventController::class, 'socadmin_create_write'])->name('socadmin-create-write');
+    Route::post('store-soc-admin-user', [SoceventController::class, 'store_soc_admin_user'])->name('storesocadminuser');
+    Route::get('destroy-soc-admin-id/{id}', [SoceventController::class, 'destroy_soc_admin_id'])->name('destroysocadminid');
+    Route::post('nemoclub-dispatch-status',[SoceventController::class,'nemoclub_dispatch_status']);
+    Route::get('send-to-approval/{id}',[PostController::class,'SendToApproval'])->name('SendToApproval');
+    Route::get('ready-to-publish/{id}',[PostController::class,'ReadyToPublish'])->name('ReadyToPublish');
+    Route::get('post-comment-status/{id}/{commitstatus?}/{postid?}',[PostController::class,'PostCommentStatus'])->name('PostCommentStatus');
+    Route::get('rejected/{id}',[PostController::class,'Rejected'])->name('Rejected');
+    Route::resource('category', PostCatController::class);
+    Route::resource('foodnames', FoodnameController::class);
+    Route::resource('servingquantities', FoodquantityController::class);
+    Route::get('post_status/{post_status}/{id}',[PostCatController::class,'post_status']);
+    Route::resource('starratings', StarratingstatusController::class);
 
-//         // end soc admin download data
-//     });
-// });
+    Route::get('schoolcert_export',[StarratingstatusController::class,'export']);
 
-// Route::namespace("socadmin")->prefix('socadmin')->group(function(){
-//     Route::get('/dashboard', [App\Http\Controllers\Socadmin\HomeController::class, 'dashboard'])->name('socadmin.dashboard');
-//     Route::get('/kicform', [App\Http\Controllers\Socadmin\HomeController::class, 'kicformindex'])->name('kicadmin.kicform');
-//     Route::get('/kiccreateform', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_create_form'])->name('kicadmin.kiccreateform');
-//     Route::POST('/kicformstore', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_store_form'])->name('kicadmin.kicstoreform');
-//     Route::get('/kicformedit/{id}', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_edit_form'])->name('kicadmin.socstoreedit');
-//     Route::POST('/kicformupdate', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_update_form'])->name('kicadmin.kicupdateform');
-//     Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
-//     Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
-//     Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
-//     Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
+    Route::get('starrating-certificate/{cat_id}/{user_id}',[StarratingstatusController::class,'starRatingCertificate']);
+    Route::get('schoolflag/{cat_id}/{user_id}',[StarratingstatusController::class,'FlagRequest']);
+    Route::resource('announcement', AnnouncementsController::class);
+    Route::get('announcement/{id}/edit',[AnnouncementsController::class], 'edit');
+    Route::get('announcement/{id}/status',[AnnouncementsController::class,'announStatus'])->name('announcement.status');
 
-// });
+    Route::resource('userimages', UserimagesController::class);
+    Route::get('userimagedeactive/{id}',[UserimagesController::class,'userimagedeactive'])->name('userimagedeactive');
+    Route::get('userimageactive/{id}',[UserimagesController::class,'userimageactive'])->name('userimageactive');
 
-//Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
-Route::get('edit-profile', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
-Route::put('update-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'update']);
-//Route::get('school-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
-Route::get('school-profile', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
-Route::get('edit-school-password', [App\Http\Controllers\Auth\UserController::class, 'edit_school_password']);
-Route::post('update-school-password', [App\Http\Controllers\Auth\UserController::class, 'update_school_password']);
-Route::put('update-school/{id}', [App\Http\Controllers\Auth\UserController::class, 'updateSchool']);
-Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class,'profileDis'])->name('profile-dis');
-Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class,'profileBlk'])->name('profile-blk');
-//UserRegistrationOperation
+    /*******************nagendra********************************/
+
+    Route::resource('youths', YouthController::class);
+    Route::get('youths_export',[YouthController::class,'export']);
+
+        Route::post('/getquizpartner', [App\Http\Controllers\Admin\Auth\QuizController::class, 'getquizpartner'])->name('getquizpartner');
+
+    Route::get('/youths/{uid}/{catid}',[App\Http\Controllers\Admin\Auth\YouthController::class,'show'])->name('youths.show');
+
+    Route::resource('corporate', CorporatebackendController::class);
+    Route::get('corporatedetail/{cid}',[CorporatebackendController::class,'corporatedetail']);
+    Route::get('corporate_export',[CorporatebackendController::class,'export']);
+    Route::get('gujarat-events',[EventController::class,'gujaratEvent']);
+    Route::resource('pushnotification', PushNotificationController::class);
+    Route::get('pushnotefication',[App\Http\Controllers\Admin\Auth\WebNotificationController::class,'pushnotefication']);
+    Route::post('sendingwebnotification', [App\Http\Controllers\Admin\Auth\WebNotificationController::class, 'sendingwebnotification'])->name('sendingwebnotification');
+
+
+    Route::get('quiz-dashboard', function () {
+        return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
+    })->name('admin.Quizmaster.quiz-categories.quiz_dashboard');
+    /* 16-07-2025 Below Routes for daily Dashboard  */
+    Route::get('quiz-dashboard', function () {
+        return view('admin.Quizmaster.quiz_categories.quiz_dashboard');
+    })->name('admin.Quizmaster.quiz-categories.quiz_dashboard');;
+    // Quiz Categories 🔹 Quiz Titles 🔹 Quiz Questions
+    Route::resource('quiz-categories', QuizCategoryController::class);
+    Route::resource('quiz-titles', QuizTitleController::class);
+    Route::resource('quiz-questions', QuizQuestionController::class);
+    Route::resource('app_versions', AppVersionController::class);
+    Route::resource('app_banners', AppBannerController::class);
+    Route::resource('soc-events', SocEventMasterController::class);
+    Route::post('soc-events-upload', [SocEventMasterController::class,'upload'])->name('socevent.upload');
+    Route::get('/query-export', [QueryExportController::class, 'index'])->name('query.form');
+    Route::post('/query-export', [QueryExportController::class, 'export'])->name('query.export');
+    /* 16-07-2025  End Routes for daily Dashboard  */
+});
+
+Route::get('wp-admin', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
+
+Route::namespace("Admin")->prefix('admin')->group(function(){
+    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin');
+    Route::namespace('Auth')->group(function(){
+        Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+        Route::get('/dashboard', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.dashboard');
+        Route::get('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
+        Route::post('/login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.postlogin');
+        Route::post('/logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
+        // start soc admin download data
+        Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
+        Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
+        Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
+        Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
+        Route::get('/soc-download-national-sport-day-2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_national_sport_day_2025'])->name('socadmin.soc_download_national_sport_day_2025');
+        Route::get('/soc-withparticipantnum-download-nationalsportday2025', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_withparticipantnum_download_nationalsportday2025'])->name('socadmin.soc-withparticipantnum-download-nationalsportday2025');
+
+        // end soc admin download data
+    });
+});
+
+Route::namespace("socadmin")->prefix('socadmin')->group(function(){
+    Route::get('/dashboard', [App\Http\Controllers\Socadmin\HomeController::class, 'dashboard'])->name('socadmin.dashboard');
+    Route::get('/kicform', [App\Http\Controllers\Socadmin\HomeController::class, 'kicformindex'])->name('kicadmin.kicform');
+    Route::get('/kiccreateform', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_create_form'])->name('kicadmin.kiccreateform');
+    Route::POST('/kicformstore', [App\Http\Controllers\Socadmin\HomeController::class, 'kic_store_form'])->name('kicadmin.kicstoreform');
+    Route::get('/kicformedit/{id}', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_edit_form'])->name('kicadmin.socstoreedit');
+    Route::POST('/kicformupdate', [App\Http\Controllers\Socadmin\HomeController::class, 'soc_update_form'])->name('kicadmin.kicupdateform');
+    Route::get('/soc-download-event-report', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report'])->name('socadmin.soc_download_event_report');
+    Route::get('/soc-download-event-report-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_event_report_data'])->name('socadmin.soc_download_event_report_data');
+    Route::get('/soc-download-report-both-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_both_data'])->name('socadmin.soc_download_report_both_data');
+    Route::get('/soc-download-report-cycle-return-data', [App\Http\Controllers\Socadmin\DownloadSocController::class, 'soc_download_report_cycle_return_data'])->name('socadmin.soc_download_report_cycle_return_data');
+
+});
+
+Route::middleware(['secure.session'])->group(function () {
+
+    //Route::get('edit-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
+    Route::get('edit-profile', [App\Http\Controllers\Auth\UserController::class, 'editProfile']);
+    Route::put('update-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'update']);
+    //Route::get('school-profile/{id}', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
+    Route::get('school-profile', [App\Http\Controllers\Auth\UserController::class, 'schoolProfile']);
+    Route::get('edit-school-password', [App\Http\Controllers\Auth\UserController::class, 'edit_school_password']);
+    Route::post('update-school-password', [App\Http\Controllers\Auth\UserController::class, 'update_school_password']);
+    Route::put('update-school/{id}', [App\Http\Controllers\Auth\UserController::class, 'updateSchool']);
+    Route::post('profile-dis', [App\Http\Controllers\Auth\UserController::class,'profileDis'])->name('profile-dis');
+    Route::post('profile-blk', [App\Http\Controllers\Auth\UserController::class,'profileBlk'])->name('profile-blk');
+    //UserRegistrationOperation
+});
 
 /*******************nagendra********************************/
-// Route::post('/getyouthsdistrict', [App\Http\Controllers\Admin\Auth\YouthController::class, 'getyouthsdistrict'])->name('getyouthsdistrict');
-// Route::post('/getyouthsblock', [App\Http\Controllers\Admin\Auth\YouthController::class, 'getyouthsblock'])->name('getyouthsblock');
+Route::post('/getyouthsdistrict', [App\Http\Controllers\Admin\Auth\YouthController::class, 'getyouthsdistrict'])->name('getyouthsdistrict');
+Route::post('/getyouthsblock', [App\Http\Controllers\Admin\Auth\YouthController::class, 'getyouthsblock'])->name('getyouthsblock');
 /**********************************************/
 
 Route::post('get-district', [RegisterController::class,'getDistrict'])->name('getdistrict');
@@ -378,7 +381,7 @@ Route::get('/eventspic/{id}',[App\Http\Controllers\Auth\EventController::class, 
 Route::get('/my-status',[App\Http\Controllers\Auth\EventController::class, 'myApplicationStatus'])->name('my-status');
 
 // cms
-Route::get('/cms-listview', [App\Http\Controllers\Auth\CmsController::class, 'cmslistview'])->name('cms-listview');
+// Route::get('/cms-listview', [App\Http\Controllers\Auth\CmsController::class, 'cmslistview'])->name('cms-listview');
 
 
 //brij
@@ -431,7 +434,7 @@ Route::resource('ambassador', AmbassadorController::class);
 Route::resource('champion', ChampionController::class);
 //parner
 // shakti start
-Route::resource('become-partner', PartnerController::class);
+// Route::resource('become-partner', PartnerController::class);
 //shakti end
 
 
@@ -644,6 +647,15 @@ Route::post('save-upload-image', [App\Http\Controllers\GeneralController::class,
 //Route::post('save-quiz', [App\Http\Controllers\GeneralController::class, 'saveQuiz'])->name('save-quiz');
 Route::view('fitness-from-home-series','fitness-from-home-series');
 Route::get('fit-india-yoga-center-info/{id}', [App\Http\Controllers\YogaCenterController::class, 'index']);
+
+
+Route::get('conclave-registration', [App\Http\Controllers\GeneralController::class, 'conclave_registration'])->name('conclave-registration');
+Route::post('save-conclave-registration', [App\Http\Controllers\GeneralController::class, 'save_conclave_registration'])->name('save-conclave-registration');
+
+Route::get('national-fitness-and-wellness-conclave', [App\Http\Controllers\GeneralController::class, 'national_fitness_and_wellness_conclave'])->name('national-fitness-and-wellness-conclave');
+Route::post('save-national-fitness-and-wellness-conclave', [App\Http\Controllers\GeneralController::class, 'save_national_fitness_and_wellness_conclave'])->name('save-national-fitness-and-wellness-conclave');
+
+
 URL::forceScheme('https');
 
 //8-6-2021
@@ -835,28 +847,30 @@ Route::get('soc-report-cycle-return-data', [\App\Http\Controllers\CsveventContro
 Route::get('delete-user-details', [\App\Http\Controllers\CsveventController::class, 'delete_user_detail']);
 
 
-
-Route::get('/dashboard', [App\Http\Controllers\Auth\UserController::class, 'index'])->name('dashboard');
-//event route
-Route::get('create-event', [App\Http\Controllers\Auth\EventCatController::class, 'createFreedomrunEvent'])->name('create-event');
-Route::get('events-pics', [App\Http\Controllers\Auth\EventCatController::class, 'EventsPics'])->name('events-pics');
-Route::get('myeventsearchimages/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'EventSearchImages'])->name('myevent-search-images');
-Route::get('eventdatesearch/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'eventdatesearch'])->name('event-date-search');
-Route::post('create-event', [App\Http\Controllers\Auth\EventCatController::class, 'store'])->name('create-event-post');
-Route::get('list-events',[App\Http\Controllers\Auth\EventCatController::class, 'listofEvents'])->name('list-events');
-Route::get('myeventsearch/{id?}',[App\Http\Controllers\Auth\EventCatController::class, 'myeventsearching'])->name('myevent-search');
-Route::get('event-run-update/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'update'])->name('event-run-update');
-Route::post('event-update-value', [App\Http\Controllers\Auth\EventCatController::class, 'edit'])->name('event-update-value');
-Route::get('event-updatedetail/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'showEventUpdateDetails']);
-Route::delete('event-event-destroy/{id}',[App\Http\Controllers\Auth\EventCatController::class, 'freedomrunEventDestroy'])->name('event-event-destroy');
-Route::get('event-event-uploadexcel/{id}',[App\Http\Controllers\Auth\EventCatController::class, 'Uploadexcel'])->name('event-Uploadexcel');
-Route::post('event-event-uploadexcel',[App\Http\Controllers\Auth\EventCatController::class, 'updateBulkUploadExcel'])->name('eventupdateBulkUploadExcel');
-Route::get('event-certificate-process/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'freedomCertificateProcess']);
-Route::get('event-add-partcipant/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'eventaddPartcipant'])->name('event-add-partcipant');
-Route::post('event-update-partcipant', [App\Http\Controllers\Auth\EventCatController::class, 'updateFreedomRunParticipant'])->name('event-update-partcipant');
-Route::post('download-event-certificate',[App\Http\Controllers\Auth\EventCatController::class, 'downloadFreedomCertificate'])->name('download-event-certificate');
-Route::get('user-certificate-event-sunday/{user_id}/{event_id}',[App\Http\Controllers\Auth\EventCatController::class, 'user_certificate_event_sunday'])->name('usercertificateeventsunday');
-Route::get('download_registration_certificate', [App\Http\Controllers\Auth\EventCatController::class, 'DownloadRegistrationCertificate'])->name('download-registration-certificate');
+Route::middleware(['secure.session'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Auth\UserController::class, 'index'])->name('dashboard');
+    //event route
+    Route::get('create-event', [App\Http\Controllers\Auth\EventCatController::class, 'createFreedomrunEvent'])->name('create-event');
+    Route::get('events-pics', [App\Http\Controllers\Auth\EventCatController::class, 'EventsPics'])->name('events-pics');
+    Route::get('myeventsearchimages/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'EventSearchImages'])->name('myevent-search-images');
+    Route::get('eventdatesearch/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'eventdatesearch'])->name('event-date-search');
+    Route::post('create-event', [App\Http\Controllers\Auth\EventCatController::class, 'store'])->name('create-event-post');
+    Route::get('list-events',[App\Http\Controllers\Auth\EventCatController::class, 'listofEvents'])->name('list-events');
+    Route::get('myeventsearch/{id?}',[App\Http\Controllers\Auth\EventCatController::class, 'myeventsearching'])->name('myevent-search');
+    Route::get('event-run-update/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'update'])->name('event-run-update');
+    Route::post('event-update-value', [App\Http\Controllers\Auth\EventCatController::class, 'edit'])->name('event-update-value');
+    Route::get('event-updatedetail/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'showEventUpdateDetails']);
+    Route::delete('event-event-destroy/{id}',[App\Http\Controllers\Auth\EventCatController::class, 'freedomrunEventDestroy'])->name('event-event-destroy');
+    Route::get('event-event-uploadexcel/{id}',[App\Http\Controllers\Auth\EventCatController::class, 'Uploadexcel'])->name('event-Uploadexcel');
+    Route::post('event-event-uploadexcel',[App\Http\Controllers\Auth\EventCatController::class, 'updateBulkUploadExcel'])->name('eventupdateBulkUploadExcel');
+    Route::get('event-certificate-process/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'freedomCertificateProcess']);
+    Route::get('event-add-partcipant/{id}', [App\Http\Controllers\Auth\EventCatController::class, 'eventaddPartcipant'])->name('event-add-partcipant');
+    Route::post('event-update-partcipant', [App\Http\Controllers\Auth\EventCatController::class, 'updateFreedomRunParticipant'])->name('event-update-partcipant');
+    Route::post('download-event-certificate',[App\Http\Controllers\Auth\EventCatController::class, 'downloadFreedomCertificate'])->name('download-event-certificate');
+    Route::get('user-certificate-event-sunday/{user_id}/{event_id}',[App\Http\Controllers\Auth\EventCatController::class, 'user_certificate_event_sunday'])->name('usercertificateeventsunday');
+    Route::get('download_registration_certificate', [App\Http\Controllers\Auth\EventCatController::class, 'DownloadRegistrationCertificate'])->name('download-registration-certificate');
+    Route::get('champion-download-certificate', [App\Http\Controllers\Auth\EventCatController::class, 'myChampionCertificate']);
+});
 // Event Report
 Route::get('get-all-event', [\App\Http\Controllers\ReporteventController::class, 'getallevent']);
 Route::get('report-event-get-csv-image/{id?}', [\App\Http\Controllers\ReporteventController::class, 'get_excel_image']);
@@ -878,11 +892,25 @@ Route::get('cyclothonRegistrationrolewise', [\App\Http\Controllers\ReporteventCo
 Route::get('certification-download-report', [\App\Http\Controllers\ReporteventController::class, 'certificationdownloadreport']);
 Route::get('school-download-report', [\App\Http\Controllers\ReporteventController::class, 'schooldownloadreport']);
 Route::get('hanolcyclothonrenningdatawise', [\App\Http\Controllers\ReporteventController::class, 'hanolcyclothonrenningdatawise']);
+Route::get('rawdataleaderboradcsv', [\App\Http\Controllers\ReporteventController::class, 'rawdataleaderboradcsv']);
 Route::get('cyclothonrenningdatawise', [\App\Http\Controllers\ReporteventController::class, 'cyclothonrenningdatawise']);
 Route::get('carboncratedsoc', [\App\Http\Controllers\ReporteventController::class, 'carboncratedsoc']);
 Route::get('coiregistrationdrivereport', [\App\Http\Controllers\ReporteventController::class, 'coiregistrationdrivereport']);
 Route::get('fitindiafreedomrun6report', [\App\Http\Controllers\ReporteventController::class, 'fitindiafreedomrun6report']);
 Route::get('fitindiafreedomrun6eventorgreport', [\App\Http\Controllers\ReporteventController::class, 'fitindiaeventorgreport']);
+Route::get('fitindiaeventorgsocreport', [\App\Http\Controllers\ReporteventController::class, 'fitindiaeventorg_soc_report']);
+Route::get('user-auto-cycle-permissions-report', [\App\Http\Controllers\ReporteventController::class, 'user_auto_cycle_permissions_report']);
+Route::get('conclave-registration-report', [\App\Http\Controllers\ReporteventController::class, 'conclave_registration_report']);
+Route::get('nationa-wellness-conclaves-report', [\App\Http\Controllers\ReporteventController::class, 'nationa_wellness_conclaves_report']);
+Route::get('namo-fitindia-cycling-club-report', [\App\Http\Controllers\ReporteventController::class, 'namo_fitindia_cycling_club_report']);
+Route::get('ambassadors-report', [\App\Http\Controllers\ReporteventController::class, 'ambassadors_report']);
+Route::get('champions-report', [\App\Http\Controllers\ReporteventController::class, 'champions_report']);
+Route::get('all-cycle-report', [\App\Http\Controllers\ReporteventController::class, 'allcyclereport']);
+Route::get('all-renning-report', [\App\Http\Controllers\ReporteventController::class, 'allrenningreport']);
+Route::get('all-active-user-report', [\App\Http\Controllers\ReporteventController::class, 'activeuserreport']);
+Route::get('active-event-report', [\App\Http\Controllers\ReporteventController::class, 'active_eventwise_report']);
+Route::get('school-user-report', [\App\Http\Controllers\ReporteventController::class, 'school_user_report']);
+Route::get('school-download-withstareimage-report', [\App\Http\Controllers\ReporteventController::class, 'schoolwithstareimagedownloadreport']);
 // Route::POST('report-fit-india-event', 'reportfitindiaevent');
 
 
@@ -973,6 +1001,7 @@ Route::get('/fitindiareportview',[FitindiaDotNetreportController::class,'fitindi
 Route::view('termsandconditions','termsandconditions');
 Route::view('socbookingterms','socbookingterms');
 Route::view('revisedpolicy','revisedpolicys');
+Route::view('automatic-cycling-tracking','automaticcyclingtracking');
 
 Route::view('/data-deletion','data_deletion')->name('data_deletion');
 

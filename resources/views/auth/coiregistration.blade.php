@@ -13,7 +13,7 @@
             <div class="col-12 signup_frm">
 
                 <div class="">
-                    <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate="novalidate">
+                    <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate autocomplete="off">
                         @csrf
                         <p>Already have an account?
                             <a id="fi_signin" href="login">Login</a>
@@ -26,14 +26,14 @@
                                     <div class="role-row">
                                         <input type="hidden" class="mobile_verified_status" id="mobile_verified_status" value="0">
                                         {{-- <input type="radio" name="roletype"  value="1" onclick="fi_rolechange(this.value)" checked=""> Ministries/Departments
-                            <input type="radio" name="roletype" value="2" onclick="fi_rolechange(this.value)"> Armed forces/CPF
-                            <input type="radio" name="roletype" value="0" onclick="fi_rolechange(this.value)"> Other --}}
+                                                <input type="radio" name="roletype" value="2" onclick="fi_rolechange(this.value)"> Armed forces/CPF
+                                                <input type="radio" name="roletype" value="0" onclick="fi_rolechange(this.value)"> Other --}}
                                         {{-- <input type="radio" name="roletype" value="0" {{ (request()->is('role')) }} onclick="fi_rolechange(this.value)"> Other --}}
                                     </div>
                                     @if (isset($_GET['role']))
 
                                     @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
-                                    <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autocomplete="cyclothonrole" autofocus>
+                                    <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required  autofocus>
                                         <option value="club" selected>Club</option>
                                     </select>
                                     @endif
@@ -45,7 +45,7 @@
                                     @enderror
                                     @else
 
-                                    <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autocomplete="cyclothonrole" autofocus>
+                                    <select class="form-control cyclothonrolew @error('cyclothonrole') is-invalid @enderror" name="cyclothonrole" id="cyclothonrole" required autofocus>
                                         <option value="">Please select Individual/Organization/Club</option>
                                         <option value="individual">Individual</option>
                                         <option value="organization">Organization</option>
@@ -56,9 +56,9 @@
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
                                     @enderror
                                     @endif
-
+                                    <br>
                                     <input type="hidden" name="role_name" id="role_name" value="{{ $_GET['role'] ?? '' }}">
-                                    <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required autocomplete="role" autofocus>
+                                    <select class="form-control @error('role') is-invalid @enderror" name="role" id="role" required autofocus>
                                         @if (isset($_GET['role']))
                                         @if ($_GET['role'] != 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi')
                                         {{-- <option value="">{{'Select'}}</option> --}}
@@ -93,7 +93,7 @@
                             <div class="register-row my-search-select-cls" id="user_join_club_id_show" style="display:block;">
                                 <div class="register-row">
                                     <div class="register-row-lft">
-                                        <select class="form-control @error('user_join_club_id') is-invalid @enderror  select2" name="user_join_club_id" id="user_join_club_id" required autocomplete="user_join_club_id" autofocus>
+                                        <select class="form-control @error('user_join_club_id') is-invalid @enderror  select2" name="user_join_club_id" id="user_join_club_id" required autofocus>
                                             <option value="">Do you belong to any of the NAMO cycling Clubs?</option>
                                             @if(isset($club_name_with_id))
                                             @if(count($club_name_with_id) > 0)
@@ -103,15 +103,11 @@
                                             @endif
                                             @endif
                                         </select>
-                                        <br />
-                                        <br />
-
-
                                     </div>
 
                                     <div class="register-row-rt">
                                         <div id="udise_row" style="display:none;">
-                                            <input id="fi_udise" type="text" class="form-control @error('udise') is-invalid @enderror" name="udise" value="{{ old('udise') }}" required autocomplete="U-Dise Number" placeholder="U-Dise Number">
+                                            <input id="fi_udise" type="text" class="form-control @error('udise') is-invalid @enderror" name="udise" value="{{ old('udise') }}" required placeholder="U-Dise Number">
                                             @error('udise')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -128,7 +124,7 @@
 
                             <div id="udisenumrow" class="register-row">
                                 <div class="register-row-lft">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="{{ $club_name ?? 'Name' }}">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus placeholder="{{ $club_name ?? 'Name' }}" maxlength="100" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '');">
 
                                     <span id="name-error" class="error-message text-danger small"></span>
                                     @error('name')
@@ -139,7 +135,7 @@
                                     @if (isset($_GET['role']))
                                     @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
 
-                                    <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="{{ $participant ?? 'Participant Number' }}" min="0">
+                                    <input id="participant_number" type="text" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required placeholder="{{ $participant ?? 'Participant Number' }}" min=1 maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
                                     <span id="participant_number-error" class="error-message text-danger small"></span>
                                     @error('participant_number')
@@ -148,7 +144,7 @@
                                     @endif
                                     @else
                                     <div id="participant_number_row" style="display:none;">
-                                        <input id="participant_number" type="number" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required autocomplete="Participant Number" placeholder="Participant Number" min="0">
+                                        <input id="participant_number" type="text" class="form-control @error('participant_number') is-invalid @enderror" name="participant_number" value="{{ old('participant_number') }}" required placeholder="Participant Number" min=1 maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
                                         <span id="participant_number-error" class="error-message text-danger small"></span>
                                         @error('participant_number')
@@ -163,7 +159,7 @@
                             <div class="register-row e-mob-fx">
                                 <div class="register-row-lft">
 
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required placeholder="Email">
 
                                     <span id="email-error" class="error-message text-danger small"></span>
                                     @error('email')
@@ -182,7 +178,7 @@
                             <div style="clear:both"></div>
                             <div class="register-row e-mob-fx">
                                 <div class="register-row-lft">
-                                    <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') ?? "" }}" required autocomplete="phone" min="0" max="9999999999" placeholder="Mobile">
+                                    <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') ?? "" }}" required  min=1 maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" max="9999999999" placeholder="Mobile">
                                     <span id="phone-error" class="error-message text-danger small"></span>
                                     @error('phone')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -211,7 +207,7 @@
                             @if($_GET['role'] == 'bmFtby1maXQtaW5kaWEtY3ljbGluZy1jbHVi' || $_GET['role'] == 'bmFtby1maXQtaW5kaWEteW91dGgtY2x1Yg==')
                             <div id="udisenumrow" class="register-row">
                                 <div class="register-row-lft">
-                                    <input id="address_line_one" type="text" class="form-control @error('address_line_one') is-invalid @enderror" name="address_line_one" value="{{ old('address_line_one') }}" required autocomplete="address_line_one" autofocus placeholder="Address Line 1">
+                                    <input id="address_line_one" type="text" class="form-control @error('address_line_one') is-invalid @enderror" name="address_line_one" value="{{ old('address_line_one') }}" required autofocus placeholder="Address Line 1">
 
                                     <span id="address_line_one-error" class="error-message text-danger small"></span>
                                     @error('address_line_one')
@@ -219,7 +215,7 @@
                                     @enderror
                                 </div>
                                 <div class="register-row-rt">
-                                    <input id="address_line_two" type="text" class="form-control @error('address_line_two') is-invalid @enderror" name="address_line_two" value="{{ old('address_line_two') }}" required autocomplete="address_line_two" placeholder="Address Line 2">
+                                    <input id="address_line_two" type="text" class="form-control @error('address_line_two') is-invalid @enderror" name="address_line_two" value="{{ old('address_line_two') }}" required placeholder="Address Line 2">
                                     <span id="address_line_two-error" class="error-message text-danger small"></span>
                                     @error('address_line_two')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -231,22 +227,25 @@
                             @endif
                             <div class="register-row e-mob-fx">
                                 <div class="register-row-lft">
-                                    <input id="pincode" type="number" class="form-control @error('pincode') is-invalid @enderror pincode_value" name="pincode" value="{{ old('phone') ?? "" }}" required autocomplete="pincode" min="0" max="999999" placeholder="Pin Code">
+                                    <input id="pincode" type="number" class="form-control @error('pincode') is-invalid @enderror pincode_value" name="pincode" value="{{ old('phone') ?? "" }}" required  min="0" max="999999" placeholder="Pin Code">
 
                                     <span id="pincode-error" class="error-message text-danger small"></span>
                                     @error('pincode')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
                                     @enderror
                                 </div>
-                                <div class="register-row-rt" id="tshirtsizeshow" style="display: none">
-                                    <select id="tshirtsize" name="tshirtsize" class="form-control @error('tshirtsize') is-invalid @enderror" aria-required="true">
-                                        <option value="">T-Shirt size</option>
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                        <option value="XL">XL</option>
-                                        <option value="XXL">XXL</option>
-                                    </select>
+                                <div class="register-row-rt">
+                                    <div id="tshirtsizeshow" style="display: none">
+                                        <select id="tshirtsize" name="tshirtsize" class="form-control @error('tshirtsize') is-invalid @enderror" aria-required="true">
+                                            <option value="">T-Shirt size</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+
                                     @error('tshirtsize')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -332,7 +331,7 @@
 
                                     <div id="city_show"></div>
                                     <div id="city_show_hide" style="display:block;">
-                                        <input id="fi_city" type="text" class="form-control required  @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" placeholder="City/Town/Village" aria-required="true" onkeydown="return /[a-z, ]/i.test(event.key)"
+                                        <input id="fi_city" type="text" class="form-control required  @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" placeholder="City/Town/Village" aria-required="true" maxlength="50" onkeydown="return /[a-z, ]/i.test(event.key)"
                                             onblur="if (this.value == '') {this.value = '';}"
                                             onfocus="if (this.value == '') {this.value = '';}">
                                         <span id="fi_city-error" class="error-message text-danger small"></span>
@@ -416,7 +415,7 @@
                                         </div>
 
                                         <div style="left" class="cap_width_login">
-                                            <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required placeholder="Captcha">
+                                            <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required placeholder="Captcha" maxlength="10">
                                             <span id="captcha-error" class="error-message text-danger small"></span>
                                             @error('captcha')
                                             <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -438,7 +437,7 @@
                 </div>
                 {{--  OTP modals remain same --}}
                 @include('auth.partialsotpmodal.otp-modals')
-               
+
             </div>
         </div>
     </div>

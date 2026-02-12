@@ -36,7 +36,7 @@
                         {{ session()->get('message') }}
                     </div>
                 @endif
-                <form action="{{ route('save-story') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('save-story') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="">
                          <div class="form-group">
@@ -63,7 +63,7 @@
                         </div>
 						<div class="form-group">
                             <label for="userEmail">Contact number *</label>
-                            <input type="text" class="form-control" name="mobile" value="" maxlength="10">
+                            <input type="number" class="form-control" name="mobile" value="" min=1 maxlength="10">
                             @error('mobile')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

@@ -5,7 +5,6 @@
 <section class="log_sec">
     <div class="container">
         <div class="row">
-
             <div class="col-12 signup_frm frm-details-login">
                 <div class="frontlogin ">
                     <form action="{{ route('login') }}" method="POST" id="frontadmin" novalidate="novalidate">
@@ -39,7 +38,8 @@
                                     type="email"
                                     class="form-control @error('email') is-invalid @enderror"
                                     name="email"
-                                    value="{{ old('email') }}"
+                                    {{-- value="{{ old('email') }}" --}}
+                                    value="ankit3@gmail.com"
                                     required
                                     autocomplete="off"
                                     autofocus
@@ -62,6 +62,7 @@
                                     autocomplete="off"
                                     required
                                     maxlength="255"
+                                    value="Sai@123456"
                                     minlength="6"
                                     oncopy="return false"
                                     onpaste="return false"
@@ -199,8 +200,12 @@
         logout_session: "{{ route('logout-session') }}"
     };
     const csrfToken = "{{ csrf_token() }}";
+
 </script>
 <script src="{{ asset('resources/js/crypto/crypto-js.js')}}"></script>
 <script src="{{ asset('resources/js/auth/crypto.js')}}"></script>
 <script src="{{ asset('resources/js/auth/login.js')}}"></script>
+<script>
+    Set-Cookie: XSRF-TOKEN=...
+</script>
 @endsection

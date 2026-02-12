@@ -147,7 +147,7 @@
                                            </div>
 
                                            <div style="float:left; width:40%">
-                                               <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha">
+                                               <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha" maxlength="8">
                                                 @error('captcha')
                                                     <span class="invalid-feedback" role="alert" >
                                                         <strong>{{ $message }}</strong>

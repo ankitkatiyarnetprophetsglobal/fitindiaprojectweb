@@ -26,8 +26,6 @@ class UserController extends Controller
     }
 
     public function index(Request $request){
-        //$states = State::orderBy('name')->get();
-        //$roles = Role::all();
 
         $states = State::orderBy("name")->get();
         $roles = Role:: orderBy("name")->get();

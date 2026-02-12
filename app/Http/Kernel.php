@@ -81,5 +81,6 @@ class Kernel extends HttpKernel
         'restrict.methods' => \App\Http\Middleware\RestrictHttpMethods::class,
         'security.headers' => \App\Http\Middleware\SecurityHeaders::class,
         'single.session' => \App\Http\Middleware\SingleSessionMiddleware::class,
+        'secure.session' => \App\Http\Middleware\SecureSession::class,
     ];
 }

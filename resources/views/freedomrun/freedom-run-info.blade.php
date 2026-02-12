@@ -52,7 +52,7 @@ $active_section_id = trim($active_section);
 
     .d_bg_g {
         border-top: 3px solid green;
-        
+		
         width: 70px;
     }
 
@@ -574,17 +574,17 @@ $active_section_id = trim($active_section);
 
 <div>
    <!-- <img src="resources/imgs/freedomrun-3.jpeg" alt="freedom-run-info" title="freedom-run-info" class="img-fluid expand_img" /> -->
-    <img src="resources/imgs/freedomrunupdate4.jpg" alt="freedom-run-info" title="freedom-run-info" class="img-fluid expand_img" />
+	<img src="resources/imgs/freedomrunupdate4.jpg" alt="freedom-run-info" title="freedom-run-info" class="img-fluid expand_img" />
 </div>
 <section id="{{ $active_section_id }}" style="padding-bottom:0;">
     <div class="container mb-5">
-    <!--
+	<!--
         <div lass="row ">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <h1 class="text-center lastdate"><b>Last date to submit data for Freedom Run : 8th October</h1>
             </div>
         </div>
-        -->
+		-->
         <div class="row row_reverse">
 
             <div class="col-sm-12 col-md-8 col-lg-8">
@@ -597,9 +597,9 @@ $active_section_id = trim($active_section);
                         <a href="register" class="og_btn" target="_blank">Register as an Organizer</a>
                         <a href="resources/pdf/SOP-Freedom-Run-4.0.pdf" class="og_btn" target="_blank" style="background-color:#45a164; padding-left: 42px;padding-right:42px;">Steps to Register
                         </a>
-                        {{-- <a href="resources/pdf/freedom-run-hoarding-2023.pdf" class="og_btn" target="_blank">Download Event Creatives</a> --}}
-                        {{-- <a href="resources/imgs/freedomrunupdate4.jpg" target="_blank" class="og_btn" target="_blank">Download Event Creatives</a> --}}
-                        <a href="{{ url('freedomrun-events-creatives') }}" target="_blank" class="og_btn" target="_blank">Download Event Creatives</a>
+						{{-- <a href="resources/pdf/freedom-run-hoarding-2023.pdf" class="og_btn" target="_blank">Download Event Creatives</a> --}}
+						{{-- <a href="resources/imgs/freedomrunupdate4.jpg" target="_blank" class="og_btn" target="_blank">Download Event Creatives</a> --}}
+						<a href="{{ url('freedomrun-events-creatives') }}" target="_blank" class="og_btn" target="_blank">Download Event Creatives</a>
                         <div class="m-40"></div>
                     </div>
                 </div>
@@ -613,14 +613,14 @@ $active_section_id = trim($active_section);
                  <h5 class="text-center mt-3 mb-3">  
                     1st October | 2 Kms | Fit India Plog Run
                 </h5>
-                    <p class="text-justify">
-                        Fit India Freedom Run was conceived in 2020 when the entire nation started following social distancing in a ‘new normal’ lifestyle, so as to keep the imperative need of fitness active even while following the social distancing norms. The campaign’s objective is to encourage fitness and help us all to get freedom from obesity, laziness, stress, anxiety, diseases etc. The Fit India Freedom Run is yet another endeavour to strengthen the Fit Indian Movement and involve citizens to embrace fitness as a way of life. Participants will be allowed to run at their own place and at their own pace at a time convenient to them during campaign period. The concept behind this run is that “It can be run at anytime and anywhere!
-                    </p> 
-                    <p class="text-justify">
-                        Till date three editions of the campaign have been held in 2020, 2021 and 2023 respectively and the campaign has seen tremendous support from various stakeholders such as government, private organizations and individuals from all walks of life and demographics making it a truly people’s campaign. This year, Fit India Mission has decided to organize the 4th edition i.e. Fit India Swachhata Freedom Run 4.0 from 1st October to 31st October 2023. Citizens will be urged to inculcate 30 minutes of physical fitness in any form, celebrate achievements of active lifestyle and make a resolve to remain fit “Swachh Bharat Swasth Bharat”. The campaign will kick-off with a Swachhata Run (Plog Run) on 1st October 2023 followed by running events for the remainder of the campaign i.e., till 31st October 2023.
-                    </p> 
+					<p class="text-justify">
+						Fit India Freedom Run was conceived in 2020 when the entire nation started following social distancing in a ‘new normal’ lifestyle, so as to keep the imperative need of fitness active even while following the social distancing norms. The campaign’s objective is to encourage fitness and help us all to get freedom from obesity, laziness, stress, anxiety, diseases etc. The Fit India Freedom Run is yet another endeavour to strengthen the Fit Indian Movement and involve citizens to embrace fitness as a way of life. Participants will be allowed to run at their own place and at their own pace at a time convenient to them during campaign period. The concept behind this run is that “It can be run at anytime and anywhere!
+					</p> 
+					<p class="text-justify">
+						Till date three editions of the campaign have been held in 2020, 2021 and 2023 respectively and the campaign has seen tremendous support from various stakeholders such as government, private organizations and individuals from all walks of life and demographics making it a truly people’s campaign. This year, Fit India Mission has decided to organize the 4th edition i.e. Fit India Swachhata Freedom Run 4.0 from 1st October to 31st October 2023. Citizens will be urged to inculcate 30 minutes of physical fitness in any form, celebrate achievements of active lifestyle and make a resolve to remain fit “Swachh Bharat Swasth Bharat”. The campaign will kick-off with a Swachhata Run (Plog Run) on 1st October 2023 followed by running events for the remainder of the campaign i.e., till 31st October 2023.
+					</p> 
                
-                 
+				 
                 <p class="text-justify">
                     Fit India Swachhata Freedom Run is always in Fit India Mission charter as 1st event organized under the aegis of Fit India Mission was Fit India Plog Run on 2nd October 2019 i.e., 150th anniversary of Mahatma Gandhi.
                 </p> 
@@ -657,17 +657,17 @@ $active_section_id = trim($active_section);
                     </ul>
                     <div class="freenote">
                         <p><b>Note:</b></p>
-                        <p>Organisers will have to register their Event/marathons on Fit India portal. They will use the Fit India Logo for all promotional media and provide the data of participants with their cumulative kms covered to download certificate.</p>
-                        <!--
+						<p>Organisers will have to register their Event/marathons on Fit India portal. They will use the Fit India Logo for all promotional media and provide the data of participants with their cumulative kms covered to download certificate.</p>
+						<!--
                         <ol>
                             <li class="text-justify">
-                            Organisers will have to register their Event/marathons on Fit India portal. They will use the Fit India Logo for all promotional media and provide the data of participants with their cumulative kms covered to download certificate.
+							Organisers will have to register their Event/marathons on Fit India portal. They will use the Fit India Logo for all promotional media and provide the data of participants with their cumulative kms covered to download certificate.
                             </li>
-                            
+							
                             <li class="text-justify">FIT INDIA mission advises organizers and individuals to organize their events following the social distancing norms and encourages the new normal of ‘virtual runs’ as is being practiced by runners / walkers across the world.
                             </li>
                         </ol>
-                        -->
+						-->
                     </div>
 
                 </div>
@@ -684,7 +684,7 @@ $active_section_id = trim($active_section);
                         <a href="register" class="og_btn" target="_blank">Register as an Organizer</a>
                         <a href="resources/pdf/SOP-Freedom-Run-4.0.pdf" class="og_btn" target="_blank" style="background-color:#45a164; padding-left: 42px;padding-right:42px;">Steps to Register
                         </a>
-                        <a href="resources/pdf/freedom-run-hoarding-2023.pdf" class="og_btn" target="_blank">freedom-run-hoarding-2023.pdf</a>
+						<a href="resources/pdf/freedom-run-hoarding-2023.pdf" class="og_btn" target="_blank">freedom-run-hoarding-2023.pdf</a>
 
                         <div class="m-40"></div>
                     </div>
@@ -696,7 +696,7 @@ $active_section_id = trim($active_section);
                     </div>
                     @endif
                     <h3 class="mb-3" style="color: #4267b2;">Individual Registration</h3>
-                    <form name="freedum_run_form" method="post" action="freedomrun-add-individual" enctype="multipart/form-data">
+                    <form name="freedum_run_form" method="post" action="freedomrun-add-individual" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         <!--   <input type="hidden" name="user_id" value="{{ Auth::id() }}"/> -->
                         <div class="main_form">
@@ -712,7 +712,7 @@ $active_section_id = trim($active_section);
                                 </div>
                             </div>
                             <div class="um-field"></div>
-                            <div class="um-field">
+							<div class="um-field">
                                 <div class="um-field-label">
                                     <label for="eventname">Type *
                                     </label>
@@ -721,9 +721,9 @@ $active_section_id = trim($active_section);
                                 <div class="um-field-area">
                                     <!-- <label for="name">Organization / Institution / Group / School Name  *</label> -->
                                     <select name="type" id="type" class="form-control">
-                                        <option value="1">Plog Run</option>
-                                        <option value="0" selected>Running/Walking/Jogging</option>
-                                    </select>
+										<option value="1">Plog Run</option>
+										<option value="0" selected>Running/Walking/Jogging</option>
+									</select>
                                     {!!$errors->first("name","<span class='text-danger'>:message</span>")!!}
                                 </div>
                             </div>
@@ -757,7 +757,7 @@ $active_section_id = trim($active_section);
                                 </div>
                                 <div class="um-field-area">
                                     <!-- <label for="contact">Contact Number *</label> -->
-                                    <input type="text" name="contact" class="form-control" id="contact" placeholder="Contact" maxlength="10" value="{{ old('contact') }}">
+                                    <input type="number" name="contact" class="form-control" id="contact" placeholder="Contact" min=1 maxlength="10" value="{{ old('contact') }}">
                                     {!!$errors->first("contact","<span class='text-danger'>:message</span>")!!}
                                 </div>
                             </div>
@@ -838,7 +838,7 @@ $active_section_id = trim($active_section);
                             <div style="clear:both"></div>
                             <div class="um-field" id="success_msg_div">
                                 <div class="um-field-area text-center  ac_btn_partner">
-                                <input type="submit" name="create-event" value="Submit">
+								<input type="submit" name="create-event" value="Submit">
                                     <!--  -->
                                     <!--   <a  class="btn btn-primary btn-sm" href="javascript:void(0);" style="background-color: #4267b2;
     border-color: #4267b2;">Download Certificate</a> -->
@@ -922,7 +922,7 @@ $active_section_id = trim($active_section);
                 <div class="p_evt_list mobileview">
                     <a href="partner-organization" class="gr_btn blue_btn btn-sm " style="">Partner : Register for event listing</a>
                 </div>
-                -->
+				-->
 
             </div>
         </div>
@@ -972,14 +972,16 @@ $active_section_id = trim($active_section);
         </div>
 
     </div>
-    
-    */?>
+	
+	*/?>
     </div>
 
 </section>
 
 
 
+{{-- <script src='https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js'></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/additional-methods.js"></script> --}}
 <script src="{{ asset('resources/js/newjs/jquery.validate.min.js')}}"></script>
 <script src="{{ asset('resources/js/newjs/additional-methods.js')}}"></script>
 <script>
@@ -1044,7 +1046,7 @@ $active_section_id = trim($active_section);
                 video_link: {
                     url: true
                 },
-                captcha: {
+				captcha: {
                     required: true
                 }
             },
@@ -1065,19 +1067,19 @@ $active_section_id = trim($active_section);
                 image: {
                     filesize: "File size must be less than 1 mb."
                 },
-                km: {
+				km: {
                     required: "Please enter Total KM(Kilometer) Covered ",
                 },
-                from_date: {
+				from_date: {
                     required: "Please select start date "
                 },
                 to_date: {
                     required: "Please select end date "
                 },
-                image1: {
+				image1: {
                     required: "Please upload event photo ",
-                },
-                captcha: {
+				},
+				captcha: {
                     required: "Please enter captcha"
                 }
             },

@@ -15,7 +15,6 @@
 
 </style>
 </head>
-{{ dd($organizer_style_name) }}
 <body style="padding:0;margin:0;">
   <div style="position:relative;margin:-28px; ">
     <img src="{{ asset($participant_certificate) }}"  alt="" style="width:100%;margin:0px auto;height:758px;">

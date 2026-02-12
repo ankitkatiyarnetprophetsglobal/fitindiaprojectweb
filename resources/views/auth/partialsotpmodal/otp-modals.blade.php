@@ -27,6 +27,27 @@
                                 <div class="row justify-content-center mt-2">
                                     Time left &nbsp; <span id="mobile_timer"> </span>
                                 </div>
+                                <div class="register-row">
+                                    <div class="register-row-center">
+                                        <label for="captcha " class="w-100  text-center">Please enter the captcha text</label>
+                                        <div class="d-flex align-items-center justify-content-center" id="pagecaptcha-cont">
+                                            <div class="captchaotpimg">
+                                                <span>{!! captcha_img() !!}</span>
+                                            </div>
+                                            <button type="button" class="btn btn-info reload-captcha" id="reload-captcha"> ↻ </button>
+                                        </div>
+                                        <input type="text" id="captchaotp" name="captchaotp" class="d-block mx-auto form-control w-50 @error('captcha') is-invalid @enderror" placeholder="Captcha" maxlength="10">
+                                        <span id="captcha-error" class="error-message text-danger small"></span>
+                                        <div class="row justify-content-center mt-2">
+                                            <span id="captcha_value_error" style="display:none; color:red;">
+                                                Please enter valid captcha value.
+                                            </span>
+                                        </div>
+                                        {{-- @error('captcha')
+                                            <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
+                                        @enderror --}}
+                                    </div>
+                                </div>
                                 <div class="row justify-content-center mt-2">
                                     <button type="button" class="btn btn-info mt-2" style="background-color: #02349a;">
                                         <a id="mobile_otp_verify">OTP verify</a>
@@ -43,6 +64,9 @@
                                         </span>
                                     </p>
                                 </div>
+
+
+
                                 {{-- <div>
                             Mobile
                             <input type="number" id="phone_otp" name="phone_otp" size="100" maxlength="6" min="1">
@@ -80,3 +104,17 @@
                         </div>
                     </div>
                 </div>
+
+
+
+<script>
+   $('#reload-captcha').click(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ route('reloadCaptcha')}}",
+        success: function (data) {
+            $(".captchaotpimg span").html(data.captcha);
+        }
+    });
+});
+</script>

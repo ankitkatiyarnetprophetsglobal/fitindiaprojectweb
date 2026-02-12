@@ -60,7 +60,7 @@
     <div id="footer" runat="server">
         <span id="footercont">{{ __('resourcemaster.label5') }}. {{ __('resourcemaster.label51') }}</span> <a href="#a" id="privacyfooter">{{ __('resourcemaster.label6') }}</a>
     </div>
-    
+
 </footer>
 </html>
 

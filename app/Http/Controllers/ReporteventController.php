@@ -1659,14 +1659,15 @@ class ReporteventController extends Controller
         }
     }
 
-    public function fitindiafreedomrun6report(){
+    public function userkarnatakareport(){
         try{
-
+                // ini_set('memory_limit', '256M');
             try{
-                // dd("sadfsadfasdfasdfasdf");
-                $query = "SELECT * FROM users as u inner join usermetas as um on u.id = um.user_id WHERE rolewise = 'fit-india-freedom-run6';";
+                // dd("userkarnatakareport");
+                $query = "SELECT u.name,u.email,u.phone,um.state,um.district,um.block,um.city,um.participant_number,u.created_at FROM users as u inner join usermetas as um on u.id = um.user_id where state = 'karnataka';";
 
-                $data = DB::select(DB::raw($query));
+                // $data = DB::select(DB::raw($query));
+                $data = DB::select($query);
 
                 // dd($data);
                 $headers = array(
@@ -1674,34 +1675,34 @@ class ReporteventController extends Controller
                 );
 
 
-                $filename =  public_path("event.csv");
+                // $filename =  public_path("event.csv");
+                // $handle = fopen($filename, 'w');
+                $filename = storage_path('app/event.csv');
                 $handle = fopen($filename, 'w');
 
                 fputcsv($handle, [
-                    "Role",// Name of school
                     "Name",
                     "Email",
                     "Phone",
-                    // "Pincode",
                     "State",
                     "District",
                     "Block",
                     "City",
+                    "Participant Number",
                     "Created at",
                 ]);
 
                 foreach ($data as $each_user) {
-
+                    // dd($each_user);
                     fputcsv($handle, [
-                        $each_user->role,
                         $each_user->name,
                         $each_user->email,
                         $each_user->phone,
-                        // $each_user->pincode,
                         $each_user->state,
                         $each_user->district,
                         $each_user->block,
                         $each_user->city,
+                        $each_user->participant_number,
                         // $each_user->max_speed,
                         $each_user->created_at,
                     ]);
@@ -1710,7 +1711,7 @@ class ReporteventController extends Controller
                 fclose($handle);
 
                 //download command
-                return Response::download($filename, "Event Drive Report.csv", $headers);
+                return Response::download($filename, "User Karnataka Report.csv", $headers);
 
                 // dd($school);
             }catch (Exception $e) {
@@ -1726,71 +1727,326 @@ class ReporteventController extends Controller
         }
     }
 
-
-    // fitindiaeventorgreport
-
-    public function fitindiaeventorgreport(){
+    public function user_auto_cycle_permissions_report(){
 
         try{
-            // dd('get_excel_image');
-            $query = "SELECT
-            eo.user_id,
-            eo.organiser_name,
-            eo.name,
-            eo.email,
-            eo.contact,
-            eo.eventstartdate,
-            eo.eventenddate,
-            eo.event_bg_image,
-            eo.eventimg_meta,
-            eo.excel_sheet,
-            IFNULL(eo.participantnum, 0) as participantnum
-            FROM event_organizations AS eo where category = 13084 order by id desc";
 
-            // $query = "SELECT eo.user_id,eo.organiser_name,eo.name,eo.email,eo.contact,eo.eventstartdate,eo.eventenddate,eo.event_bg_image,eo.eventimg_meta,eo.excel_sheet,um.state FROM usermetas um left join event_organizations AS eo on um.user_id = eo.user_id where category = 13064 order by um.state;";
-            // $query = "SELECT eo.user_id,eo.organiser_name,eo.name,eo.email,eo.contact,eo.eventstartdate,eo.eventenddate,eo.event_bg_image,eo.eventimg_meta,eo.excel_sheet,IFNULL(um.state, 'Not specified') as state,um.created_at FROM usermetas um left join event_organizations AS eo on um.user_id = eo.user_id where category = 13064 order by eo.name;";
-            $data = DB::select(DB::raw($query));
+            $query = "SELECT
+                            uacp.user_id,
+                            CASE
+                                WHEN uacp.auto_cycle = 0 THEN 'Not Accept'
+                                ELSE 'Accept'
+                            END AS auto_cycle,
+                            u.name,
+                            u.email,
+                            u.rolelabel,
+                            um.state,
+                            um.district,
+                            um.block,
+                            um.city,
+                            um.pincode,
+                            uacp.created_by
+                        FROM user_auto_cycle_permissions AS uacp
+                        INNER JOIN users AS u ON uacp.user_id = u.id
+                        INNER JOIN usermetas AS um ON um.user_id = uacp.user_id
+                        INNER JOIN userhistorytrakings AS uh ON u.id = uh.user_id
+                        GROUP BY
+                            uacp.user_id,
+                            uacp.auto_cycle,
+                            u.name,
+                            u.email,
+                            u.rolelabel,
+                            um.state,
+                            um.district,
+                            um.block,
+                            um.city,
+                            um.pincode,
+                            uacp.created_by;";
+
+            // $data = DB::select(DB::raw($query));
+            $data = DB::select($query);
 
             $headers = array(
                 'Content-Type' => 'text/csv'
             );
 
-            $filename =  public_path("event.csv");
+            $filename = storage_path('app/event.csv');
             $handle = fopen($filename, 'w');
 
             fputcsv($handle, [
-                "Organiser Name",
+                "User Id",
                 "Name",
                 "Email",
-                "Contact",
-                "Event Start Date",
-                "Event End Date",
-                "Event BG Image",
-                "Eventimg Meta",
-                "Excel Sheet",
+                "Role",
+                "State",
+                "District",
+                "block",
+                "city",
+                "pincode",
+                "Auto cycle",
+                "Created by",
             ]);
 
             foreach ($data as $each_user) {
-                // dd($each_user);
-                $arr = unserialize($each_user->eventimg_meta);
-                $arr_eventimg_meta = implode(" | ",$arr);
 
-                fputcsv($handle, [
-                    $each_user->organiser_name,
-                    $each_user->name,
-                    $each_user->email,
-                    $each_user->contact,
-                    $each_user->eventstartdate,
-                    $each_user->eventenddate,
-                    $each_user->event_bg_image,
-                    $arr_eventimg_meta,
-                    $each_user->excel_sheet,
-                ]);
+                    fputcsv($handle, [
+                        $each_user->user_id,
+                        $each_user->name,
+                        $each_user->email,
+                        $each_user->rolelabel,
+                        $each_user->state,
+                        $each_user->district,
+                        $each_user->block,
+                        $each_user->city,
+                        $each_user->pincode,
+                        $each_user->auto_cycle,
+                        $each_user->created_by,
+                    ]);
+            }
 
-            }        fclose($handle);
+            fclose($handle);
 
-            //download command
-            return Response::download($filename, "All Report Till Date.csv", $headers);
+            return Response::download($filename, "user auto cycle permissions report.csv", $headers);
+
+        }catch (Exception $e) {
+
+            return abort(404);
+        }
+    }
+
+    public function schoolwithstareimagedownloadreport(){
+
+        try{
+            ini_set('memory_limit', '1024M');
+
+
+
+            // dd('schoolwithstareimagedownloadreport');
+            $data = DB::table('users')
+                    ->leftJoin('wp_star_rating_status as starstat','users.id', '=', 'starstat.user_id')
+                    ->leftJoin('usermetas', 'usermetas.user_id', '=', 'starstat.user_id')
+                    ->leftJoin('wp_star_rating', 'wp_star_rating.user_id', '=', 'starstat.user_id')
+                    ->leftJoin('wp_schoolmeta', 'wp_schoolmeta.userid', '=', 'starstat.user_id')
+                    ->leftJoin('cert_ques', 'cert_ques.id', '=', 'wp_star_rating.post_id')
+                    ->select(array(
+                    // 'users.id',
+                    'users.name',
+                    'users.email',
+                    'users.phone',
+                    'usermetas.udise',
+                    'usermetas.state',
+                    'usermetas.district',
+                    'usermetas.block',
+                    'wp_star_rating.post_id',
+                    'wp_star_rating.obj_ans',
+                    'wp_star_rating.sub_ans',
+                    'wp_star_rating.peteacherno',
+                    'wp_star_rating.peteachernames',
+                    'wp_star_rating.playgroundno',
+                    'wp_star_rating.playgroundshape',
+                    'wp_star_rating.playgroundarea',
+                    'wp_star_rating.playgroundlside',
+                    'wp_star_rating.schooldistance',
+                    'wp_star_rating.playgroundimg',
+                    'wp_star_rating.othersportsplayed',
+                    'wp_star_rating.outdoorsports',
+                    'wp_star_rating.assemblyactivityno',
+                    'wp_star_rating.physeduperiodno',
+                    'wp_star_rating.schoolclosreno',
+                    'wp_star_rating.otheractivityno',
+                    'wp_star_rating.studentspending60min',
+                    'wp_star_rating.declation',
+                    'wp_star_rating.totnoteachers',
+                    'wp_star_rating.encouragesdoc',
+                    'wp_star_rating.schoolcertificate',
+                    'wp_star_rating.motivatesdoc',
+                    'wp_star_rating.noteachersplaying',
+                    'wp_star_rating.trainedteacherno',
+                    'wp_star_rating.trainedteachername',
+                    'wp_star_rating.sportsone',
+                    'wp_star_rating.sporttwo',
+                    'wp_star_rating.outdoorfacility',
+                    'wp_star_rating.indoorfacility',
+                    'wp_star_rating.outdoorextrafacility',
+                    'wp_star_rating.indoorextrafacility',
+                    'wp_star_rating.traditionalgames',
+                    'wp_star_rating.intraschoolcomp',
+                    'wp_star_rating.achievements',
+                    'wp_star_rating.alltrainedpe',
+                    'wp_star_rating.sportscoachno',
+                    'wp_star_rating.quarterintraschooldoc',
+                    'wp_star_rating.participateintraschooldoc',
+                    'wp_star_rating.celebrateannualsportdoc',
+                    'wp_star_rating.pecertifieddoc',
+                    'wp_star_rating.curriculumboarddoc',
+                    'wp_star_rating.sportscoachname',
+                    'wp_star_rating.coachsports',
+                    'wp_star_rating.peboard',
+                    'wp_star_rating.schoolfitnessid',
+                    'wp_star_rating.noofstudents',
+                    'wp_star_rating.noofassessments',
+                    'wp_star_rating.facilities',
+                    'wp_star_rating.opento',
+                    'wp_schoolmeta.image',
+                    // 'cert_ques.cert_cats_id',
+                    // 'cert_ques.questypeid',
+                    // 'cert_ques.priority',
+                    'cert_ques.title',
+                    DB::raw('(CASE WHEN starstat.cat_id = "1621" THEN "School Flag" WHEN starstat.cat_id = "1622" THEN "3 Star" WHEN starstat.cat_id = "1623" THEN "5 Star" ELSE "NULL" END) AS category'),
+                    'starstat.status','starstat.created'))
+                    ->where('starstat.cat_id', 1622)->get();
+                    // ->where('starstat.cat_id', 1623)->get();
+                    // ->where('starstat.user_id', '=', NULL)->get();
+            // dd($query);
+            // $data = DB::select(DB::raw($query));
+            // $data = DB::select($query);
+
+            // dd($query);
+
+            $headers = array(
+                'Content-Type' => 'text/csv'
+            );
+
+            $filename = storage_path('app/event.csv');
+            $handle = fopen($filename, 'w');
+
+            fputcsv($handle, [
+                "Name",
+                "email",
+                "phone",
+                "udise",
+                "state",
+                "district",
+                "block",
+                "post_id",
+                "obj_ans",
+                "sub_ans",
+                "peteacherno",
+                "peteachernames",
+                "playgroundno",
+                "playgroundshape",
+                "playgroundarea",
+                "playgroundlside",
+                "schooldistance",
+                "playgroundimg",
+                "othersportsplayed",
+                "outdoorsports",
+                "assemblyactivityno",
+                "physeduperiodno",
+                "schoolclosreno",
+                "otheractivityno",
+                "studentspending60min",
+                "declation",
+                "totnoteachers",
+                "encouragesdoc",
+                "schoolcertificate",
+                "motivatesdoc",
+                "noteachersplaying",
+                "trainedteacherno",
+                "trainedteachername",
+                "sportsone",
+                "sporttwo",
+                "outdoorfacility",
+                "indoorfacility",
+                "outdoorextrafacility",
+                "indoorextrafacility",
+                "traditionalgames",
+                "intraschoolcomp",
+                "achievements",
+                "alltrainedpe",
+                "sportscoachno",
+                "quarterintraschooldoc",
+                "participateintraschooldoc",
+                "celebrateannualsportdoc",
+                "pecertifieddoc",
+                "curriculumboarddoc",
+                "sportscoachname",
+                "coachsports",
+                "peboard",
+                "schoolfitnessid",
+                "noofstudents",
+                "noofassessments",
+                "facilities",
+                "opento",
+                "image",
+                "title",
+                "category",
+                "status",
+                "created",
+            ]);
+
+            foreach ($data as $each_user) {
+                    // dd($each_user);
+                    fputcsv($handle, [
+                        $each_user->name,
+                        $each_user->email,
+                        $each_user->phone,
+                        $each_user->udise,
+                        $each_user->state,
+                        $each_user->district,
+                        $each_user->block,
+                        $each_user->post_id,
+                        $each_user->obj_ans,
+                        $each_user->sub_ans,
+                        $each_user->peteacherno,
+                        $each_user->peteachernames,
+                        $each_user->playgroundno,
+                        $each_user->playgroundshape,
+                        $each_user->playgroundarea,
+                        $each_user->playgroundlside,
+                        $each_user->schooldistance,
+                        $each_user->playgroundimg,
+                        $each_user->othersportsplayed,
+                        $each_user->outdoorsports,
+                        $each_user->assemblyactivityno,
+                        $each_user->physeduperiodno,
+                        $each_user->schoolclosreno,
+                        $each_user->otheractivityno,
+                        $each_user->studentspending60min,
+                        $each_user->declation,
+                        $each_user->totnoteachers,
+                        $each_user->encouragesdoc,
+                        $each_user->schoolcertificate,
+                        $each_user->motivatesdoc,
+                        $each_user->noteachersplaying,
+                        $each_user->trainedteacherno,
+                        $each_user->trainedteachername,
+                        $each_user->sportsone,
+                        $each_user->sporttwo,
+                        $each_user->outdoorfacility,
+                        $each_user->indoorfacility,
+                        $each_user->outdoorextrafacility,
+                        $each_user->indoorextrafacility,
+                        $each_user->traditionalgames,
+                        $each_user->intraschoolcomp,
+                        $each_user->achievements,
+                        $each_user->alltrainedpe,
+                        $each_user->sportscoachno,
+                        $each_user->quarterintraschooldoc,
+                        $each_user->participateintraschooldoc,
+                        $each_user->celebrateannualsportdoc,
+                        $each_user->pecertifieddoc,
+                        $each_user->curriculumboarddoc,
+                        $each_user->sportscoachname,
+                        $each_user->coachsports,
+                        $each_user->peboard,
+                        $each_user->schoolfitnessid,
+                        $each_user->noofstudents,
+                        $each_user->noofassessments,
+                        $each_user->facilities,
+                        $each_user->opento,
+                        $each_user->image,
+                        $each_user->title,
+                        $each_user->category,
+                        $each_user->status,
+                        $each_user->created,
+                    ]);
+            }
+
+            fclose($handle);
+
+            return Response::download($filename, "star 3 1622 report.csv", $headers);
+            // return Response::download($filename, "star 5 1623 report.csv", $headers);
 
         }catch (Exception $e) {
 

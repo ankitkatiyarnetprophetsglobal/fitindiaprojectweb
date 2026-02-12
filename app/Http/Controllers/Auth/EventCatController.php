@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Usermeta;
+use App\Models\Prerak;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Role;
@@ -15,45 +16,62 @@ use App\Models\EventCat;
 use Illuminate\Support\Facades\Hash;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use App\Models\State;
 use App\Models\CertificationTrackings;
 use App\Models\Eventactivitydropdowns;
 use App\Models\District;
+use App\Models\Champion;
 use Carbon\Carbon;
 
 class EventCatController extends Controller
 {
 
     public function createFreedomrunEvent(){
-     
+
         try{
             if (isset(auth()->user()->role)){
+
                     $role = Auth::user()->role;
                     $a_id = Auth::user()->id;
                 if (Auth::check()){
-                    $categories = EventCat::where('status', '=', 2)->orderBy('id', 'DESC')->get();
-                   
-                    $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
-                    $userdata = user::with('usermeta')->find($a_id);
-                    $Usermeta_data = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
-                    $usermeta_data_state = $Usermeta_data['state'];
-                    $usermeta_datadistrict = $Usermeta_data['district'];
-                    $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
-                    Session::put('usermeta_role_data', $Usermeta_data['cyclothonrole']);
-                    $eventactivitydropdowns = Eventactivitydropdowns::where('status',1)->orderBy('id', 'DESC')->get();
-                    if(!empty($userdata)){
-                        return view('event.add-organization-event', [
-                                    'role' => $role ,
-                                    'userdata' => $userdata,
-                                    'categories'=> $categories,
-                                    'districts'=> $districts,
-                                    'eventactivitydropdowns'=> $eventactivitydropdowns,
-                                    'usermeta_datadistrict'=> $usermeta_datadistrict,
-                                    'usermeta_data_state'=> $usermeta_data_state,
-                                    'state'=> $state
-                                ]);
+
+                        if(auth()->user()->role == 'champion'){
+
+                            return view('event.influencer-download-certificate', [
+                                        // 'role' => $role
+                                        // 'userdata' => $userdata,
+                                        // 'categories'=> $categories,
+                                        // 'districts'=> $districts,
+                                        // 'eventactivitydropdowns'=> $eventactivitydropdowns,
+                                        // 'usermeta_datadistrict'=> $usermeta_datadistrict,
+                                        // 'usermeta_data_state'=> $usermeta_data_state,
+                                        // 'state'=> $state
+                                    ]);
+                        }
+
+                        $categories = EventCat::where('status', '=', 2)->orderBy('id', 'DESC')->get();
+                        $state = State::whereStatus(true)->orderBy('name', 'ASC')->get();
+                        $userdata = user::with('usermeta')->find($a_id);
+                        $Usermeta_data = Usermeta::where('user_id','=',Auth::user()->id)->orderBy('id', 'DESC')->first();
+                        $usermeta_data_state = $Usermeta_data['state'];
+                        $usermeta_datadistrict = $Usermeta_data['district'];
+                        $districts = District::whereStatus(true)->orderBy('name', 'ASC')->get();
+                        Session::put('usermeta_role_data', $Usermeta_data['cyclothonrole']);
+                        $eventactivitydropdowns = Eventactivitydropdowns::where('status',1)->orderBy('id', 'DESC')->get();
+                        if(!empty($userdata)){
+                            return view('event.add-organization-event', [
+                                        'role' => $role ,
+                                        'userdata' => $userdata,
+                                        'categories'=> $categories,
+                                        'districts'=> $districts,
+                                        'eventactivitydropdowns'=> $eventactivitydropdowns,
+                                        'usermeta_datadistrict'=> $usermeta_datadistrict,
+                                        'usermeta_data_state'=> $usermeta_data_state,
+                                        'state'=> $state
+                                    ]);
 
                     }else{
 
@@ -121,6 +139,7 @@ class EventCatController extends Controller
             $event_name_store = $request['event_name_store'];
             $state = $request['state'];
             $districts = $request['districts'];
+
             if($request->hasfile('event_bg_image')) {
                 $name = $request->file('event_bg_image')->getClientOriginalName();
                 $image_path = $event_name_store.'/'.$state.'/'.Auth::user()->name;
@@ -138,6 +157,62 @@ class EventCatController extends Controller
 
                 }
             }
+
+            // Upload event background image
+            // if($request->hasFile('event_bg_image')) {
+            //     $bgPath = $event_name_store.'/'.$state.'/'.Auth::user()->name;
+            //     $event_background_image = $this->uploadFileAbsolute($request->file('event_bg_image'), $bgPath);
+            // }
+
+            // // Upload multiple participant images
+            // $imgurl = [];
+            // if($request->hasFile('prt_image')) {
+            //     $prtPath = $event_name_store.'/'.$state.'/'.Auth::user()->name.'/event_image';
+            //     foreach($request->file('prt_image') as $file){
+            //         $imgurl[] =  $this->uploadFileAbsolute($file, $prtPath);
+            //     }
+            // }
+
+
+            // if($request->hasfile('event_bg_image')) {
+            //     $image_path = $event_name_store.'/'.$state.'/'.Auth::user()->name;
+
+            //     // Folder check & create with 0755
+            //     if(!Storage::disk('uploads')->exists($image_path)){
+            //         Storage::disk('uploads')->makeDirectory($image_path, 0755, true); // true = recursive
+            //     }
+
+            //     // File store karna
+            //     $path = $request->file('event_bg_image')->store($image_path, ['disk'=> "uploads"]);
+
+            //     // Permission set for file
+            //     $full_path = Storage::disk('uploads')->path($path);
+            //     File::chmod($full_path, 0755);
+
+            //     // URL generate karna
+            //     $event_background_image = url('wp-content/uploads/'.$path);
+            // }
+
+            // if($request->hasfile('prt_image')) {
+            //     $imgurl = [];
+            //     $image_path = $event_name_store.'/'.$state.'/'.Auth::user()->name.'/event_image';
+
+            //     // Folder check & create with 0755
+            //     if(!Storage::disk('uploads')->exists($image_path)){
+            //         Storage::disk('uploads')->makeDirectory($image_path, 0755, true);
+            //     }
+
+            //     foreach($request->file('prt_image') as $file){
+            //         $path = $file->store($image_path,['disk'=> 'uploads']);
+
+            //         // Permission set for file
+            //         $full_path = Storage::disk('uploads')->path($path);
+            //         File::chmod($full_path, 0755);
+
+            //         $imgurl[] = url('wp-content/uploads/'.$path);
+            //     }
+            // }
+
             $run = new Eventorganizations();
             $run->user_id = Auth::user()->id;
             $run->category = $request->category_name; // event category from event_cat table
@@ -176,6 +251,35 @@ class EventCatController extends Controller
             $Message =  $ex->getMessage();
             return back()->with('failed', $Message)->withInput();
         }
+    }
+
+    function ensureDirectoryAbsolute($path) {
+        $fullPath = public_path('wp-content/uploads/'.$path);
+        if (!File::exists($fullPath)) {
+            File::makeDirectory($fullPath, 0755, true); // recursive
+        } else {
+            // Folder already exist, permission ensure kare
+            File::chmod($fullPath, 0755);
+        }
+        return $fullPath;
+    }
+
+    // Upload single file
+    function uploadFileAbsolute($file, $path) {
+        $fullDir =  $this->ensureDirectoryAbsolute($path); // ensure folder exists
+        $originalName = $file->getClientOriginalName();
+
+        // Unique name avoid collision
+        $fileName = time().'_'.$originalName;
+        $fullFilePath = $fullDir.'/'.$fileName;
+
+        // Move file to folder
+        $file->move($fullDir, $fileName);
+
+        // Set permission for file
+        File::chmod($fullFilePath, 0755);
+
+        return url('wp-content/uploads/'.$path.'/'.$fileName);
     }
 
     public function listofEvents(){
@@ -832,7 +936,7 @@ class EventCatController extends Controller
             ],[
                 'participant_names.required' => 'Please Enter Participant Name.',
             ]);
-            $memberlist = $request->participant_names;
+            $memberlist = strip_tags($request->participant_names);
             $memberlist = explode(PHP_EOL, $memberlist);
             if(!empty($memberlist)){
             $count = count($memberlist);
@@ -945,48 +1049,48 @@ class EventCatController extends Controller
                         stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
 
                     );
+
+
+                    $data = [
+                                'title' => 'Invoice',
+                                'content' => 'This is a sample PDF content.',
+                            ];
+
+                    // Generate PDF from a Blade view
+                    $pdf = PDF::loadView('event.freedom-run-5-event-organizer-certificate',
+                                        [
+                                            'name' =>  $organiser_name,
+                                            'organizer_certificate' => $categories['organizer_certificate'],
+                                            'organizer_style_name' => $categories['organizer_style_name'],
+                                            'eventstartdate'=> $eventstartdate ?? '',
+                                            'eventenddate'=> $eventenddate ?? '',
+                                            'state'=> $state ?? '--',
+                                            'districts'=> $districts ?? '--',
+                                            'categories_event_id'=> $categories_event_id ?? '',
+                                            'serialno_with_id'=> $serialno_with_id ?? '',
+                                        ])->setPaper('a4', 'landscape');
+
+                    // Define file name
+
+
+                    $fileName = 'invoice_' . time() . '.pdf';
+                    $path = storage_path('app/public/pdf/' . $fileName);
+
+                    if (!file_exists(dirname($path))) {
+                        mkdir(dirname($path), 0777, true);
+                    }
+
+                    // Save PDF to the server path
+                    file_put_contents($path, $pdf->output());
+
+                    // return response()->json([
+                    //     'message' => 'PDF saved on server',
+                    //     'file' => $fileName,
+                    //     'path' => $path,
+                    // ]);
+
+
                     return $pdf->download($organiser_name.".pdf");
-
-                    // $data = [
-                    //             'title' => 'Invoice',
-                    //             'content' => 'This is a sample PDF content.',
-                    //         ];
-
-                    // // Generate PDF from a Blade view
-                    // $pdf = PDF::loadView('event.freedom-run-5-event-organizer-certificate',
-                    //                     [
-                    //                         'name' =>  $organiser_name,
-                    //                         'organizer_certificate' => $categories['organizer_certificate'],
-                    //                         'organizer_style_name' => $categories['organizer_style_name'],
-                    //                         'eventstartdate'=> $eventstartdate ?? '',
-                    //                         'eventenddate'=> $eventenddate ?? '',
-                    //                         'state'=> $state ?? '--',
-                    //                         'districts'=> $districts ?? '--',
-                    //                         'categories_event_id'=> $categories_event_id ?? '',
-                    //                         'serialno_with_id'=> $serialno_with_id ?? '',
-                    //                     ])->setPaper('a4', 'landscape');
-
-                    // // Define file name
-
-
-                    // $fileName = 'invoice_' . time() . '.pdf';
-                    // $path = storage_path('app/public/pdf/' . $fileName);
-
-                    // if (!file_exists(dirname($path))) {
-                    //     mkdir(dirname($path), 0777, true);
-                    // }
-
-                    // // Save PDF to the server path
-                    // file_put_contents($path, $pdf->output());
-
-                    // // return response()->json([
-                    // //     'message' => 'PDF saved on server',
-                    // //     'file' => $fileName,
-                    // //     'path' => $path,
-                    // // ]);
-
-
-                    // return $pdf->download($organiser_name.".pdf");
 
                 }
 
@@ -1406,6 +1510,31 @@ class EventCatController extends Controller
             return abort(404);
 
         }
+    }
+
+
+    public function myChampionCertificate(Request $request){
+        $cer_date = date("mY");
+        $serialno = 'FI#'.$cer_date.'#';
+        $email = Auth::user()->email;
+        $cham_name = Champion::where('email',$email)->first()->name;
+        $cert_end_date = date('d/m/Y', strtotime('-1 day',strtotime("+12 Months")));
+        $certificationtracking = new CertificationTrackings();
+        $certificationtracking->user_id = Auth::user()->id;
+        $certificationtracking->name = $cham_name;
+        $certificationtracking->user_type = 'Champion';
+        $certificationtracking->event_id = null;
+        $certificationtracking->event_name = null;
+        $certificationtracking->event_participant_certification_name = null;
+        $certificationtracking->status = 1;
+        $certificationtracking->save();
+        $last_id = $certificationtracking->id;
+        $serialno_with_id = $serialno .$last_id;
+        $pdf = PDF::loadView('event/champion-certificate',['name' => ucwords($cham_name), 'cert_end_date'=>$serialno_with_id])->setPaper('DEFAULT_PDF_PAPER_SIZE', 'landscape');
+        $pdf->getDomPDF()->setHttpContext(
+            stream_context_create(['ssl'=>['allow_self_signed'=> TRUE, 'verify_peer' => FALSE, 'verify_peer_name' => FALSE, ]])
+        );
+        return $pdf->stream($cham_name.".pdf");
     }
 
 

@@ -1,3 +1,18 @@
+var CryptoJSAesJson = {
+        stringify: function (cipherParams) {
+            var j = {ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)};
+            if (cipherParams.iv) j.iv = cipherParams.iv.toString();
+            if (cipherParams.salt) j.s = cipherParams.salt.toString();
+            return JSON.stringify(j);
+        },
+        parse: function (jsonStr) {
+            var j = JSON.parse(jsonStr);
+            var cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Base64.parse(j.ct)});
+            if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv)
+            if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s)
+            return cipherParams;
+        }
+    }
 // === Form Validation & Secure Submission ===
 $("#frontadmin").on("submit", async function (e) {
     e.preventDefault();
@@ -51,7 +66,8 @@ $("#frontadmin").on("submit", async function (e) {
         // Replace plain password with encrypted one
         $("#password").val(encrypt_pass);
         $("#login-submit").prop("disabled", true).val("Logging in...");
-
+        // console.log($(this).attr("action"));
+        // return false;
         // === AJAX submission for OTP integration ===
         $.ajax({
             url: $(this).attr("action"),
@@ -63,6 +79,7 @@ $("#frontadmin").on("submit", async function (e) {
                     $("#phone-display").text(response.phone_masked);
                     $("#email-display").text(response.email_masked);
                     $("#otpModal").show();
+                    window.usdert= response.usdert
                     setTimeout(() => {
                         $("#otp-inputs .otp-input:first").focus();
                     }, 100);
@@ -168,6 +185,7 @@ $(document).ready(function () {
 
     // Verify OTP
     $("#verify-otp").on("click", function () {
+
         let otp = "";
         $(".otp-input").each(function () {
             otp += $(this).val();
@@ -188,7 +206,43 @@ $(document).ready(function () {
                 otp: otp,
                 _token: csrfToken,
             },
+
             success: function (response) {
+
+
+                console.log("Session User ID 123456:", usdert);
+                console.log("response",response.status);
+                const decrypted = JSON.parse(CryptoJS.AES.decrypt(response.status, "passphrasepass", {
+                    format: CryptoJSAesJson
+                }).toString(CryptoJS.enc.Utf8));
+                const decryptedStr = String(decrypted);
+                console.log("decrypted Str:", decryptedStr);
+                const parts = decryptedStr.split(':');
+                console.log("split parts:", parts);
+
+                const value_status = parts[0];          // "true"
+                const value_message = parts[1];         // "truewrtsuss"
+                const value_id = parts[2];              // "1761912914"
+                const value_mobile = parts[3];          // "9818886995"
+
+                console.log("Status:", value_status);
+                console.log("Message:", value_message);
+                console.log("User ID:", value_id);
+                console.log("Mobile:", value_mobile);
+
+                if(value_message == 'truewrtsuss' && value_mobile == usdert){
+                    delete window.usdert;
+                    window.location.href = response.redirect;
+                }else {
+                    showOtpError("Verification failed. Please try again.");
+                }
+                return false;
+
+
+
+
+
+
                 if (response.status === "success") {
                     window.location.href = response.redirect;
                 }

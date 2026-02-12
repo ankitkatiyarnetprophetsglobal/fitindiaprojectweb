@@ -137,6 +137,7 @@ Route::post('encrypteddata', [App\Http\Controllers\TestingController::class, 'en
 Route::post('deletedusersbyemail', [App\Http\Controllers\CommontypeController::class, 'deletedusersbyemail'])->name('deletedusersbyemail');
 Route::post('get_version', [App\Http\Controllers\CommontypeController::class, 'get_version'])->name('get_version');
 Route::post('version_update', [App\Http\Controllers\CommontypeController::class, 'version_update'])->name('version_update');
+Route::post('soceventupdate', [App\Http\Controllers\CommontypeController::class, 'soceventupdate'])->name('soceventupdate');
 
 
 

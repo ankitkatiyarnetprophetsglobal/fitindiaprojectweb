@@ -14,6 +14,14 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
 		'getquizques',
-		'road-to-tokyo-2020-quiz'
+		'road-to-tokyo-2020-quiz',
+        'api/*',
+        'login',
+        'verify-otp',
     ];
+
+    public function shouldAddXsrfTokenCookie(): bool
+    {
+        return false;
+    }
 }

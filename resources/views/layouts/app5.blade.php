@@ -49,15 +49,15 @@
 	    #top-header,.header, .menu-bar, #footer_ab, #top-header_web, .cust_navbar_mob { display:none; }
 	</style>	 -->
 	<?php } ?>
-<div class="container-fluid" id="@yield('pageid')">   
+<div class="container-fluid" id="@yield('pageid')">
     <!-- Top Header Bar -->
     <div id="top-header">
     </div>
 
-   
+
     </div>
     <!-- Top Header Bar end-->
-    
+
 
 
 
@@ -82,7 +82,7 @@ function logoutfn(){
 
 
 <script>
-/* 
+/*
         $(document).ready(function(){
 
                 $(".cust_navbar_mob").click(function(){
@@ -202,7 +202,7 @@ $(document).ready(function(){
 
 
 
-/* 
+/*
     $(document).on('click', '.increaseFont', function(){
 
         //alert("rejsjfasd")
@@ -255,29 +255,29 @@ $(document).ready(function(){
 
 // Gets the video src from the data-src on each button
 
-var $videoSrc;  
+var $videoSrc;
 $('.video-btn').click(function() {
     $videoSrc = $(this).data( "src" );
 });
 
  */
-  
-  
-// when the modal is opened autoplay it  
+
+
+// when the modal is opened autoplay it
 /* $('#videoId').on('shown.bs.modal', function (e) {
-    
+
 // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
-$("#video").attr('src',$videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" ); 
+$("#video").attr('src',$videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" );
 })
-  
+
 
 
 // stop playing the youtube video when I close the modal
 $('#videoId').on('hide.bs.modal', function (e) {
     // a poor man's stop video
-    $("#video").attr('src',""); 
-}) 
- 
+    $("#video").attr('src',"");
+})
+
 });
  */
 </script>

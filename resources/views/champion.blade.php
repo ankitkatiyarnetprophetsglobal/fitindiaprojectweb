@@ -92,10 +92,11 @@
 
                   <div class="col-sm-12 col-md-12">
                     <div class="form-group">
-                      <label for="file">Upload Your Photo <span style="color:red">(Kindly upload a formal photo, This photo will be displayed against your profile on Fit India Website if approved) <br>Image size should be 144px X 150px </span></label>
-                      <input type="file" name="image" id="image" class="form-control">
-                      {!!$errors->first("image","<span class='text-danger'>:message</span>")!!}
-                      </div>
+                        <label for="file">Upload Your Photo <span style="color:red">(Kindly upload a formal photo, This photo will be displayed against your profile on Fit India Website if approved) <br>Image size should be 144px X 150px </span></label>
+                        <input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpeg, image/jpg">
+                        {!!$errors->first("image","<span class='text-danger'>:message</span>")!!}
+                        <small id="error" style="color:red"></small>
+                    </div>
                   </div>
 
                   <div class="col-sm-12 col-md-6">
@@ -281,8 +282,10 @@
             // instagram_profile: { required:true, url: true },
             // instagram_profile_followers: { required:true, digits: true, maxlength:7 },
 
-      work_profession: { required:true, lettersonly: true },
-            description: { required:true, lettersonly: true },
+            // work_profession: { required:true, lettersonly: true },
+            // description: { required:true, lettersonly: true },
+            work_profession: { required:true},
+            description: { required:true},
       "declaration": {
             required: true,
             minlength: 1
@@ -354,6 +357,24 @@
      $('.insta_detail').hide();
     });
 });*/
+
+
+    document.getElementById("image").addEventListener("change", function () {
+        const file = this.files[0];
+        const error = document.getElementById("error");
+
+        error.textContent = "";
+
+        if (!file) return;
+
+        // REAL MIME type check (frontend limit)
+        if (!file.type || !file.type.startsWith("image/")) {
+            error.textContent = "Only valid image files are allowed.";
+            this.value = "";
+            return;
+        }
+    });
+
 
 
 </script>

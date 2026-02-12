@@ -59,6 +59,7 @@ $('.mobile_verify').click(function (event) {
     const phone_value = $('#phone').val();
     const role_name = $('#role_name').val();
 
+
    const phone = $('#phone').val().trim();
     if (!phone) {
         $('#phone-error').text('Mobile is required').show();
@@ -85,5 +86,5 @@ $('.mobile_verify').click(function (event) {
     });
     }
 
-   
+
 });

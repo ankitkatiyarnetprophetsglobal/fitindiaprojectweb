@@ -731,7 +731,7 @@
                             // Do validate stuff here
                             return;
                         }
-                
+
                         $("#mobile_otp_resend").css("display", "block");
                         // alert('Timeout for otp');
                     }
@@ -782,6 +782,8 @@
                 $("#divloader").css("display", "none");
 
                 var decrypted = JSON.parse(CryptoJS.AES.decrypt(response.success, "passphrasepass", {format: CryptoJSAesJson}).toString(CryptoJS.enc.Utf8));
+                console.log("decrypted",decrypted);
+                return false;
                 let text = decrypted;
                 const myArray = text.split(":");
                 value_split = myArray[1];

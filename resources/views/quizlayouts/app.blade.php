@@ -14,13 +14,13 @@
     <link rel="apple-touch-icon-precomposed" href="{{ asset('resources/images/fit-fav.ico') }}" />
 
     <!-- <link rel="stylesheet" href="{{ asset('resources/fonts/bootstrap.min.css') }}" media="screen"> -->
-    <link rel="stylesheet" href="{{ asset('resources/css/bootstrap.min.css') }}" media="screen">  
-    <link rel="stylesheet" href="{{ asset('resources/css/font-awesome.css') }}" media="screen">    
+    <link rel="stylesheet" href="{{ asset('resources/css/bootstrap.min.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ asset('resources/css/font-awesome.css') }}" media="screen">
     <link rel="stylesheet" href="{{ asset('resources/css/dashboard.min.css') }}" media="screen">
     <!-- <link href="{{ asset('resources/css/print.min.css') }}" rel="stylesheet" media="all">   -->
-    <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">   
-    <link href="{{ asset('resources/css/responsive.css') }}" rel="stylesheet" media="all"> 
-    <link href="{{ asset('resources/css/print.css') }}" rel="stylesheet" media="print">  
+    <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('resources/css/responsive.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('resources/css/print.css') }}" rel="stylesheet" media="print">
     <script src="{{ asset('resources/js/jquery.min.js')}}"></script>
     <script src="{{ asset('resources/js/popper.min.js')}}"></script>
 <script src="{{ asset('resources/js/bootstrap.min.js')}}"></script>
@@ -96,33 +96,33 @@
         margin-bottom: 0rem;
     }
 
-	
+
     </style>
-    
-   
+
+
 </head>
 <body >
      <?php
 	if(!empty($_GET['m'])){ ?>
 	<style>
 	#top-header,.header, .menu-bar, #footer_ab, #top-header_web, .cust_navbar_mob { display:none; }
-	</style>	
+	</style>
 	<?php } ?>
 <div class="container-fluid" id="@yield('pageid')">
-    
-	
+
+
     <div id="top-header">
     </div>
     <div id="top-header_web" class="mob_flex">
-   
-            
+
+
             @php
                 $active_section = request()->segment(count(request()->segments()));
                 $active_section_id = "id='$active_section'";
             @endphp
             <div class="forMob on-print">
-              <ul> 
-			  <?php //print_r(Auth::guard('quiz')->user()->id); ?> 
+              <ul>
+			  <?php //print_r(Auth::guard('quiz')->user()->id); ?>
                         @if(!Auth::guard('quiz')->user()->id)
 
                                 <li class="nav-item l_area log">
@@ -135,7 +135,7 @@
                                     <span><a class="nav-link" href="{{ route('quiz-partner-form') }}">{{ __('Register') }}</a></span>
                                     @endif
                                 </li>
-                            
+
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ url('dashboard') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -146,20 +146,20 @@
                                     <a class="dropdown-item last_child"  href="{{ route('quiz.logout') }}"  data-toggle="modal" data-target="#logoutDivId">
 									{{ __('Logout') }}
                                     </a>
-									
+
                                     <form id="logout-form" action="{{ route('quiz.logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
                         @endif
-                      
+
                 </ul>
               </div>
-			  
-			  
-          
-		  
+
+
+
+
         </div>
        <div class="clearfix"></div>
     </div>
@@ -173,7 +173,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button> -->
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 <button type="button" class="btn btn-primary logoutid">Yes</button>
@@ -181,28 +181,28 @@
             </div>
         </div>
     </div>
-    
 
- 
 
-    
-    
-    
-     
+
+
+
+
+
+
     <!-- Content section -->
         @yield('content')
-        
 
-    <!-- Content section end-->   
-          
-    
-    
-</div> 
+
+    <!-- Content section end-->
+
+
+
+</div>
 
 <script>
 
 $(document).ready(function(){
-    $('.logoutid').click(function(){      
+    $('.logoutid').click(function(){
         document.getElementById('logout-form').submit();
     })
 })

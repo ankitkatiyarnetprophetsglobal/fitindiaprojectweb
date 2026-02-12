@@ -1,10 +1,10 @@
 @php  $annouc = request()->route()->uri;  @endphp
 <!-- Footer -->
-<footer class="footer @if(in_array($annouc, array('/','home'))) {{ 'home-footer' }} @endif" id="footer_ab" > 
+<footer class="footer @if(in_array($annouc, array('/','home'))) {{ 'home-footer' }} @endif" id="footer_ab" >
         <div class="footer_flex-top">
            <div class="inner_footer">
              <ul class="f_link">
-			 
+
 			  <li><a href="{{ url('about') }}" >{{ __('home_content.About_Us')}} <!--About Us--></a></li>
 			   <li><a href="{{ url('media') }}" >{{ __('home_content.Media')}} <!--Media--></a></li>
                <li><a href="{{ url('site-map') }}" >{{ __('home_content.Site_Map')}} <!--Site Map--></a></li>
@@ -21,7 +21,7 @@
                     <a class="font_f f_c" href="https://www.facebook.com/FitIndiaOff/" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i>
                     <!-- <span class="hidespan">@FitIndiaOff</span> -->
                   </a>
-                  </li> 
+                  </li>
                   <li>
                     <a class="font_f t_c" href="https://twitter.com/FitIndiaOff" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i>
                     <!-- <span class="hidespan">@FitIndiaOff</span> -->
@@ -47,14 +47,14 @@
 
            </div>
            <!-- <div class="footer_link">
-               
+
           </div>  -->
 
           <!-- <div class="footer_link">
               <ul>
                 <li><div class="visitor">
-                          <span class="social_area"> 
-                            <span><a class="font_f f_c" href="https://www.facebook.com/FitIndiaOff/" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i></a> </span>                   
+                          <span class="social_area">
+                            <span><a class="font_f f_c" href="https://www.facebook.com/FitIndiaOff/" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook" aria-hidden="true"></i></a> </span>
                             <span><a class="font_f t_c" href="https://twitter.com/FitIndiaOff" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i></a></span>
                             <span><a class="font_f y_c" href="https://www.youtube.com/channel/UCQtxCmXhApXDBfV59_JNagA" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></span>
                             <span><a class="font_f i_c" href="https://www.instagram.com/fitindiaoff/ " target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram" aria-hidden="true"></i></a></span>
@@ -65,40 +65,40 @@
           </div>-->
           </div>
           <div class="clear"></div>
-        <div id="main-footer">
-		        <div class="footer_Flex"> 
+        {{-- <div id="main-footer">
+		        <div class="footer_Flex">
                  <p>{{ __('home_content.Sports_authority')}}<!--© 2021 Sports Authority of India. All rights reserved--> </p>
-                 <p>{{ __('home_content.Last_updated_on')}} <!--Last updated on-->  
+                 <p>{{ __('home_content.Last_updated_on')}} <!--Last updated on-->
                     @if(!empty($glag)&& ($glag=='hn')) @php echo date('F jS,Y');@endphp  @elseif (!empty($glag)&& ($glag=='en'))
-					@php echo date('F jS,Y'); /*echo date('F jS,Y', strtotime(App\Http\Controllers\GeneralController::updatedon()));*/ 
-				    @endphp 
-				    @endif   | {{ __('home_content.No_of_Visitors')}} <!--No of Visitors-->: 
+					@php echo date('F jS,Y'); /*echo date('F jS,Y', strtotime(App\Http\Controllers\GeneralController::updatedon()));*/
+				    @endphp
+				    @endif   | {{ __('home_content.No_of_Visitors')}} <!--No of Visitors-->:
                     <span>
-                      @php echo App\Http\Controllers\GeneralController::sitecounter();@endphp    
+                      @php echo App\Http\Controllers\GeneralController::sitecounter();@endphp
 				    </span>
-                  </p>                
-                </div>  
-		    
+                  </p>
+                </div>
+
             <!--<div class="footer_Flex">
                  <p>{{ __('home_content.Sports_authority')}} <!--© 2021 Sports Authority of India. All rights reserved--> </p><!--| <span class="pvpol">
                   <a href="{{ asset('wp-content/uploads/2021/01/Revised-Policy.pdf') }}" target="_blank">Privacy Policy &nbsp;</a>
                 </span>-->
-                <!-- <p>{{ __('home_content.Last_updated_on')}} 
+                <!-- <p>{{ __('home_content.Last_updated_on')}}
 				 @if(!empty($glag)&& ($glag=='hn')), मार्च  12th,2021 @elseif (!empty($glag)&& ($glag=='en'))
-				 @php 
+				 @php
 				 // echo date('F jS,Y', strtotime(App\Http\Controllers\GeneralController::updatedon()));
 				 @endphp   | {{ __('home_content.No_of_Visitors')}}: <span>
-				 @php // echo App\Http\Controllers\GeneralController::sitecounter(); 
-				 @endphp    
-				</span></p>  
-              </div>-->                       
-          </div>		  
-@if(in_array($annouc, array('/','home')))		  
+				 @php // echo App\Http\Controllers\GeneralController::sitecounter();
+				 @endphp
+				</span></p>
+              </div>-->
+          </div>		   --}}
+@if(in_array($annouc, array('/','home')))
     <div class="announcement-ticker">
 		<div class="ticker-heading"><span>{{ __('home_content.Announcements')}} <!--Announcements--></span></div>
 		<div class="ticker-txt ticker-wrap">
 		  <marquee id="mymarquee" scrollamount="5">
-			
+
 			<span class="mid-line"></span>
      <!--  <u>
         <span><a href="https://fitindia.gov.in/wp-content/uploads/doc/EOI_Olympics_Quiz_18.06.2021.pdf" target="_blank">Expression of Interest (EOI) - Partner For Olympics Quiz</a> </span>
@@ -107,17 +107,17 @@
 			<!--  @if(!empty($announcement))
 			  @foreach($announcement as $ann)
 				<span><a href="{{ $ann->url }}" target="_blank">{{ $ann->title }}</a> </span>
-				<span class="mid-line"></span> 
+				<span class="mid-line"></span>
 			  @endforeach
 			@endif   -->
-			
+
 			<!-- <span><a href="covid-19-info">Covid-19 Info - Click Here</a> </span>  -->
 			<span><a href="javascript:void(0)">Fit India Mission doesn't charge any money in issuing the Fit India certificate, please be aware of the fraudulent scams</a> </span>
 		  </marquee>
 		</div>
 	</div>
 @endif
-          
+
 <!-- <script src="{{ asset('resources/js/bootstrap.min.js')}}"></script> -->
 <script>
 

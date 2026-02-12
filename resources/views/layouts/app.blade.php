@@ -8,8 +8,8 @@
     <meta name="twitter:card" value="summary">
 
     <!-- CSRF Token  -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="msapplication-TileImage" content="{{ asset('resources/images/fit-fav.ico') }}" />
+    <meta property="og:image" content="https://fitindia.gov.in/resources/imgs/fit-india_logo.png">
     <title>@yield('title')</title>
     <meta name="google-site-verification" content="2g4kCQ7eO2Ntl8CxtdYM6mLLsQz4CkmI1qU4GmnaaZA" />
     <link rel="icon" href="{{ asset('resources/images/fit-fav.ico') }}" sizes="32x32" />
@@ -98,66 +98,68 @@
             <div class="forMob on-print">
                 <ul>
                     @guest
-
-                    <li class="nav-item l_area log">
-                        @if (Route::has('login'))
-                        <span><a class="nav-link" href="{{ route('login') }}">{{ __('home_content.Login')}} <?php //{{ __('Login') }}
-                                                                                                            ?> </a></span>
+                        @if (!Session::has('uid'))
+                            <li class="nav-item l_area log">
+                                @if (Route::has('login'))
+                                <span><a class="nav-link" href="{{ route('login') }}">{{ __('home_content.Login')}} <?php //{{ __('Login') }}
+                                                                                                                    ?> </a></span>
+                                @endif
+                            </li>
+                            <li class="nav-item l_area reg">
+                                @if (Route::has('register'))
+                                <span><a class="nav-link" href="{{ route('register') }}">{{ __('home_content.Register')}}
+                                    <?php //{{ __('Register') }} ?>
+                                </a></span>
+                                @endif
+                            </li>
                         @endif
-                    </li>
-                    <li class="nav-item l_area reg">
-                        @if (Route::has('register'))
-                        <span><a class="nav-link" href="{{ route('register') }}">{{ __('home_content.Register')}}
-                            <?php //{{ __('Register') }} ?>
-                        </a></span>
-                        @endif
-                    </li>
-
                     @else
-                    <li class="nav-item dropdown">
-                        <?php
-                        $uname = Auth::user()->name;
-                        $scname = htmlspecialchars_decode($uname);
-                        ?>
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ url('dashboard') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ $scname }}
-                        </a>
-
-                        <div class="dropdown-menu  top-bar-li cus_drop " aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url('dashboard') }}">
-                                {{ __('home_content.My_account')}} <?php //{{ __('My Account') }}
-                                                                    ?>
-                            </a>
-                            @if(Auth::user()->role == 'school')
-                            <a class="dropdown-item" href="{{ url('school-profile') }}">
-                                {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
-                                                                        ?>
-                            </a>
-                            <a class="dropdown-item" href="{{ url('edit-school-password') }}">
-                                {{ __('home_content.change_password')}} <?php // {{ __('Edit Profile') }}
-                                                                        ?>
-                            </a>
-                            @else
-                            <a class="dropdown-item" href="{{ url('edit-profile') }}">
-                                {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
-                                                                        ?>
-                            </a>
-                            @endif
-                            <a class="dropdown-item last_child" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutDivId">
-                                <!--
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"
-                                                     -->
-                                {{ __('home_content.Logout')}}
-                                <?php // {{ __('Logout') }}
+                        @if (Session::has('uid'))
+                            <li class="nav-item dropdown">
+                                <?php
+                                $uname = Auth::user()->name;
+                                $scname = htmlspecialchars_decode($uname);
                                 ?>
-                            </a>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ url('dashboard') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ $scname }}
+                                </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
+                                <div class="dropdown-menu  top-bar-li cus_drop " aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('dashboard') }}">
+                                        {{ __('home_content.My_account')}} <?php //{{ __('My Account') }}
+                                                                            ?>
+                                    </a>
+                                    @if(Auth::user()->role == 'school')
+                                    <a class="dropdown-item" href="{{ url('school-profile') }}">
+                                        {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
+                                                                                ?>
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('edit-school-password') }}">
+                                        {{ __('home_content.change_password')}} <?php // {{ __('Edit Profile') }}
+                                                                                ?>
+                                    </a>
+                                    @else
+                                    <a class="dropdown-item" href="{{ url('edit-profile') }}">
+                                        {{ __('home_content.Edit_Profile')}} <?php // {{ __('Edit Profile') }}
+                                                                                ?>
+                                    </a>
+                                    @endif
+                                    <a class="dropdown-item last_child" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutDivId">
+                                        <!--
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();"
+                                                            -->
+                                        {{ __('home_content.Logout')}}
+                                        <?php // {{ __('Logout') }}
+                                        ?>
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endif
                     @endguest
 
                 </ul>

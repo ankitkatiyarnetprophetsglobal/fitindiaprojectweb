@@ -54,9 +54,12 @@ $('#email_otp_verify').click(function (event) {
 $('#mobile_otp_verify').click(function (event) {
 
     event.preventDefault();
-    $("#divloader").show();
+    // $("#divloader").show();
 
     const phone_value = $('#phone').val();
+    const captchaotp = $('#captchaotp').val();
+    // console.log("captcha 369852:",captcha);
+    // return false;
     const phone_otp_value = $('#phone_otp').val();
     if (!$.isNumeric(phone_otp_value) || phone_otp_value.length < 5 || phone_otp_value.length > 6) {
         $("#divloader").hide();
@@ -68,20 +71,30 @@ $('#mobile_otp_verify').click(function (event) {
     $.post(routes.mobileOtpCheck, {
         otp_value: phone_otp_value,
         mobile: phone_value,
+        captchaotp: captchaotp,
         _token: csrfToken
     }, function (response) {
+
         $("#divloader").hide();
         const decrypted = JSON.parse(CryptoJS.AES.decrypt(response.success, "passphrasepass", {
             format: CryptoJSAesJson
         }).toString(CryptoJS.enc.Utf8));
 
         const value_split = decrypted.split(":")[1];
-        if (value_split === "truewrtsuss") {
+        const value_mobile_split = decrypted.split(":")[3];
+
+        if (value_split === "truewrtsuss" && value_mobile_split == phone_value) {
             $("#verifyed_mobile_button_show").show();
             $("#verify_button_mobile_hide").hide();
             $("#mobileModal").modal("hide");
         } else {
             $(".mobile_otp_error").show();
         }
+    })
+    .catch(err => {
+        // console.error(err);
+        // console.log("err",err);
+        // errorField.textContent = "Error validating captcha.";
+        $("#captcha_value_error").show();
     });
 });

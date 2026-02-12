@@ -7,10 +7,91 @@ $active_section = request()->segment(count(request()->segments()));
 $active_section_id = trim($active_section);
 @endphp
 
+<script src="{{ asset('resources/js/confetti.browser.min') }}"></script>
 <link src="resources/css/flexslider.css" type="text/css" media="screen">
+
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
     .card-footer{display:none;}
 </style>
+  <style>
+    /* Transparent overlay */
+    #confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;      /* popup se bhi upar */
+  pointer-events: none;
+}
+
+    #celebration-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000000cc;
+      z-index: 99999999999999999;
+      pointer-events: none;
+    }
+
+    /* Center text */
+    #celebration-text {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+
+    #celebration-text h1 {
+      font-size: 46px;
+      font-weight: bold;
+    }
+
+    #celebration-text p {
+      font-size: 18px;
+    }
+
+    /* Balloon container */
+    #balloon-container {
+      position: fixed;
+      bottom: -150px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      animation: floatUp linear forwards;
+    }
+
+    .balloon:after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 40px;
+      background: #666;
+      top: 80px;
+      left: 50%;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to   { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      #celebration-text h1 { font-size: 30px; }
+      #celebration-text p { font-size: 16px; }
+    }
+  </style>
 
 <script>
     jQuery.fn.liScroll = function(settings) {
@@ -144,6 +225,18 @@ $active_section_id = trim($active_section);
     }
 
 </style>
+{{-- <div class="container">
+     <div id="celebration-overlay">
+          <canvas id="confetti-canvas"></canvas>
+    <div id="celebration-text">
+      <h1>🎂 Sundays on Cycle turns ONE! 🎉</h1>
+      <p>On December 21, 2025, let’s celebrate the ride that brought India together.Your passion fuels the movement.</p>
+      <p>🌍 Join the celebration. Ride from wherever you are!</p>
+    </div>
+
+    <div id="balloon-container"></div>
+  </div>
+</div> --}}
 <div class="container-fluid">
     <div class="banner">
         <div class="row">
@@ -862,6 +955,78 @@ $active_section_id = trim($active_section);
 
 </script>
 
+<script>
+$(document).ready(function () {
+
+  /* ===============================
+     BALLOONS
+  =============================== */
+  var balloonContainer = document.getElementById("balloon-container");
+  if (!balloonContainer) return;
+
+  var colors = ["#ff5252", "#ffeb3b", "#4caf50", "#03a9f4", "#e040fb"];
+  var totalBalloons = window.innerWidth < 768 ? 8 : 15;
+
+  for (var i = 0; i < totalBalloons; i++) {
+    var balloon = document.createElement("div");
+    balloon.className = "balloon";
+
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)];
+    balloon.style.animationDuration = (4 + Math.random() * 3) + "s";
+
+    balloonContainer.appendChild(balloon);
+  }
+
+  /* ===============================
+     CONFETTI / POPPERS (FIXED)
+  =============================== */
+  var canvas = document.getElementById("confetti-canvas");
+
+//   if (canvas && typeof confetti !== "undefined") {
+
+//     var myConfetti = confetti.create(canvas, {
+//       resize: true,
+//       useWorker: true
+//     });
+
+//     var end = Date.now() + 5000;
+
+//     (function frame() {
+
+//       // Left side popper
+//       myConfetti({
+//         particleCount: 4,
+//         angle: 60,
+//         spread: 55,
+//         origin: { x: 0.1, y: 0.75 }
+//       });
+
+//       // Right side popper
+//       myConfetti({
+//         particleCount: 4,
+//         angle: 120,
+//         spread: 55,
+//         origin: { x: 0.9, y: 0.75 }
+//       });
+
+//       if (Date.now() < end) {
+//         requestAnimationFrame(frame);
+//       }
+//     })();
+//   }
+
+  /* ===============================
+     AUTO CLEANUP (5 sec)
+  =============================== */
+  setTimeout(function () {
+    var overlay = document.getElementById("celebration-overlay");
+    if (overlay) overlay.remove();
+  }, 5000);
+
+});
+</script>
 
 
 @endsection

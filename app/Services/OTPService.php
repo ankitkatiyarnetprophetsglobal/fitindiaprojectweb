@@ -106,7 +106,7 @@ class OTPService
         if ($this->verifyOTPWithAPI($user, $request->otp)) {
             return $this->handleSuccessfulOTPVerification($user, $request, $userId);
         }
-       
+
         // Handle failed verification
         return $this->handleFailedOTPVerification($otpData, $userId);
     }
@@ -272,11 +272,19 @@ class OTPService
             $key = 'login-attempts:' . strtolower($user->email) . '|' . $request->ip();
             RateLimiter::clear($key);
 
+            $curenttime = time();
+            $encrypted = $this->cryptoJsAesEncrypt("passphrasepass", "true:truewrtsuss:$curenttime:$user->phone");
+
             return response()->json([
-                'status' => 'success',
+                'status' => $encrypted,
                 'message' => 'Login successful',
                 'redirect' => route('create-event')
             ]);
+            // return response()->json([
+            //     'status' => 'success',
+            //     'message' => 'Login successful',
+            //     'redirect' => route('create-event')
+            // ]);
         }
 
         return $this->errorResponse('Login failed. Please try again.');
@@ -300,5 +308,19 @@ class OTPService
             'status' => 'error',
             'message' => $message
         ], $code);
+    }
+    function cryptoJsAesEncrypt($passphrase, $value){
+        $salt = openssl_random_pseudo_bytes(8);
+        $salted = '';
+        $dx = '';
+        while (strlen($salted) < 48) {
+            $dx = md5($dx.$passphrase.$salt, true);
+            $salted .= $dx;
+        }
+        $key = substr($salted, 0, 32);
+        $iv  = substr($salted, 32,16);
+        $encrypted_data = openssl_encrypt(json_encode($value), 'aes-256-cbc', $key, true, $iv);
+        $data = array("ct" => base64_encode($encrypted_data), "iv" => bin2hex($iv), "s" => bin2hex($salt));
+        return json_encode($data);
     }
 }

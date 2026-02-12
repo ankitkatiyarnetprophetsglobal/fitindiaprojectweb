@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title', ' Password change | Fit India')
+@section('title', '	Password change | Fit India')
 @section('content')
 <style>
-    .footer_ab{position:absolute;bottom:0;width:100%;}
+    /* .footer_ab{position:absolute;bottom:0;width:100%;} */
     </style>
 <section class="resetPass_word">
 <div class="container">
@@ -32,6 +32,26 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="um-field" id="capcha-page-cont">
+                            <div style="float:left; width:115px;  margin: 6px 0;" id="pagecaptcha-cont">
+                                <div class="captchaimg">
+                                    <span>{!! captcha_img() !!}</span>
+                                </div>
+                            </div>
+                            <div style="float:left; margin: 6px 20px 6px 10px; cursor: pointer;">
+                                <button type="button" class="btn btn-info" class="reload" id="reload"> ↻ </button>
+                            </div>
+
+                            <div style="float:left; width:40%">
+                                <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" required  placeholder="Captcha" maxlength="10">
+                                    @error('captcha')
+                                        <span class="invalid-feedback" role="alert" >
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
 
                         
 
@@ -52,13 +72,16 @@
 </section>
 <script type="text/javascript">
     $(document).ready(function(){
-
         $("#footer_ab").addClass("footer_ab")
-        //alert("balbl")
-   //$('.footer').css('position','absolute')
-     //$('.footer').css('bottom','38px')
-       //// alert("raje")
-       
     })
+    jQuery('#reload').click(function () {
+            jQuery.ajax({
+            type: 'GET',
+            url: "{{ route('reloadCaptcha')}}",
+            success: function (data) {
+                jQuery(".captchaimg span").html(data.captcha);
+            }
+        });
+    });
     </script>
 @endsection

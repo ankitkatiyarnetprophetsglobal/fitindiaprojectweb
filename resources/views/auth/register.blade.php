@@ -10,7 +10,8 @@
         </div>
         <div class="row">
             <div class="col-12 signup_frm">
-                <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate>
+
+                <form id="fi-register" class="register-form" action="{{ route('register') }}" method="post" novalidate autocomplete="off">
                     @csrf
                     <p>Already have an account? <a id="fi_signin" href="login">Login</a></p>
 
@@ -71,7 +72,7 @@
                         <div class="register-row">
                             <div class="register-row-lft">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required placeholder="Your Name/School/Organisation/Club">
+                                    name="name" value="{{ old('name') }}" required placeholder="Your Name/School/Organisation/Club" maxlength="100" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '');">
                                 <span id="name-error" class="error-message text-danger small"></span>
                                 @error('name')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -99,7 +100,7 @@
                         <div class="register-row e-mob-fx">
                             <div class="register-row-lft">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required placeholder="Email">
+                                    name="email" value="{{ old('email') }}" required placeholder="Email" autocomplete="off" maxlength="50">
                                 <span id="email-error" class="error-message text-danger small"></span>
                                 @error('email')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -107,6 +108,7 @@
 
                                 <span id="duplicate_email_error" style="display:none; color:red;">Email already exists</span>
                             </div>
+                            {{-- {{ dd(4); }} --}}
                             <div class="register-row-rt">
                                 <span id="verify_button_hide">
                                     <button type="button" class="btn btn-info" style="min-width: 120px;">
@@ -122,8 +124,8 @@
                         {{-- Phone --}}
                         <div class="register-row e-mob-fx">
                             <div class="register-row-lft">
-                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror"
-                                    name="phone" value="{{ old('phone') ?? '' }}" required placeholder="Mobile">
+                                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                    name="phone" required placeholder="Mobile" value="9818886995" min=1 maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                 <span id="phone-error" class="error-message text-danger small"></span>
                                 @error('phone')
                                     <span  class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -187,7 +189,7 @@
                             </div>
                             <div class="register-row-rt">
                                 <input id="fi_city" type="text" class="form-control @error('city') is-invalid @enderror"
-                                    name="city" value="{{ old('city') }}" placeholder="City/Town/Village">
+                                    name="city" value="{{ old('city') }}" placeholder="City/Town/Village" maxlength="50">
                                 <span id="fi_city-error" class="error-message text-danger small"></span>
                                 @error('city')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>
@@ -221,7 +223,7 @@
                                 <label for="captcha">Please enter the captcha text</label>
                                 {{-- <div class="d-flex align-items-center">
                                     <div class="captchaimg">{!! captcha_img() !!}</div>
-                                    <button type="button" class="btn btn-info reload-captcha" id="reload"> ↻ </button>
+                                    <button type="button" class="btn btn-info ml-2" id="reload">↻</button>
                                 </div> --}}
                                 <div class="d-flex align-items-center" id="pagecaptcha-cont">
                                     <div class="captchaimg">
@@ -229,7 +231,7 @@
                                     </div>
                                     <button type="button" class="btn btn-info reload-captcha" id="reload"> ↻ </button>
                                 </div>
-                                <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha">
+                                <input type="text" id="captcha" name="captcha" class="form-control @error('captcha') is-invalid @enderror" placeholder="Captcha" maxlength="10">
                                 <span id="captcha-error" class="error-message text-danger small"></span>
                                 @error('captcha')
                                     <span class="invalid-feedback text-danger small" role="alert"><strong>{{ $message }}</strong></span>

@@ -18,13 +18,15 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use App\Services\EncryptionService;
 use App\Services\OTPService;
+use App\Http\Middleware\SecureSession;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
     protected $redirectTo = RouteServiceProvider::HOME;
-    
+
     private $encryptionService;
     private $otpService;
 
@@ -62,7 +64,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-        
         // Rate limiting check
         if (!$this->checkRateLimit($request)) {
             return $this->handleRateLimitExceeded($request);
@@ -93,7 +94,16 @@ class LoginController extends Controller
 
         // Get user and send OTP
         $user = User::where('email', $request->email)->first();
+
+        // if ($user && Hash::check($request->password, $user->password)) {
+
+        //     SecureSession::onLogin($user->id, $request);
+        //     return '/login';
+
+        // }
         if ($user) {
+
+            SecureSession::onLogin($user->id, $request);
             return $this->handleOTPFlow($user, $request, $credentials);
         }
 
@@ -102,7 +112,7 @@ class LoginController extends Controller
 
     public function verifyOTP(Request $request)
     {
-       
+
         return $this->otpService->verifyOTP($request);
     }
 
@@ -123,7 +133,7 @@ class LoginController extends Controller
     {
         $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
         $seconds = RateLimiter::availableIn($key);
-        
+
         throw ValidationException::withMessages([
             'emailTomanyattampt' => ["Too many login attempts. Please try again in {$seconds} seconds."],
         ]);
@@ -133,11 +143,11 @@ class LoginController extends Controller
     {
         try {
             $decryptedPassword = $this->encryptionService->decryptAesGcm("64", $request->password);
-            
+
             if (empty($decryptedPassword) || strlen($decryptedPassword) > 255) {
                 return null;
             }
-            
+
             return $decryptedPassword;
         } catch (\Exception $e) {
             Log::error('Password decryption failed: ' . $e->getMessage());
@@ -149,7 +159,7 @@ class LoginController extends Controller
     {
         $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
         RateLimiter::hit($key, 900);
-        
+
         throw ValidationException::withMessages([
             'password' => ['Invalid login credentials.'],
         ]);
@@ -160,14 +170,16 @@ class LoginController extends Controller
         $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
         RateLimiter::hit($key, 900);
         $this->incrementLoginAttempts($request);
-        
+
         return $this->sendFailedLoginResponse($request);
     }
 
     private function handleOTPFlow(User $user, Request $request, array $credentials)
     {
+
+
         $otpResult = $this->otpService->generateAndSendOTP($user, $request);
-        
+
         if ($otpResult['success']) {
             // Store session data for OTP verification
             session([
@@ -182,7 +194,8 @@ class LoginController extends Controller
                 'status' => 'otp_required',
                 'message' => 'OTP sent successfully',
                 'phone_masked' => 'XXXXXXX' . substr($user->phone ?? '', -3),
-                'email_masked' => $this->maskEmail($user->email)
+                'email_masked' => $this->maskEmail($user->email),
+                'usdert' => $user->phone
             ];
 
             if ($request->expectsJson()) {
@@ -203,7 +216,7 @@ class LoginController extends Controller
     {
         $key = 'login-attempts:' . strtolower($request->input('email')) . '|' . $request->ip();
         RateLimiter::hit($key, 900);
-        
+
         return $this->sendFailedLoginResponse($request);
     }
 
@@ -230,15 +243,15 @@ class LoginController extends Controller
                     'string',
                     'max:2000'
                 ],
-                'captcha' => [
-                    'required',
-                    'captcha',
-                    'max:10'
-                ],
+                // 'captcha' => [
+                //     'required',
+                //     'captcha',
+                //     'max:10'
+                // ],
             ],
             [
-                'captcha.required' => 'Captcha field is required.',
-                'captcha.captcha' => 'Please fill correct value.',
+                // 'captcha.required' => 'Captcha field is required.',
+                // 'captcha.captcha' => 'Please fill correct value.',
                 'email.regex' => 'Invalid email format.',
                 'email.max' => 'Email too long.',
                 'password.max' => 'Password format invalid.'

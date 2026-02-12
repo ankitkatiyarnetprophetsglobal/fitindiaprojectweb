@@ -14,15 +14,15 @@
     <link rel="apple-touch-icon-precomposed" href="{{ asset('resources/images/fit-fav.ico') }}" />
 
     <!-- <link rel="stylesheet" href="{{ asset('resources/fonts/bootstrap.min.css') }}" media="screen"> -->
-    <link rel="stylesheet" href="{{ asset('resources/css/bootstrap.min.css') }}" media="screen">  
-    <link rel="stylesheet" href="{{ asset('resources/css/font-awesome.css') }}" media="screen"> 
-   
+    <link rel="stylesheet" href="{{ asset('resources/css/bootstrap.min.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ asset('resources/css/font-awesome.css') }}" media="screen">
+
     <link rel="stylesheet" href="{{ asset('resources/css/dashboard.min.css') }}" media="screen">
     <!-- <link href="{{ asset('resources/css/print.min.css') }}" rel="stylesheet" media="all">   -->
-    <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">   
-    <link href="{{ asset('resources/css/responsive.css') }}" rel="stylesheet" media="screen"> 
-    <link href="{{ asset('resources/css/print.css') }}" rel="stylesheet" media="print">  
-     
+    <link href="{{ asset('resources/css/style.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('resources/css/responsive.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('resources/css/print.css') }}" rel="stylesheet" media="print">
+
 
 <script src="{{ asset('resources/js/jquery.min.js')}}"></script>
 <script src="{{ asset('resources/js/popper.min.js')}}"></script>
@@ -32,7 +32,7 @@
 	if(!empty($_GET['m'])){ ?>
 	<style>
 	#top-header,.header, .menu-bar, #footer_ab, #top-header_web, .cust_navbar_mob { display:none; }
-	</style>	
+	</style>
 	<?php } ?>
 <div class="container-fluid" id="@yield('pageid')">
     <div class="cust_navbar_mob"><p>Assessiblity Options</p></div>
@@ -41,18 +41,18 @@
     </div>
     <div id="top-header_web" class="mob_flex">
     <!-- <div class="top-header_Flex"> -->
-       
-            <div class="top_head_item on-print"> 
-                <a href="schooldashboard">Fit India Dashboard</a>             
+
+            <div class="top_head_item on-print">
+                <a href="schooldashboard">Fit India Dashboard</a>
             </div>
 
-            
+
             @php
                 $active_section = request()->segment(count(request()->segments()));
                 $active_section_id = "id='$active_section'";
             @endphp
             <div class="forMob on-print">
-              <ul> 
+              <ul>
                         @guest
 
                                 <li class="nav-item l_area log">
@@ -65,7 +65,7 @@
                                     <span><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></span>
                                     @endif
                                 </li>
-                            
+
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ url('dashboard') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -89,19 +89,19 @@
                                                      logoutfn();" >
 									<!--
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();" 
+                                                     document.getElementById('logout-form').submit();"
 													 -->
-													 
+
                                         {{ __('Logout') }}
                                     </a>
-									
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
                         @endguest
-                      
+
                 </ul>
               </div>
           <div class="log_reg">
@@ -121,14 +121,14 @@
                             <li class="h_contrast">High Contrast</li>
                         </ul> -->
                     </li>
-                     <li class="nav-item" id="printId"> <a href="Javascript:void(0);" onclick="printFile()">Print</a></li>     
+                     <li class="nav-item" id="printId"> <a href="Javascript:void(0);" onclick="printFile()">Print</a></li>
               </ul>
 
-             
-               
+
+
             </div>
           </div>
-        
+
         </div>
         <div class="clearfix"></div>
     </div>
@@ -173,7 +173,7 @@ function printFile(){
     $(document).ready(function(){
         var state =false;
 
-   
+
      addCssfun = function () { addCSS('./resources/css/contract.css')},
      removefun = function() { $('#cont_id').remove();};
 
@@ -191,14 +191,14 @@ function printFile(){
         $('.construle').css('color','#ff8b0c');
       //  alert("state else  "+state)
      }
-    
+
   });
 
 
     //     $('.h_contrast').click(function(){
-    //        ;       
+    //        ;
     //     })
-   
+
     // $('.l_contrast').click(function(){
     //     $('#cont_id').remove();
     // })
@@ -232,11 +232,11 @@ function printFile(){
     $('.panel-title a').css('font-size', '18px');
     $('p').css('font-size', '14px');
     $('body').css('font-size', '14px');
-   
+
 
     return false;
-      
-    
+
+
   });
 
 
@@ -247,9 +247,9 @@ function printFile(){
     $(resize).css('font-size', newFontSize);
     return false;
   });
- 
 
-})   
+
+})
 // Include CSS file
         function addCSS(filename){
         var head = document.getElementsByTagName('head')[0];
@@ -259,56 +259,56 @@ function printFile(){
         style.id   ='cont_id'
         style.rel = 'stylesheet';
         head.append(style);
-        
+
         }
 
 </script>
-    
-    
+
+
     <!-- Header -->
         @include('layouts.header')
     <!-- Header end -->
-     
+
     <!-- Content section -->
         @yield('content')
-        
 
-    <!-- Content section end-->   
-          
+
+    <!-- Content section end-->
+
     <!-- Footer -->
         @include('layouts.footer')
     <!-- Footer end-->
-    
-</div> 
 
-<script> 
+</div>
+
+<script>
 $(document).ready(function(){
     var assessId = $('#top-header_web').find('.log_reg').html();
-        $('#top-header').append(assessId);    
+        $('#top-header').append(assessId);
 })
 
-</script> 
+</script>
 
 <script >
 
-$(document).ready(function(){  
+$(document).ready(function(){
 
 
- 
+
 // $('.slides li>a').click(function() {
 //     var linkdata="";
 //    linkdata = $(this).attr('data-link');
-   
+
 
 
 
 
 //   var html="";
 
-  
+
 //     html =  '<div id="dynamicModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirm-modal" aria-hidden="true">';
 //     html += '<div class="modal-dialog">';
-  
+
 //     html += '<div class="modal-content">';
 //     html += '<div class="modal-header">';
 
@@ -321,13 +321,13 @@ $(document).ready(function(){
 //     html += '. For any query regarding the contents of the linked page, please contact the webmaster of the concerned website.';
 //     html += '</div>';
 //     html += '<div class="modal-footer">';
-//     html += '<div class="modal-footer linkchange">';   
+//     html += '<div class="modal-footer linkchange">';
 //     html +='<a href="" class="btn btn-primary btn_custyes">Yes</a>';
 //      html += '<a class="btn  btn_custno" data-dismiss="modal">No</span></a>';
-//      html += '</div>';  
-//     html += '</div>';  
-//     html += '</div>';  
-//     html += '</div>';  
+//      html += '</div>';
+//     html += '</div>';
+//     html += '</div>';
+//     html += '</div>';
 
 
 //     $("#textlink").text(linkdata);
@@ -335,16 +335,16 @@ $(document).ready(function(){
 //     $('body').append(html);
 //     $("#dynamicModal").modal();
 //     $("#dynamicModal").modal('show');
-  
+
 // });
 
 // $('.btn_custyes').click(function(){
 //     alert("rak");
 //     ("#dynamicModal").modal('hide');
- 
+
 // })
 // function gosite(url){
-  
+
 //     $("#dynamicModal").modal('hide');
 
 // }

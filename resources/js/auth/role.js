@@ -98,7 +98,6 @@ $(document).ready(function () {
            type: "post",
            data: { "groupid" : val, "_token": csrfToken} ,
            success: function (response) {
-               console.log(response);
                var elem = '<option value="">Select</option>';
                 for(var index in response) {
                     elem += '<option value="'+response[index]['slug'] + '">' + response[index]['name'] + "</option>" ;

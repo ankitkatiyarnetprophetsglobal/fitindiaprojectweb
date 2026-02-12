@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\MobileVersion;
 use App\Models\Userleaderboardimages;
+use App\Models\Soceventmaster;
 use App\Models\Eventorganizations;
 use App\Models\Usermeta;
 use PDO;
@@ -291,7 +292,7 @@ class CommontypeController extends Controller
         $year = date("Y/m");
         $abha_card = $request->file('user_cycle_image')->store('sunday_on_cycle/'.$year,['disk'=> 'uploads']);
         $user_cycle_image = url('wp-content/uploads/'.$abha_card);
-        // dd($user_cycle_image);
+
         $data = Userleaderboardimages::
                                         where([['user_id', $user_id]])
                                         ->orderBy('id', 'DESC')->get();
@@ -338,5 +339,41 @@ class CommontypeController extends Controller
         }
 
     }
+
+    function soceventupdate(Request $request){
+
+        $id = $request['id'];
+        $cycle_waiting = $request['cycle_waiting'];
+        $tshirt_waiting = $request['tshirt_waiting'];
+        $meal_waiting = $request['meal_waiting'];
+
+
+        $update_date = SocEventMaster::where('id', $id)->where('status', 1)->update(['cycle_waiting' => $cycle_waiting, 'tshirt_waiting' => $tshirt_waiting, 'meal_waiting' => $meal_waiting]);
+
+        $event_data = SocEventMaster::
+                        where([['id', $id],['status', 1]])
+                        ->orderBy('id', 'DESC')->get();
+
+        if($event_data->count() > 0){
+
+             return Response::json(array(
+                'status'    => 'success',
+                'code'      =>  200,
+                'message'   =>  null,
+                'data'      => $event_data,
+            ), 200);
+
+        }else{
+            return Response::json(array(
+                'status'    => 'error',
+                'code'      =>  200,
+                'message'   =>  'Data not found',
+                'data'   => null,
+            ), 401);
+        }
+
+    }
+
+
 
 }

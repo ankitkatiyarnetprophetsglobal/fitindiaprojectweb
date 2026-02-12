@@ -19,14 +19,14 @@ class RestrictHttpMethods
     public function handle(Request $request, Closure $next)
     {
         // ⭐ SECURITY FIX: Define allowed HTTP methods only
-        $allowedMethods = ['GET', 'POST','PUT', 'HEAD','PATCH'];
-        
+        $allowedMethods = ['GET', 'POST','PUT', 'HEAD','PATCH','DELETE'];
+
         // Get current request method
         $currentMethod = strtoupper($request->getMethod());
-        
+
         // Block dangerous HTTP methods including OPTIONS
-        $blockedMethods = ['OPTIONS', 'DELETE', 'TRACE', 'CONNECT'];
-        
+        $blockedMethods = ['OPTIONS', 'TRACE', 'CONNECT'];
+
         if (in_array($currentMethod, $blockedMethods)) {
             // Log security incident
             \Log::warning('Blocked HTTP method attempt', [
@@ -36,7 +36,7 @@ class RestrictHttpMethods
                 'url' => $request->fullUrl(),
                 'timestamp' => now()
             ]);
-            
+
             // Return 405 Method Not Allowed
             return response()->json([
                 'error' => 'Method Not Allowed',
@@ -48,7 +48,7 @@ class RestrictHttpMethods
                 'X-Frame-Options' => 'DENY'
             ]);
         }
-        
+
         // Check if method is in allowed list (additional security)
         if (!in_array($currentMethod, $allowedMethods)) {
             \Log::warning('Unrecognized HTTP method attempt', [
@@ -56,7 +56,7 @@ class RestrictHttpMethods
                 'ip' => $request->ip(),
                 'user_agent' => $request->userAgent()
             ]);
-            
+
             return response()->json([
                 'error' => 'Method Not Allowed',
                 'message' => 'Only GET, POST, and HEAD methods are allowed.',
@@ -67,10 +67,10 @@ class RestrictHttpMethods
         }
 
         $response = $next($request);
-        
+
         // Add security headers to response
         $response->headers->set('Allow', implode(', ', $allowedMethods));
-        
+
         return $response;
     }
 }
